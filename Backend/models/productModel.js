@@ -39,6 +39,14 @@ const ayurvedicProductSchema = new mongoose.Schema(
       type:multilingualSchema,
       // required: true,
     },
+    images: [
+      
+      { type: String }
+    
+    ]
+    
+    
+    
   },
   {
     timestamps: true,

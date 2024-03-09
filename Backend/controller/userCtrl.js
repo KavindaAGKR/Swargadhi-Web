@@ -15,9 +15,9 @@ admin.initializeApp({
 const jwtSecretKey = process.env.JWT_TOKEN_KEY;
 export const createUser = async (request, response) => {
     try {
-        const { firstName, lastName, email, mobile, password } = request.body;
+        const {  email,  password } = request.body;
 
-        if (!firstName || !lastName || !email || !mobile || !password) {
+        if ( !email ||  !password) {
             return response.status(400).send({
                 message: 'Please provide all required fields',
                 alert: 'error'
@@ -26,7 +26,7 @@ export const createUser = async (request, response) => {
 
         
         const existingUserByEmail = await User.findOne({ email });
-        const existingUserByMobile = await User.findOne({ mobile });
+        //const existingUserByMobile = await User.findOne({ mobile });
         
 
 
@@ -37,12 +37,12 @@ export const createUser = async (request, response) => {
             });
         }
 
-        if (existingUserByMobile) {
-            return response.status(400).send({
-                message: 'Mobile number is already registered',
-                alert: 'mobile'
-            });
-        }
+        // if (existingUserByMobile) {
+        //     return response.status(400).send({
+        //         message: 'Mobile number is already registered',
+        //         alert: 'mobile'
+        //     });
+        // }
 
         
         
@@ -58,10 +58,10 @@ export const createUser = async (request, response) => {
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 
         const newUser = {
-            firstName,
-            lastName,
+           // firstName,
+            //lastName,
             email,
-            mobile,
+            //mobile,
             password: hashedPassword,
         };
 
@@ -243,8 +243,8 @@ export const authenticateWithFirebase = async (request, response) => {
     // Convert tokensValidAfterTime to a Date object
     const tokensValidAfterTime = new Date(userRecord.tokensValidAfterTime).toUTCString();
 
-    console.log(currentTime);
-    console.log(tokensValidAfterTime); 
+    console.log("Current Time:", currentTime);
+    console.log("Tokens Valid After Time:", tokensValidAfterTime); 
 
     // Check if the tokens are valid
     if (userRecord && tokensValidAfterTime >= currentTime) {
@@ -255,6 +255,8 @@ export const authenticateWithFirebase = async (request, response) => {
     // Check if the user exists in the database
     let user = await User.findOne({ uid: uid });
 
+    console.log("User:", user);
+
     let userAdmin = false;
     if(user && user.isAdmin){
         userAdmin = true;
@@ -264,7 +266,13 @@ export const authenticateWithFirebase = async (request, response) => {
     if (!user) {    
       const firebaseUser = decodedToken;
       const { email, displayName } = firebaseUser;
+
+      console.log("Creating User in MongoDB:", email, uid);
+
+      // Save the user to MongoDB
       user = await User.create({ email: email, uid: uid });
+
+      console.log("User Created:", user);
     }
   
     // If everything is valid, send authentication success response
