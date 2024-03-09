@@ -38,6 +38,42 @@ export const createAyurvedicProduct = async (request, response) => {
     }
 };
 
+export const createAyurvedicProduct2 = async (request, response) => {
+    try {
+        // Check if all required fields are present in the request body
+        const requiredFields = ['productItemID', 'itemName', 'price', 'availability', 'description', 'quantity', 'productDetails', 'category', 'images'];
+        const missingFields = requiredFields.filter(field => !request.body[field]);
+        if (missingFields.length > 0) {
+            return response.status(400).send({
+                message: `Please provide all required fields: ${missingFields.join(', ')}`
+            });
+        }
+
+        // Create a new Ayurvedic product object
+        const newAyurvedicProduct = {
+            productItemID: request.body.productItemID,
+            itemName: request.body.itemName,
+            price: request.body.price,
+            availability: request.body.availability,
+            description: request.body.description,
+            quantity: request.body.quantity,
+            productDetails: request.body.productDetails,
+            category: request.body.category,
+            images: request.body.images // Include the images array from the request body
+        };
+
+        // Create the Ayurvedic product in the database
+        const ayurvedicProduct = await AyurvedicProduct.create(newAyurvedicProduct);
+
+        // Respond with the created Ayurvedic product
+        return response.status(201).send(ayurvedicProduct);
+    } catch (error) {
+        console.error('Error creating Ayurvedic product:', error);
+        response.status(500).send({ message: 'Internal server error' });
+    }
+};
+
+
 // Update an Ayurvedic product by ID
 export const updateAyurvedicProduct = async (request, response) => {
     try {
