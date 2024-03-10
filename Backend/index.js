@@ -3,6 +3,7 @@ import dbConnect from "./config/dbConnect.js";
 import dotenv from "dotenv";
 import authRoute from "./routes/authRoute.js";
 import productRoute from "./routes/productRoute.js";
+import adminRoute from "./routes/adminRoute.js"
 //import materialRoutes from "./routes/materilaRoutes.js"
 import materialRoute from "./routes/materialRoute.js"
 import feedBackRoute from "./routes/feedBackRoute.js"
@@ -40,6 +41,7 @@ app.use('/api/user', authRoute);
 app.use('/api/product', productRoute);
 app.use('/api/material',materialRoute);
 app.use('/api/feedBack', feedBackRoute);
+app.use('/api/admin',adminRoute);
 app.listen(PORT, () => {
     console.log(`Server is Running at PORT ${PORT}`);
 });

@@ -13,214 +13,11 @@ admin.initializeApp({
 });
 
 const jwtSecretKey = process.env.JWT_TOKEN_KEY;
-export const createUser = async (request, response) => {
-    try {
-        const {  email,  password } = request.body;
 
-        if ( !email ||  !password) {
-            return response.status(400).send({
-                message: 'Please provide all required fields',
-                alert: 'error'
-            });
-        }
-
-        
-        const existingUserByEmail = await User.findOne({ email });
-        //const existingUserByMobile = await User.findOne({ mobile });
-        
-
-
-        if (existingUserByEmail) {
-            return response.status(400).send({
-                message: 'Email is already registered',
-                alert: 'email'
-            });
-        }
-
-        // if (existingUserByMobile) {
-        //     return response.status(400).send({
-        //         message: 'Mobile number is already registered',
-        //         alert: 'mobile'
-        //     });
-        // }
-
-        
-        
-        // const isPasswordUsed = await User.findOne({ password: { $exists: true } });
-        // if (isPasswordUsed && await bcrypt.compare(password, isPasswordUsed.password)) {
-        //     return response.status(400).send({
-        //         message: 'Password is already used. Please choose a new one.',
-        //         alert: 'password'
-        //     });
-        // }
-
-        const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-        const newUser = {
-           // firstName,
-            //lastName,
-            email,
-            //mobile,
-            password: hashedPassword,
-        };
-
-        const user = await User.create(newUser);
-
-        return response.status(201).send({
-            user,
-            message: 'Successfully signed up',
-            alert: 'success'
-        });
-
-    } catch (error) {
-        console.error(error.message);
-        response.status(500).send({ message: 'Internal Server Error', alert: 'error' });
-    }
-};
-// User Login Controller
 const createToken = (userId) => {
-    return jwt.sign({ userId }, 'jwtSecretKey', { expiresIn: '1h' });
-  };
-  
-  export const login = async (request, response) => {
-    try {
-      const { email, password } = request.body;
-  
-      const user = await User.findOne({ email });
-  
-      if (!user) {
-        return response.status(401).json({
-          message: 'Invalid email or password',
-          alert: false,
-        });
-      }
-  
-      const passwordMatch = await bcrypt.compare(password, user.password);
-  
-      if (!passwordMatch) {
-        return response.status(401).json({
-          message: 'Invalid email or password',
-          alert: false,
-        });
-      }
-  
-      const token = createToken(user._id);
-      response.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 });
-  
-      return response.status(200).json({
-        user,
-        message: 'Login is successful',
-        alert: true,
-        token,
-      });
-    } catch (error) {
-      console.error(error.message);
-      response.status(500).send({
-        message: 'Internal server error',
-        alert: false,
-      });
-    }
-  };
-
-  //import jwt from 'jsonwebtoken';
-
-  export const logout = (request, response) => {
-    const jwtToken = request.headers.authorization;
-  
-    if (!jwtToken) {
-      return response.status(400).json({ message: 'Not logged in' });
-    }
-  
-    // You may want to add token verification logic here to ensure it's valid
-  
-    response.cookie('jwt', '', { maxAge: 0 });
-    response.status(200).json({ message: 'User logged out successfully' });
-  };
-  
-  
-// Get User by ID Controller
-export const getUserById = async (request, response) => {
-  try {
-      const userId = request.params.id;
-
-      const user = await User.findById(userId);
-
-      if (!user) {
-          return response.status(404).json({
-              message: "User not found",
-              alert: false
-          });
-      }
-
-      return response.status(200).json({
-          user,
-          message: 'User found',
-          alert: true
-      });
-  } catch (error) {
-      console.log(error.message);
-      response.status(500).send({
-          message: error.message,
-          alert: false
-      });
-  }
+  return jwt.sign({ userId }, 'jwtSecretKey', { expiresIn: '1h' });
 };
 
-// Edit User by ID Controller
-export const editUser = async (request, response) => {
-  try {
-      const userId = request.params.id;
-
-      const updatedUser = await User.findByIdAndUpdate(userId, request.body, { new: true });
-
-      if (!updatedUser) {
-          return response.status(404).json({
-              message: "User not found",
-              alert: false
-          });
-      }
-
-      return response.status(200).json({
-          user: updatedUser,
-          message: 'User updated successfully',
-          alert: true
-      });
-  } catch (error) {
-      console.log(error.message);
-      response.status(500).send({
-          message: error.message,
-          alert: false
-      });
-  }
-};
-
-// Delete User by ID Controller
-export const deleteUser = async (request, response) => {
-  try {
-      const userId = request.params.id;
-
-      const isUserDeleted = await User.findByIdAndDelete(userId);
-
-      if (!isUserDeleted) {
-          return response.status(404).json({
-              message: "User not found",
-              alert: false
-          });
-      }
-
-      return response.status(200).json({
-          message: 'User deleted successfully',
-          alert: true
-      });
-  } catch (error) {
-      console.log(error.message);
-      response.status(500).send({
-          message: error.message,
-          alert: false
-      });
-  }
-};
 
 export const authenticateWithFirebase = async (request, response) => {
   try {
@@ -397,10 +194,245 @@ export const signUpUserWithFirebase = async (request, response) => {
   }
 
   
-    // If everything is valid, send authentication success response
+  // If everything is valid, send authentication success response
     return response.status(200).json({ message: 'Authentication successful' , isAdmin:userAdmin});
   } catch (error) {
     console.error('Error authenticating with Firebase:', error);
     return response.status(401).json({ message: 'Unauthorized' });
   }
 };
+
+// export const deleteuser = async (request, response) => {
+//   try {
+//       const userId = request.params.id;
+
+//       const isUserDeleted = await User.findByIdAndDelete(userId);
+
+//       if (!isUserDeleted) {
+//           return response.status(404).json({
+//               message: "User not found",
+//               alert: false
+//           });
+//       }
+
+//       return response.status(200).json({
+//           message: 'User deleted successfully',
+//           alert: true
+//       });
+//   } catch (error) {
+//       console.log(error.message);
+//       response.status(500).send({
+//           message: error.message,
+//           alert: false
+//       });
+//   }
+// };
+
+
+
+// export const createUser = async (request, response) => {
+//     try {
+//         const {  email,  password } = request.body;
+
+//         if ( !email ||  !password) {
+//             return response.status(400).send({
+//                 message: 'Please provide all required fields',
+//                 alert: 'error'
+//             });
+//         }
+
+        
+//         const existingUserByEmail = await User.findOne({ email });
+//         //const existingUserByMobile = await User.findOne({ mobile });
+        
+
+
+//         if (existingUserByEmail) {
+//             return response.status(400).send({
+//                 message: 'Email is already registered',
+//                 alert: 'email'
+//             });
+//         }
+
+//         // if (existingUserByMobile) {
+//         //     return response.status(400).send({
+//         //         message: 'Mobile number is already registered',
+//         //         alert: 'mobile'
+//         //     });
+//         // }
+
+        
+        
+//         // const isPasswordUsed = await User.findOne({ password: { $exists: true } });
+//         // if (isPasswordUsed && await bcrypt.compare(password, isPasswordUsed.password)) {
+//         //     return response.status(400).send({
+//         //         message: 'Password is already used. Please choose a new one.',
+//         //         alert: 'password'
+//         //     });
+//         // }
+
+//         const saltRounds = 10;
+//         const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+//         const newUser = {
+//            // firstName,
+//             //lastName,
+//             email,
+//             //mobile,
+//             password: hashedPassword,
+//         };
+
+//         const user = await User.create(newUser);
+
+//         return response.status(201).send({
+//             user,
+//             message: 'Successfully signed up',
+//             alert: 'success'
+//         });
+
+//     } catch (error) {
+//         console.error(error.message);
+//         response.status(500).send({ message: 'Internal Server Error', alert: 'error' });
+//     }
+// };
+// User Login Controller
+
+  
+  // export const login = async (request, response) => {
+  //   try {
+  //     const { email, password } = request.body;
+  
+  //     const user = await User.findOne({ email });
+  
+  //     if (!user) {
+  //       return response.status(401).json({
+  //         message: 'Invalid email or password',
+  //         alert: false,
+  //       });
+  //     }
+  
+  //     const passwordMatch = await bcrypt.compare(password, user.password);
+  
+  //     if (!passwordMatch) {
+  //       return response.status(401).json({
+  //         message: 'Invalid email or password',
+  //         alert: false,
+  //       });
+  //     }
+  
+  //     const token = createToken(user._id);
+  //     response.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 });
+  
+  //     return response.status(200).json({
+  //       user,
+  //       message: 'Login is successful',
+  //       alert: true,
+  //       token,
+  //     });
+  //   } catch (error) {
+  //     console.error(error.message);
+  //     response.status(500).send({
+  //       message: 'Internal server error',
+  //       alert: false,
+  //     });
+  //   }
+  // };
+
+  //import jwt from 'jsonwebtoken';
+
+//   export const logout = (request, response) => {
+//     const jwtToken = request.headers.authorization;
+  
+//     if (!jwtToken) {
+//       return response.status(400).json({ message: 'Not logged in' });
+//     }
+  
+//     // You may want to add token verification logic here to ensure it's valid
+  
+//     response.cookie('jwt', '', { maxAge: 0 });
+//     response.status(200).json({ message: 'User logged out successfully' });
+//   };
+  
+  
+// // Get User by ID Controller
+// export const getUserById = async (request, response) => {
+//   try {
+//       const userId = request.params.id;
+
+//       const user = await User.findById(userId);
+
+//       if (!user) {
+//           return response.status(404).json({
+//               message: "User not found",
+//               alert: false
+//           });
+//       }
+
+//       return response.status(200).json({
+//           user,
+//           message: 'User found',
+//           alert: true
+//       });
+//   } catch (error) {
+//       console.log(error.message);
+//       response.status(500).send({
+//           message: error.message,
+//           alert: false
+//       });
+//   }
+// };
+
+// // Edit User by ID Controller
+// export const editUser = async (request, response) => {
+//   try {
+//       const userId = request.params.id;
+
+//       const updatedUser = await User.findByIdAndUpdate(userId, request.body, { new: true });
+
+//       if (!updatedUser) {
+//           return response.status(404).json({
+//               message: "User not found",
+//               alert: false
+//           });
+//       }
+
+//       return response.status(200).json({
+//           user: updatedUser,
+//           message: 'User updated successfully',
+//           alert: true
+//       });
+//   } catch (error) {
+//       console.log(error.message);
+//       response.status(500).send({
+//           message: error.message,
+//           alert: false
+//       });
+//   }
+// };
+
+// // Delete User by ID Controller
+// export const deleteUser = async (request, response) => {
+//   try {
+//       const userId = request.params.id;
+
+//       const isUserDeleted = await User.findByIdAndDelete(userId);
+
+//       if (!isUserDeleted) {
+//           return response.status(404).json({
+//               message: "User not found",
+//               alert: false
+//           });
+//       }
+
+//       return response.status(200).json({
+//           message: 'User deleted successfully',
+//           alert: true
+//       });
+//   } catch (error) {
+//       console.log(error.message);
+//       response.status(500).send({
+//           message: error.message,
+//           alert: false
+//       });
+//   }
+// };
