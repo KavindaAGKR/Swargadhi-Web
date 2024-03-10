@@ -263,17 +263,24 @@ export const authenticateWithFirebase = async (request, response) => {
     } 
   
     // If user doesn't exist, create a new user
-    if (!user) {    
-      const firebaseUser = decodedToken;
-      const { email, displayName } = firebaseUser;
+ 
+if (!user) {    
+  const firebaseUser = decodedToken;
+  const { email, displayName } = firebaseUser;
 
-      console.log("Creating User in MongoDB:", email, uid);
+  console.log("Creating User in MongoDB:", email, uid);
 
-      // Save the user to MongoDB
-      user = await User.create({ email: email, uid: uid });
+  try {
+    // Save the user to MongoDB
+    user = await User.create({ email: email, uid: uid });
 
-      console.log("User Created:", user);
-    }
+    console.log("User Created:", user);
+  } catch (error) {
+    console.error("Error creating user in MongoDB:", error);
+    return response.status(500).json({ message: 'Error creating user in MongoDB' });
+  }
+}
+
   
     // If everything is valid, send authentication success response
     return response.status(200).json({ message: 'Authentication successful' , isAdmin:userAdmin});
@@ -302,3 +309,98 @@ export const revokeAccessToken = async (req, res) => {
     return res.status(500).json({ success: false, message: 'Internal server error' });
   }
 }
+
+export const loginUserWithFirebase = async (request, response) => {
+  try {
+    const idToken = request.headers.authorization;
+
+    if (!idToken) {
+      return response.status(400).json({ message: 'No token provided' });
+    }
+
+    // Verify Firebase ID token
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const uid = decodedToken.uid;
+
+    // Check if the user exists in the database
+    const user = await User.findOne({ uid: uid });
+
+    if (!user) {
+      return response.status(404).json({ message: 'User not found' });
+    }
+
+    // Assuming the user is an admin if it exists in the database
+    const userAdmin = user.isAdmin || false;
+
+    // If everything is valid, send authentication success response
+    return response.status(200).json({ message: 'Authentication successful', isAdmin: userAdmin });
+  } catch (error) {
+    console.error('Error logging in with Firebase:', error);
+    return response.status(401).json({ message: 'Unauthorized' });
+  }
+};
+
+export const signUpUserWithFirebase = async (request, response) => {
+  try {
+    const idToken = request.headers.authorization;
+
+    if (!idToken) {
+      return response.status(400).json({ message: 'No token provided' });
+    }
+
+    // Verify Firebase ID token
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const { uid, email } = decodedToken;
+
+    const userRecord = await admin.auth().getUser(uid);
+    const currentTime = new Date().toUTCString();
+    const tokensValidAfterTime = new Date(userRecord.tokensValidAfterTime).toUTCString();
+    console.log("Current Time:", currentTime);
+    console.log("Tokens Valid After Time:", tokensValidAfterTime); 
+    console.log("Current Time:", currentTime);
+    console.log("Tokens Valid After Time:", tokensValidAfterTime); 
+
+
+    if (userRecord && tokensValidAfterTime >= currentTime) {
+      // Token is revoked or not yet valid
+      return response.status(401).json({ message: 'Unauthorized' });
+    }
+
+
+    // Check if the user already exists in the database
+    let user = await User.findOne({ uid: uid });
+
+    console.log("User:", user);
+
+    let userAdmin = false;
+    if(user && user.isAdmin){
+        userAdmin = true;
+    } 
+  
+    // If user doesn't exist, create a new user
+ 
+    if (!user) {    
+      const firebaseUser = decodedToken;
+      const { email, displayName } = firebaseUser;
+  
+      console.log("Creating User in MongoDB:", email, uid);
+  
+      try {
+          // Save the user to MongoDB
+          user = await User.create({ email: email, uid: uid });
+  
+          console.log("User Created:", user);
+      } catch (error) {
+          console.error("Error creating user in MongoDB:", error);
+          return response.status(500).json({ message: 'Error creating user in MongoDB' });
+      }
+  }
+
+  
+    // If everything is valid, send authentication success response
+    return response.status(200).json({ message: 'Authentication successful' , isAdmin:userAdmin});
+  } catch (error) {
+    console.error('Error authenticating with Firebase:', error);
+    return response.status(401).json({ message: 'Unauthorized' });
+  }
+};
