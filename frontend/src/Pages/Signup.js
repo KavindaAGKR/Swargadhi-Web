@@ -50,9 +50,9 @@ const useStyles = makeStyles((theme) => ({
     },
     stackContainer: {
     width: '100%',
-          margin:'25px' 
+          margin:'15px' 
     },paperContainer:{
-        margin:'25px'
+        margin:'15px'
     },
 },
 }));
