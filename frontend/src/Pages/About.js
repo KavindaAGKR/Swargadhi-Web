@@ -16,7 +16,7 @@ return (
             <Typography variant='body'>The FDA considers herbal supplements foods, not drugs. Therefore, they are not subject to the same testing, manufacturing, and labeling standards and regulations as drugs.
 You can now see labels that explain how herbs can influence different actions in the body. However, herbal supplement labels can't refer to treating specific medical conditions. This is because herbal supplements are not subject to clinical trials or to the same manufacturing standards as prescription or traditional over-the-counter drugs.</Typography>
             <Typography variant='h5'sx={{marginBottom:'20px',marginTop:'50px'}}>Contact Us</Typography>
-            <Typography></Typography>
+        
         </Paper>
         </Grid>
     </Grid>
