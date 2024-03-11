@@ -13,6 +13,7 @@ import { AdminHome } from './AdminPanel/AdminHome';
 function App() {
   return (
     <div>
+    <h1>hello</h1>
       <Routes>
         <Route path='/admin' element={<AdminLogin/>}/>
         <Route path='/admin/home' element={<AdminHome/>}/>
