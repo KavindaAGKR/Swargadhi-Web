@@ -1,5 +1,5 @@
 import express from "express";
-import * as userCtrl from "../controller/userCtrl.js";
+import * as userCtrl from "../controller/authController.js";
 const router = express.Router();
 
 //router.post("/register",userCtrl.createUser);
