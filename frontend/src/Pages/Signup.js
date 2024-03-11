@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import { Grid, Paper, Button, Typography, TextField, InputAdornment,Stack } from '@mui/material';
 import { makeStyles } from '@mui/styles'; 
 import { useNavigate } from 'react-router-dom';
-import signpng from './signupfinal.png';
-import signback from './signback.png'
-import logo from './logo.png'
-import profile from './profile.png'
+import signpng from '../Images/signupfinal.png';
+import signback from '../Images/signback.png'
+import logo from '../Images/logo.png'
+import profile from '../Images/profile.png'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
@@ -50,9 +50,9 @@ const useStyles = makeStyles((theme) => ({
     },
     stackContainer: {
     width: '100%',
-          margin:'15px' 
+          margin:'25px' 
     },paperContainer:{
-        margin:'15px'
+        margin:'25px'
     },
 },
 }));

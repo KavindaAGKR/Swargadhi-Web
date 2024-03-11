@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import { Grid, Paper, Button, Typography, TextField, InputAdornment, FormControlLabel,Box,Checkbox, Stack } from '@mui/material';
 import { makeStyles } from '@mui/styles'; 
 import { useNavigate } from 'react-router-dom';
-import signpng from './signupfinal.png';
-import signback from './signback.png'
-import logo from './logo.png'
+import signpng from '../Images/signupfinal.png';
+import signback from '../Images/signback.png'
+import logo from '../Images/logo.png'
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
