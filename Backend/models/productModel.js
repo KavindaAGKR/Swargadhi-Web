@@ -56,3 +56,4 @@ const ayurvedicProductSchema = new mongoose.Schema(
 const AyurvedicProduct = mongoose.model("AyurvedicProduct", ayurvedicProductSchema);
 
 export default AyurvedicProduct;
+/// we have to set
