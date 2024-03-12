@@ -1,5 +1,5 @@
 
-import './App.css';
+
 import { Route , Routes} from 'react-router-dom';
 import { Login } from './Pages/Login';
 import { Home } from './Pages/Home';
@@ -16,12 +16,18 @@ import { AdminSaleReport } from './AdminPanel/AdminSaleReport';
 import { AdminUsers } from './AdminPanel/AdminUsers';
 import { AdminMessages } from './AdminPanel/AdminMessages';
 import { AdminSettings } from './AdminPanel/AdminSettings';
+import { Header } from './Components/Header';
+import { Footer } from './Components/Footer';
+import { Shop } from './Pages/Shop/ShopHead';
+
 
 
 
 function App() {
   return (
     <div>
+
+    
       <Routes>
 
 {/* Admin Dashboard Routes */}
@@ -41,25 +47,30 @@ function App() {
           {/* Productssssssssssssssss */}
           
           <Route path='admin/products' element={<Products/>}>
-              
+            <Route path='admin/addproduct' element={<AddProduct/>}/>
           </Route>
 
         </Route>
-
-        <Route path='/admin/addproduct' element={<AddProduct/>}/>
         <Route path='/admin' element={<AdminLogin/>}/>
         
         
-
         
+</Routes>
 
+
+<Routes>
 
 {/* User part Routes */}
-        <Route path='/' element={<Home/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/signup' element={<Signup/>} />
-        <Route path='/about' element={<About/>}/>
-      </Routes>
+        <Route path='/' element={<><Header/><Home/><Footer/></>}/>
+        <Route path='/login' element={<><Header/><Login/><Footer/></>}/>
+        <Route path='/signup' element={<><Header/><Signup/><Footer/></>} />
+        <Route path='/about' element={<><Header/><About/><Footer/></>}/>
+        <Route path='/shop' element={<><Header/><Shop/><Footer/></>}/>
+</Routes>
+
+
+
+
     </div>
   );
 }
