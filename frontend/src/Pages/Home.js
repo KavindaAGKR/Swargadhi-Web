@@ -1,20 +1,31 @@
 import React from 'react'
-import { Button, Stack, Typography } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import {  Stack, Typography } from '@mui/material'
+//import { useNavigate } from 'react-router-dom'
+import ImageSlider from '../Components/Home/ImageSlider'
+import { HomeText } from '../Components/Home/HomeText'
+import ShopNow from '../Components/Home/ShopNow'
+import { BestSales } from '../Components/Home/BestSales'
+import slider1 from '../Images/Slider1.jpg'
+import slider2 from '../Images/Slider2.png'
+import slider3 from '../Images/Slider3jpg.png'
+
 
 
 export const Home = () => {
+    //const navigate = useNavigate()
 
-    const navigate = useNavigate()
+    const images = [
+      slider1,slider2,slider3
+          ];
 
   return (
     <Stack>
-        <Typography variant='h1'>Hello world - Web Home Page</Typography>
+
         <Stack >
-        <Button variant='contained' onClick={()=>{navigate('/login')}}>Login</Button>
-        <Button variant='contained' onClick={()=>{navigate('/signup')}}>Signup</Button>
-        <Button variant='contained' onClick={()=>navigate('/about')}>About Us</Button>
-        <Button variant='text' onClick={()=>navigate('/admin')}>admin</Button>
+        <ImageSlider images={images} />
+        <HomeText/>
+        <ShopNow/>
+        <BestSales/>
         </Stack>
     </Stack>
   )
