@@ -19,6 +19,7 @@ import { Header } from './Components/Header';
 import { Footer } from './Components/Footer';
 import { Shop } from './Pages/Shop/ShopHead';
 import { UserProfile } from './Pages/Userprofile';
+import { Dispensary } from './Pages/Dispensary';
 
 // const UserPageWrapper = () => {
 //   return(
@@ -86,6 +87,7 @@ function App() {
               <Route path='/about' element={<><Header/><About/><Footer/></>}/>
               <Route path='/shop' element={<><Header/><Shop/><Footer/></>}/>
               <Route path='/user' element={<><Header/><UserProfile/><Footer/></>}/>
+              <Route path='/dispensary' element={<><Header/><Dispensary/><Footer/></>}/>
         </Routes>
 
 
