@@ -2,21 +2,21 @@ import React from 'react'
 import { AppBar, Button, Stack, Toolbar } from '@mui/material'
 import logo from '../Images/logo.png'
 import { useNavigate } from 'react-router-dom'
-
 import { Email, WhatsApp, Facebook, Call } from '@mui/icons-material';
 
 export const Footer = () => {
 
     const navigate = useNavigate();
   return (
-    <AppBar position='static' sx={{ display: 'flex', justifyContent: 'center',backgroundColor:'white', }}>
-            <Toolbar sx={{ margin:'25px'}}>
+    
+      <AppBar position='static' sx={{ display: 'flex', justifyContent: 'center',backgroundColor:'white', width:'100%',padding:'0px' }} >
+            <Toolbar sx={{  width:'100%'}}>
             <Stack direction='column' alignItems='center'>
                 
                 <img src={logo} alt="Swargadhi logo" width="20%" height='40%' />
 
 
-                    <Stack direction='row'  spacing={1} sx={{padding:'20px'}}>
+                    <Stack direction={{ xs: 'column', md:'row' }}  spacing={1} sx={{padding:'20px'}}>
                     <Button variant='text' onClick={()=>{navigate('/')}}>Home</Button>
                     <Button variant='text' onClick={()=>navigate('/shop')}>Shop</Button>
                     <Button variant='text' onClick={()=>navigate('/dispensary')}>Dispensary</Button>
@@ -24,7 +24,7 @@ export const Footer = () => {
                     <Button variant='text' onClick={()=>navigate('/myaccount')}>My Account</Button>
                     </Stack>
                 
-                    <Stack direction='row' spacing={5}>
+                    <Stack direction={{ xs: 'column', md:'row' }} spacing={5}>
                     
                     <Button variant='text' startIcon={<Call/>}>081 7822142</Button>
                     <Button variant='text' startIcon={<Email/>}>swargadhi@gmail.com</Button>
@@ -37,5 +37,6 @@ export const Footer = () => {
             
 
         </AppBar>
+    
   )
 }

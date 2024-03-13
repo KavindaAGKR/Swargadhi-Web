@@ -1,5 +1,4 @@
 
-
 import { Route , Routes} from 'react-router-dom';
 import { Login } from './Pages/Login';
 import { Home } from './Pages/Home';
@@ -19,16 +18,34 @@ import { AdminSettings } from './AdminPanel/AdminSettings';
 import { Header } from './Components/Header';
 import { Footer } from './Components/Footer';
 import { Shop } from './Pages/Shop/ShopHead';
+import { UserProfile } from './Pages/Userprofile';
 
+// const UserPageWrapper = () => {
+//   return(
+//     <>
+//     <Header />
+    
+//           <Routes>
+//           <Route path='/' element={<Home/>}/>
+//           <Route path='/login' element={<Login />} />
+//           <Route path='/signup' element={<Signup />} />
+//           <Route path='/about' element={<About />} />
+//           <Route path='/shop' element={<Shop />} />
+//           </Routes>
+//     <Footer />
+//   </>
+//   )
+// }
 
 
 
 function App() {
+
+
+
   return (
     <div>
-
-    
-      <Routes>
+        <Routes>
 
 {/* Admin Dashboard Routes */}
 
@@ -51,24 +68,25 @@ function App() {
           </Route>
 
         </Route>
+
         <Route path='/admin' element={<AdminLogin/>}/>
-        
-        
-        
-</Routes>
 
+        
 
-<Routes>
+        </Routes>
+        
+
+        {/* <UserPageWrapper/> */}
+        <Routes>
 
 {/* User part Routes */}
-        <Route path='/' element={<><Header/><Home/><Footer/></>}/>
-        <Route path='/login' element={<><Header/><Login/><Footer/></>}/>
-        <Route path='/signup' element={<><Header/><Signup/><Footer/></>} />
-        <Route path='/about' element={<><Header/><About/><Footer/></>}/>
-        <Route path='/shop' element={<><Header/><Shop/><Footer/></>}/>
-</Routes>
-
-
+              <Route path='/' element={<><Header/><Home/><Footer/></>}/>
+              <Route path='/login' element={<><Header/><Login/><Footer/></>}/>
+              <Route path='/signup' element={<><Header/><Signup/><Footer/></>} />
+              <Route path='/about' element={<><Header/><About/><Footer/></>}/>
+              <Route path='/shop' element={<><Header/><Shop/><Footer/></>}/>
+              <Route path='/user' element={<><Header/><UserProfile/><Footer/></>}/>
+        </Routes>
 
 
     </div>

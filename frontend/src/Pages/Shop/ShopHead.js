@@ -8,6 +8,9 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Card, CardActionArea, CardContent, CardMedia, Button, Grid } from '@mui/material';
+import slide1 from '../Images/Slider1.jpg'
+import slide2 from '../Images/Slider2.png'
+import slide3 from '../Images/Slider3.png'
 
 const products = [
   {
@@ -15,7 +18,7 @@ const products = [
     name: 'Product 1',
     description: 'Description of Product 1',
     price: 'RS. 100',
-    image: 'https://z-p3-scontent.fcmb7-1.fna.fbcdn.net/v/t1.6435-9/66444023_1208081432716138_6487132102960611328_n.jpg?stp=dst-jpg_p526x296&_nc_cat=107&ccb=1-7&_nc_sid=7f8c78&_nc_eui2=AeEWm_D-nCLHJ12u1hO23oGTo_v0257o2aej-_TbnujZp4Xux1FS_SxmOitnq1aRILvMsQlZ1xAfCICqf-MmFpRR&_nc_ohc=w1QICHQnpzwAX_eBIX1&_nc_ht=z-p3-scontent.fcmb7-1.fna&oh=00_AfAwoZSDRDF3yL2Kh4HOfv6mXLPTsHUgHKKul1Uj9Fo1qg&oe=65FC399C',
+    image: slide1
   },
   
   {
@@ -23,7 +26,7 @@ const products = [
     name: 'Product 2',
     description: 'Description of Product 2',
     price: 'RS. 200',
-    image: 'https://z-p3-scontent.fcmb7-1.fna.fbcdn.net/v/t1.6435-9/72084078_135050511178867_938730334504091648_n.jpg?stp=dst-jpg_p526x296&_nc_cat=109&ccb=1-7&_nc_sid=7f8c78&_nc_eui2=AeFVKbbHwjhvYXfqNRtVtZy8hpZ8l9Gl1keGlnyX0aXWR5o0EaxTKX0CZVNq4Ccz-wgFBlbpmEiK1bmG8s_DSgVN&_nc_ohc=lJY657kwqawAX_hLqES&_nc_ht=z-p3-scontent.fcmb7-1.fna&oh=00_AfB6-PxHWs2HeE4JdO_YTcUiYtXMk9ax9RLPXGSrJpZ7Eg&oe=65FC24E0',
+    image: slide2
   },
   // Add more products as needed
 ];
@@ -96,7 +99,7 @@ export const Shop = ()=> {
           onChange={handleChange}
           indicatorColor="secondary"
           textColor="inherit"
-          variant="fullWidth"
+          // variant="fullWidth"
           aria-label="full width tabs example"
         >
           <Tab label="Paththu" {...a11yProps(0)} />

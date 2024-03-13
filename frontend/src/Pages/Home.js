@@ -1,5 +1,5 @@
 import React from 'react'
-import {  Stack, Typography } from '@mui/material'
+import {  Stack } from '@mui/material'
 //import { useNavigate } from 'react-router-dom'
 import ImageSlider from '../Components/Home/ImageSlider'
 import { HomeText } from '../Components/Home/HomeText'

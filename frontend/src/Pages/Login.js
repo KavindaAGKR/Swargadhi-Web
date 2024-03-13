@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 },
 }));
 
-            
+
 
 export const Login = () => {
     const navigate = useNavigate();
@@ -126,7 +126,7 @@ return (
 
                 
 
-                    <Button variant="contained" onClick={() => { navigate('/signup') }} color='success'>Login</Button>
+                    <Button variant="contained" onClick={() => { navigate('/'); alert('Successfully loged in') }} color='success'>Login</Button>
                     <Button variant='text' onClick={()=>{navigate('/signup')}}>Forgot password?</Button>
                     <Typography variant='body'>Don't have an account?<Button variant='text' onClick={() => {navigate('/signup')}}>Sign Up</Button> </Typography>
                     <GoogleButton type="light" 
