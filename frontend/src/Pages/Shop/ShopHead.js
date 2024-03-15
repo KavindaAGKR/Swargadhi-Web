@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import { Card, CardActionArea, CardContent, CardMedia, Button, Grid } from '@mui/material';
 import slide1 from '../Images/Slider1.jpg'
 import slide2 from '../Images/Slider2.png'
-import slide3 from '../Images/Slider3.png'
+
 
 const products = [
   {
@@ -92,7 +92,7 @@ export const Shop = ()=> {
   const displayedProducts = products.slice(startIndex, endIndex);
 
   return (
-    <Box sx={{ bgcolor: 'background.paper', width: 1800 }}>
+    <Box sx={{ bgcolor: 'background.paper', width: '80%', margin:'auto' }}>
       <AppBar position="static">
         <Tabs
           value={value}
@@ -103,7 +103,7 @@ export const Shop = ()=> {
           aria-label="full width tabs example"
         >
           <Tab label="Paththu" {...a11yProps(0)} />
-          <Tab label="IKalka" {...a11yProps(1)} />
+          <Tab label="Kalka" {...a11yProps(1)} />
           <Tab label="Kashaya" {...a11yProps(2)} />
           <Tab label="Talkola" {...a11yProps(3)} />
           <Tab label="Gulikalka" {...a11yProps(4)} />
