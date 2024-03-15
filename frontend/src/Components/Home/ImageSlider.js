@@ -7,14 +7,18 @@ function ImageSlider({ images, imageSize, slideInterval }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentImageIndex((prevIndex) =>
-        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+              const intervalId = setInterval(() => {
+                setCurrentImageIndex((prevIndex) =>
+                  prevIndex === images.length - 1 ? 0 : prevIndex + 1
+                );
+              }, slideInterval);
+            
+              return () => clearInterval(intervalId);
+            }, 
+            [images, slideInterval]
       );
-    }, slideInterval);
 
-    return () => clearInterval(intervalId);
-  }, [images, slideInterval]);
+
 
   const nextImage = () => {
     setCurrentImageIndex((prevIndex) =>
@@ -22,18 +26,21 @@ function ImageSlider({ images, imageSize, slideInterval }) {
     );
   };
 
+
   const prevImage = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
   };
 
+
+  
   return (
     <div className="image-slider">
       <div className="image-container">
         <img
           src={images[currentImageIndex]}
-          alt={`Imag ${currentImageIndex}`}
+          alt={`Image ${currentImageIndex}`}
           style={{ width: imageSize, height: 'auto' }}
         />
         <button className="arrow-button prev" onClick={prevImage}>

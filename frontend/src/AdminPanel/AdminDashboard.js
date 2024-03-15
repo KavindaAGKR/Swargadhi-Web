@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material'
+import { Stack } from '@mui/material'
 import React from 'react'
 
 
@@ -11,7 +11,7 @@ export const AdminDashboard = () => {
 
     <Stack>
       
-      <Typography variant='h4'>Admin Dashboard</Typography>
+
       
 
 

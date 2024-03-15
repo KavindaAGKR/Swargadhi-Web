@@ -14,6 +14,8 @@ import slider3 from '../Images/Slider3jpg.png'
 export const Home = () => {
     //const navigate = useNavigate()
 
+
+    //Images For Image Slider
     const images = [
       slider1,slider2,slider3
           ];
