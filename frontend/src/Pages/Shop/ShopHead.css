@@ -1,0 +1,33 @@
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  
+  button[type="submit"] {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #1976d2;
+    color: white;
+    cursor: pointer;
+  }
+  
+ 
+  .full-width-tabpanel {
+    padding: 20px;
+  }
+  
+  
