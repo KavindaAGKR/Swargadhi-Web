@@ -3,7 +3,7 @@ import { Button, Grid, Stack, Typography, TextField, MenuItem, Dialog, DialogAct
 import { DataGrid } from '@mui/x-data-grid';
 import slider1 from '../Images/Slider1.jpg';
 import slider2 from '../Images/Slider2.png';
-import slider3 from '../Images/Slider3jpg.png';
+//import slider3 from '../Images/Slider3jpg.png';
 
 export const Products = () => {
   const [open, setOpen] = useState(false);
