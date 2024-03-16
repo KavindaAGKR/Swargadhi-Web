@@ -7,10 +7,8 @@ export const createAyurvedicProduct = async (request, response) => {
             !request.body.productItemID ||
             !request.body.itemName ||
             !request.body.price ||
-            !request.body.availability ||
             !request.body.description ||
             !request.body.quantity ||
-            !request.body.productDetails ||
             !request.body.category
         ) {
             return response.status(400).send({
@@ -22,10 +20,8 @@ export const createAyurvedicProduct = async (request, response) => {
             productItemID: request.body.productItemID,
             itemName: request.body.itemName,
             price: request.body.price,
-            availability: request.body.availability,
             description: request.body.description,
             quantity: request.body.quantity,
-            productDetails: request.body.productDetails,
             category: request.body.category
         };
 

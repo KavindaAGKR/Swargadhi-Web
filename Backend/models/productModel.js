@@ -31,10 +31,13 @@ const ayurvedicProductSchema = new mongoose.Schema(
       type: Number,
       // required: true,
     },
-    productDetails: {
-      type: multilingualSchema,
-      // required: true,
-    },
+    // availability:{
+    //   type:Boolean,
+    // },
+    // productDetails: {
+    //   type: multilingualSchema,
+    //   // required: true,
+    // },
     category: {
       type:multilingualSchema,
       // required: true,
