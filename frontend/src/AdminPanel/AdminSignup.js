@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Grid, Paper, Button, Typography, TextField, InputAdornment, Stack } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Import axios for HTTP requests
+import axios from 'axios'; 
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
