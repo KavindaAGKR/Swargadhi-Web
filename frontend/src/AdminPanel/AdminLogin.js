@@ -14,11 +14,11 @@ const theme = createTheme();
 const useStyles = makeStyles((theme) => ({
     stackContainer: {
         width: '80%',
-        margin: '50px',
+        margin: '50px auto',
     },
     '@media (max-width: 600px)': {
         stackContainer: {
-            width: '90%',
+            width: '100%',
             margin: '50px auto'
         },
     },
@@ -42,12 +42,12 @@ export const AdminLogin = () => {
             return;
         }
 
-        // const emailtype = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        // if (!emailtype.test(email)) {
-        //     setSnackMessage('Please enter a valid email address');
-        //     setSnackbarOpen(true);
-        //     return;
-        // }
+        const emailtype = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailtype.test(email)) {
+            setSnackMessage('Please enter a valid email address');
+            setSnackbarOpen(true);
+            return;
+        }
 
         try {
             const response = await axios.post('http://localhost:5000/api/admin/login', {
