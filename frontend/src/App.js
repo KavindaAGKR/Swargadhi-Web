@@ -20,7 +20,7 @@ import { Footer } from './Components/Footer';
 import { Shop } from './Pages/Shop/ShopHead';
 import { UserProfile } from './Pages/Userprofile';
 import { Dispensary } from './Pages/Dispensary';
-import { AdminSignup } from './AdminPanel/AdminPages/AdminSignup';
+import { AdminSignup } from './AdminPanel/AdminSignup';
 
 // const UserPageWrapper = () => {
 //   return(

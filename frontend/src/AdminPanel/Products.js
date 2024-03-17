@@ -1,125 +1,105 @@
 import React, { useState } from 'react';
 import { Button, Grid, Stack, Typography, TextField, MenuItem, Dialog, DialogActions, DialogContent } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
-import slider1 from '../Images/Slider1.jpg';
-import slider2 from '../Images/Slider2.png';
-import slider3 from '../Images/Slider3jpg.png';
 
 export const Products = () => {
-  const [open, setOpen] = useState(false);
-  const [newProduct, setNewProduct] = useState({
-    englishName: '',
-    sinhalaName: '',
-    quantity: '',
-    price: '',
-    description: '',
-    category: '',
-    image: '',
-  });
+    const [open, setOpen] = useState(false);
+    const [productData, setProductData] = useState({
+        productItemID: '',
+        itemNameEn: '',
+        itemNameSi: '',
+        price: 0,
+        descriptionEn: '',
+        descriptionSi: '',
+        quantity: 0,
+        category: ''
+    });
 
-  // Define items array here
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      englishName: 'Product 1',
-      sinhalaName: 'නිෂ්පාදිත 1',
-      quantity: 10,
-      price: 100,
-      description: 'This is product 1 description.',
-      category: 'kalka',
-      image: slider1,
-    },
-    {
-      id: 2,
-      englishName: 'Product 2',
-      sinhalaName: 'නිෂ්පාදිත 2',
-      quantity: 20,
-      price: 20,
-      description: 'This is product 2 description.',
-      category: 'Paththu',
-      image: slider2,
-    },
-  ]);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setProductData({ ...productData, [name]: value });
+    };
 
-  const handleChange = (prop) => (event) => {
-    setNewProduct({ ...newProduct, [prop]: event.target.value });
+    const handleSubmit = async () => {
+      try {
+          const formattedData = {
+              productItemID: productData.productItemID,
+              itemName: {
+                  en: productData.itemNameEn,
+                  si: productData.itemNameSi
+              },
+              price: productData.price,
+              description: {
+                  en: productData.descriptionEn,
+                  si: productData.descriptionSi
+              },
+              quantity: productData.quantity,
+              category: {
+                  en: productData.category,
+                  si: productData.category // Assuming the category is the same for both languages
+              }
+          };
+  
+          console.log('Formatted Data:', formattedData);
+  
+          const response = await fetch('http://localhost:5000/api/product/', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(formattedData)
+          });
+  
+          const responseData = await response.json(); // Parse response JSON
+  
+          console.log('Response from backend:', responseData); // Log response from backend
+  
+          if (response.ok) {
+              console.log('Product added successfully');
+              // You can perform any action here after successful addition of product
+          } else {
+              console.error('Failed to add product');
+          }
+      } catch (error) {
+          console.error('Error adding product:', error);
+      }
+      setOpen(false);
   };
-
-  const handleSubmit = () => {
-    const updatedItems = [...items, { ...newProduct, id: items.length + 1 }];
-    setItems(updatedItems);
-    setOpen(false);
-  };
-
-  return (
-    <Grid container>
-      <Stack width="100%">
-        <Typography>List of Products</Typography>
-        <Button onClick={() => setOpen(true)}>Add Product</Button>
-
-        <Dialog open={open} aria-labelledby="Dialog-title" aria-describedby="Dialog-description">
-          <DialogContent>
-            <Stack sx={{ width: '100%' }} justifyContent="center" alignItems="center" direction="column">
-              <Typography variant="h3" color="success.main">
-                Add a new Product
-              </Typography>
-              <TextField type="file" onChange={handleChange('image')} />
-              <TextField type="text" label="Enter Name in English" onChange={handleChange('englishName')} />
-              <TextField type="text" label="Enter Name in Sinhala" onChange={handleChange('sinhalaName')} />
-              <TextField type="number" label="Enter the available quantity" onChange={handleChange('quantity')} />
-              <TextField type="number" label="Price" onChange={handleChange('price')} />
-              <TextField type="text" label="Enter the product description" onChange={handleChange('description')} />
-              <TextField
-                label="Select Category"
-                select
-                sx={{ width: '50%' }}
-                onChange={handleChange('category')}
-                value={newProduct.category}
-              >
-                <MenuItem value="kalka">Kalka</MenuItem>
-                <MenuItem value="Paththu">Paththu</MenuItem>
-                <MenuItem value="Guli">Guli</MenuItem>
-              </TextField>
+  
+  
+    return (
+        <Grid container>
+            <Stack>
+                <Typography>List of Products</Typography>
+                <Button onClick={() => setOpen(true)}>Add Product</Button>
+                <Dialog
+                    open={open}
+                    aria-labelledby='Dialog-title'
+                    aria-describedby='Dialog-description'
+                >
+                    <DialogContent>
+                        <Stack sx={{ width: '100%' }} justifyContent="center" alignItems="center" direction='column'>
+                            <Typography variant='h3' color='success.main'>Add a new Product</Typography>
+                            <TextField name='productItemID' type='text' label='Enter Product ID' value={productData.productItemID} onChange={handleChange} />
+                            <TextField name='itemNameEn' type='text' label='Enter Name in English' value={productData.itemNameEn} onChange={handleChange} />
+                            <TextField name='itemNameSi' type='text' label='Enter Name in Sinhala' value={productData.itemNameSi} onChange={handleChange} />
+                            <TextField name='quantity' type='number' label='Enter the available quantity' value={productData.quantity} onChange={handleChange} />
+                            <TextField name='price' type='number' label='Price' value={productData.price} onChange={handleChange} />
+                            <TextField name='descriptionEn' type='text' label='Enter the product description in English' value={productData.descriptionEn} onChange={handleChange} />
+                            <TextField name='descriptionSi' type='text' label='Enter the product description in Sinhala' value={productData.descriptionSi} onChange={handleChange} />
+                            <TextField name='category' label='Select Category' select sx={{ width: "50%" }} value={productData.category} onChange={handleChange}>
+                                <MenuItem value='kalka'>Kalka</MenuItem>
+                                <MenuItem value='Paththu'>Paththu</MenuItem>
+                                <MenuItem value='Guli'>Guli</MenuItem>
+                            </TextField>
+                        </Stack>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setOpen(false)}>Cancel</Button>
+                        <Button onClick={handleSubmit}>Submit</Button>
+                    </DialogActions>
+                </Dialog>
+                <Typography variant='h3'>List of Products shows here.</Typography>
             </Stack>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setOpen(false)}>Cancel</Button>
-            <Button onClick={handleSubmit}>Submit</Button>
-          </DialogActions>
-        </Dialog>
-
-        <Typography variant="h3">List of Products shows here.</Typography>
-
-        <div style={{ height: '80%', width: '100%' }}>
-          <DataGrid
-            initialState={{
-              sorting: {
-                sortModel: [{ field: 'id', sort: 'asc' }],
-              },
-            }}
-            rows={items}
-            columns={[
-              { field: 'id', headerName: 'ID', width: 90 },
-              { field: 'englishName', headerName: 'Title', width: 150 },
-              { field: 'sinhalaName', headerName: 'Content', width: 250 },
-              { field: 'quantity', headerName: 'Content', width: 250 },
-              { field: 'price', headerName: 'Content', width: 250 },
-              { field: 'description', headerName: 'Content', width: 250 },
-              { field: 'category', headerName: 'Content', width: 250 },
-              {
-                field: 'image',
-                headerName: 'Image',
-                width: 150,
-                renderCell: (params) => <img src={params.value} alt={params.row.title} style={{ width: '100px', height: 'auto' }} />,
-              },
-            ]}
-            
-            
-          />
-        </div>
-      </Stack>
-    </Grid>
-  );
+        </Grid>
+    );
 };
-
-

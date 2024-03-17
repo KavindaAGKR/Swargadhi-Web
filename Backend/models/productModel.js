@@ -12,35 +12,26 @@ const ayurvedicProductSchema = new mongoose.Schema(
   {
     productItemID: {
       type: String,
-      // required: true,
-      // unique: true,
+     
     },
     itemName: {
       type: multilingualSchema,
-      // required: true,
+     
     },
     price: {
       type: Number,
-      // required: true,
+     
     },
     description: {
       type: multilingualSchema,
-      // required: true,
+     
     },
     quantity: {
       type: Number,
       // required: true,
     },
-    // availability:{
-    //   type:Boolean,
-    // },
-    // productDetails: {
-    //   type: multilingualSchema,
-    //   // required: true,
-    // },
     category: {
       type:multilingualSchema,
-      // required: true,
     },
     images: [
       

@@ -51,17 +51,11 @@ const TabPanel = (props) => {
   );
 }
 
-
-
-
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
 };
-
-
-
 
 function a11yProps(index) {
   return {
@@ -69,9 +63,6 @@ function a11yProps(index) {
     'aria-controls': `full-width-tabpanel-${index}`,
   };
 }
-
-
-
 
 export const Shop = ()=> {
   const theme = useTheme();
@@ -101,18 +92,18 @@ export const Shop = ()=> {
   const displayedProducts = products.slice(startIndex, endIndex);
 
   return (
-    <Box sx={{ bgcolor: 'background.paper', width: 1800 }}>
+    <Box sx={{ bgcolor: 'background.paper', width: '80%', margin:'auto' }}>
       <AppBar position="static">
         <Tabs
           value={value}
           onChange={handleChange}
-          indicatorColor="red"
+          indicatorColor="secondary"
           textColor="inherit"
           // variant="fullWidth"
           aria-label="full width tabs example"
         >
           <Tab label="Paththu" {...a11yProps(0)} />
-          <Tab label="IKalka" {...a11yProps(1)} />
+          <Tab label="Kalka" {...a11yProps(1)} />
           <Tab label="Kashaya" {...a11yProps(2)} />
           <Tab label="Talkola" {...a11yProps(3)} />
           <Tab label="Gulikalka" {...a11yProps(4)} />
@@ -154,10 +145,6 @@ export const Shop = ()=> {
     </Box>
   );
 }
-
-
-
-
 
 function ProductItem({ product }) {
   return (
