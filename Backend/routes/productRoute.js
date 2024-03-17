@@ -20,6 +20,8 @@ router.get("/:id", ayurvedicProductController.getAyurvedicProductById);
 
 // Get Ayurvedic Products by category
 router.get("/category/:category", ayurvedicProductController.getAyurvedicProductsByCategory);
+router.get("/category/si/:category", ayurvedicProductController.getSinhalaAyurvedicProductsByCategory);
+router.get("/category/en/:category", ayurvedicProductController.getEnglishAyurvedicProductsByCategory);
 
 // Update Ayurvedic Product
 router.put("/:id", ayurvedicProductController.updateAyurvedicProduct);

@@ -36,6 +36,7 @@ const PORT = process.env.PORT || 4000;
 app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit:'500mb'}));
 
 app.use('/api/user', authRoute);
 app.use('/api/product', productRoute);
@@ -45,5 +46,7 @@ app.use('/api/admin',adminRoute);
 app.listen(PORT, () => {
     console.log(`Server is Running at PORT ${PORT}`);
 });
+
+
 
 
