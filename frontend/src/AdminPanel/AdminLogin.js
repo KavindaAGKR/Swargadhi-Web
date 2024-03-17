@@ -66,7 +66,7 @@ export const AdminLogin = () => {
             }
         } catch (error) {
             console.error(error);
-            setSnackMessage("Wrong Email or Password")
+            setSnackMessage("Incorrect Email or Password")
             setSnackbarOpen(true);
         }
     };
