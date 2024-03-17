@@ -37,7 +37,7 @@ export const createAyurvedicProduct = async (request, response) => {
 export const createAyurvedicProduct2 = async (request, response) => {
     try {
         // Check if all required fields are present in the request body
-        const requiredFields = ['productItemID', 'itemName', 'price', 'availability', 'description', 'quantity', 'productDetails', 'category', 'images'];
+        const requiredFields = ['productItemID', 'itemName', 'price',  'description', 'quantity',  'category', 'images'];
         const missingFields = requiredFields.filter(field => !request.body[field]);
         if (missingFields.length > 0) {
             return response.status(400).send({
@@ -50,10 +50,8 @@ export const createAyurvedicProduct2 = async (request, response) => {
             productItemID: request.body.productItemID,
             itemName: request.body.itemName,
             price: request.body.price,
-            availability: request.body.availability,
             description: request.body.description,
             quantity: request.body.quantity,
-            productDetails: request.body.productDetails,
             category: request.body.category,
             images: request.body.images // Include the images array from the request body
         };
@@ -101,9 +99,10 @@ export const updateAyurvedicProduct = async (request, response) => {
 
 // Get all Ayurvedic products
 export const getAllAyurvedicProducts = async (request, response) => {
-    let userId = request.params.userId; // Assuming your route has a parameter named 'userId'
+    //let userId = request.params.userId; // Assuming your route has a parameter named 'userId'
     try {
-        const ayurvedicProducts = await AyurvedicProduct.find({ user: userId });
+        //const ayurvedicProducts = await AyurvedicProduct.find({ user: userId });
+        const ayurvedicProducts = await AyurvedicProduct.find();
         return response.status(200).json({
             count: ayurvedicProducts.length,
             data: ayurvedicProducts

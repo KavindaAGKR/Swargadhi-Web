@@ -6,7 +6,8 @@ import logo from '../Images/logo.png'
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import axios from 'axios'; 
+import axios from 'axios';
+import Cookies from 'js-cookie'; // Import js-cookie
 
 const theme = createTheme();
 
@@ -35,11 +36,14 @@ export const AdminLogin = () => {
                 email,
                 password
             });
-    
+
             if (response.data.alert) {
                 alert(response.data.message);
                 localStorage.setItem('userDetails', JSON.stringify(response.data.Admin));
-                navigate('/admin/home');
+                Cookies.set('jwt', response.data.token); 
+                console.log('Successfully authenticated as admin');
+                console.log('Token:', response.data.token); 
+                navigate('/admin/home/');
             } else {
                 alert(response.data.message);
             }
@@ -48,7 +52,7 @@ export const AdminLogin = () => {
             alert('Login failed');
         }
     };
-    
+
     return (
         <div>
             <ThemeProvider theme={theme}>
@@ -77,7 +81,7 @@ export const AdminLogin = () => {
                                         <InputAdornment position='start'>
                                             <EmailRoundedIcon />
                                         </InputAdornment>
-                                    ),
+                                    ), 
                                 }}
                             />
                             <TextField
