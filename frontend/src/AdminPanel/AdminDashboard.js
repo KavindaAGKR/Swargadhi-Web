@@ -36,6 +36,7 @@ export const AdminDashboard = () => {
                                         <TableCell>Name (Sinhala)</TableCell>
                                         <TableCell>Description (English)</TableCell>
                                         <TableCell>Description (Sinhala)</TableCell>
+                                        <TableCell>Images</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -46,6 +47,18 @@ export const AdminDashboard = () => {
                                             <TableCell>{product.itemName.si}</TableCell>
                                             <TableCell>{product.description.en}</TableCell>
                                             <TableCell>{product.description.si}</TableCell>
+                                            <TableCell>
+                                                {product.images.map((image, index) => (
+                                                    <img
+                                                        key={index}
+                                                        src={image}
+                                                        alt={`Product Image ${index}`}
+                                                        width={100}
+                                                        height={100}
+                                                        style={{ marginRight: '10px' }}
+                                                    />
+                                                ))}
+                                            </TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>

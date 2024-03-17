@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Grid, Stack, Typography, TextField, MenuItem, Dialog, DialogActions, DialogContent } from '@mui/material';
+import ConvertToBase64 from './constants/convertToBase64';
 
 export const Products = () => {
     const [open, setOpen] = useState(false);
@@ -11,7 +12,8 @@ export const Products = () => {
         descriptionEn: '',
         descriptionSi: '',
         quantity: 0,
-        category: ''
+        category: '',
+        images: [] // Changed to an array
     });
 
     const handleChange = (e) => {
@@ -19,53 +21,60 @@ export const Products = () => {
         setProductData({ ...productData, [name]: value });
     };
 
+    const handleFileUpload = async (e) => {
+        const files = e.target.files;
+        const base64Array = await Promise.all(
+            [...files].map(file => ConvertToBase64(file))
+        );
+        setProductData({ ...productData, images: base64Array });
+    };
+
     const handleSubmit = async () => {
-      try {
-          const formattedData = {
-              productItemID: productData.productItemID,
-              itemName: {
-                  en: productData.itemNameEn,
-                  si: productData.itemNameSi
-              },
-              price: productData.price,
-              description: {
-                  en: productData.descriptionEn,
-                  si: productData.descriptionSi
-              },
-              quantity: productData.quantity,
-              category: {
-                  en: productData.category,
-                  si: productData.category // Assuming the category is the same for both languages
-              }
-          };
-  
-          console.log('Formatted Data:', formattedData);
-  
-          const response = await fetch('http://localhost:5000/api/product/', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(formattedData)
-          });
-  
-          const responseData = await response.json(); // Parse response JSON
-  
-          console.log('Response from backend:', responseData); // Log response from backend
-  
-          if (response.ok) {
-              console.log('Product added successfully');
-              // You can perform any action here after successful addition of product
-          } else {
-              console.error('Failed to add product');
-          }
-      } catch (error) {
-          console.error('Error adding product:', error);
-      }
-      setOpen(false);
-  };
-  
-  
+        try {
+            const formattedData = {
+                productItemID: productData.productItemID,
+                itemName: {
+                    en: productData.itemNameEn,
+                    si: productData.itemNameSi
+                },
+                price: productData.price,
+                description: {
+                    en: productData.descriptionEn,
+                    si: productData.descriptionSi
+                },
+                quantity: productData.quantity,
+                category: {
+                    en: productData.category,
+                    si: productData.category 
+                },
+                images: productData.images, // Changed to images
+            };
+
+            console.log('Formatted Data:', formattedData);
+
+            const response = await fetch('http://localhost:5000/api/product/new', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formattedData)
+            });
+
+            const responseData = await response.json();
+
+            console.log('Response from backend:', responseData);
+
+            if (response.ok) {
+                console.log('Product added successfully');
+            } else {
+                console.error('Failed to add product');
+            }
+        } catch (error) {
+            console.error('Error adding product:', error);
+        }
+        setOpen(false);
+    };
+
     return (
         <Grid container>
             <Stack>
@@ -91,6 +100,7 @@ export const Products = () => {
                                 <MenuItem value='Paththu'>Paththu</MenuItem>
                                 <MenuItem value='Guli'>Guli</MenuItem>
                             </TextField>
+                            <input name='images' type='file' label='Enter the image' onChange={handleFileUpload} multiple /> {/* Multiple attribute added */}
                         </Stack>
                     </DialogContent>
                     <DialogActions>
