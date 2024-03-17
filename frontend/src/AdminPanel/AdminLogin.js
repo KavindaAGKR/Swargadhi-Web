@@ -1,25 +1,25 @@
 import React, { useState } from 'react';
-import { Grid, Paper, Button, Typography, TextField, InputAdornment, Stack, Alert } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { Grid, Paper, Button, Typography, TextField, InputAdornment, Stack } from '@mui/material';
+import { makeStyles } from '@mui/styles'; 
 import { useNavigate } from 'react-router-dom';
 import logo from '../Images/logo.png'
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import axios from 'axios';
-import Snackbar from '@mui/material/Snackbar';
+import Cookies from 'js-cookie'; // Import js-cookie
 
 const theme = createTheme();
 
 const useStyles = makeStyles((theme) => ({
     stackContainer: {
         width: '80%',
-        margin: '50px auto',
+        margin: '50px',
     },
     '@media (max-width: 600px)': {
         stackContainer: {
-            width: '100%',
-            margin: '50px auto'
+            width: '90%',
+            margin: '50px auto' 
         },
     },
 }));
@@ -29,26 +29,8 @@ export const AdminLogin = () => {
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [snackbarOpen, setSnackbarOpen] = useState(false); // State for controlling Snackbar visibility
-    const [snackMessage, setSnackMessage] = useState('');
-    const [isLogin, setIsLogin] = useState(false);
-    const [emailError, setEmailError] = useState(false);
-    const [passwordError, setPasswordError] = useState(false);
 
     const handleLogin = async () => {
-        if (!email || !password) {
-            setSnackMessage('Both email and password are required');
-            setSnackbarOpen(true);
-            return;
-        }
-
-        const emailtype = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailtype.test(email)) {
-            setSnackMessage('Please enter a valid email address');
-            setSnackbarOpen(true);
-            return;
-        }
-
         try {
             const response = await axios.post('http://localhost:5000/api/admin/login', {
                 email,
@@ -56,18 +38,18 @@ export const AdminLogin = () => {
             });
 
             if (response.data.alert) {
-                setSnackMessage(response.data.message)
-                setSnackbarOpen(true);
-                setIsLogin(true)
+                alert(response.data.message);
                 localStorage.setItem('userDetails', JSON.stringify(response.data.Admin));
+                Cookies.set('jwt', response.data.token); 
+                console.log('Successfully authenticated as admin');
+                console.log('Token:', response.data.token); 
+                navigate('/admin/home/');
             } else {
-                setSnackMessage(response.data.message)
-                setSnackbarOpen(true);
+                alert(response.data.message);
             }
         } catch (error) {
             console.error(error);
-            setSnackMessage("Incorrect Email or Password")
-            setSnackbarOpen(true);
+            alert('Login failed');
         }
     };
 
@@ -79,11 +61,11 @@ export const AdminLogin = () => {
                     justifyContent="center"
                     alignItems="center"
                     margin='auto'
-                    style={{ minHeight: '100vh', maxWidth: '1200px', maxHeight: '80%' }}
+                    style={{ minHeight: '100vh', maxWidth:'1200px', maxHeight:'80%' }}
                 >
-                    <Paper sx={{ width: '1200px', margin: '50px', borderRadius: '25px' }} elevation={20} className={classes.paperContainer}>
-                        <Stack className={classes.stackContainer} justifyContent="center" alignItems="center" direction='column'  >
-                            <img src={logo} alt="Swargadhi logo" style={{ width: '50%' }} />
+                    <Paper sx={{ width: 'auto', margin: '50px', borderRadius: '25px' }} elevation={20} className={classes.paperContainer}>
+                        <Stack className={classes.stackContainer}  justifyContent="center" alignItems="center" direction='column'  >
+                            <img src={logo} alt="Swargadhi logo" style={{ width:'50%' }} />
                             <Typography variant='h5' color='success' style={{ color: 'green', margin: '25px' }} >Admin Login</Typography>
                             <TextField
                                 placeholder='Email'
@@ -91,20 +73,15 @@ export const AdminLogin = () => {
                                 margin="normal"
                                 type='text'
                                 required
-                                error={emailError}
-                                helperText={emailError ? 'Please enter a valid email address' : ''}
                                 style={{ width: '80%' }}
                                 value={email}
-                                onChange={(e) => {
-                                    setEmail(e.target.value);
-                                    setEmailError(false);
-                                }}
+                                onChange={(e) => setEmail(e.target.value)}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position='start'>
                                             <EmailRoundedIcon />
                                         </InputAdornment>
-                                    ),
+                                    ), 
                                 }}
                             />
                             <TextField
@@ -113,14 +90,9 @@ export const AdminLogin = () => {
                                 margin="normal"
                                 type='password'
                                 required
-                                error={passwordError}
-                                helperText={passwordError ? 'Please enter your password' : ''}
                                 style={{ width: '80%', marginBottom: '50px' }}
                                 value={password}
-                                onChange={(e) => {
-                                    setPassword(e.target.value);
-                                    setPasswordError(false);
-                                }}
+                                onChange={(e) => setPassword(e.target.value)}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position='start'>
@@ -130,27 +102,10 @@ export const AdminLogin = () => {
                                 }}
                             />
                             <Button variant="contained" onClick={handleLogin} color='success'>Login</Button>
-                            <Snackbar
-                                open={snackbarOpen}
-                                autoHideDuration={3000}
-                                onClose={() => { setSnackbarOpen(false); if (isLogin) { navigate('/admin/home') } }}
-                                message={snackMessage}
-                                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                                sx={{marginTop:"100px"}}
-                                
-                            >
-                                <Alert
-                                    onClose={() => { setSnackbarOpen(false); if (isLogin) { navigate('/admin/home') } }}
-                                    severity={isLogin ? "success" : "error"}
-                                    variant="filled"
-                                    sx={{ width: '100%'}}>
-                                    {snackMessage}
-                                </Alert>
-                            </Snackbar>
                         </Stack>
                     </Paper>
                 </Grid>
             </ThemeProvider>
-        </div>
+        </div> 
     );
 };
