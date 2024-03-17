@@ -220,3 +220,39 @@ export const getEnglishPart = async (request, response) => {
         response.status(500).send({ message: error.message });
     }
 };
+
+
+export const getSinhalaAyurvedicProductsByCategory = async (request, response) => {
+    try {
+        const { category } = request.params;
+        const ayurvedicProducts = await AyurvedicProduct.find({ "category.si": category })
+                                                        .select({ "itemName.si": 1, "description.si": 1, "category.si": 1, "price": 1, "quantity": 1 }) // Projection to select only specific fields in Sinhala
+                                                        .lean(); // Convert Mongoose documents to plain JavaScript objects
+        return response.status(200).json({
+            count: ayurvedicProducts.length,
+            data: ayurvedicProducts
+        });
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+};
+
+
+export const getEnglishAyurvedicProductsByCategory = async (request, response) => {
+    try {
+        const { category } = request.params;
+        const ayurvedicProducts = await AyurvedicProduct.find({ "category.en": category })
+                                                        .select({ "itemName.en": 1, "description.en": 1, "category.en": 1, "price": 1, "quantity": 1 }) // Projection to select only specific fields in Sinhala
+                                                        .lean(); // Convert Mongoose documents to plain JavaScript objects
+        return response.status(200).json({
+            count: ayurvedicProducts.length,
+            data: ayurvedicProducts
+        });
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+};
+
+
