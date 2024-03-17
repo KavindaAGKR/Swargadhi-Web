@@ -90,9 +90,9 @@ export const Header = () => {
     const isMatch = useMediaQuery(theme.breakpoints.down('md'));
     
     return (
-            <React.Fragment>
+            <React.Fragment >
                 <AppBar position='static' >
-                    <Toolbar sx={{backgroundColor:'white', justifyContent:'space-between' }}>
+                    <Toolbar sx={{backgroundColor:'white', justifyContent:'space-between'  }}>
                         <img src={logo} alt="Swargadhi logo" width="30%"/>
 
 

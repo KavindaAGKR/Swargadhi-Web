@@ -6,7 +6,6 @@ import { Signup } from './Pages/Signup';
 import { About } from './Pages/About';
 import { AdminLogin } from './AdminPanel/AdminLogin';
 import { AdminHome } from './AdminPanel/AdminHome';
-import { AddProduct } from './AdminPanel/AddProduct';
 import { Products } from './AdminPanel/Products';
 import { AdminDashboard } from './AdminPanel/AdminDashboard';
 import { AdminProfile } from './AdminPanel/AdminProfile';
@@ -54,19 +53,19 @@ function App() {
 {/* Nested Route for admin Dashboard */}
         <Route path='/admin/home' element={<AdminHome/>}>
           <Route index element={<AdminDashboard/>}/>
-          <Route path='admin/profile' element={<AdminProfile/>}/>
-          <Route path='admin/orders' element={<AdminOrders/>}/>
-          <Route path='admin/salesreport' element={<AdminSaleReport/>}/>
-          <Route path='admin/users' element={<AdminUsers/>}/>
-          <Route path='admin/messages' element={<AdminMessages/>}/>
-          <Route path='admin/settings' element={<AdminSettings/>}/>
+          <Route path='profile' element={<AdminProfile/>}/>
+          <Route path='orders' element={<AdminOrders/>}/>
+          <Route path='salesreport' element={<AdminSaleReport/>}/>
+          <Route path='users' element={<AdminUsers/>}/>
+          <Route path='messages' element={<AdminMessages/>}/>
+          <Route path='settings' element={<AdminSettings/>}/>
 
 
 
           {/* Productssssssssssssssss */}
           
-          <Route path='admin/products' element={<Products/>}>
-            <Route path='admin/addproduct' element={<AddProduct/>}/>
+          <Route path='products' element={<Products/>}>
+            {/* <Route path='admin/addproduct' element={<AddProduct/>}/> */}
           </Route>
 
         </Route>

@@ -20,13 +20,13 @@ return (
             <Stack direction='column' gap='50px' width='80%' justifyContent='center' alignContent='center' margin='auto' >
 
                 <Button variant='contained' color='success' onClick={()=>navigate('')}>Dashboard</Button>
-                <Button variant='contained' color='success' onClick={()=>navigate('admin/profile')}>Admin Profile</Button>
-                <Button variant='contained' color='success' onClick={()=>navigate('admin/orders')}>Orders</Button>
-                <Button variant='contained' color='success' onClick={()=>{navigate('admin/products')}}>products</Button>
-                <Button variant='contained' color='success' onClick={()=>navigate('admin/salesreport')}  >Sales Report</Button>
-                <Button variant='contained' color='success' onClick={()=>navigate('admin/users')}  >Users</Button>
-                <Button variant='contained' color='success' onClick={()=>navigate('admin/messages')}  >Messages</Button>
-                <Button variant='contained' color='success' onClick={()=>navigate('admin/settings')}  >Settings</Button>
+                <Button variant='contained' color='success' onClick={()=>navigate('profile')}>Admin Profile</Button>
+                <Button variant='contained' color='success' onClick={()=>navigate('orders')}>Orders</Button>
+                <Button variant='contained' color='success' onClick={()=>{navigate('products')}}>products</Button>
+                <Button variant='contained' color='success' onClick={()=>navigate('salesreport')}  >Sales Report</Button>
+                <Button variant='contained' color='success' onClick={()=>navigate('users')}  >Users</Button>
+                <Button variant='contained' color='success' onClick={()=>navigate('messages')}  >Messages</Button>
+                <Button variant='contained' color='success' onClick={()=>navigate('settings')}  >Settings</Button>
                 <Button variant='contained' color='success' onClick={()=>alert('You have signed out!')}  >SignOut</Button>
                 
             </Stack >
