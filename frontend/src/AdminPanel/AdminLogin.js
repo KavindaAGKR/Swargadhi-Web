@@ -8,6 +8,8 @@ import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import axios from 'axios';
 import Snackbar from '@mui/material/Snackbar';
+import Cookies from 'js-cookie'; 
+
 
 const theme = createTheme();
 
@@ -56,10 +58,14 @@ export const AdminLogin = () => {
             });
 
             if (response.data.alert) {
-                setSnackMessage(response.data.message)
+                setSnackMessage("Successfully logged in")
                 setSnackbarOpen(true);
                 setIsLogin(true)
+                
                 localStorage.setItem('userDetails', JSON.stringify(response.data.Admin));
+                Cookies.set('jwt', response.data.token); 
+                console.log('Successfully authenticated as admin');
+                console.log('Token:', response.data.token); 
             } else {
                 setSnackMessage(response.data.message)
                 setSnackbarOpen(true);

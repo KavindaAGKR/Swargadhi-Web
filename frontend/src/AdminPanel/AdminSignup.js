@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Paper, Button, Typography, TextField, InputAdornment, Stack } from '@mui/material';
+import { Grid, Paper, Button, Typography, TextField, InputAdornment, Stack, Snackbar, Alert } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; 
@@ -32,8 +32,36 @@ export const AdminSignup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
+    const [snackbarMessage, setSnackMessage] = useState('');
+    const [snackBarOpen, setSnackBarOpen] = useState(false);
+    const [issignedup, setisSignedup] = useState(false);
+
+
 
     const handleSignup = async () => {
+        setSnackBarOpen(true)
+
+
+        if (!firstName || !lastName ||!email || !password) {
+            setSnackMessage('All the fields are required');
+            setSnackBarOpen(true);
+            return;
+        }
+
+        const emailtype = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailtype.test(email)) {
+            setSnackMessage('Please enter a valid email address');
+            setSnackBarOpen(true);
+            return;
+        }
+        if(password !== password2){
+            setSnackMessage('Entered two passwords are not matching!');
+            setSnackBarOpen(true);
+            return;
+        }
+
+
+
         try {
             const response = await axios.post('http://localhost:5000/api/admin/register', {
                 firstName,
@@ -43,11 +71,17 @@ export const AdminSignup = () => {
                 password2
             });
             console.log(response.data.message);
-            navigate('/admin');
+            setSnackMessage(response.data.message);
+            setisSignedup(true);
+            //navigate('/admin');
         } catch (error) {
             console.error(error);
+            setSnackMessage("Invalid Inputs");
+
             // Handle error, show error message to user
         }
+
+
     };
 
     return (
@@ -119,6 +153,26 @@ export const AdminSignup = () => {
                                 }}
                             />
                             <Button variant="contained" onClick={handleSignup} color='success' style={{ width: '30%', marginBottom: '50px' }}>Signup</Button>
+                            <Snackbar
+                                open={snackBarOpen}
+                                autoHideDuration={3000}
+                                onClose={() => { setSnackBarOpen(false); if (issignedup) { navigate('/admin/') } }}
+                                message={snackbarMessage}
+                                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                                sx={{marginTop:"100px"}}
+                                
+                            >
+                                <Alert
+                                onClose={() => { setSnackBarOpen(false); if (issignedup) { navigate('/admin/') } }}
+                                severity={issignedup ? "success" : "error"}
+                                variant="filled"
+                                >
+                                
+                                {snackbarMessage}
+                                </Alert>
+
+                            </Snackbar>
+
                         </Stack>
                     </Paper>
                 </Grid>
