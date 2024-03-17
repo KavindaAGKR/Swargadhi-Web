@@ -93,7 +93,7 @@ export const Header = () => {
             <React.Fragment>
                 <AppBar position='static' >
                     <Toolbar sx={{backgroundColor:'white', justifyContent:'space-between' }}>
-                        <img src={logo} alt="Swargadhi logo" width="30%" />
+                        <img src={logo} alt="Swargadhi logo" width="30%"/>
 
 
                         <Stack direction='row' >

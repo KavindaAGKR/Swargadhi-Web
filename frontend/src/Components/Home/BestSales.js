@@ -112,7 +112,7 @@ export const BestSales =() => {
       </div>
     );
   }
-
+  
   function ProductItem({ product }) {
     return (
       <Box borderRadius={8} boxShadow={3} className="rounded-card">

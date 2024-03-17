@@ -40,7 +40,7 @@ function ImageSlider({ images, imageSize, slideInterval }) {
       <div className="image-container">
         <img
           src={images[currentImageIndex]}
-          alt={`Image ${currentImageIndex}`}
+          alt={`Imag ${currentImageIndex}`}
           style={{ width: imageSize, height: 'auto' }}
         />
         <button className="arrow-button prev" onClick={prevImage}>
