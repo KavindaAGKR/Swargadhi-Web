@@ -40,8 +40,8 @@ export const Products = () => {
 
 
     const handleSubmit = async () => {
-      try {
-          const formattedData = {
+        try {
+            const formattedData = {
                 productItemID: productData.productItemID,
                 itemName: {
                     en: productData.itemNameEn,
@@ -59,34 +59,34 @@ export const Products = () => {
                 },
                 images: productData.images, // Changed to images
             };
-  
-          console.log('Formatted Data:', formattedData);
-  
-          const response = await fetch('http://localhost:5000/api/product/new', {
+
+            console.log('Formatted Data:', formattedData);
+
+        const response = await fetch('http://localhost:5000/api/product/new', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formattedData)
             });
-  
-          const responseData = await response.json(); // Parse response JSON
-  
+
+        const responseData = await response.json(); // Parse response JSON
+
           console.log('Response from backend:', responseData); // Log response from backend
-  
-          if (response.ok) {
-              console.log('Product added successfully');
+
+            if (response.ok) {
+                console.log('Product added successfully');
               // You can perform any action here after successful addition of product
-          } else {
-              console.error('Failed to add product');
-          }
-      } catch (error) {
-          console.error('Error adding product:', error);
-      }
-      setOpen(false);
-  };
-  
-  
+            } else {
+                console.error('Failed to add product');
+            }
+        } catch (error) {
+            console.error('Error adding product:', error);
+        }
+        setOpen(false);
+};
+
+
 
 //Fetch Data To DataGrid from The Backend
 const [products, setProducts] = useState([]);
@@ -117,9 +117,9 @@ const [products, setProducts] = useState([]);
         { field: 'price', headerName: 'Price (LKR)', width: 150 },
         { field: 'quantity', headerName: 'Available Quantity', width: 150 },
         { field: 'category', headerName: 'Category', width: 150 },
-        { field: 'image', headerName: 'Image', width: 100, renderCell: (params) => 
+        { field: 'image', headerName: 'Image', width: 150, renderCell: (params) => 
         params.value && params.value.length > 0 ? 
-        <img src={params.value[0]} alt="Product {id}" style={{ width: '50px', height: 'auto' }} /> 
+        <img src={params.value[0]} alt="Product {id}" style={{ width: '100%', height: 'auto' }} /> 
         : null },
         { 
             field: 'actions', 
@@ -223,9 +223,9 @@ const [products, setProducts] = useState([]);
                         rows={rows}
                         columns={columns}
                         pageSize={auto}
-                        rowHeight={50} 
-                        columnBuffer={2} columnThreshold={2} 
                         
+                        
+                        getRowHeight={() => auto}
                         // checkboxSelection
                         // disableSelectionOnClick
                     />
