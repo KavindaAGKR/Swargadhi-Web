@@ -44,7 +44,7 @@ function a11yProps(index) {
   };
 }
 
-export const Shop = () => {
+export const ShopOsama = () => {
   const theme = useTheme();
   const [value, setValue] = useState(0);
   const [products, setProducts] = useState([]); // Define products state
