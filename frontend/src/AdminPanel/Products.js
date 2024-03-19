@@ -177,7 +177,7 @@ export const Products = () => {
                 >
                     <DialogContent>
                         <Stack gap={2} sx={{ width: '100%' }} justifyContent='space-between' direction='column'>
-                            <Typography variant='h3' color='success.main'>Add a new Product</Typography>
+                            <Typography variant='h3' color='success.main' margin='auto'>Add New Product</Typography>
                             <Stack direction='row' gap={2}>
                                 <TextField name='productItemID' type='text' label='Enter Product ID' value={productData.productItemID} onChange={handleChange} />
                                 <TextField name='category' label='Select Category' select sx={{ width: "50%" }} value={productData.category} onChange={handleChange}>
