@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Grid, Stack, Typography, TextField, MenuItem, Dialog, DialogActions, DialogContent } from '@mui/material';
-import ConvertToBase64 from './constants/convertToBase64';
+import { initializeApp } from "firebase/app";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'; // Import Firebase storage functions
 
 export const Products = () => {
     const [open, setOpen] = useState(false);
@@ -16,17 +17,68 @@ export const Products = () => {
         images: [] // Changed to an array
     });
 
+    const firebaseConfig = {
+        // Your Firebase config here
+        apiKey: "AIzaSyCwTnB-5-JNu-wu4S-jejIBZ4ylcAiWzH0",
+        authDomain: "swargadi-3250a.firebaseapp.com",
+        projectId: "swargadi-3250a",
+        storageBucket: "swargadi-3250a.appspot.com",
+        messagingSenderId: "991902590983",
+        appId: "1:991902590983:web:329754a966b8b39e0ee2a2",
+        measurementId: "G-0KGDYEWK6L"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const storage = getStorage(app);
+    const storageRef = ref(storage, "images");
+
+    const handleImageChange = (event) => {
+        const selectedFiles = Array.from(event.target.files);
+        setProductData({ ...productData, images: selectedFiles });
+    };
+
+    const handleUpload = async () => {
+        const urls = [];
+
+        // Upload each image
+        for (let i = 0; i < productData.images.length; i++) {
+            const image = productData.images[i];
+            const imageName = image.name;
+            const imageRef = ref(storageRef, imageName);
+            const metadata = { contentType: image.type };
+            const uploadTask = uploadBytesResumable(imageRef, image, metadata);
+            
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    // Handle upload progress
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log(`Upload ${imageName} is ${progress}% done`);
+                },
+                (error) => {
+                    // Handle upload errors
+                    console.error(`Error uploading ${imageName}:`, error);
+                },
+                async () => {
+                    // Handle successful upload completion
+                    try {
+                        const downloadURL = await getDownloadURL(imageRef);
+                        urls.push(downloadURL);
+                        console.log(`File ${imageName} uploaded successfully. URL:`, downloadURL);
+                        setProductData(prevData => ({
+                            ...prevData,
+                            images: urls
+                        }));
+                    } catch (error) {
+                        console.error(`Error retrieving download URL for ${imageName}:`, error);
+                    }
+                }
+            );
+        }
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setProductData({ ...productData, [name]: value });
-    };
-
-    const handleFileUpload = async (e) => {
-        const files = e.target.files;
-        const base64Array = await Promise.all(
-            [...files].map(file => ConvertToBase64(file))
-        );
-        setProductData({ ...productData, images: base64Array });
     };
 
     const handleSubmit = async () => {
@@ -47,7 +99,7 @@ export const Products = () => {
                     en: productData.category,
                     si: productData.category 
                 },
-                images: productData.images, // Changed to images
+                images: productData.images, // Only storing image names
             };
 
             console.log('Formatted Data:', formattedData);
@@ -75,6 +127,16 @@ export const Products = () => {
         setOpen(false);
     };
 
+    useEffect(() => {
+        return () => {
+            productData.images.forEach((image) => {
+                if (typeof image !== 'string') {
+                    URL.revokeObjectURL(image);
+                }
+            });
+        };
+    }, [productData.images]);
+
     return (
         <Grid container>
             <Stack>
@@ -100,9 +162,19 @@ export const Products = () => {
                                 <MenuItem value='Paththu'>Paththu</MenuItem>
                                 <MenuItem value='Guli'>Guli</MenuItem>
                             </TextField>
-                            <input name='images' type='file' label='Enter the image' onChange={handleFileUpload} multiple /> {/* Multiple attribute added */}
+                            <div>
+                                <h2>Upload Images</h2>
+                                <input type="file" onChange={handleImageChange} multiple />
+                                <button onClick={handleUpload}>Upload</button>
+                                {/* Image preview */}
+                                <div>
+                                    {productData.images.map((image, index) => (
+                                        <img key={index} src={typeof image === 'string' ? image : URL.createObjectURL(image)} alt={`image-${index}`} width="100" />
+                                    ))}
+                                </div>
+                            </div>
                         </Stack>
-                    </DialogContent>
+                        </DialogContent>
                     <DialogActions>
                         <Button onClick={() => setOpen(false)}>Cancel</Button>
                         <Button onClick={handleSubmit}>Submit</Button>
@@ -113,3 +185,6 @@ export const Products = () => {
         </Grid>
     );
 };
+
+export default Products;
+

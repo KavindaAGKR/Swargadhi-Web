@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
@@ -8,28 +8,8 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Card, CardActionArea, CardContent, CardMedia, Button, Grid } from '@mui/material';
-import slide1 from '../Images/Slider1.jpg'
-import slide2 from '../Images/Slider2.png'
-
-
-const products = [
-  {
-    id: 1,
-    name: 'Product 1',
-    description: 'Description of Product 1',
-    price: 'RS. 100',
-    image: slide1
-  },
-  
-  {
-    id: 2,
-    name: 'Product 2',
-    description: 'Description of Product 2',
-    price: 'RS. 200',
-    image: slide2
-  },
-  // Add more products as needed
-];
+import slide1 from '../Images/Slider1.jpg';
+import slide2 from '../Images/Slider2.png';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -64,19 +44,41 @@ function a11yProps(index) {
   };
 }
 
-export const Shop = ()=> {
+export const Shop = () => {
   const theme = useTheme();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [products, setProducts] = useState([]); // Define products state
   const productsPerPage = 10; // Number of products to display per page
-  const [currentPage, setCurrentPage] = React.useState(0);
-  const totalPages = Math.ceil(products.length / productsPerPage);
+  const [currentPage, setCurrentPage] = useState(0);
+  const categories = ['Paththu', 'Kalka', 'Kashaya', 'Talkola', 'Guli', 'Moadaka'];
+
+  useEffect(() => {
+    fetchProductsByCategory(0); // Fetch products for the initial category
+  }, []);
+
+  const fetchProductsByCategory = async (categoryIndex) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/product/category/en/${categories[categoryIndex].toLowerCase()}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      const data = await response.json();
+      setProducts(data.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    fetchProductsByCategory(newValue); // Fetch products for the selected category
+    setCurrentPage(0); // Reset currentPage when changing the category
   };
 
   const handleChangeIndex = (index) => {
     setValue(index);
+    fetchProductsByCategory(index); // Fetch products for the selected category when swiping
+    setCurrentPage(0); // Reset currentPage when changing the category
   };
 
   const nextPage = () => {
@@ -90,24 +92,21 @@ export const Shop = ()=> {
   const startIndex = currentPage * productsPerPage;
   const endIndex = startIndex + productsPerPage;
   const displayedProducts = products.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(products.length / productsPerPage);
 
   return (
-    <Box sx={{ bgcolor: 'background.paper', width: '80%', margin:'auto' }}>
+    <Box sx={{ bgcolor: 'background.paper', width: '80%', margin: 'auto' }}>
       <AppBar position="static">
         <Tabs
           value={value}
           onChange={handleChange}
           indicatorColor="secondary"
           textColor="inherit"
-          // variant="fullWidth"
           aria-label="full width tabs example"
         >
-          <Tab label="Paththu" {...a11yProps(0)} />
-          <Tab label="Kalka" {...a11yProps(1)} />
-          <Tab label="Kashaya" {...a11yProps(2)} />
-          <Tab label="Talkola" {...a11yProps(3)} />
-          <Tab label="Gulikalka" {...a11yProps(4)} />
-          <Tab label="Moadaka" {...a11yProps(5)} />
+          {categories.map((category, index) => (
+            <Tab key={index} label={category} {...a11yProps(index)} />
+          ))}
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -115,58 +114,100 @@ export const Shop = ()=> {
         index={value}
         onChangeIndex={handleChangeIndex}
       >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          <Grid container spacing={3}>
-            {displayedProducts.map((product) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
-                <ProductItem product={product} />
-              </Grid>
-            ))}
-          </Grid>
-          <div>
-            <Button variant="outlined" onClick={prevPage} disabled={currentPage === 0}>
-              Prev
-            </Button>
-            <Button variant="outlined" onClick={nextPage} disabled={currentPage === totalPages - 1}>
-              Next
-            </Button>
-          </div>
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          Item Two
-        </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          Item Three
-        </TabPanel>
-        <TabPanel value={value} index={6} dir={theme.direction}>
-          
-        </TabPanel>
+        {categories.map((category, index) => (
+          <TabPanel key={index} value={value} index={index} dir={theme.direction}>
+            <Grid container spacing={3}>
+              {displayedProducts.map((product) => (
+                <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
+                  <ProductItem product={product} />
+                </Grid>
+              ))}
+            </Grid>
+            <div>
+              <Button variant="outlined" onClick={prevPage} disabled={currentPage === 0}>
+                Prev
+              </Button>
+              <Button variant="outlined" onClick={nextPage} disabled={currentPage === totalPages - 1}>
+                Next
+              </Button>
+            </div>
+          </TabPanel>
+        ))}
       </SwipeableViews>
     </Box>
   );
 }
+
+// function ProductItem({ product }) {
+//   return (
+//     <Box>
+//       <Card sx={{ maxWidth: 340, maxHeight: 500, margin: 'auto' }}>
+//         <CardActionArea>
+//           {typeof product.image === 'object' ? (
+//             <CardMedia
+            
+//               component="img"
+//               height="250"
+//               width="20"
+//               image={product.image.en} // Assuming 'en' is the key for English image URL
+//               alt={product.name}
+//             />
+//           ) : (
+//             <CardMedia
+//               component="img"
+//               height="250"
+//               width="20"
+//               image={product.image} // Assuming 'product.image' is already a string URL
+//               alt={product.name}
+//             />
+//           )}
+//           <CardContent>
+//             <Typography gutterBottom variant="h5" component="div">
+//               {product.name}
+//             </Typography>
+//             <Typography variant="h6" color="text.primary">
+//               {product.price}
+//             </Typography>
+//           </CardContent>
+//         </CardActionArea>
+//         <CardContent>
+//           <Button variant="contained" color="primary">
+//             Add to Cart
+//           </Button>
+//           <Button variant="outlined" color="primary" sx={{ marginLeft: '10px' }}>
+//             View More
+//           </Button>
+//         </CardContent>
+//       </Card>
+//     </Box>
+//   );
+// }
+
 
 function ProductItem({ product }) {
   return (
     <Box>
       <Card sx={{ maxWidth: 340, maxHeight: 500, margin: 'auto' }}>
         <CardActionArea>
-          <CardMedia
-            component="img"
-            height="250"
-            width="20"
-            image={product.image}
-            alt={product.name}
-          />
+          {product.images.map((image, index) => (
+            <CardMedia
+              key={index}
+              component="img"
+              height="250"
+              width="20"
+              image={image} // Assuming each image in product.images is base64-encoded
+              alt={product.name}
+            />
+          ))}
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {product.name}
+              {product.itemName.si} {/* Assuming 'itemName' contains the name of the product */}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {product.description}
+              {product.description.si} {/* Assuming 'description' contains the description of the product */}
             </Typography>
             <Typography variant="h6" color="text.primary">
-              {product.price}
+              {product.price} {/* Assuming 'price' contains the price of the product */}
             </Typography>
           </CardContent>
         </CardActionArea>

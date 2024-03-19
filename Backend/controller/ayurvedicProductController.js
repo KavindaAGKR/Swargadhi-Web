@@ -15,6 +15,7 @@ export const createAyurvedicProduct = async (request, response) => {
                 message: 'Please send all required fields'
             });
         }
+        
 
         const newAyurvedicProduct = {
             productItemID: request.body.productItemID,
@@ -44,7 +45,7 @@ export const createAyurvedicProduct2 = async (request, response) => {
                 message: `Please provide all required fields: ${missingFields.join(', ')}`
             });
         }
-
+        
         // Create a new Ayurvedic product object
         const newAyurvedicProduct = {
             productItemID: request.body.productItemID,
@@ -226,7 +227,7 @@ export const getSinhalaAyurvedicProductsByCategory = async (request, response) =
     try {
         const { category } = request.params;
         const ayurvedicProducts = await AyurvedicProduct.find({ "category.si": category })
-                                                        .select({ "itemName.si": 1, "description.si": 1, "category.si": 1, "price": 1, "quantity": 1 }) // Projection to select only specific fields in Sinhala
+                                                        .select({ "itemName.si": 1, "description.si": 1, "category.si": 1, "price": 1, "quantity": 1 ,"images":1}) // Projection to select only specific fields in Sinhala
                                                         .lean(); // Convert Mongoose documents to plain JavaScript objects
         return response.status(200).json({
             count: ayurvedicProducts.length,
@@ -243,7 +244,7 @@ export const getEnglishAyurvedicProductsByCategory = async (request, response) =
     try {
         const { category } = request.params;
         const ayurvedicProducts = await AyurvedicProduct.find({ "category.en": category })
-                                                        .select({ "itemName.en": 1, "description.en": 1, "category.en": 1, "price": 1, "quantity": 1 }) // Projection to select only specific fields in Sinhala
+                                                        .select({ "itemName.en": 1, "description.en": 1, "category.en": 1, "price": 1, "quantity": 1 ,"images":1}) // Projection to select only specific fields in Sinhala
                                                         .lean(); // Convert Mongoose documents to plain JavaScript objects
         return response.status(200).json({
             count: ayurvedicProducts.length,

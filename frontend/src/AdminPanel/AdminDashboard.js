@@ -51,7 +51,7 @@ export const AdminDashboard = () => {
                                                 {product.images.map((image, index) => (
                                                     <img
                                                         key={index}
-                                                        src={image}
+                                                        src={image} // Use the URL from the database directly
                                                         alt={`Product Image ${index}`}
                                                         width={100}
                                                         height={100}
