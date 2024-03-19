@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Grid, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
-import logo from '../Images/logo.png';
+import { Box, Grid, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+// import logo from '../Images/logo.png';
 
 export const AdminDashboard = () => {
     const [products, setProducts] = useState([]);
@@ -52,7 +52,7 @@ export const AdminDashboard = () => {
                                                     <img
                                                         key={index}
                                                         src={image}
-                                                        alt={`Product Image ${index}`}
+                                                        alt={`Product ${index}`}
                                                         width={100}
                                                         height={100}
                                                         style={{ marginRight: '10px' }}
