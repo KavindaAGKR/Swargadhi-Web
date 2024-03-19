@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Grid, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-// import logo from '../Images/logo.png';
+import { Box, Grid, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import logo from '../Images/logo.png';
 
 export const AdminDashboard = () => {
     const [products, setProducts] = useState([]);
@@ -51,8 +51,8 @@ export const AdminDashboard = () => {
                                                 {product.images.map((image, index) => (
                                                     <img
                                                         key={index}
-                                                        src={image}
-                                                        alt={`Product ${index}`}
+                                                        src={image} // Use the URL from the database directly
+                                                        alt={`Product Image ${index}`}
                                                         width={100}
                                                         height={100}
                                                         style={{ marginRight: '10px' }}
