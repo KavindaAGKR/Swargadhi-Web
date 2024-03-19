@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Grid, Stack, Typography, TextField, MenuItem, Dialog, DialogActions, DialogContent } from '@mui/material';
+import { Button, Stack, Typography, TextField, MenuItem, Dialog, DialogActions, DialogContent } from '@mui/material';
 import { initializeApp } from "firebase/app";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'; // Import Firebase storage functions
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box } from '@mui/system';
-import ConvertToBase64 from './constants/convertToBase64';
-import { auto } from '@popperjs/core';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-
-
+import { auto } from '@popperjs/core';
 
 
 export const Products = () => {
@@ -23,7 +20,7 @@ export const Products = () => {
         descriptionSi: '',
         quantity: 0,
         category: '',
-        images: [] // Changed to an array
+        images: []
     });
 
     const firebaseConfig = {
@@ -49,28 +46,18 @@ export const Products = () => {
     const handleUpload = async () => {
         try {
             const urls = [];
-    
-            // Upload each image
             for (let i = 0; i < productData.images.length; i++) {
                 const image = productData.images[i];
                 const imageName = image.name;
                 const imageRef = ref(storageRef, imageName);
                 const metadata = { contentType: image.type };
                 const uploadTask = uploadBytesResumable(imageRef, image, metadata);
-                
                 const snapshot = await uploadTask;
-    
-                // Get download URL for the uploaded image
                 const downloadURL = await getDownloadURL(snapshot.ref);
                 urls.push(downloadURL);
                 console.log(`File ${imageName} uploaded successfully. URL:`, downloadURL);
             }
-    
-            // Update the state with all download URLs
-            setProductData(prevData => ({
-                ...prevData,
-                images: urls
-            }));
+            setProductData(prevData => ({ ...prevData, images: urls }));
         } catch (error) {
             console.error('Error uploading images:', error);
         }
@@ -85,37 +72,21 @@ export const Products = () => {
         try {
             const formattedData = {
                 productItemID: productData.productItemID,
-                itemName: {
-                    en: productData.itemNameEn,
-                    si: productData.itemNameSi
-                },
+                itemName: { en: productData.itemNameEn, si: productData.itemNameSi },
                 price: productData.price,
-                description: {
-                    en: productData.descriptionEn,
-                    si: productData.descriptionSi
-                },
+                description: { en: productData.descriptionEn, si: productData.descriptionSi },
                 quantity: productData.quantity,
-                category: {
-                    en: productData.category,
-                    si: productData.category 
-                },
-                images: productData.images, // Only storing image names
+                category: { en: productData.category, si: productData.category },
+                images: productData.images,
             };
-
             console.log('Formatted Data:', formattedData);
-
             const response = await fetch('http://localhost:5000/api/product/new', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formattedData)
             });
-
             const responseData = await response.json();
-
             console.log('Response from backend:', responseData);
-
             if (response.ok) {
                 console.log('Product added successfully');
             } else {
@@ -127,26 +98,11 @@ export const Products = () => {
         setOpen(false);
     };
 
-
-//Fetch Data To DataGrid from The Backend
-const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([]);
 
     useEffect(() => {
         fetchAllProducts();
     }, []);
-
-    useEffect(() => {
-        return () => {
-            productData.images.forEach((image) => {
-                if (typeof image !== 'string') {
-                    URL.revokeObjectURL(image);
-                }
-            });
-        };
-    }, [productData.images]);
-
-
-
 
     const fetchAllProducts = async () => {
         try {
@@ -170,10 +126,18 @@ const [products, setProducts] = useState([]);
         { field: 'price', headerName: 'Price (LKR)', width: 150 },
         { field: 'quantity', headerName: 'Available Quantity', width: 150 },
         { field: 'category', headerName: 'Category', width: 150 },
-        { field: 'image', headerName: 'Image', width: 150, renderCell: (params) => 
-        params.value && params.value.length > 0 ? 
-        <img src={params.value[0]} alt="Product {id}" style={{ width: '100%', height: 'auto' }} /> 
-        : null },
+        { 
+            field: 'images', 
+            headerName: 'Images', 
+            width: 150, 
+            renderCell: (params) => (
+                <div>
+                    {params.value && params.value.length > 0 && params.value.map((imageUrl, index) => (
+                        <img key={index} src={imageUrl} alt={`Product id:${params.id} img no: ${index}`} style={{ width: '50px', height: '50px', margin: '5px' }} />
+                    ))}
+                </div>
+            ),
+        },
         { 
             field: 'actions', 
             headerName: 'Edit/Delete', 
@@ -185,8 +149,8 @@ const [products, setProducts] = useState([]);
                 </Stack>
             ),
         },
-
     ];
+    
 
     const rows = products.map(product => ({
         id: product.productItemID,
@@ -197,14 +161,9 @@ const [products, setProducts] = useState([]);
         price: product.price,
         quantity: product.quantity,
         category: product.category.en,
-        image: product.images ? product.images : [], 
+        images: product.images ? product.images.map(image => image) : [],
     }));
-
-
-
-
-
-
+    
 
     return (
         <Stack>
@@ -220,50 +179,38 @@ const [products, setProducts] = useState([]);
                         <Stack gap={2} sx={{ width: '100%' }} justifyContent='space-between' direction='column'>
                             <Typography variant='h3' color='success.main'>Add a new Product</Typography>
                             <Stack direction='row' gap={2}>
-                            <TextField name='productItemID' type='text' label='Enter Product ID' value={productData.productItemID} onChange={handleChange} />
-                            <TextField name='category' label='Select Category' select sx={{ width: "50%" }} value={productData.category} onChange={handleChange}>
-                                <MenuItem value='kalka'>Kalka</MenuItem>
-                                <MenuItem value='Paththu'>Paththu</MenuItem>
-                                <MenuItem value='Guli'>Guli</MenuItem>
-                            </TextField>
-
-                            </Stack >
+                                <TextField name='productItemID' type='text' label='Enter Product ID' value={productData.productItemID} onChange={handleChange} />
+                                <TextField name='category' label='Select Category' select sx={{ width: "50%" }} value={productData.category} onChange={handleChange}>
+                                    <MenuItem value='kalka'>Kalka</MenuItem>
+                                    <MenuItem value='Paththu'>Paththu</MenuItem>
+                                    <MenuItem value='Guli'>Guli</MenuItem>
+                                </TextField>
+                            </Stack>
                             <Stack direction='row' gap={2}>
                                 <TextField name='itemNameEn' type='text' label='Enter Name in English' value={productData.itemNameEn} onChange={handleChange} />
                                 <TextField name='itemNameSi' type='text' label='Enter Name in Sinhala' value={productData.itemNameSi} onChange={handleChange} />
-                            
                             </Stack>
                             <Stack direction='row' gap={2}>
                                 <TextField name='quantity' type='number' label='Enter the available quantity' value={productData.quantity} onChange={handleChange} />
                                 <TextField name='price' type='number' label='Price' value={productData.price} onChange={handleChange} />
-                            
-
                             </Stack>
                             <Stack direction='row' gap={2}>
                                 <TextField name='descriptionEn' type='text' label='Enter the product description in English' value={productData.descriptionEn} onChange={handleChange} />
                                 <TextField name='descriptionSi' type='text' label='Enter the product description in Sinhala' value={productData.descriptionSi} onChange={handleChange} />
-                            
                             </Stack>
-                            
-                            {/* <Stack direction='row' gap={2}>
-                            <label>Add a Image:</label>
-                            <input name='images' type='file' label='Enter the image' onChange={handleFileUpload} multiple />
-                            </Stack> */}
-
-
-                            <div>
-                                <h2>Upload Images</h2>
+                            <Stack  gap={2}>
+                                <Typography variant='body'>Upload Images (Select maximum 4 images)</Typography>
+                                <Stack direction='row' gap={10}>
                                 <input type="file" onChange={handleImageChange} multiple />
-                                <button onClick={handleUpload}>Upload</button>
-                                {/* Image preview */}
-                                <div>
+                                <Button variant='contained' onClick={handleUpload}>Upload</Button>
+                                
+                                </Stack>
+                                <Stack direction='row'>
                                     {productData.images.map((image, index) => (
-                                        <img key={index} src={typeof image === 'string' ? image : URL.createObjectURL(image)} alt={`image-${index}`} width="100" />
+                                        <img key={index} src={typeof image === 'string' ? image : URL.createObjectURL(image)} alt={`Product-${index}`} width="100" />
                                     ))}
-                                </div>
-                            </div>
-
-
+                                </Stack>
+                            </Stack>
                         </Stack>
                     </DialogContent>
                     <DialogActions>
@@ -272,58 +219,19 @@ const [products, setProducts] = useState([]);
                     </DialogActions>
                 </Dialog>
                 <Typography variant='h5'>List of Products shows here.</Typography>
-
-
-
-
-                <Stack style={{ height: '100%',    }}>
-                {products.length > 0 ? (
-
-
-        <Box sx={{ backgroundColor: 'white', margin: '0 25px ', height: '100%' }}>
-            <Stack>
-                <div style={{ height: '100%', width: '100%' }}>
-                    <DataGrid
-                        
-                        rows={rows}
-                        columns={columns}
-                        pageSize={auto}
-                        
-                        
-                        getRowHeight={() => auto}
-                        // checkboxSelection
-                        // disableSelectionOnClick
-                    />
-                </div>
-            </Stack>
-        </Box>
-
-
-
-
-
-) : (
-    <Typography>No products available</Typography>
-)}
-
-
-
-
-
-
-
-
-
-
-
-        </Stack>
-
-
+                <Box sx={{ backgroundColor: 'white', margin: '0 25px ', height: '100%' }}>
+                    <Stack>
+                        <Stack style={{ height: '100%', width: '100%' }}>
+                            <DataGrid
+                                rows={rows}
+                                columns={columns}
+                                pageSize={auto}
+                                getRowHeight={() => auto}
+                            />
+                        </Stack>
+                    </Stack>
+                </Box>
             </Stack>
         </Stack>
     );
 };
-
-
-
-
