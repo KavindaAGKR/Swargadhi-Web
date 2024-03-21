@@ -16,7 +16,7 @@ import { AdminMessages } from './AdminPanel/AdminMessages';
 import { AdminSettings } from './AdminPanel/AdminSettings';
 import { Header } from './Components/Header';
 import { Footer } from './Components/Footer';
-import { Shop } from './Pages/Shop/ShopHead';
+import {  ShopOsama } from './Pages/Shop/ShopHead';
 import { UserProfile } from './Pages/Userprofile';
 import { Dispensary } from './Pages/Dispensary';
 import { AdminSignup } from './AdminPanel/AdminSignup';
@@ -86,7 +86,7 @@ function App() {
               <Route path='/login' element={<><Header/><Login/><Footer/></>}/>
               <Route path='/signup' element={<><Header/><Signup/><Footer/></>} />
               <Route path='/about' element={<><Header/><About/><Footer/></>}/>
-              <Route path='/shop' element={<><Header/><Shop/><Footer/></>}/>
+              <Route path='/shop' element={<><Header/><ShopOsama/><Footer/></>}/>
               <Route path='/user' element={<><Header/><UserProfile/><Footer/></>}/>
               <Route path='/dispensary' element={<><Header/><Dispensary/><Footer/></>}/>
         </Routes>

@@ -8,8 +8,8 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Card, CardActionArea, CardContent, CardMedia, Button, Grid } from '@mui/material';
-import slide1 from '../Images/Slider1.jpg';
-import slide2 from '../Images/Slider2.png';
+// import slide1 from '../Images/Slider1.jpg';
+// import slide2 from '../Images/Slider2.png';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -44,7 +44,7 @@ function a11yProps(index) {
   };
 }
 
-export const Shop = () => {
+export const ShopOsama = () => {
   const theme = useTheme();
   const [value, setValue] = useState(0);
   const [products, setProducts] = useState([]); // Define products state
@@ -54,7 +54,12 @@ export const Shop = () => {
 
   useEffect(() => {
     fetchProductsByCategory(0); // Fetch products for the initial category
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+
+
+
 
   const fetchProductsByCategory = async (categoryIndex) => {
     try {

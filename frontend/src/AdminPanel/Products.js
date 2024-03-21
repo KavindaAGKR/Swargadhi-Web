@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Grid, Stack, Typography, TextField, MenuItem, Dialog, DialogActions, DialogContent } from '@mui/material';
+import { Button, Stack, Typography, TextField, MenuItem, Dialog, DialogActions, DialogContent } from '@mui/material';
 import { initializeApp } from "firebase/app";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'; // Import Firebase storage functions
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { DataGrid } from '@mui/x-data-grid';
+import { Box } from '@mui/system';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { auto } from '@popperjs/core';
+
 
 export const Products = () => {
     const [open, setOpen] = useState(false);
@@ -14,7 +20,7 @@ export const Products = () => {
         descriptionSi: '',
         quantity: 0,
         category: '',
-        images: [] // Changed to an array
+        images: []
     });
 
     const firebaseConfig = {
@@ -38,41 +44,22 @@ export const Products = () => {
     };
 
     const handleUpload = async () => {
-        const urls = [];
-
-        // Upload each image
-        for (let i = 0; i < productData.images.length; i++) {
-            const image = productData.images[i];
-            const imageName = image.name;
-            const imageRef = ref(storageRef, imageName);
-            const metadata = { contentType: image.type };
-            const uploadTask = uploadBytesResumable(imageRef, image, metadata);
-            
-            uploadTask.on('state_changed',
-                (snapshot) => {
-                    // Handle upload progress
-                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log(`Upload ${imageName} is ${progress}% done`);
-                },
-                (error) => {
-                    // Handle upload errors
-                    console.error(`Error uploading ${imageName}:`, error);
-                },
-                async () => {
-                    // Handle successful upload completion
-                    try {
-                        const downloadURL = await getDownloadURL(imageRef);
-                        urls.push(downloadURL);
-                        console.log(`File ${imageName} uploaded successfully. URL:`, downloadURL);
-                        setProductData(prevData => ({
-                            ...prevData,
-                            images: urls
-                        }));
-                    } catch (error) {
-                        console.error(`Error retrieving download URL for ${imageName}:`, error);
-                    }
-                }
-            );
+        try {
+            const urls = [];
+            for (let i = 0; i < productData.images.length; i++) {
+                const image = productData.images[i];
+                const imageName = image.name;
+                const imageRef = ref(storageRef, imageName);
+                const metadata = { contentType: image.type };
+                const uploadTask = uploadBytesResumable(imageRef, image, metadata);
+                const snapshot = await uploadTask;
+                const downloadURL = await getDownloadURL(snapshot.ref);
+                urls.push(downloadURL);
+                console.log(`File ${imageName} uploaded successfully. URL:`, downloadURL);
+            }
+            setProductData(prevData => ({ ...prevData, images: urls }));
+        } catch (error) {
+            console.error('Error uploading images:', error);
         }
     };
 
@@ -85,37 +72,21 @@ export const Products = () => {
         try {
             const formattedData = {
                 productItemID: productData.productItemID,
-                itemName: {
-                    en: productData.itemNameEn,
-                    si: productData.itemNameSi
-                },
+                itemName: { en: productData.itemNameEn, si: productData.itemNameSi },
                 price: productData.price,
-                description: {
-                    en: productData.descriptionEn,
-                    si: productData.descriptionSi
-                },
+                description: { en: productData.descriptionEn, si: productData.descriptionSi },
                 quantity: productData.quantity,
-                category: {
-                    en: productData.category,
-                    si: productData.category 
-                },
-                images: productData.images, // Only storing image names
+                category: { en: productData.category, si: productData.category },
+                images: productData.images,
             };
-
             console.log('Formatted Data:', formattedData);
-
             const response = await fetch('http://localhost:5000/api/product/new', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formattedData)
             });
-
             const responseData = await response.json();
-
             console.log('Response from backend:', responseData);
-
             if (response.ok) {
                 console.log('Product added successfully');
             } else {
@@ -127,64 +98,140 @@ export const Products = () => {
         setOpen(false);
     };
 
+    const [products, setProducts] = useState([]);
+
     useEffect(() => {
-        return () => {
-            productData.images.forEach((image) => {
-                if (typeof image !== 'string') {
-                    URL.revokeObjectURL(image);
-                }
-            });
-        };
-    }, [productData.images]);
+        fetchAllProducts();
+    }, []);
+
+    const fetchAllProducts = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/api/product/all');
+            if (!response.ok) {
+                throw new Error('Failed to fetch products');
+            }
+            const data = await response.json();
+            setProducts(data.data);
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
+
+    const columns = [
+        { field: 'id', headerName: 'Product ID', width: 100 },
+        { field: 'name_en', headerName: 'Name (English)', width: 200 },
+        { field: 'name_si', headerName: 'Name (Sinhala)', width: 200 },
+        { field: 'description_en', headerName: 'Description (English)', width: 300 },
+        { field: 'description_si', headerName: 'Description (Sinhala)', width: 300 },
+        { field: 'price', headerName: 'Price (LKR)', width: 150 },
+        { field: 'quantity', headerName: 'Available Quantity', width: 150 },
+        { field: 'category', headerName: 'Category', width: 150 },
+        { 
+            field: 'images', 
+            headerName: 'Images', 
+            width: 150, 
+            renderCell: (params) => (
+                <div>
+                    {params.value && params.value.length > 0 && params.value.map((imageUrl, index) => (
+                        <img key={index} src={imageUrl} alt={`Product id:${params.id} img no: ${index}`} style={{ width: '50px', height: '50px', margin: '5px' }} />
+                    ))}
+                </div>
+            ),
+        },
+        { 
+            field: 'actions', 
+            headerName: 'Edit/Delete', 
+            width: 150, 
+            renderCell: (params) => (
+                <Stack direction="row" spacing={1}>
+                    <EditIcon color="primary" />
+                    <DeleteIcon color="error" />
+                </Stack>
+            ),
+        },
+    ];
+    
+
+    const rows = products.map(product => ({
+        id: product.productItemID,
+        name_en: product.itemName.en,
+        name_si: product.itemName.si,
+        description_en: product.description.en,
+        description_si: product.description.si,
+        price: product.price,
+        quantity: product.quantity,
+        category: product.category.en,
+        images: product.images ? product.images.map(image => image) : [],
+    }));
+    
 
     return (
-        <Grid container>
-            <Stack>
-                <Typography>List of Products</Typography>
-                <Button onClick={() => setOpen(true)}>Add Product</Button>
+        <Stack>
+            <Stack gap={2}>
+                <Typography variant='h3' sx={{ margin:'20px auto'}}>List of Products</Typography>
+                <Button variant='contained' sx={{width:'30%', margin:'auto'}} onClick={() => setOpen(true)}>Add New Product</Button>
                 <Dialog
                     open={open}
                     aria-labelledby='Dialog-title'
                     aria-describedby='Dialog-description'
                 >
                     <DialogContent>
-                        <Stack sx={{ width: '100%' }} justifyContent="center" alignItems="center" direction='column'>
-                            <Typography variant='h3' color='success.main'>Add a new Product</Typography>
-                            <TextField name='productItemID' type='text' label='Enter Product ID' value={productData.productItemID} onChange={handleChange} />
-                            <TextField name='itemNameEn' type='text' label='Enter Name in English' value={productData.itemNameEn} onChange={handleChange} />
-                            <TextField name='itemNameSi' type='text' label='Enter Name in Sinhala' value={productData.itemNameSi} onChange={handleChange} />
-                            <TextField name='quantity' type='number' label='Enter the available quantity' value={productData.quantity} onChange={handleChange} />
-                            <TextField name='price' type='number' label='Price' value={productData.price} onChange={handleChange} />
-                            <TextField name='descriptionEn' type='text' label='Enter the product description in English' value={productData.descriptionEn} onChange={handleChange} />
-                            <TextField name='descriptionSi' type='text' label='Enter the product description in Sinhala' value={productData.descriptionSi} onChange={handleChange} />
-                            <TextField name='category' label='Select Category' select sx={{ width: "50%" }} value={productData.category} onChange={handleChange}>
-                                <MenuItem value='kalka'>Kalka</MenuItem>
-                                <MenuItem value='Paththu'>Paththu</MenuItem>
-                                <MenuItem value='Guli'>Guli</MenuItem>
-                            </TextField>
-                            <div>
-                                <h2>Upload Images</h2>
+                        <Stack gap={2} sx={{ width: '100%' }} justifyContent='space-between' direction='column'>
+                            <Typography variant='h3' color='success.main' margin='auto'>Add New Product</Typography>
+                            <Stack direction='row' gap={2}>
+                                <TextField name='productItemID' type='text' label='Enter Product ID' value={productData.productItemID} onChange={handleChange} />
+                                <TextField name='category' label='Select Category' select sx={{ width: "50%" }} value={productData.category} onChange={handleChange}>
+                                    <MenuItem value='kalka'>Kalka</MenuItem>
+                                    <MenuItem value='Paththu'>Paththu</MenuItem>
+                                    <MenuItem value='Guli'>Guli</MenuItem>
+                                </TextField>
+                            </Stack>
+                            <Stack direction='row' gap={2}>
+                                <TextField name='itemNameEn' type='text' label='Enter Name in English' value={productData.itemNameEn} onChange={handleChange} />
+                                <TextField name='itemNameSi' type='text' label='Enter Name in Sinhala' value={productData.itemNameSi} onChange={handleChange} />
+                            </Stack>
+                            <Stack direction='row' gap={2}>
+                                <TextField name='quantity' type='number' label='Enter the available quantity' value={productData.quantity} onChange={handleChange} />
+                                <TextField name='price' type='number' label='Price' value={productData.price} onChange={handleChange} />
+                            </Stack>
+                            <Stack direction='row' gap={2}>
+                                <TextField name='descriptionEn' type='text' label='Enter the product description in English' value={productData.descriptionEn} onChange={handleChange} />
+                                <TextField name='descriptionSi' type='text' label='Enter the product description in Sinhala' value={productData.descriptionSi} onChange={handleChange} />
+                            </Stack>
+                            <Stack  gap={2}>
+                                <Typography variant='body'>Upload Images (Select maximum 4 images)</Typography>
+                                <Stack direction='row' gap={10}>
                                 <input type="file" onChange={handleImageChange} multiple />
-                                <button onClick={handleUpload}>Upload</button>
-                                {/* Image preview */}
-                                <div>
+                                <Button variant='contained' onClick={handleUpload}>Upload</Button>
+                                
+                                </Stack>
+                                <Stack direction='row'>
                                     {productData.images.map((image, index) => (
-                                        <img key={index} src={typeof image === 'string' ? image : URL.createObjectURL(image)} alt={`image-${index}`} width="100" />
+                                        <img key={index} src={typeof image === 'string' ? image : URL.createObjectURL(image)} alt={`Product-${index}`} width="100" />
                                     ))}
-                                </div>
-                            </div>
+                                </Stack>
+                            </Stack>
                         </Stack>
-                        </DialogContent>
+                    </DialogContent>
                     <DialogActions>
                         <Button onClick={() => setOpen(false)}>Cancel</Button>
                         <Button onClick={handleSubmit}>Submit</Button>
                     </DialogActions>
                 </Dialog>
-                <Typography variant='h3'>List of Products shows here.</Typography>
+                <Typography variant='h5'>List of Products shows here.</Typography>
+                <Box sx={{ backgroundColor: 'white', margin: '0 25px ', height: '100%' }}>
+                    <Stack>
+                        <Stack style={{ height: '100%', width: '100%' }}>
+                            <DataGrid
+                                rows={rows}
+                                columns={columns}
+                                pageSize={auto}
+                                getRowHeight={() => auto}
+                            />
+                        </Stack>
+                    </Stack>
+                </Box>
             </Stack>
-        </Grid>
+        </Stack>
     );
 };
-
-export default Products;
-
