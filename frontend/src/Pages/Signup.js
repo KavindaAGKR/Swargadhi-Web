@@ -10,6 +10,8 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Header } from '../Components/Header';
+import { Footer } from '../Components/Footer';
 //import { Password } from '@mui/icons-material';
 //import axios from 'axios';
 
@@ -117,6 +119,7 @@ export const Signup = () => {
 
 
     return (
+      <React.Fragment><Header/>
     <ThemeProvider theme={theme}>
         <Grid
         container
@@ -204,6 +207,7 @@ export const Signup = () => {
         </Paper>
         </Grid>
     </ThemeProvider>
+    <Footer/></React.Fragment>
     );
 };
 

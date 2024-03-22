@@ -47,7 +47,11 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { Paper, Typography, Box, Button, Stack } from '@mui/material';
-
+import NextIconn from '@mui/icons-material/KeyboardArrowRightRounded';
+// import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+// import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded';
+// import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+// import PrevIcon from '@mui/icons-material/ArrowBackIosOutlined';
 import slide1 from '../Images/Slider3.png';
 import slide2 from '../Images/Slider2.png';
 import Slide3 from '../Images/Slider1.jpg';
@@ -65,16 +69,19 @@ function Example(props) {
     const allImages = items.flatMap(item => item.imageUrl);
 
     return (
-        <Paper sx={{ height: '350px', borderRadius: '30px' }} elevation={5}>
-            <Box sx={{ height: '50%' }}>
+        <Paper sx={{ height: '350px', borderRadius: '20px' }} elevation={5}>
+            <Stack sx={{margin:'10px'}}>
+            <Box sx={{ height: '50%',margin:'10px 0px'  }}>
                 <Carousel
-                    sx={{ height: '100%', margin: 'auto', borderRadius: '30px 30px 0px 0px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                    sx={{ height: '100%',   display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                     navButtonsAlwaysVisible={true}
                     autoPlay={false}
                     indicators={false}
+                    NextIcon={<NextIconn   />}
+                    
                 >
                     {allImages.map((image, index) => (
-                        <img key={index} src={image} alt={`Slide ${index + 1}`} style={{ maxWidth: '100%', maxHeight: '100%' }} />
+                        <img key={index} src={image} alt={`Slide ${index + 1}`} style={{ maxWidth: '100%', borderRadius: '20px',  }} />
                     ))}
                 </Carousel>
             </Box>
@@ -85,6 +92,7 @@ function Example(props) {
             <Button variant='contained' color='success' sx={{fontSize:'10px'}}>Add to cart</Button>
             <Button variant='contained' color='success' sx={{fontSize:'10px'}}>View more</Button>
 
+            </Stack>
             </Stack>
         </Paper>
     );

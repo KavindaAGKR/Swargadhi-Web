@@ -7,9 +7,9 @@ import { Email, WhatsApp, Facebook, Call } from '@mui/icons-material';
 export const Footer = () => {
 
     const navigate = useNavigate();
-  return (
+    return (
     
-      <AppBar position='static' sx={{ display: 'flex', justifyContent: 'center',backgroundColor:'white', width:'100%',padding:'0px' }} >
+        <AppBar position='static' sx={{ display: 'flex', justifyContent: 'center',backgroundColor:'white', width:'100%',padding:'0px' }} >
             <Toolbar sx={{  width:'100%'}}>
             <Stack direction='column' alignItems='center'>
                 
@@ -38,5 +38,5 @@ export const Footer = () => {
 
         </AppBar>
     
-  )
+    )
 }

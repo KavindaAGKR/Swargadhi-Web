@@ -9,6 +9,8 @@ import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import GoogleButton from 'react-google-button'
+import { Header } from '../Components/Header';
+import { Footer } from '../Components/Footer';
 
 
 
@@ -72,7 +74,8 @@ export const Login = () => {
     
 
 return (
-    <div>
+    <React.Fragment>
+        <Header/>
     <ThemeProvider theme={theme}>
         <Grid
         container
@@ -139,7 +142,7 @@ return (
         </Paper>
         </Grid>
     </ThemeProvider>
-
-    </div> 
+    <Footer/>
+    </React.Fragment> 
     )
 }

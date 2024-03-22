@@ -8,6 +8,8 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Card, CardActionArea, CardContent, CardMedia, Button, Grid } from '@mui/material';
+import { Header } from '../../Components/Header';
+import { Footer } from '../../Components/Footer';
 // import slide1 from '../Images/Slider1.jpg';
 // import slide2 from '../Images/Slider2.png';
 
@@ -102,6 +104,7 @@ export const ShopOsama = () => {
   const totalPages = Math.ceil(products.length / productsPerPage);
 
   return (
+    <React.Fragment><Header/>
     <Box sx={{ bgcolor: 'background.paper', width: '80%', margin: 'auto' }}>
       <AppBar position="static">
         <Tabs
@@ -142,6 +145,7 @@ export const ShopOsama = () => {
         ))}
       </SwipeableViews>
     </Box>
+    <Footer/></React.Fragment>
   );
 }
 
