@@ -56,7 +56,7 @@ import slide1 from '../Images/Slider3.png';
 import slide2 from '../Images/Slider2.png';
 import Slide3 from '../Images/Slider1.jpg';
 
-function Example(props) {
+function ProductCard(props) {
     const items = [
         {
             name: "The Product1",
@@ -98,4 +98,4 @@ function Example(props) {
     );
 }
 
-export default Example;
+export default ProductCard;

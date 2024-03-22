@@ -3,12 +3,13 @@
 import React, {useState} from 'react';
 import { Container, Grid, Button, Paper, Typography } from '@mui/material'; // Importing Container and Grid for layout
 //import { ProductCard } from './Shop/ProductCard'; 
-import Example from './Shop/ProductCard';// Importing the ProductCard component
-import slide1 from './Images/Slider1.jpg'; // Importing images for products
+
+import slide1 from './Images/Slider1.jpg'; 
 import slide2 from './Images/Slider2.png';
 import slide3 from './Images/Slider1.jpg';
 import { Footer } from '../Components/Footer';
 import { Header } from '../Components/Header';
+import ProductCard from './Shop/ProductCard';
 
 const products = [
   {
@@ -123,7 +124,7 @@ export const Dispensary = () => {
           <Grid item key={product.id} xs={12} sm={6}  lg={3}  >
             {/* Adjust the Grid item breakpoints as per your layout requirements */}
             {/* <ProductCard product={product} /> */}
-            <Example product={product} /> 
+            <ProductCard product={product} /> 
           </Grid>
         ))}
       </Grid>
