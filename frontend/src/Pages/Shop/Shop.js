@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
 import {TabContext, TabList, TabPanel, } from '@mui/lab'
-import { Tab, Box, Stack } from '@mui/material'
+import { Tab, Box, Stack, Typography } from '@mui/material'
 
 
 export const Shop = () => {
@@ -35,9 +35,9 @@ export const Shop = () => {
         </Box>
 
 
-        <TabPanel value='1'>All Products</TabPanel>
-        <TabPanel value='2'>Kalka</TabPanel>
-        <TabPanel value='3'>Thel</TabPanel>
+        <TabPanel value='1'> <AllProducts/> </TabPanel>
+        <TabPanel value='2'> <Kalka/> </TabPanel>
+        <TabPanel value='3'> <Thel/> </TabPanel>
         <TabPanel value='4'>Paththu</TabPanel>
         <TabPanel value='5'>Guli</TabPanel>
         <TabPanel value='6'>Chuurna</TabPanel>
@@ -53,4 +53,39 @@ export const Shop = () => {
       
       <Footer/></React.Fragment>
   )
+}
+
+
+
+const AllProducts = () =>{
+  return(
+
+    <Typography variant='h4' >AllProducts</Typography>
+  )
+    
+  
+}
+
+
+
+const Kalka = () =>{
+  return(
+
+    <Typography variant='h4' >Kalka</Typography>
+  )
+    
+  
+}
+
+
+
+
+
+const Thel = () =>{
+  return(
+
+    <Typography variant='h4' >Thel warga</Typography>
+  )
+    
+  
 }
