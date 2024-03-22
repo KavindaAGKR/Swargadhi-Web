@@ -1,8 +1,9 @@
 
 
 import React, {useState} from 'react';
-import { Container, Grid, Button } from '@mui/material'; // Importing Container and Grid for layout
-import { ProductCard } from './Shop/ProductCard'; // Importing the ProductCard component
+import { Container, Grid, Button, Paper, Typography } from '@mui/material'; // Importing Container and Grid for layout
+//import { ProductCard } from './Shop/ProductCard'; 
+import Example, { item } from './Shop/ProductCard';// Importing the ProductCard component
 import slide1 from './Images/Slider1.jpg'; // Importing images for products
 import slide2 from './Images/Slider2.png';
 import slide3 from './Images/Slider1.jpg';
@@ -257,7 +258,7 @@ const products = [
 
 
 
-const itemsPerPage = 10; // Number of items to display per page
+const itemsPerPage = 12; // Number of items to display per page
 
 export const Dispensary = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -277,12 +278,15 @@ export const Dispensary = () => {
   };
 
   return (
-    <Container>
-      <Grid container spacing={3}>
+    <Paper  sx={{ width:'90%', margin:'25px auto', alignItems:'center', justifyContent:'center'} }>
+      <Typography variant='h3' sx={{textAlign:'center', margin:'25px'}}>Paththu</Typography>
+      <Container >
+      <Grid container spacing={5} >
         {currentItems.map(product => (
-          <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
+          <Grid item key={product.id} xs={12} sm={6}  lg={3}  >
             {/* Adjust the Grid item breakpoints as per your layout requirements */}
-            <ProductCard product={product} />
+            {/* <ProductCard product={product} /> */}
+            <Example product={product} /> 
           </Grid>
         ))}
       </Grid>
@@ -295,5 +299,6 @@ export const Dispensary = () => {
         </Button>
       </div>
     </Container>
+    </Paper>
   );
 };

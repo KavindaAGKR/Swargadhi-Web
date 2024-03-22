@@ -129,11 +129,11 @@ export const Products = () => {
         { 
             field: 'images', 
             headerName: 'Images', 
-            width: 150, 
+            width: 250, 
             renderCell: (params) => (
                 <div>
                     {params.value && params.value.length > 0 && params.value.map((imageUrl, index) => (
-                        <img key={index} src={imageUrl} alt={`Product id:${params.id} img no: ${index}`} style={{ width: '50px', height: '50px', margin: '5px' }} />
+                        <img key={index} src={imageUrl} alt={`Product id:${params.id} img no: ${index}`} style={{ width: '100px', height: 'auto', margin: '1px' }} />
                     ))}
                 </div>
             ),

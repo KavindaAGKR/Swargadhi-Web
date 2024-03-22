@@ -11,6 +11,8 @@ import { Card, CardActionArea, CardContent, CardMedia, Button, Grid } from '@mui
 // import slide1 from '../Images/Slider1.jpg';
 // import slide2 from '../Images/Slider2.png';
 
+
+
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
 
