@@ -23,9 +23,6 @@ const cartSchema = new mongoose.Schema(
     },
   
     },
-    // image: {
-    //   type: String,
-    // },
   
   {
     timestamps: true,
