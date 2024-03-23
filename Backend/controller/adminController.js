@@ -65,7 +65,7 @@ export const adminLogin = async (request, response) => {
       });
     }
     const token = createToken(foundAdmin._id);
-    response.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 });
+    response.cookie('jwt', token, { httpOnly: true, maxAge: 360000});
 
     return response.status(200).json({
       Admin: foundAdmin,

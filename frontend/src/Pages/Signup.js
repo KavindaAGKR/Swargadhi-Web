@@ -1,19 +1,21 @@
+
 import React, {useState} from 'react';
-import { Grid, Paper, Button, Typography, TextField, InputAdornment,Stack } from '@mui/material';
+import { Grid, Paper, Button, Typography, TextField, InputAdornment,Stack,Snackbar, Alert } from '@mui/material';
 import { makeStyles } from '@mui/styles'; 
 import { useNavigate } from 'react-router-dom';
-import signpng from '../Images/signupfinal.png';
-import signback from '../Images/signback.png'
-import logo from '../Images/logo.png'
-import profile from '../Images/profile.png'
+import signpng from './signupfinal.png';
+import signback from './signback.png'
+import logo from './logo.png'
+import profile from './profile.png'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import axios from 'axios'; 
 //import { Password } from '@mui/icons-material';
 //import axios from 'axios';
 
-                  
+
 
 const theme = createTheme();
 
@@ -50,9 +52,9 @@ const useStyles = makeStyles((theme) => ({
     },
     stackContainer: {
     width: '100%',
-          margin:'25px' 
+          margin:'15px' 
     },paperContainer:{
-        margin:'25px'
+        margin:'15px'
     },
 },
 }));
@@ -68,10 +70,52 @@ export const Signup = () => {
     const [email,setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPw2] = useState('');
+    const [snackbarMessage, setSnackMessage] = useState('');
+    const [snackBarOpen, setSnackBarOpen] = useState(false);
+    const [issignedup, setisSignedup] = useState(false);
+    
 
-    const handleSignUp = ()=>{
-      alert("Your data are: \n User Name: "+name + "\n Email : " + email+"\n");
+    const handleSignUp =async ()=>{
+      setSnackBarOpen(true)
+
+
+      if (!name ||!email || !password) {
+          setSnackMessage('All the fields are required');
+          setSnackBarOpen(true);
+          return;
+      }
+
+      const emailtype = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailtype.test(email)) {
+          setSnackMessage('Please enter a valid email address');
+          setSnackBarOpen(true);
+          return;
+      }
+      if(password !== password2){
+          setSnackMessage('Entered two passwords are not matching!');
+          setSnackBarOpen(true);
+          return;
+      }
+      try {
+        const response = await axios.post('http://localhost:5000/api/user/register', {
+            name,
+            email,
+            password,
+            password2
+        });
+        console.log(response.data.message);
+        setSnackMessage(response.data.message);
+        setisSignedup(true);
+        //navigate('/admin');
+    } catch (error) {
+        console.error(error);
+        setSnackMessage("Invalid Inputs");
+
+        // Handle error, show error message to user
     }
+
+
+    };
   
 
 
@@ -100,7 +144,7 @@ export const Signup = () => {
 
   // };
     
-    const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -141,8 +185,8 @@ export const Signup = () => {
                 <img src={logo} alt="Swargadhi logo" style={{width:'80%', margin:'0px 0 0 0'}} />
                 <Typography variant='h4' color='success' style={{color:'green'}} >Sign Up</Typography>
 
-                
-                <img src={selectedImage || profile} alt="Profile" style={{ width: '60px', height: '60px', cursor: 'pointer',borderRadius:'200px', margin:'20px' }} onClick={() => document.getElementById('avatar-input').click()} />
+
+              <img src={selectedImage || profile} alt="Profile" style={{ width: '60px', height: '60px', cursor: 'pointer',borderRadius:'200px', margin:'20px' }} onClick={() => document.getElementById('avatar-input').click()} />
               <input id="avatar-input" type="file" accept="image/*" style={{ display: 'none' }} onChange={handleImageChange} />
 
 
@@ -196,8 +240,29 @@ export const Signup = () => {
                       
                 />
 
-                <Button variant="contained" onClick={() => { handleSignUp() ;navigate('/login') }} color='success'>Sign up</Button>
+                <Button variant="contained" onClick={() => { handleSignUp() ;navigate('/shop') }} color='success'>Sign up</Button>
                 <Typography>Already have an account? <Button variant='text' onClick={()=>{navigate('/login')}}>Login</Button></Typography>
+                <Snackbar
+                                open={snackBarOpen}
+                                autoHideDuration={3000}
+                                onClose={() => { setSnackBarOpen(false); if (issignedup) { navigate('/admin/') } }}
+                                message={snackbarMessage}
+                                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                                sx={{marginTop:"100px"}}
+                                
+                            >
+                                <Alert
+                                onClose={() => { setSnackBarOpen(false); if (issignedup) { navigate('/admin/') } }}
+                                severity={issignedup ? "success" : "error"}
+                                variant="filled"
+                                >
+                                
+                                {snackbarMessage}
+                                </Alert>
+
+                            </Snackbar>
+            
+            
             </Stack>
             
             </Grid>
@@ -206,5 +271,3 @@ export const Signup = () => {
     </ThemeProvider>
     );
 };
-
-

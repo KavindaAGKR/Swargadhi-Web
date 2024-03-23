@@ -1,32 +1,19 @@
 import mongoose from "mongoose";
 // Declare the Schema of the Mongo model
 const userSchema = new mongoose.Schema({
-    uid:{
+   
+    name:{
         type:String,
-        required:true
-    },
-    firstName:{
-        type:String,
-       equired:true, 
-    },
-    lastName:{
-        type:String,
-      //  required:true,
+        required:true, 
     },
     email:{
         type:String,
         required:true,
         unique:true,
     },
-    mobile:{
-        type:String,
-        ///required:true,
-       // unique:true,
-    
-    },
     password:{
         type:String,
-        ///required:true,
+        required:true,
         //unique:true,
     },
     isAdmin:{
@@ -36,5 +23,5 @@ const userSchema = new mongoose.Schema({
 });
 export const User = mongoose.model("User", userSchema);
 
-//Export the model
+
 
