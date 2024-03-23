@@ -1,50 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import { Grid, Paper, Button, Typography, TextField, InputAdornment, Stack } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+
+import React, {useState} from 'react';
+import { Grid, Paper, Button, Typography, TextField, InputAdornment,Stack,Snackbar, Alert } from '@mui/material';
+import { makeStyles } from '@mui/styles'; 
 import { useNavigate } from 'react-router-dom';
-import { initializeApp } from 'firebase/app';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { ThemeProvider } from '@mui/material/styles';  // Separate import
-import { createTheme } from '@mui/material/styles';   // Separate import
-import signpng from '../Images/signupfinal.png';
-import signback from '../Images/signback.png';
-import logo from '../Images/logo.png';
-import profile from '../Images/profile.png';
+import signpng from './signupfinal.png';
+import signback from './signback.png'
+import logo from './logo.png'
+import profile from './profile.png'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import axios from 'axios'; 
+//import { Password } from '@mui/icons-material';
+//import axios from 'axios';
 
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCwTnB-5-JNu-wu4S-jejIBZ4ylcAiWzH0",
-  authDomain: "swargadi-3250a.firebaseapp.com",
-  projectId: "swargadi-3250a",
-  storageBucket: "swargadi-3250a.appspot.com",
-  messagingSenderId: "991902590983",
-  appId: "1:991902590983:web:329754a966b8b39e0ee2a2",
-  measurementId: "G-0KGDYEWK6L"
-};
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+
 const theme = createTheme();
 
 const useStyles = makeStyles((theme) => ({
-  imageContainer: {
+    imageContainer: {
     position: 'relative',
-    width: '50%'
-  },
-  stackContainer: {
-    width: '50%',
-    margin: '50px 0px'
-  },
-  image: {
+    width:'50%'
+    },
+    stackContainer:{
+      width:'50%',
+      margin:'50px 0px'
+    },
+    image: {
+    
     top: 0,
     left: 0,
     width: '100%',
     height: '100%',
     zIndex: 2,
-  },
-  image2: {
+    },
+    image2: {
     position: 'absolute',
     top: 0,
     left: 0,
@@ -52,80 +44,107 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     margin: '0 0 0 10px',
     zIndex: 1,
-  },
-  '@media (max-width: 600px)': {
-    imageContainer: {
-      display: 'none',
+    },
+    '@media (max-width: 600px)': {
+
+    imageContainer:{
+        display: 'none',
     },
     stackContainer: {
-      width: '100%',
-      margin: '25px'
+    width: '100%',
+          margin:'15px' 
+    },paperContainer:{
+        margin:'15px'
     },
-    paperContainer: {
-      margin: '25px'
-    },
-  },
+},
 }));
 
+              
+
+
 export const Signup = () => {
-  const navigate = useNavigate();
-  const classes = useStyles();
+    const navigate = useNavigate();
+    const classes = useStyles();
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [password2, setPw2] = useState('');
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [user, setUser] = useState(auth.currentUser);
+    const [name, setName] = useState('');
+    const [email,setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [password2, setPw2] = useState('');
+    const [snackbarMessage, setSnackMessage] = useState('');
+    const [snackBarOpen, setSnackBarOpen] = useState(false);
+    const [issignedup, setisSignedup] = useState(false);
+    
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-    });
-    return unsubscribe;
-  }, []);
+    const handleSignUp =async ()=>{
+      setSnackBarOpen(true)
 
-  const handleSignUp = async () => {
-    try {
-      const currentUser = auth.currentUser;
-      if (!currentUser) {
-        console.error("No current user available.");
-        return;
+
+      if (!name ||!email || !password) {
+          setSnackMessage('All the fields are required');
+          setSnackBarOpen(true);
+          return;
       }
 
-      const idToken = await currentUser.getIdToken();
-
-      const userData = {
-        name: name,
-        email: email,
-        // Add other user data fields as needed
-      };
-
-      fetch('http://localhost:5000/api/user/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${idToken}` // Add 'Bearer ' prefix
-        },
-        body: JSON.stringify(userData)
-      })
-        .then(response => {
-          if (response.ok) {
-            console.log('User signed up successfully');
-            // Redirect or show success message as needed
-          } else {
-            console.error('Error signing up user');
-            // Handle signup error
-          }
-        })
-        .catch(error => {
-          console.error('Error signing up user:', error);
-          // Handle signup error
+      const emailtype = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailtype.test(email)) {
+          setSnackMessage('Please enter a valid email address');
+          setSnackBarOpen(true);
+          return;
+      }
+      if(password !== password2){
+          setSnackMessage('Entered two passwords are not matching!');
+          setSnackBarOpen(true);
+          return;
+      }
+      try {
+        const response = await axios.post('http://localhost:5000/api/user/register', {
+            name,
+            email,
+            password,
+            password2
         });
+        console.log(response.data.message);
+        setSnackMessage(response.data.message);
+        setisSignedup(true);
+        //navigate('/admin');
     } catch (error) {
-      console.error('Error getting ID token:', error);
+        console.error(error);
+        setSnackMessage("Invalid Inputs");
+
+        // Handle error, show error message to user
     }
-  };
+
+
+    };
+  
+
+
+  // const handleSignUp = async () => {
+  //   try {
+  //     const response = await axios.post("http://localhost:3000/api/v1/buyer/signup", {
+  //       name,
+  //       email,
+  //       password,
+  //     });
+
+  //     if (response.data) {
+  //       //console.log('User registered successfully');
+  //       //SuccessMessage("User registered successfully");
+  //       alert("User registered successfully, Now log with your email and password");
+        
+  //       navigate('/login'); 
+  //     } else {
+  //       throw new Error(response.data.message);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error:', error.message);
+  //     alert("Error: " + error.message); // Display the error message to the user
+  //   }
+  //   alert("Your data are: \n User Name: "+name + "\n Email : " + email+"\n");
+
+  // };
+    
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -137,37 +156,118 @@ export const Signup = () => {
       reader.readAsDataURL(file);
     }
   };
+    
+    
 
-  return (
+
+    return (
     <ThemeProvider theme={theme}>
-      <Grid
+        <Grid
         container
         justifyContent="center"
         alignItems="center"
         margin='auto'
-        style={{ minHeight: '100vh', maxWidth: '1200px' }}
-      >
-        <Paper sx={{ width: 'auto', margin: '50px', borderRadius: '35px' }} elevation={10}>
-          <Grid container>
+        style={{ minHeight: '100vh',maxWidth:'1200px' }}
+        >
+        <Paper sx={{ width: 'auto', margin:'50px', borderRadius:'35px' }} elevation={10}>
+
+            <Grid container>
             <Stack className={classes.imageContainer}>
-              <img src={signpng} alt="The signup" className={classes.image} />
-              <img src={signback} alt="The signup" className={classes.image2} />
+                <img src={signpng} alt="The signup" className={classes.image} />
+                <img src={signback} alt="The signup" className={classes.image2} />
             </Stack>
+            {/* <Grid item xs={2}>
+
+            </Grid> */}
+{/* Inputs */}
             <Stack className={classes.stackContainer} justifyContent="center" alignItems="center" direction='column' >
-              <img src={logo} alt="Swargadhi logo" style={{ width: '80%', margin: '0px 0 0 0' }} />
-              <Typography variant='h4' color='success' style={{ color: 'green' }}>Sign Up</Typography>
-              <img src={selectedImage || profile} alt="Profile" style={{ width: '60px', height: '60px', cursor: 'pointer', borderRadius: '200px', margin: '20px' }} onClick={() => document.getElementById('avatar-input').click()} />
+                
+                <img src={logo} alt="Swargadhi logo" style={{width:'80%', margin:'0px 0 0 0'}} />
+                <Typography variant='h4' color='success' style={{color:'green'}} >Sign Up</Typography>
+
+
+              <img src={selectedImage || profile} alt="Profile" style={{ width: '60px', height: '60px', cursor: 'pointer',borderRadius:'200px', margin:'20px' }} onClick={() => document.getElementById('avatar-input').click()} />
               <input id="avatar-input" type="file" accept="image/*" style={{ display: 'none' }} onChange={handleImageChange} />
-              <TextField placeholder='Name' variant="standard" margin="normal" required style={{ width: '80%' }} value={name} onChange={(e) => { setName(e.target.value); console.log('name: ' + name) }} InputProps={{ startAdornment: (<InputAdornment position='start'><AccountCircleRoundedIcon /></InputAdornment>), }} />
-              <TextField placeholder='Email' variant="standard" margin="normal" required style={{ width: '80%' }} value={email} onChange={(e) => { setEmail(e.target.value); console.log('email: ' + email) }} InputProps={{ startAdornment: (<InputAdornment position='start'><EmailRoundedIcon /></InputAdornment>), }} />
-              <TextField placeholder='Password' variant="standard" margin="normal" type='password' required style={{ width: '80%' }} value={password} onChange={(e) => { setPassword(e.target.value); console.log('password: ' + password) }} InputProps={{ startAdornment: (<InputAdornment position='start'><LockRoundedIcon /></InputAdornment>), }} />
-              <TextField placeholder='Re Enter Password' variant="standard" margin="normal" type='password' required style={{ width: '80%' }} value={password2} onChange={(e) => { setPw2(e.target.value); console.log('Re entered password: ' + password2) }} InputProps={{ startAdornment: (<InputAdornment position='start'><LockRoundedIcon /></InputAdornment>), }} />
-              <Button variant="contained" onClick={handleSignUp} color='success'>Sign up</Button>
-              <Typography>Already have an account? <Button variant='text' onClick={() => { navigate('/login') }}>Login</Button></Typography>
+
+
+                <TextField placeholder='Name' variant="standard"  margin="normal" required style={{width:'80%'}}
+                value={name}
+                onChange={(e) => {setName(e.target.value); console.log('name: ' + name)}}
+                    InputProps={{
+                        startAdornment: (
+                          <InputAdornment position='start'>
+                            <AccountCircleRoundedIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                />
+
+                <TextField placeholder='Email' variant="standard"  margin="normal" type='text' required style={{width:'80%'}}
+                    value={email}
+                    onChange={(email)=>{setEmail(email.target.value); console.log('email: ' + email)}}
+                    InputProps={{
+                        startAdornment: (
+                          <InputAdornment position='start'>
+                            <EmailRoundedIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                      
+                />
+                <TextField placeholder='Password' variant="standard"  margin="normal" type='password' required style={{width:'80%'}}
+                  value={password}
+                  onChange={(pw)=>{setPassword(pw.target.value); console.log('password: '+ password)}}
+
+                    InputProps={{
+                        startAdornment: (
+                          <InputAdornment position='start'>
+                            <LockRoundedIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                      
+                />
+                <TextField placeholder='Re Enter Password' variant="standard"  margin="normal" type='password' required style={{width:'80%'}}
+                    value={password2}
+                    onChange={(pw2)=>{setPw2(pw2.target.value); console.log('Re entered password: ' + password2)}}
+                    InputProps={{
+                        startAdornment: (
+                          <InputAdornment position='start'>
+                            <LockRoundedIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                      
+                />
+
+                <Button variant="contained" onClick={() => { handleSignUp() ;navigate('/shop') }} color='success'>Sign up</Button>
+                <Typography>Already have an account? <Button variant='text' onClick={()=>{navigate('/login')}}>Login</Button></Typography>
+                <Snackbar
+                                open={snackBarOpen}
+                                autoHideDuration={3000}
+                                onClose={() => { setSnackBarOpen(false); if (issignedup) { navigate('/admin/') } }}
+                                message={snackbarMessage}
+                                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                                sx={{marginTop:"100px"}}
+                                
+                            >
+                                <Alert
+                                onClose={() => { setSnackBarOpen(false); if (issignedup) { navigate('/admin/') } }}
+                                severity={issignedup ? "success" : "error"}
+                                variant="filled"
+                                >
+                                
+                                {snackbarMessage}
+                                </Alert>
+
+                            </Snackbar>
+            
+            
             </Stack>
-          </Grid>
+            
+            </Grid>
         </Paper>
-      </Grid>
+        </Grid>
     </ThemeProvider>
-  );
+    );
 };
