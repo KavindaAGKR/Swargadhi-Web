@@ -1,88 +1,114 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
 import {TabContext, TabList, TabPanel, } from '@mui/lab'
-import { Tab, Box, Stack, Typography, Paper, Container, Grid, Button } from '@mui/material'
+import { Tab, Box, Stack } from '@mui/material'
 
 
 import slide1 from '../Images/Slider3.png'; 
 import slide2 from '../Images/Slider2.png';
-import Slide3 from '../Images/Slider1.jpg';
-import ProductCard from './ProductCard'
+import slide3 from '../Images/Slider1.jpg';
+import {  ProductCatalog } from './ProductCatalog'
+
+
+
+// const products = [
+//   {
+//     id: 1,
+//     name_en: "Product 1",
+//     name_si: "වෙළඳ 1",
+//     description_en: "Description of Product 1 in English",
+//     description_si: "වෙළඳ 1 හි විස්තරය සිංහලෙන්",
+//     price: 22.49,
+//     quantity: 75,
+//     category: "Category 3",
+//     images: [slide1, slide2, slide3]
+//   },
+//   {
+//     id: 2,
+//     name_en: "Product 2",
+//     name_si: "වෙළඳ 2",
+//     description_en: "Description of Product 2 in English",
+//     description_si: "වෙළඳ 2 හි විස්තරය සිංහලෙන්",
+//     price: 34.99,
+//     quantity: 50,
+//     category: "Category 1",
+//     images: [slide1, slide2, slide3]
+//   },
+//   {
+//     id: 3,
+//     name_en: "Product 3",
+//     name_si: "වෙළඳ 3",
+//     description_en: "Description of Product 3 in English",
+//     description_si: "වෙළඳ 3 හි විස්තරය සිංහලෙන්",
+//     price: 49.99,
+//     quantity: 30,
+//     category: "Category 2",
+//     images: [slide1, slide2, slide3]
+//   },
+//   {
+//     id: 4,
+//     name_en: "Product 4",
+//     name_si: "වෙළඳ 4",
+//     description_en: "Description of Product 4 in English",
+//     description_si: "වෙළඳ 4 හි විස්තරය සිංහලෙන්",
+//     price: 19.99,
+//     quantity: 100,
+//     category: "Category 3",
+//     images: [slide1, slide2, slide3]
+//   },
+//   {
+//     id: 4,
+//     name_en: "Product 4",
+//     name_si: "වෙළඳ 4",
+//     description_en: "Description of Product 4 in English",
+//     description_si: "වෙළඳ 4 හි විස්තරය සිංහලෙන්",
+//     price: 19.99,
+//     quantity: 100,
+//     category: "Category 3",
+//     images: [slide1, slide2, slide3]
+//   },
+//   {
+//     id: 4,
+//     name_en: "Product 4",
+//     name_si: "වෙළඳ 4",
+//     description_en: "Description of Product 4 in English",
+//     description_si: "වෙළඳ 4 හි විස්තරය සිංහලෙන්",
+//     price: 19.99,
+//     quantity: 100,
+//     category: "Category 3",
+//     images: [slide1, slide2, slide3]
+//   },
+//   {
+//     id: 4,
+//     name_en: "Product 4",
+//     name_si: "වෙළඳ 4",
+//     description_en: "Description of Product 4 in English",
+//     description_si: "වෙළඳ 4 හි විස්තරය සිංහලෙන්",
+//     price: 19.99,
+//     quantity: 100,
+//     category: "Category 3",
+//     images: [slide1, slide2, slide3]
+//   },
+//   {
+//     id: 4,
+//     name_en: "Product 4",
+//     name_si: "වෙළඳ 4",
+//     description_en: "Description of Product 4 in English",
+//     description_si: "වෙළඳ 4 හි විස්තරය සිංහලෙන්",
+//     price: 19.99,
+//     quantity: 100,
+//     category: "Category 3",
+//     images: [slide1, slide2, slide3]
+//   },
+
+//   // Add more objects here...
+// ];
 
 
 
 
-const products = [
-  {
-    id: 1,
-    name: "The Product1",
-    Sname: "කරබ්මු නාකරබ්මු නා",
-    price: 4856,
-    imageUrl: [slide1, slide2, slide1, Slide3] // Example array with multiple images
-},
-{
-  id: 2,
-  name: "The Product1",
-  Sname: "කරබ්මු නාකරබ්මු නා",
-  price: 4856,
-  imageUrl: [slide1, slide2, slide1, Slide3] // Example array with multiple images
-},
-{
-  id: 3,
-  name: "The Product1",
-  Sname: "කරබ්මු නාකරබ්මු නා",
-  price: 4856,
-  imageUrl: [slide1, slide2, slide1, Slide3] // Example array with multiple images
-},
-{
-  id: 4,
-  name: "The Product1",
-  Sname: "කරබ්මු නාකරබ්මු නා",
-  price: 4856,
-  imageUrl: [slide1, slide2, slide1, Slide3] // Example array with multiple images
-},
-{
-  id: 5,
-  name: "The Product1",
-  Sname: "කරබ්මු නාකරබ්මු නා",
-  price: 4856,
-  imageUrl: [slide1, slide2, slide1, Slide3] // Example array with multiple images
-},
-{id: 6,
-  name: "The Product1",
-  Sname: "කරබ්මු නාකරබ්මු නා",
-  price: 4856,
-  imageUrl: [slide1, slide2, slide1, Slide3] // Example array with multiple images
-},
-{
-  id: 7,
-  name: "The Product1",
-  Sname: "කරබ්මු නාකරබ්මු නා",
-  price: 4856,
-  imageUrl: [slide1, slide2, slide1, Slide3] // Example array with multiple images
-},
-{id: 8,
-  name: "The Product1",
-  Sname: "කරබ්මු නාකරබ්මු නා",
-  price: 4856,
-  imageUrl: [slide1, slide2, slide1, Slide3] // Example array with multiple images
-},
-{
-  id: 9,
-  name: "The Product1",
-  Sname: "කරබ්මු නාකරබ්මු නා",
-  price: 4856,
-  imageUrl: [slide1, slide2, slide1, Slide3] // Example array with multiple images
-},
-{
-  id: 10,
-  name: "The Product1",
-  Sname: "කරබ්මු නාකරබ්මු නා",
-  price: 4856,
-  imageUrl: [slide1, slide2, slide1, Slide3] // Example array with multiple images
-},
-];
+
 
 
 
@@ -109,11 +135,24 @@ export const Shop = () => {
   
 
 
+  const [products, setProducts] = useState([]);
 
+    useEffect(() => {
+        fetchAllProducts();
+    }, []);
 
-
-
-
+    const fetchAllProducts = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/api/product/all');
+            if (!response.ok) {
+                throw new Error('Failed to fetch products');
+            }
+            const data = await response.json();
+            setProducts(data.data);
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
 
 
   return (
@@ -134,13 +173,13 @@ export const Shop = () => {
         </Box>
 
 
-        <TabPanel value='1'> <AllProducts/> </TabPanel>
-        <TabPanel value='2'> <Kalka/> </TabPanel>
-        <TabPanel value='3'> <Thel/> </TabPanel>
+        <TabPanel value='1'> <ProductCatalog products={products}/> </TabPanel>
+        <TabPanel value='2'> <ProductCatalog products={products} /> </TabPanel>
+        <TabPanel value='3'> <ProductCatalog products={products} /> </TabPanel>
         <TabPanel value='4'>Paththu</TabPanel>
         <TabPanel value='5'>Guli</TabPanel>
         <TabPanel value='6'>Chuurna</TabPanel>
-        <TabPanel value='7'>kashaya</TabPanel>
+        <TabPanel value='7'><ProductCatalog products={products} /></TabPanel>
 
 
 
@@ -160,76 +199,78 @@ export const Shop = () => {
 
 
 
-const AllProducts = () =>{
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
-//Tab panel page navigation
+// const AllProducts = () =>{
 
 
-const indexOfLastItem = currentPage * itemsPerPage;
-const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
+//   const [currentPage, setCurrentPage] = useState(1);
+//   const itemsPerPage = 8;
+// //Tab panel page navigation
 
-const totalPages = Math.ceil(products.length / itemsPerPage);
 
-const nextPage = () => {
-  setCurrentPage(currentPage + 1);
-};
+// const indexOfLastItem = currentPage * itemsPerPage;
+// const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+// const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
 
-const prevPage = () => {
-  setCurrentPage(currentPage - 1);
-};
+// const totalPages = Math.ceil(products.length / itemsPerPage);
 
-  return(
+// const nextPage = () => {
+//   setCurrentPage(currentPage + 1);
+// };
+
+// const prevPage = () => {
+//   setCurrentPage(currentPage - 1);
+// };
+
+//   return(
 
     
-    <Paper  sx={{ width:'90%', margin:'25px auto', alignItems:'center', justifyContent:'center', backgroundColor:'#C6F6D4'} }>
-      <Typography variant='h3' sx={{textAlign:'center', margin:'25px'}}>AllProducts</Typography>
-      <Container >
-      <Grid container spacing={5} >
-        {currentItems.map(product => (
-          <Grid item key={product.id} xs={12} sm={6}  lg={3}  >
-            {/* Adjust the Grid item breakpoints as per your layout requirements */}
-            {/* <ProductCard product={product} /> */}
-            <ProductCard product={product} /> 
-          </Grid>
-        ))}
-      </Grid>
-      <div>
-        <Button variant="contained" onClick={prevPage} disabled={currentPage === 1}>
-          Previous Page
-        </Button>
-        <Button variant="contained" onClick={nextPage} disabled={currentPage === totalPages}>
-          Next Page
-        </Button>
-      </div>
-    </Container>
-    </Paper>
-  )
-    
-  
-}
-
-
-
-const Kalka = () =>{
-  return(
-
-    <Typography variant='h4' >Kalka</Typography>
-  )
+//     <Paper  sx={{  alignItems:'center', justifyContent:'center', backgroundColor:'#C6F6D4'} }>
+//       <Typography variant='h3' sx={{textAlign:'center', margin:'25px'}}>AllProducts</Typography>
+//       <Container  >
+//       <Grid container spacing={5} >
+//         {currentItems.map(product => (
+//           <Grid item key={product.id} xs={12} sm={6}  lg={3}  >
+//             {/* Adjust the Grid item breakpoints as per your layout requirements */}
+//             {/* <ProductCard product={product} /> */}
+//             <ProductCard product={product} /> 
+//           </Grid>
+//         ))}
+//       </Grid>
+//       <Stack direction='row' sx={{display:'flex', justifyContent:'center', margin:'20px'}}>
+//         <Button variant="contained" onClick={prevPage} disabled={currentPage === 1}>
+//           Previous Page
+//         </Button>
+//         <Button variant="contained" onClick={nextPage} disabled={currentPage === totalPages}>
+//           Next Page
+//         </Button>
+//       </Stack>
+//     </Container>
+//     </Paper>
+//   )
     
   
-}
+// }
 
 
 
+// const Kalka = () =>{
+//   return(
 
-
-const Thel = () =>{
-  return(
-
-    <Typography variant='h4' >Thel warga</Typography>
-  )
+//     <Typography variant='h4' >Kalka</Typography>
+//   )
     
   
-}
+// }
+
+
+
+
+
+// const Thel = () =>{
+//   return(
+
+//     <Typography variant='h4' >Thel warga</Typography>
+//   )
+    
+  
+// }

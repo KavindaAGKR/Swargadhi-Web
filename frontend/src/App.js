@@ -15,7 +15,7 @@ import { AdminUsers } from './AdminPanel/AdminUsers';
 import { AdminMessages } from './AdminPanel/AdminMessages';
 import { AdminSettings } from './AdminPanel/AdminSettings';
 import {  ShopOsama } from './Pages/Shop/ShopHead';
-// import { UserProfile } from './Pages/Userprofile';
+import { UserProfile } from './Pages/Userprofile';
 import { Dispensary } from './Pages/Dispensary';
 import { AdminSignup } from './AdminPanel/AdminSignup';
 import { Shop } from './Pages/Shop/Shop';
@@ -55,12 +55,12 @@ function App() {
 
         {/* User part Routes */}
         <Route path='/' element={<Home/>}/>
+        <Route path='/shop' element={<Shop/>}/>
+        <Route path='/about' element={<About/>}/>
+        <Route path='/dispensary' element={<Dispensary/>}/>
+        <Route path='/user' element={<UserProfile/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>} />
-        <Route path='/about' element={<About/>}/>
-        <Route path='/shop' element={<ShopOsama/>}/>
-        <Route path='/user' element={<Shop/>}/>
-        <Route path='/dispensary' element={<Dispensary/>}/>
 
 
     </Routes>
