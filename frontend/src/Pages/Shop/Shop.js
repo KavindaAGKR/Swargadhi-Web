@@ -102,7 +102,7 @@ import {  ProductCatalog } from './ProductCatalog'
 //     images: [slide1, slide2, slide3]
 //   },
 
-//   // Add more objects here...
+  
 // ];
 
 

@@ -12,7 +12,7 @@ import NextIcon from '@mui/icons-material/KeyboardArrowRightRounded';
 
 
 function ProductCard( { product } ) {
-    const { name_en, name_si, price, images, description_en } = product;
+    const { name_en, name_si, price, images, itemName } = product;
 
     const [openMore, setOpenMore] = useState(false);
 
@@ -30,20 +30,22 @@ function ProductCard( { product } ) {
                         NextIcon={<NextIcon />}
                     >
                         {images.map((image, index) => (
-                            <img key={index} src={image} alt={`Slide ${index + 1}`} style={{ maxWidth: '100%', borderRadius: '20px' }} />
+                            <img key={index} src={image} alt={name_en} style={{ maxWidth: '100%', borderRadius: '20px' }} />
                         ))}
                     </Carousel>
                 </Box>
-                <Typography variant='h5'>{name_en}</Typography>
-                <Typography variant='h7'>{name_si}</Typography>
+                <Typography variant='h5'>{itemName.en}</Typography>
+                <Typography variant='h7'>{itemName.si}</Typography>
                 <Typography variant='h6' color='success.main'>{price}</Typography>
                 <Stack gap={5} direction='row' sx={{ justifyContent: 'center' }}>
                     <Button variant='contained' color='success' sx={{ fontSize: '10px' }}>Add to Cart</Button>
                     <Button variant='contained' color='success' sx={{ fontSize: '10px' }} onClick={()=>setOpenMore(true)}>View More</Button>
-                            <Dialog
+                            <Stack>
+                                <Dialog
                                 open = {openMore}
                                 
                                 >
+                                    
                                     <DialogContent>
                                 <Stack direction='column'>
                                 <Button onClick={()=>setOpenMore(false)}>close</Button>
@@ -61,13 +63,14 @@ function ProductCard( { product } ) {
                                     </Carousel>
                                 </Box>
                                 <Stack>
-                                <Typography variant='h5'>{name_en}</Typography>
-                                <Typography variant='h7'>{name_si}</Typography>
+                                <Typography variant='h5'>{itemName.en}</Typography>
+                                <Typography variant='h7'>{itemName.si}</Typography>
                                 <Typography variant='h6' color='success.main'>{price}</Typography>  
                                 </Stack>
                                 </Stack>
                                 </DialogContent>
                             </Dialog>
+                            </Stack>
                 </Stack>
             </Stack>
         </Paper>
