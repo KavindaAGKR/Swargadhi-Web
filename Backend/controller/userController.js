@@ -2,7 +2,11 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { User } from "../models/userModel.js";
 import dotenv from 'dotenv';
+import axios from 'axios'; // Add this line to import axios
 dotenv.config();
+
+
+
 
 const createToken = (userId) => {
   return jwt.sign({ userId }, "jwtSecretKey", { expiresIn: "1h" });
@@ -10,9 +14,9 @@ const createToken = (userId) => {
 
 export const createUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { firstName,lastName, email, password } = req.body;
 
-    if (!name || !email || !password) {
+    if (!lastName||!firstName || !email || !password) {
       return res.status(400).send({
         message: "Please provide all required fields",
         alert: "error",
@@ -30,7 +34,8 @@ export const createUser = async (req, res) => {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const newUser = {
-      name,
+      firstName,
+      lastName,
       email,
       password: hashedPassword,
     };
@@ -85,5 +90,256 @@ export const userLogin = async (req, res) => {
     });
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export const createUser = async (req, res) => {
+//   if (req.body.googleAccessToken) {
+//       const { googleAccessToken } = req.body;
+
+//       axios
+//           .get("https://www.googleapis.com/oauth2/v3/userinfo", {
+//               headers: {
+//                   "Authorization": `Bearer ${googleAccessToken}`
+//               }
+//           })
+//           .then(async response => {
+//               const firstName = response.data.given_name;
+//               const lastName = response.data.family_name;
+//               const email = response.data.email;
+//               const existingUser = await User.findOne({ email });
+
+//               if (existingUser)
+//                   return res.status(400).json({ message: "User already exists!" });
+
+//               const result = await User.create({ verified: true, email, firstName, lastName });
+
+//               const token = jwt.sign({
+//                   email: result.email,
+//                   id: result._id
+//               }, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+//               res.status(200).json({ result, token });
+//           })
+//           .catch(err => {
+//               res.status(400).json({ message: "Invalid access token!" });
+//           });
+//   } else {
+//       // Normal form signup
+//       const { email, password, confirmPassword, firstName, lastName } = req.body;
+
+//       try {
+//           if (email === "" || password === "" || firstName === "" || lastName === "" || password !== confirmPassword || password.length < 4)
+//               return res.status(400).json({ message: "Invalid field!" });
+
+//           const existingUser = await User.findOne({ email });
+
+//           if (existingUser)
+//               return res.status(400).json({ message: "User already exists!" });
+
+//           const hashedPassword = await bcrypt.hash(password, 12);
+
+//           const result = await User.create({ email, password: hashedPassword, firstName, lastName });
+
+//           const token = jwt.sign({
+//               email: result.email,
+//               id: result._id
+//           }, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+//           res.status(200).json({ result, token });
+//       } catch (err) {
+//           res.status(500).json({ message: "Something went wrong!" });
+//       }
+//   }
+// };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export const loginUser = async(req, res) => {
+//   if(req.body.googleAccessToken){
+//       // gogole-auth
+//       const {googleAccessToken} = req.body;
+
+//       axios
+//           .get("https://www.googleapis.com/oauth2/v3/userinfo", {
+//           headers: {
+//               "Authorization": `Bearer ${googleAccessToken}`
+//           }
+//       })
+//           .then(async response => {
+//               const firstName = response.data.given_name;
+//               const lastName = response.data.family_name;
+//               const email = response.data.email;
+//               const existingUser = await User.findOne({email})
+
+//               if (!existingUser) 
+//               return res.status(404).json({message: "User don't exist!"})
+
+//               const token = jwt.sign({
+//                   email: existingUser.email,
+//                   id: existingUser._id
+//               }, config.get("JWT_SECRET"), {expiresIn: "1h"})
+      
+//               res
+//                   .status(200)
+//                   .json({result: existingUser, token})
+                  
+//           })
+//           .catch(err => {
+//               res
+//                   .status(400)
+//                   .json({message: "Invalid access token!"})
+//           })
+//   }else{
+//       // normal-auth
+//       const {email, password} = req.body;
+//       if (email === "" || password === "") 
+//           return res.status(400).json({message: "Invalid field!"});
+//       try {
+//           const existingUser = await User.findOne({email})
+  
+//           if (!existingUser) 
+//               return res.status(404).json({message: "User don't exist!"})
+  
+//           const isPasswordOk = await bcrypt.compare(password, existingUser.password);
+  
+//           if (!isPasswordOk) 
+//               return res.status(400).json({message: "Invalid credintials!"})
+  
+//           const token = jwt.sign({
+//               email: existingUser.email,
+//               id: existingUser._id
+//           }, config.get("JWT_SECRET"), {expiresIn: "1h"})
+  
+//           res
+//               .status(200)
+//               .json({result: existingUser, token})
+//       } catch (err) {
+//           res
+//               .status(500)
+//               .json({message: "Something went wrong!"})
+//       }
+//   }
+
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

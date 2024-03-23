@@ -28,7 +28,6 @@ const ayurvedicProductSchema = new mongoose.Schema(
     },
     quantity: {
       type: Number,
-      // required: true,
     },
     category: {
       type:multilingualSchema,
@@ -47,4 +46,3 @@ const ayurvedicProductSchema = new mongoose.Schema(
 const AyurvedicProduct = mongoose.model("AyurvedicProduct", ayurvedicProductSchema);
 
 export default AyurvedicProduct;
-/// we have to set

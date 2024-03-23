@@ -1,37 +1,75 @@
 import AyurvedicProduct from "../models/productModel.js";
+import multer from 'multer';
+import path from 'path';
+import { v4 as uuidv4 } from 'uuid';
 
-// Create a new Ayurvedic product
-export const createAyurvedicProduct = async (request, response) => {
+// Multer storage configuration
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/item'); // Specify the destination folder
+    },
+    filename: function(req, file, cb) {   
+        cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    if(allowedFileTypes.includes(file.mimetype)) {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+}
+
+// Multer upload instance
+const upload = multer({
+    storage: storage,
+    fileFilter: fileFilter
+}).array('images');
+
+// Route handler to create a new Ayurvedic product with image upload
+export const createAyurvedicProduct = async (req, res) => {
     try {
-        if (
-            !request.body.productItemID ||
-            !request.body.itemName ||
-            !request.body.price ||
-            !request.body.description ||
-            !request.body.quantity ||
-            !request.body.category
-        ) {
-            return response.status(400).send({
-                message: 'Please send all required fields'
-            });
-        }
-        
+        // Use `upload.array('images')` middleware to handle file uploads
+        upload(req, res, async (err) => {
+            if (err instanceof multer.MulterError) {
+                // Multer error handling
+                return res.status(400).json({ message: 'Error uploading files', error: err });
+            } else if (err) {
+                // Other errors
+                return res.status(500).json({ message: 'Error uploading files', error: err });
+            }
 
-        const newAyurvedicProduct = {
-            productItemID: request.body.productItemID,
-            itemName: request.body.itemName,
-            price: request.body.price,
-            description: request.body.description,
-            quantity: request.body.quantity,
-            category: request.body.category
-        };
+            // Extract uploaded file paths
+            const imagePaths = req.files.map(file => '/public/item/' + file.filename);
 
-        const ayurvedicProduct = await AyurvedicProduct.create(newAyurvedicProduct);
+            // Validate request body fields
+            const { productItemID, itemNameEn, itemNameSi, price, descriptionEn, descriptionSi, quantity, category } = req.body;
+            if (!productItemID || !itemNameEn || !itemNameSi || !price || !descriptionEn || !descriptionSi || !quantity || !category) {
+                return res.status(400).json({ message: 'Please send all required fields' });
+            }
 
-        return response.status(201).send(ayurvedicProduct);
+            // Create new Ayurvedic product
+            const newAyurvedicProduct = {
+                productItemID,
+                itemName: { en: itemNameEn, si: itemNameSi },
+                price,
+                description: { en: descriptionEn, si: descriptionSi },
+                quantity,
+                category: { en: category, si: category },
+                images: imagePaths // Store image paths in the product object
+            };
+
+            // Save product to database
+            const ayurvedicProduct = await AyurvedicProduct.create(newAyurvedicProduct);
+
+            // Return success response
+            return res.status(201).json(ayurvedicProduct);
+        });
     } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
+        console.error(error.message);
+        res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 };
 

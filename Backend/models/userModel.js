@@ -1,8 +1,12 @@
 import mongoose from "mongoose";
 // Declare the Schema of the Mongo model
 const userSchema = new mongoose.Schema({
-   
-    name:{
+    
+    firstName:{
+        type:String,
+        required:true, 
+    },
+    lastName:{
         type:String,
         required:true, 
     },
