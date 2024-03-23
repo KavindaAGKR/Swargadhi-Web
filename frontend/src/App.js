@@ -14,7 +14,6 @@ import { AdminSaleReport } from './AdminPanel/AdminSaleReport';
 import { AdminUsers } from './AdminPanel/AdminUsers';
 import { AdminMessages } from './AdminPanel/AdminMessages';
 import { AdminSettings } from './AdminPanel/AdminSettings';
-import {  ShopOsama } from './Pages/Shop/ShopHead';
 import { UserProfile } from './Pages/Userprofile';
 import { Dispensary } from './Pages/Dispensary';
 import { AdminSignup } from './AdminPanel/AdminSignup';
