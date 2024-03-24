@@ -137,20 +137,56 @@ export const updateAyurvedicProduct = async (request, response) => {
 };
 
 // Get all Ayurvedic products
-export const getAllAyurvedicProducts = async (request, response) => {
-    //let userId = request.params.userId; // Assuming your route has a parameter named 'userId'
+// export const getAllAyurvedicProducts = async (request, response) => {
+//     //let userId = request.params.userId; // Assuming your route has a parameter named 'userId'
+//     try {
+//         //const ayurvedicProducts = await AyurvedicProduct.find({ user: userId });
+//         const ayurvedicProducts = await AyurvedicProduct.find();
+//         return response.status(200).json({
+//             count: ayurvedicProducts.length,
+//             data: ayurvedicProducts
+//         });
+//     } catch (error) {
+//         console.log(error.message);
+//         response.status(500).send({ message: error.message });
+//     }
+// };
+
+
+export const getAllAyurvedicProducts = async (req, res) => {
     try {
-        //const ayurvedicProducts = await AyurvedicProduct.find({ user: userId });
+        // Fetch all Ayurvedic products from the database
         const ayurvedicProducts = await AyurvedicProduct.find();
-        return response.status(200).json({
-            count: ayurvedicProducts.length,
-            data: ayurvedicProducts
+
+        // Modify each product to include full image paths
+        const productsWithImages = ayurvedicProducts.map(product => {
+            // Map each image filename to its full URL path
+            const imagePaths = product.images.map(filename => `path.join(http://localhost:5000/public/item/', filename)`);
+            
+            // Return product object with updated image paths
+            return {
+                ...product.toObject(),
+                images: imagePaths
+            };
+        });
+
+        // Return the modified products with image paths
+        return res.status(200).json({
+            count: productsWithImages.length,
+            data: productsWithImages
         });
     } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
+        console.error(error.message);
+        res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 };
+
+
+
+
+
+
+
 
 // Get an Ayurvedic product by ID
 export const getAyurvedicProductById = async (request, response) => {

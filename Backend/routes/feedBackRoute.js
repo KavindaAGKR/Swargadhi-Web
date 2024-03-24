@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/', feedBackController.createFeedback);
 
 // Get all Feedbacks
-router.get('/', feedBackController.getAllFeedbacks);
+router.get('/create', feedBackController.getAllFeedbacks);
 
 // Get Feedback by ID
 router.get('/:id', feedBackController.getFeedbackById);
@@ -18,5 +18,7 @@ router.put('/:id', feedBackController.editFeedback); // Rename to editFeedback
 
 // Delete Feedback
 router.delete('/:id', feedBackController.deleteFeedback);
+
+router.get('/get',feedBackController.getUserItems);
 
 export default router;

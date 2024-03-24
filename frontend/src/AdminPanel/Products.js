@@ -70,18 +70,33 @@ export const Products = () => {
         fetchAllProducts();
     }, []);
 
+    // const fetchAllProducts = async () => {
+    //     try {
+    //         const response = await fetch('http://localhost:5000/api/product/all');
+    //         if (!response.ok) {
+    //             throw new Error('Failed to fetch products');
+    //         }
+    //         const data = await response.json();
+    //         setProducts(data.data);
+    //     } catch (error) {
+    //         console.error('Error fetching products:', error);
+    //     }
+    // };
+
     const fetchAllProducts = async () => {
         try {
             const response = await fetch('http://localhost:5000/api/product/all');
-            if (!response.ok) {
-                throw new Error('Failed to fetch products');
-            }
             const data = await response.json();
-            setProducts(data.data);
+            if (response.ok) {
+                setProducts(data.data);
+            } else {
+                console.error('Error fetching Ayurvedic products:', data.message);
+            }
         } catch (error) {
-            console.error('Error fetching products:', error);
+            console.error('Error fetching Ayurvedic products:', error.message);
         }
     };
+
     const handleDelete = async (id) => {
         try {
             const response = await fetch(`http://localhost:5000/api/product/${id}`, {
@@ -148,6 +163,7 @@ export const Products = () => {
                     <IconButton onClick={() => handleDelete(params.row._id)}>
                         <DeleteIcon color="error" />
                     </IconButton>
+         
                     {console.log("Row ID:", params.row._id)}
                 </div>
             ),

@@ -128,3 +128,15 @@ export const deleteFeedback = async (request, response) => {
         });
     }
 };
+
+
+export const getUserItems = async (req, res) => {
+  try {
+    const userId = req.userId; 
+    const userItems = await Feedback.find({ user: userId });
+    res.status(200).json(userItems);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
