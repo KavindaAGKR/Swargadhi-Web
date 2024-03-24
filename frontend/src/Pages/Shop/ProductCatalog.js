@@ -21,7 +21,7 @@ export const ProductCatalog = ({ products }) => {
     };
 
     return (
-        <Paper  sx={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#C6F6D4' }}>
+        <Paper  sx={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#C6F6D4', width:{lg:'1250px'} }}>
             <Typography variant="h3" sx={{ textAlign: 'center', margin: '25px' }}>All Products</Typography>
             <Container>
                 <Grid container spacing={5}>

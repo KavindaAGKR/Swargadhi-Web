@@ -21,7 +21,7 @@ import {  ProductCatalog } from './ProductCatalog'
 //     },
 //     price: 19.99,
 //     description: { 
-//         en: "Description of Product 1", 
+//         en: "DescDescription of Product 1Description of Product 1Description of Product 1Description of Product 1DescDescription of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1", 
 //         si: "නිෂ්පාදනය 1 විස්තර" 
 //     },
 //     quantity: 5,
@@ -39,7 +39,7 @@ import {  ProductCatalog } from './ProductCatalog'
 //     },
 //     price: 29.99,
 //     description: { 
-//         en: "Description of Product 2", 
+//         en: "Description of Product 2 Description of Product 2 Description of Product 2 Description of Product 2", 
 //         si: "නිෂ්පාදනය 2 විස්තර" 
 //     },
 //     quantity: 8,
@@ -217,12 +217,12 @@ export const Shop = () => {
   return (
     <React.Fragment><Header/>
       
-      <Stack sx={{margin:'25px', maxWidth:'90%',  display:'flex', justifyContent:'center', alignItems:'center'} } >
-      <TabContext value={value}>
-        <Box sx={{width:'90%'}}>
+      <Stack sx={{margin:'auto', maxWidth:'90%',  display:'flex', justifyContent:'center', alignItems:'center'} } >
+      <TabContext value={value} >
+        <Box sx={{margin:'auto',    } }>
           <TabList onChange={handleChange}  variant="scrollable"
-            scrollButtons allowScrollButtonsMobile
-            
+            scrollButtons allowScrollButtonsMobile 
+            sx={{ width:{xs:'300px',sm:'500px',md:'auto'}} }
             
             >
             <Tab label='All Products' value='1' />

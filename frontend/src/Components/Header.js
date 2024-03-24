@@ -96,7 +96,7 @@ export const Header = () => {
                         <img src={logo} alt="Swargadhi logo" width="30%"/>
 
 
-                        <Stack direction='row' >
+                        <Stack direction='row' spacing={2} >
 
                             <ResponsiveNav isMatch={isMatch}/>
                             <Button variant='contained'>සිංහල</Button>
