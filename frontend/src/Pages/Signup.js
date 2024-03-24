@@ -61,104 +61,61 @@ const useStyles = makeStyles((theme) => ({
 
               
 
-
 export const Signup = () => {
     const navigate = useNavigate();
     const classes = useStyles();
 
-    const [name, setName] = useState('');
-    const [email,setEmail] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPw2] = useState('');
     const [snackbarMessage, setSnackMessage] = useState('');
     const [snackBarOpen, setSnackBarOpen] = useState(false);
     const [issignedup, setisSignedup] = useState(false);
-    
 
-    const handleSignUp =async ()=>{
-      setSnackBarOpen(true)
+    const handleSignUp = async () => {
+        setSnackBarOpen(true)
 
+        if (!firstName || !lastName || !email || !password) {
+            setSnackMessage('All the fields are required');
+            setSnackBarOpen(true);
+            return;
+        }
 
-      if (!name ||!email || !password) {
-          setSnackMessage('All the fields are required');
-          setSnackBarOpen(true);
-          return;
-      }
-
-      const emailtype = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailtype.test(email)) {
-          setSnackMessage('Please enter a valid email address');
-          setSnackBarOpen(true);
-          return;
-      }
-      if(password !== password2){
-          setSnackMessage('Entered two passwords are not matching!');
-          setSnackBarOpen(true);
-          return;
-      }
-      try {
-        const response = await axios.post('http://localhost:5000/api/user/register', {
-            name,
-            email,
-            password,
-            password2
-        });
-        console.log(response.data.message);
-        setSnackMessage(response.data.message);
-        setisSignedup(true);
-        //navigate('/admin');
-    } catch (error) {
-        console.error(error);
-        setSnackMessage("Invalid Inputs");
-
-        // Handle error, show error message to user
-    }
-
-
+        const emailtype = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailtype.test(email)) {
+            setSnackMessage('Please enter a valid email address');
+            setSnackBarOpen(true);
+            return;
+        }
+        if (password !== password2) {
+            setSnackMessage('Entered two passwords are not matching!');
+            setSnackBarOpen(true);
+            return;
+        }
+        try {
+            const response = await axios.post('http://localhost:5000/api/user/register', {
+                firstName,
+                lastName,
+                email,
+                password,
+                password2
+            });
+            console.log(response.data.message);
+            setSnackMessage(response.data.message);
+            setisSignedup(true);
+            if (response.data.alert === 'success') {
+              navigate('/login');
+            }
+            // Redirect to another page after successful signup
+           // navigate('/login');
+        } catch (error) {
+            console.error(error);
+            setSnackMessage("Invalid Inputs");
+            // Handle error, show error message to user
+        }
     };
-  
-
-
-  // const handleSignUp = async () => {
-  //   try {
-  //     const response = await axios.post("http://localhost:3000/api/v1/buyer/signup", {
-  //       name,
-  //       email,
-  //       password,
-  //     });
-
-  //     if (response.data) {
-  //       //console.log('User registered successfully');
-  //       //SuccessMessage("User registered successfully");
-  //       alert("User registered successfully, Now log with your email and password");
-        
-  //       navigate('/login'); 
-  //     } else {
-  //       throw new Error(response.data.message);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error:', error.message);
-  //     alert("Error: " + error.message); // Display the error message to the user
-  //   }
-  //   alert("Your data are: \n User Name: "+name + "\n Email : " + email+"\n");
-
-  // };
-    
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setSelectedImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-    
-    
-
 
     return (
     <ThemeProvider theme={theme}>
@@ -181,18 +138,22 @@ export const Signup = () => {
             </Grid> */}
 {/* Inputs */}
             <Stack className={classes.stackContainer} justifyContent="center" alignItems="center" direction='column' >
-                
-                <img src={logo} alt="Swargadhi logo" style={{width:'80%', margin:'0px 0 0 0'}} />
-                <Typography variant='h4' color='success' style={{color:'green'}} >Sign Up</Typography>
 
 
-              <img src={selectedImage || profile} alt="Profile" style={{ width: '60px', height: '60px', cursor: 'pointer',borderRadius:'200px', margin:'20px' }} onClick={() => document.getElementById('avatar-input').click()} />
-              <input id="avatar-input" type="file" accept="image/*" style={{ display: 'none' }} onChange={handleImageChange} />
-
-
-                <TextField placeholder='Name' variant="standard"  margin="normal" required style={{width:'80%'}}
-                value={name}
-                onChange={(e) => {setName(e.target.value); console.log('name: ' + name)}}
+                <TextField placeholder='first Name' variant="standard"  margin="normal" required style={{width:'80%'}}
+                value={firstName}
+                onChange={(e) => {setFirstName(e.target.value); console.log('name: ' + firstName)}}
+                    InputProps={{
+                        startAdornment: (
+                          <InputAdornment position='start'>
+                            <AccountCircleRoundedIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                />
+                <TextField placeholder='last Name' variant="standard"  margin="normal" required style={{width:'80%'}}
+                value={lastName}
+                onChange={(e) => {setLastName(e.target.value); console.log('name: ' + lastName)}}
                     InputProps={{
                         startAdornment: (
                           <InputAdornment position='start'>
@@ -240,7 +201,7 @@ export const Signup = () => {
                       
                 />
 
-                <Button variant="contained" onClick={() => { handleSignUp() ;navigate('/shop') }} color='success'>Sign up</Button>
+                <Button variant="contained" onClick={() => { handleSignUp()  }} color='success'>Sign up</Button>
                 <Typography>Already have an account? <Button variant='text' onClick={()=>{navigate('/login')}}>Login</Button></Typography>
                 <Snackbar
                                 open={snackBarOpen}

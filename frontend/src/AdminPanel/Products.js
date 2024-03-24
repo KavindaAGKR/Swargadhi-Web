@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Stack, Typography, TextField, MenuItem, Dialog, DialogActions, DialogContent } from '@mui/material';
-import { initializeApp } from "firebase/app";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box } from '@mui/system';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { auto } from '@popperjs/core';
-
+import DeleteIcon from '@mui/icons-material/Delete'; // Imported DeleteIcon only, EditIcon is not used
+import IconButton from '@mui/material/IconButton';
 
 export const Products = () => {
     const [open, setOpen] = useState(false);
@@ -20,70 +16,39 @@ export const Products = () => {
         descriptionSi: '',
         quantity: 0,
         category: '',
-        images: []
+        images:[]
     });
-
-    const firebaseConfig = {
-        // Your Firebase config here
-        apiKey: "AIzaSyCwTnB-5-JNu-wu4S-jejIBZ4ylcAiWzH0",
-        authDomain: "swargadi-3250a.firebaseapp.com",
-        projectId: "swargadi-3250a",
-        storageBucket: "swargadi-3250a.appspot.com",
-        messagingSenderId: "991902590983",
-        appId: "1:991902590983:web:329754a966b8b39e0ee2a2",
-        measurementId: "G-0KGDYEWK6L"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const storage = getStorage(app);
-    const storageRef = ref(storage, "images");
-
-    const handleImageChange = (event) => {
-        const selectedFiles = Array.from(event.target.files);
-        setProductData({ ...productData, images: selectedFiles });
-    };
-
-    const handleUpload = async () => {
-        try {
-            const urls = [];
-            for (let i = 0; i < productData.images.length; i++) {
-                const image = productData.images[i];
-                const imageName = image.name;
-                const imageRef = ref(storageRef, imageName);
-                const metadata = { contentType: image.type };
-                const uploadTask = uploadBytesResumable(imageRef, image, metadata);
-                const snapshot = await uploadTask;
-                const downloadURL = await getDownloadURL(snapshot.ref);
-                urls.push(downloadURL);
-                console.log(`File ${imageName} uploaded successfully. URL:`, downloadURL);
-            }
-            setProductData(prevData => ({ ...prevData, images: urls }));
-        } catch (error) {
-            console.error('Error uploading images:', error);
-        }
-    };
-
+   
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setProductData({ ...productData, [name]: value });
-    };
+        setProductData({...productData, [e.target.name]: e.target.value});
+    }
 
+    const handlePhoto = (e) => {
+        const imagesArray = Array.from(e.target.files);
+        setProductData({...productData, images: imagesArray});
+    }
+    
+    
     const handleSubmit = async () => {
         try {
-            const formattedData = {
-                productItemID: productData.productItemID,
-                itemName: { en: productData.itemNameEn, si: productData.itemNameSi },
-                price: productData.price,
-                description: { en: productData.descriptionEn, si: productData.descriptionSi },
-                quantity: productData.quantity,
-                category: { en: productData.category, si: productData.category },
-                images: productData.images,
-            };
-            console.log('Formatted Data:', formattedData);
-            const response = await fetch('http://localhost:5000/api/product/new', {
+            const formData = new FormData();
+            formData.append('productItemID', productData.productItemID);
+            formData.append('itemNameEn', productData.itemNameEn);
+            formData.append('itemNameSi', productData.itemNameSi);
+            formData.append('price', productData.price);
+            formData.append('descriptionEn', productData.descriptionEn);
+            formData.append('descriptionSi', productData.descriptionSi);
+            formData.append('quantity', productData.quantity);
+            formData.append('category', productData.category);
+    
+            // Append each file to the FormData
+            productData.images.forEach(file => {
+                formData.append('images', file);
+            });
+    
+            const response = await fetch('http://localhost:5000/api/product/', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formattedData)
+                body: formData
             });
             const responseData = await response.json();
             console.log('Response from backend:', responseData);
@@ -97,6 +62,7 @@ export const Products = () => {
         }
         setOpen(false);
     };
+    
 
     const [products, setProducts] = useState([]);
 
@@ -116,9 +82,29 @@ export const Products = () => {
             console.error('Error fetching products:', error);
         }
     };
-
+    const handleDelete = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:5000/api/product/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+    
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                throw new Error(`Failed to delete product: ${errorMessage}`);
+            }
+    
+            // Refresh your data or update UI as necessary
+        } catch (error) {
+            console.error('Error deleting product:', error);
+        }
+    };
+    
+    
     const columns = [
-        { field: 'id', headerName: 'Product ID', width: 100 },
+        { field: 'id ', headerName: 'Product ID', width: 100 },
         { field: 'name_en', headerName: 'Name (English)', width: 200 },
         { field: 'name_si', headerName: 'Name (Sinhala)', width: 200 },
         { field: 'description_en', headerName: 'Description (English)', width: 300 },
@@ -128,32 +114,49 @@ export const Products = () => {
         { field: 'category', headerName: 'Category', width: 150 },
         { 
             field: 'images', 
-            headerName: 'Images', 
-            width: 250, 
-            renderCell: (params) => (
-                <div>
-                    {params.value && params.value.length > 0 && params.value.map((imageUrl, index) => (
-                        <img key={index} src={imageUrl} alt={`Product id:${params.id} img no: ${index}`} style={{ width: '100px', height: 'auto', margin: '1px' }} />
+            headerName: 'Images',
+            width: 200,
+            renderCell: (params) => {
+                const product = params.row;
+                return (
+                    <div>
+                    {product.images.map((images, index) => (
+                        <img
+                            key={index}
+                            src={`http://localhost:5000${images}`} 
+                            alt={`Product Image ${index + 1}`} 
+                            style={{ width: 100, height: 100, marginRight: 10 }}
+                            onError={(e) => {
+                                console.error(`Failed to load image ${index}: ${e.target.src}`);
+                                e.target.onerror = null;
+                            }}
+                        />
                     ))}
                 </div>
-            ),
+                );
+            },
         },
         { 
             field: 'actions', 
             headerName: 'Edit/Delete', 
             width: 150, 
             renderCell: (params) => (
-                <Stack direction="row" spacing={1}>
-                    <EditIcon color="primary" />
-                    <DeleteIcon color="error" />
-                </Stack>
+                <div>
+                    {/* <IconButton onClick={() => handleEdit(params.row.id)}>
+                        <EditIcon color="primary" />
+                    </IconButton> */}
+                    <IconButton onClick={() => handleDelete(params.row._id)}>
+                        <DeleteIcon color="error" />
+                    </IconButton>
+                    {console.log("Row ID:", params.row._id)}
+                </div>
             ),
         },
     ];
     
-
+    
     const rows = products.map(product => ({
-        id: product.productItemID,
+        id: product._id,
         name_en: product.itemName.en,
         name_si: product.itemName.si,
         description_en: product.description.en,
@@ -161,10 +164,10 @@ export const Products = () => {
         price: product.price,
         quantity: product.quantity,
         category: product.category.en,
-        images: product.images ? product.images.map(image => image) : [],
+        images: product.images // Assuming each product object contains an array of image URLs
     }));
     
-
+    
     return (
         <Stack>
             <Stack gap={2}>
@@ -179,8 +182,8 @@ export const Products = () => {
                         <Stack gap={2} sx={{ width: '100%' }} justifyContent='space-between' direction='column'>
                             <Typography variant='h3' color='success.main' margin='auto'>Add New Product</Typography>
                             <Stack direction='row' gap={2}>
-                                <TextField required name='productItemID' type='text' label='Enter Product ID' value={productData.productItemID} onChange={handleChange} />
-                                <TextField required name='category' label='Select Category' select sx={{ width: "50%" }} value={productData.category} onChange={handleChange}>
+                                <TextField name='productItemID' type='text' label='Enter Product ID' value={productData.productItemID} onChange={handleChange} />
+                                <TextField name='category' label='Select Category' select sx={{ width: "50%" }} value={productData.category} onChange={handleChange}>
                                     <MenuItem value='kalka'>Kalka</MenuItem>
                                     <MenuItem value='Paththu'>Paththu</MenuItem>
                                     <MenuItem value='Guli'>Guli</MenuItem>
@@ -198,19 +201,14 @@ export const Products = () => {
                                 <TextField name='descriptionEn' type='text' label='Enter the product description in English' value={productData.descriptionEn} onChange={handleChange} />
                                 <TextField name='descriptionSi' type='text' label='Enter the product description in Sinhala' value={productData.descriptionSi} onChange={handleChange} />
                             </Stack>
-                            <Stack  gap={2}>
-                                <Typography variant='body'>Upload Images (Select maximum 4 images)</Typography>
-                                <Stack direction='row' gap={10}>
-                                <input type="file" onChange={handleImageChange} multiple />
-                                <Button variant='contained' onClick={handleUpload}>Upload</Button>
-                                
-                                </Stack>
-                                <Stack direction='row'>
-                                    {productData.images.map((image, index) => (
-                                        <img key={index} src={typeof image === 'string' ? image : URL.createObjectURL(image)} alt={`Product-${index}`} width="100" />
-                                    ))}
-                                </Stack>
-                            </Stack>
+                            <input 
+                                    type="file" 
+                                    accept=".png, .jpg, .jpeg"
+                                    name="photo"
+                                    multiple onChange={handlePhoto}
+                                />
+
+
                         </Stack>
                     </DialogContent>
                     <DialogActions>
@@ -221,12 +219,11 @@ export const Products = () => {
                 <Typography variant='h5'>List of Products shows here.</Typography>
                 <Box sx={{ backgroundColor: 'white', margin: '0 25px ', height: '100%' }}>
                     <Stack>
-                        <Stack style={{ height: '100%', width: '100%' }}>
-                            <DataGrid
+                        <Stack style={{ height: '100%', width: '100%' }}>   
+                        <DataGrid
                                 rows={rows}
                                 columns={columns}
-                                pageSize={auto}
-                                getRowHeight={() => auto}
+                                pageSize={10} // You can adjust the pageSize as per your requirement
                             />
                         </Stack>
                     </Stack>
@@ -235,3 +232,4 @@ export const Products = () => {
         </Stack>
     );
 };
+
