@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Button, Stack, Typography, TextField, MenuItem, Dialog, DialogActions, DialogContent } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box } from '@mui/system';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from '@mui/icons-material/Delete'; // Imported DeleteIcon only, EditIcon is not used
+import IconButton from '@mui/material/IconButton';
 
 export const Products = () => {
     const [open, setOpen] = useState(false);
@@ -82,8 +82,29 @@ export const Products = () => {
             console.error('Error fetching products:', error);
         }
     };
+    const handleDelete = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:5000/api/product/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+    
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                throw new Error(`Failed to delete product: ${errorMessage}`);
+            }
+    
+            // Refresh your data or update UI as necessary
+        } catch (error) {
+            console.error('Error deleting product:', error);
+        }
+    };
+    
+    
     const columns = [
-        { field: 'id', headerName: 'Product ID', width: 100 },
+        { field: 'id ', headerName: 'Product ID', width: 100 },
         { field: 'name_en', headerName: 'Name (English)', width: 200 },
         { field: 'name_si', headerName: 'Name (Sinhala)', width: 200 },
         { field: 'description_en', headerName: 'Description (English)', width: 300 },
@@ -99,10 +120,19 @@ export const Products = () => {
                 const product = params.row;
                 return (
                     <div>
-                        {product.images.map((image, index) => (
-                            <img key={index} src={`http://localhost:5555${image}`} alt={`Product ${product.id} Image ${index}`} style={{ width: 50, height: 50, marginRight: 5 }} />
-                        ))}
-                    </div>
+                    {product.images.map((images, index) => (
+                        <img
+                            key={index}
+                            src={`http://localhost:5000${images}`} 
+                            alt={`Product Image ${index + 1}`} 
+                            style={{ width: 100, height: 100, marginRight: 10 }}
+                            onError={(e) => {
+                                console.error(`Failed to load image ${index}: ${e.target.src}`);
+                                e.target.onerror = null;
+                            }}
+                        />
+                    ))}
+                </div>
                 );
             },
         },
@@ -111,17 +141,22 @@ export const Products = () => {
             headerName: 'Edit/Delete', 
             width: 150, 
             renderCell: (params) => (
-                <Stack direction="row" spacing={1}>
-                    <EditIcon color="primary" />
-                    <DeleteIcon color="error" />
-                </Stack>
+                <div>
+                    {/* <IconButton onClick={() => handleEdit(params.row.id)}>
+                        <EditIcon color="primary" />
+                    </IconButton> */}
+                    <IconButton onClick={() => handleDelete(params.row._id)}>
+                        <DeleteIcon color="error" />
+                    </IconButton>
+                    {console.log("Row ID:", params.row._id)}
+                </div>
             ),
         },
     ];
     
     
     const rows = products.map(product => ({
-        id: product.productItemID,
+        id: product._id,
         name_en: product.itemName.en,
         name_si: product.itemName.si,
         description_en: product.description.en,

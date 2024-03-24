@@ -181,14 +181,14 @@ export const getAyurvedicProductsByCategory = async (request, response) => {
 
 // Uncomment and modify the updateAyurvedicProduct function if you plan to use image updates
 
-// Delete an Ayurvedic product by ID
+//Delete an Ayurvedic product by ID
 export const deleteAyurvedicProduct = async (request, response) => {
     try {
         const { id } = request.params;
         const isAyurvedicProduct = await AyurvedicProduct.findByIdAndDelete(id);
 
         if (!isAyurvedicProduct) {
-            return response.status(404).json({ message: "Not found" });
+            return response.status(404).json({ message: "Product not found" });
         }
 
         return response.status(200).json({ message: "Success" });
@@ -197,6 +197,8 @@ export const deleteAyurvedicProduct = async (request, response) => {
         response.status(500).send({ message: error.message });
     }
 };
+
+
 
 export const getSinhalaPart = async (request, response) => {
     try {

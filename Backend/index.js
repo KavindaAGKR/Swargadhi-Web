@@ -40,7 +40,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ limit: '500mb' }));
-
+app.use(express.static('public'));
 app.use('/api/user', userRoute);
 app.use('/api/product', productRoute);
 app.use('/api/material', materialRoute);
