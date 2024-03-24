@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Typography, TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+<<<<<<< HEAD
 import axios from 'axios'; // Import axios for making HTTP requests
+=======
+import { Header } from '../Components/Header';
+import { Footer } from '../Components/Footer';
+
+>>>>>>> 9bff5f291d6f35645a409bd9ee00650b72f9d9bf
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -57,6 +63,7 @@ export const UserProfile = () => {
     };
 
     return (
+<<<<<<< HEAD
         <div className={classes.root}>
             <Typography variant="h4" gutterBottom>
                 User Profile
@@ -103,5 +110,29 @@ export const UserProfile = () => {
                 Edit Profile
             </Button>
         </div>
+=======
+      <React.Fragment><Header/>
+    <div className={classes.root}>
+        <Typography variant="h4" gutterBottom>
+        User Profile
+        </Typography>
+        <Typography variant="body1">
+          {/* Display user details here */}
+          {/* Example: */}
+        Name: John Doe <br />
+        Email: johndoe@example.com <br />
+        Address: 123 Main St, City, Country
+        </Typography>
+        <Button
+        className={classes.button}
+        variant="contained"
+        color="primary"
+        onClick={handleEditProfile}
+        >
+        Edit Profile
+        </Button>
+    </div>
+    <Footer/></React.Fragment>
+>>>>>>> 9bff5f291d6f35645a409bd9ee00650b72f9d9bf
     );
 };
