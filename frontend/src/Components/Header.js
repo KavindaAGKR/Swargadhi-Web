@@ -101,7 +101,7 @@ export const Header = () => {
                             <ResponsiveNav isMatch={isMatch}/>
                             <Button variant='contained'>සිංහල</Button>
                             <IsLogged isLogged={isLoggedIn}/>
-                            <IconButton><ShoppingCartIcon/></IconButton>
+                            <IconButton sx={{padding:'0px'}}><ShoppingCartIcon/></IconButton>
                         </Stack>
                     </Toolbar>
                 </AppBar>

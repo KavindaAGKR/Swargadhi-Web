@@ -1,8 +1,12 @@
 import React from 'react'
 import { Grid, Paper,  Typography } from '@mui/material'
+import { Header } from '../Components/Header'
+import { Footer } from '../Components/Footer'
 
 export const About = () => {
 return (
+    <React.Fragment>
+        <Header/>
     <Grid container justifyContent="center" alignItems="center">
         <Grid item xs={10} >
         <Paper sx={{ margin:'50px', textAlign: 'center' }} elevation={20}>
@@ -20,6 +24,8 @@ You can now see labels that explain how herbs can influence different actions in
         </Paper>
         </Grid>
     </Grid>
+    <Footer/>
+    </React.Fragment>
 )
 }
 

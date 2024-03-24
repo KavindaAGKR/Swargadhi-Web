@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { Header } from '../Components/Header';
+import { Footer } from '../Components/Footer';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,6 +23,7 @@ export const UserProfile = () => {
     };
 
     return (
+      <React.Fragment><Header/>
     <div className={classes.root}>
         <Typography variant="h4" gutterBottom>
         User Profile
@@ -41,5 +44,6 @@ export const UserProfile = () => {
         Edit Profile
         </Button>
     </div>
+    <Footer/></React.Fragment>
     );
 };

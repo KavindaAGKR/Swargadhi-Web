@@ -7,10 +7,10 @@ import { Email, WhatsApp, Facebook, Call } from '@mui/icons-material';
 export const Footer = () => {
 
     const navigate = useNavigate();
-  return (
+    return (
     
-      <AppBar position='static' sx={{ display: 'flex', justifyContent: 'center',backgroundColor:'white', width:'100%',padding:'0px' }} >
-            <Toolbar sx={{  width:'100%'}}>
+        <AppBar position='static' sx={{ display: 'flex', justifyContent: 'center',backgroundColor:'white', width:'100%',padding:'0px' }} >
+            
             <Stack direction='column' alignItems='center'>
                 
                 <img src={logo} alt="Swargadhi logo" width="20%" height='40%' />
@@ -33,10 +33,10 @@ export const Footer = () => {
                     </Stack>
                 
                 </Stack>
-            </Toolbar>
+            
             
 
         </AppBar>
     
-  )
+    )
 }
