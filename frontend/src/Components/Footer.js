@@ -10,7 +10,7 @@ export const Footer = () => {
     return (
     
         <AppBar position='static' sx={{ display: 'flex', justifyContent: 'center',backgroundColor:'white', width:'100%',padding:'0px' }} >
-            <Toolbar sx={{  width:'100%'}}>
+            
             <Stack direction='column' alignItems='center'>
                 
                 <img src={logo} alt="Swargadhi logo" width="20%" height='40%' />
@@ -33,7 +33,7 @@ export const Footer = () => {
                     </Stack>
                 
                 </Stack>
-            </Toolbar>
+            
             
 
         </AppBar>

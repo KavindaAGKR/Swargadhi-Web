@@ -20,8 +20,8 @@ function ProductCard( { product } ) {
     
     return (
         <Paper sx={{ height: '350px', borderRadius: '20px' }} elevation={5}>
-            <Stack sx={{ margin: '10px' }}>
-                <Box sx={{ height: '50%', margin: '10px 0px' }}>
+            <Stack sx={{ margin: '10px', height:'100%'}}>
+                <Stack sx={{ height: '50%', margin: '10px 0px' }}>
                     <Carousel
                         sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                         navButtonsAlwaysVisible={true}
@@ -33,25 +33,26 @@ function ProductCard( { product } ) {
                             <img key={index} src={image} alt={name_en} style={{ maxWidth: '100%', borderRadius: '20px' }} />
                         ))}
                     </Carousel>
-                </Box>
+                </Stack>
+                <Stack height='50%'>
                 <Typography variant='h5'>{itemName.en}</Typography>
                 <Typography variant='h7'>{itemName.si}</Typography>
                 <Typography variant='h6' color='success.main'>{price}</Typography>
                 <Stack gap={5} direction='row' sx={{ justifyContent: 'center' }}>
                     <Button variant='contained' color='success' sx={{ fontSize: '10px' }}>Add to Cart</Button>
                     <Button variant='contained' color='success' sx={{ fontSize: '10px' }} onClick={()=>setOpenMore(true)}>View More</Button>
-                            <Stack>
+                    </Stack>
                                 <Dialog
                                 open = {openMore}
                                 
                                 >
-                                    
-                                    <DialogContent>
-                                <Stack direction='column'>
+                                
+                                <DialogContent sx={{ width:'500px'}}>
+                                <Box direction='column' >
                                 <Button onClick={()=>setOpenMore(false)}>close</Button>
-                                <Box sx={{ height: '500px', width:'500px', margin: '10px 0px' }}>
+                                <Box sx={{  margin: '10px 0px' }}>
                                     <Carousel
-                                        sx={{ height: '50%',width:'80%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                                        sx={{ height: '250px',width:'auto', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                                         navButtonsAlwaysVisible={true}
                                         autoPlay={false}
                                         indicators={false}
@@ -67,10 +68,12 @@ function ProductCard( { product } ) {
                                 <Typography variant='h7'>{itemName.si}</Typography>
                                 <Typography variant='h6' color='success.main'>{price}</Typography>  
                                 </Stack>
-                                </Stack>
+                                </Box>
                                 </DialogContent>
+                            
                             </Dialog>
-                            </Stack>
+                            
+                
                 </Stack>
             </Stack>
         </Paper>

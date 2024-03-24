@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
 import {TabContext, TabList, TabPanel, } from '@mui/lab'
-import { Tab, Box, Stack } from '@mui/material'
+import { Tab, Box, Stack, tabsClasses } from '@mui/material'
 
 
 import slide1 from '../Images/Slider3.png'; 
@@ -14,93 +14,150 @@ import {  ProductCatalog } from './ProductCatalog'
 
 // const products = [
 //   {
-//     id: 1,
-//     name_en: "Product 1",
-//     name_si: "වෙළඳ 1",
-//     description_en: "Description of Product 1 in English",
-//     description_si: "වෙළඳ 1 හි විස්තරය සිංහලෙන්",
-//     price: 22.49,
-//     quantity: 75,
-//     category: "Category 3",
+//     productItemID: "1",
+//     itemName: { 
+//         en: "Product 1", 
+//         si: "නිෂ්පාදනය 1" 
+//     },
+//     price: 19.99,
+//     description: { 
+//         en: "Description of Product 1", 
+//         si: "නිෂ්පාදනය 1 විස්තර" 
+//     },
+//     quantity: 5,
+//     category: { 
+//         en: "Category 1", 
+//         si: "ප්‍රවර්ගය 1" 
+//     },
 //     images: [slide1, slide2, slide3]
-//   },
-//   {
-//     id: 2,
-//     name_en: "Product 2",
-//     name_si: "වෙළඳ 2",
-//     description_en: "Description of Product 2 in English",
-//     description_si: "වෙළඳ 2 හි විස්තරය සිංහලෙන්",
-//     price: 34.99,
-//     quantity: 50,
-//     category: "Category 1",
+// },
+// {
+//     productItemID: "2",
+//     itemName: { 
+//         en: "Product 2", 
+//         si: "නිෂ්පාදනය 2" 
+//     },
+//     price: 29.99,
+//     description: { 
+//         en: "Description of Product 2", 
+//         si: "නිෂ්පාදනය 2 විස්තර" 
+//     },
+//     quantity: 8,
+//     category: { 
+//         en: "Category 2", 
+//         si: "ප්‍රවර්ගය 2" 
+//     },
 //     images: [slide1, slide2, slide3]
-//   },
-//   {
-//     id: 3,
-//     name_en: "Product 3",
-//     name_si: "වෙළඳ 3",
-//     description_en: "Description of Product 3 in English",
-//     description_si: "වෙළඳ 3 හි විස්තරය සිංහලෙන්",
+// },
+// {
+//     productItemID: "3",
+//     itemName: { 
+//         en: "Product 3", 
+//         si: "නිෂ්පාදනය 3" 
+//     },
+//     price: 24.99,
+//     description: { 
+//         en: "Description of Product 3", 
+//         si: "නිෂ්පාදනය 3 විස්තර" 
+//     },
+//     quantity: 10,
+//     category: { 
+//         en: "Category 3", 
+//         si: "ප්‍රවර්ගය 3" 
+//     },
+//     images: [slide1, slide2, slide3]
+// },
+// {
+//     productItemID: "4",
+//     itemName: { 
+//         en: "Product 4", 
+//         si: "නිෂ්පාදනය 4" 
+//     },
+//     price: 39.99,
+//     description: { 
+//         en: "Description of Product 4", 
+//         si: "නිෂ්පාදනය 4 විස්තර" 
+//     },
+//     quantity: 15,
+//     category: { 
+//         en: "Category 4", 
+//         si: "ප්‍රවර්ගය 4" 
+//     },
+//     images: [slide1, slide2, slide3]
+// },
+// {
+//     productItemID: "5",
+//     itemName: { 
+//         en: "Product 5", 
+//         si: "නිෂ්පාදනය 5" 
+//     },
 //     price: 49.99,
+//     description: { 
+//         en: "Description of Product 5", 
+//         si: "නිෂ්පාදනය 5 විස්තර" 
+//     },
+//     quantity: 20,
+//     category: { 
+//         en: "Category 5", 
+//         si: "ප්‍රවර්ගය 5" 
+//     },
+//     images: [slide1, slide2, slide3]
+// },
+// {
+//     productItemID: "6",
+//     itemName: { 
+//         en: "Product 6", 
+//         si: "නිෂ්පාදනය 6" 
+//     },
+//     price: 59.99,
+//     description: { 
+//         en: "Description of Product 6", 
+//         si: "නිෂ්පාදනය 6 විස්තර" 
+//     },
+//     quantity: 25,
+//     category: { 
+//         en: "Category 6", 
+//         si: "ප්‍රවර්ගය 6" 
+//     },
+//     images: [slide1, slide2, slide3]
+// },
+// {
+//     productItemID: "7",
+//     itemName: { 
+//         en: "Product 7", 
+//         si: "නිෂ්පාදනය 7" 
+//     },
+//     price: 69.99,
+//     description: { 
+//         en: "Description of Product 7", 
+//         si: "නිෂ්පාදනය 7 විස්තර" 
+//     },
 //     quantity: 30,
-//     category: "Category 2",
+//     category: { 
+//         en: "Category 7", 
+//         si: "ප්‍රවර්ගය 7" 
+//     },
 //     images: [slide1, slide2, slide3]
-//   },
-//   {
-//     id: 4,
-//     name_en: "Product 4",
-//     name_si: "වෙළඳ 4",
-//     description_en: "Description of Product 4 in English",
-//     description_si: "වෙළඳ 4 හි විස්තරය සිංහලෙන්",
-//     price: 19.99,
-//     quantity: 100,
-//     category: "Category 3",
+// },
+// {
+//     productItemID: "8",
+//     itemName: { 
+//         en: "Product 8", 
+//         si: "නිෂ්පාදනය 8" 
+//     },
+//     price: 79.99,
+//     description: { 
+//         en: "Description of Product 8", 
+//         si: "නිෂ්පාදනය 8 විස්තර" 
+//     },
+//     quantity: 35,
+//     category: { 
+//         en: "Category 8", 
+//         si: "ප්‍රවර්ගය 8" 
+//     },
 //     images: [slide1, slide2, slide3]
-//   },
-//   {
-//     id: 4,
-//     name_en: "Product 4",
-//     name_si: "වෙළඳ 4",
-//     description_en: "Description of Product 4 in English",
-//     description_si: "වෙළඳ 4 හි විස්තරය සිංහලෙන්",
-//     price: 19.99,
-//     quantity: 100,
-//     category: "Category 3",
-//     images: [slide1, slide2, slide3]
-//   },
-//   {
-//     id: 4,
-//     name_en: "Product 4",
-//     name_si: "වෙළඳ 4",
-//     description_en: "Description of Product 4 in English",
-//     description_si: "වෙළඳ 4 හි විස්තරය සිංහලෙන්",
-//     price: 19.99,
-//     quantity: 100,
-//     category: "Category 3",
-//     images: [slide1, slide2, slide3]
-//   },
-//   {
-//     id: 4,
-//     name_en: "Product 4",
-//     name_si: "වෙළඳ 4",
-//     description_en: "Description of Product 4 in English",
-//     description_si: "වෙළඳ 4 හි විස්තරය සිංහලෙන්",
-//     price: 19.99,
-//     quantity: 100,
-//     category: "Category 3",
-//     images: [slide1, slide2, slide3]
-//   },
-//   {
-//     id: 4,
-//     name_en: "Product 4",
-//     name_si: "වෙළඳ 4",
-//     description_en: "Description of Product 4 in English",
-//     description_si: "වෙළඳ 4 හි විස්තරය සිංහලෙන්",
-//     price: 19.99,
-//     quantity: 100,
-//     category: "Category 3",
-//     images: [slide1, slide2, slide3]
-//   },
+// },
+  
 
   
 // ];
@@ -135,6 +192,8 @@ export const Shop = () => {
   
 
 
+//import data from backend
+
   const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -158,10 +217,14 @@ export const Shop = () => {
   return (
     <React.Fragment><Header/>
       
-      <Stack sx={{margin:'25px', display:'flex', justifyContent:'center', alignItems:'center'}} >
+      <Stack sx={{margin:'25px', maxWidth:'90%',  display:'flex', justifyContent:'center', alignItems:'center'} } >
       <TabContext value={value}>
-        <Box>
-          <TabList onChange={handleChange}>
+        <Box sx={{width:'90%'}}>
+          <TabList onChange={handleChange}  variant="scrollable"
+            scrollButtons allowScrollButtonsMobile
+            
+            
+            >
             <Tab label='All Products' value='1' />
             <Tab label='Kalka' value='2'/>
             <Tab label='Thel' value='3'/>

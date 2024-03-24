@@ -21,12 +21,13 @@ export const ProductCatalog = ({ products }) => {
     };
 
     return (
-        <Paper fullWidth sx={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#C6F6D4' }}>
+        <Paper  sx={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#C6F6D4' }}>
             <Typography variant="h3" sx={{ textAlign: 'center', margin: '25px' }}>All Products</Typography>
             <Container>
                 <Grid container spacing={5}>
                     {currentItems.map(product => (
-                        <Grid item key={product.id} xs={12} sm={6} lg={3}>
+                        <Grid item key={product.productItemID} xs={12} sm={6} lg={3}>
+
 
                             <ProductCard product={product} />
 
