@@ -80,11 +80,11 @@ export const IsLogged = (props) => {
 //Header
 export const Header = () => {
     
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
 
     //const [isLoggedIn] = useState(true);
     const isLoggedIn = false;
-
+    
 
     const theme = useTheme();
     const isMatch = useMediaQuery(theme.breakpoints.down('md'));
@@ -101,8 +101,8 @@ export const Header = () => {
                             <ResponsiveNav isMatch={isMatch}/>
                             <Button variant='contained'>සිංහල</Button>
                             <IsLogged isLogged={isLoggedIn}/>
-                            <IconButton sx={{padding:'0px'}}><ShoppingCartIcon/></IconButton>
-                        </Stack>
+                            <IconButton onClick={()=>{navigate('/cart')}} sx={{padding:'0px'}}><ShoppingCartIcon/></IconButton>
+                        </Stack> 
                     </Toolbar>
                 </AppBar>
             </React.Fragment>
