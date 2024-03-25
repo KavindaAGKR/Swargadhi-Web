@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Stack, Typography, TextField, MenuItem, Dialog, DialogActions, DialogContent } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
-import { Box } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete'; // Imported DeleteIcon only, EditIcon is not used
+import { Button, Dialog, DialogActions, DialogContent, MenuItem, Stack, TextField, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
+import { Box } from '@mui/system';
+import { DataGrid } from '@mui/x-data-grid';
+import React, { useEffect, useState } from 'react';
 
 export const Products = () => {
     const [open, setOpen] = useState(false);
@@ -88,6 +88,7 @@ export const Products = () => {
             const response = await fetch('http://localhost:5000/api/product/all');
             const data = await response.json();
             if (response.ok) {
+                console.log(data.data)
                 setProducts(data.data);
             } else {
                 console.error('Error fetching Ayurvedic products:', data.message);
@@ -133,12 +134,14 @@ export const Products = () => {
             width: 200,
             renderCell: (params) => {
                 const product = params.row;
+                console.log(product)
                 return (
                     <div>
                     {product.images.map((images, index) => (
+
                         <img
                             key={index}
-                            src={`http://localhost:5000${images}`} 
+                            src={`http://localhost:5000/${images}`} 
                             alt={`Product Image ${index + 1}`} 
                             style={{ width: 100, height: 100, marginRight: 10 }}
                             onError={(e) => {
@@ -160,11 +163,11 @@ export const Products = () => {
                     {/* <IconButton onClick={() => handleEdit(params.row.id)}>
                         <EditIcon color="primary" />
                     </IconButton> */}
-                    <IconButton onClick={() => handleDelete(params.row._id)}>
+                    <IconButton onClick={() => handleDelete(params.row.id)}>
                         <DeleteIcon color="error" />
                     </IconButton>
          
-                    {console.log("Row ID:", params.row._id)}
+                    {console.log("Row ID:", params.row.id)}
                 </div>
             ),
         },
