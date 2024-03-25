@@ -38,24 +38,27 @@ export const CartCard = () => {
     
         <Stack justifyContent='space-between' direction='row' sx={{borderRadius:'20px', border:'solid 1px #B1FDC5', boxShadow:' 5px 10px 13px -6px rgba(0,0,0,0.2)', width:'80%', padding:'10px'}}>
             <img src={product[0].images[1]} alt='product img' width='20%' style={{borderRadius:'20px'}} />
-            <Stack direction='column'>
+            <Stack direction='column' width='40%'>
                 <Typography>Product name_endsffff fffffff fffffffffdddd ddddddd ddddddddd</Typography>
                 <Typography>Product name_si</Typography>
                 <Typography>Unit price</Typography>
             </Stack>
-            <Stack direction='row'  >
-                                <Typography>Quantity {quantity > 0 ? 
-                                    <Typography variant='h7' color='success.main' >(Instock-{quantity})</Typography> :
-                                    <Typography variant='h7' color='error'>(Out of Stock)</Typography>
-                                } : </Typography>
+            <Stack direction='column' width='20%' >
+                                <Stack direction='row'>
+                                <Typography>Quantity : </Typography>
                                 <TextField
                                     type='number'
                                     inputProps={{ min: 0, max:quantity, style: { padding: '0px', display:'all' }  }}
                                     
                                 />
+                                </Stack>
+                                {quantity > 0 ? 
+                                    <Typography variant='h7' color='success.main' >(Instock-{quantity})</Typography> :
+                                    <Typography variant='h7' color='error'>(Out of Stock)</Typography>
+                                } 
             </Stack>
-            <Typography variant='h6' color='success.main'>Rs. 8989</Typography>
-            <IconButton  color='error' ><CancelIcon sx={{ fontSize: 25 , }}/></IconButton> 
+            <Typography variant='h6' color='success.main' width='10%'>Rs. 8989</Typography>
+            <IconButton  color='error' sx={{width:'1px', height:'1px'}} ><CancelIcon sx={{ fontSize: 25 , }}/></IconButton> 
         </Stack>
 
     )

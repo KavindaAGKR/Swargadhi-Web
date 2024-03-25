@@ -60,6 +60,7 @@ export const UserProfile = () => {
     };
 
     return (
+        <React.Fragment><Header/>
         <div className={classes.root}>
             <Typography variant="h4" gutterBottom>
                 User Profile
@@ -106,5 +107,6 @@ export const UserProfile = () => {
                 Edit Profile
             </Button>
         </div>
+        <Footer/></React.Fragment>
     );
 };

@@ -3,164 +3,166 @@ import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
 import {TabContext, TabList, TabPanel, } from '@mui/lab'
 import { Tab, Box, Stack, tabsClasses } from '@mui/material'
+import {  ProductCatalog } from './ProductCatalog'
+
+
+
+
+
 
 
 import slide1 from '../Images/Slider3.png'; 
 import slide2 from '../Images/Slider2.png';
 import slide3 from '../Images/Slider1.jpg';
-import {  ProductCatalog } from './ProductCatalog'
-
-
-
-// const products = [
-//   {
-//     productItemID: "1",
-//     itemName: { 
-//         en: "Product 1", 
-//         si: "නිෂ්පාදනය 1" 
-//     },
-//     price: 19.99,
-//     description: { 
-//         en: "DescDescription of Product 1Description of Product 1Description of Product 1Description of Product 1DescDescription of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1", 
-//         si: "නිෂ්පාදනය 1 විස්තර" 
-//     },
-//     quantity: 5,
-//     category: { 
-//         en: "Category 1", 
-//         si: "ප්‍රවර්ගය 1" 
-//     },
-//     images: [slide1, slide2, slide3]
-// },
-// {
-//     productItemID: "2",
-//     itemName: { 
-//         en: "Product 2", 
-//         si: "නිෂ්පාදනය 2" 
-//     },
-//     price: 29.99,
-//     description: { 
-//         en: "Description of Product 2 Description of Product 2 Description of Product 2 Description of Product 2", 
-//         si: "නිෂ්පාදනය 2 විස්තර" 
-//     },
-//     quantity: 8,
-//     category: { 
-//         en: "Category 2", 
-//         si: "ප්‍රවර්ගය 2" 
-//     },
-//     images: [slide1, slide2, slide3]
-// },
-// {
-//     productItemID: "3",
-//     itemName: { 
-//         en: "Product 3", 
-//         si: "නිෂ්පාදනය 3" 
-//     },
-//     price: 24.99,
-//     description: { 
-//         en: "Description of Product 3", 
-//         si: "නිෂ්පාදනය 3 විස්තර" 
-//     },
-//     quantity: 10,
-//     category: { 
-//         en: "Category 3", 
-//         si: "ප්‍රවර්ගය 3" 
-//     },
-//     images: [slide1, slide2, slide3]
-// },
-// {
-//     productItemID: "4",
-//     itemName: { 
-//         en: "Product 4", 
-//         si: "නිෂ්පාදනය 4" 
-//     },
-//     price: 39.99,
-//     description: { 
-//         en: "Description of Product 4", 
-//         si: "නිෂ්පාදනය 4 විස්තර" 
-//     },
-//     quantity: 15,
-//     category: { 
-//         en: "Category 4", 
-//         si: "ප්‍රවර්ගය 4" 
-//     },
-//     images: [slide1, slide2, slide3]
-// },
-// {
-//     productItemID: "5",
-//     itemName: { 
-//         en: "Product 5", 
-//         si: "නිෂ්පාදනය 5" 
-//     },
-//     price: 49.99,
-//     description: { 
-//         en: "Description of Product 5", 
-//         si: "නිෂ්පාදනය 5 විස්තර" 
-//     },
-//     quantity: 20,
-//     category: { 
-//         en: "Category 5", 
-//         si: "ප්‍රවර්ගය 5" 
-//     },
-//     images: [slide1, slide2, slide3]
-// },
-// {
-//     productItemID: "6",
-//     itemName: { 
-//         en: "Product 6", 
-//         si: "නිෂ්පාදනය 6" 
-//     },
-//     price: 59.99,
-//     description: { 
-//         en: "Description of Product 6", 
-//         si: "නිෂ්පාදනය 6 විස්තර" 
-//     },
-//     quantity: 25,
-//     category: { 
-//         en: "Category 6", 
-//         si: "ප්‍රවර්ගය 6" 
-//     },
-//     images: [slide1, slide2, slide3]
-// },
-// {
-//     productItemID: "7",
-//     itemName: { 
-//         en: "Product 7", 
-//         si: "නිෂ්පාදනය 7" 
-//     },
-//     price: 69.99,
-//     description: { 
-//         en: "Description of Product 7", 
-//         si: "නිෂ්පාදනය 7 විස්තර" 
-//     },
-//     quantity: 30,
-//     category: { 
-//         en: "Category 7", 
-//         si: "ප්‍රවර්ගය 7" 
-//     },
-//     images: [slide1, slide2, slide3]
-// },
-// {
-//     productItemID: "8",
-//     itemName: { 
-//         en: "Product 8", 
-//         si: "නිෂ්පාදනය 8" 
-//     },
-//     price: 79.99,
-//     description: { 
-//         en: "Description of Product 8", 
-//         si: "නිෂ්පාදනය 8 විස්තර" 
-//     },
-//     quantity: 35,
-//     category: { 
-//         en: "Category 8", 
-//         si: "ප්‍රවර්ගය 8" 
-//     },
-//     images: [slide1, slide2, slide3]
-// },
+const products = [
+  {
+    productItemID: "1",
+    itemName: { 
+        en: "Product 1", 
+        si: "නිෂ්පාදනය 1" 
+    },
+    price: 19.99,
+    description: { 
+        en: "DescDescription of Product 1Description of Product 1Description of Product 1Description of Product 1DescDescription of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1Description of Product 1", 
+        si: "නිෂ්පාදනය 1 විස්තර" 
+    },
+    quantity: 5,
+    category: { 
+        en: "Category 1", 
+        si: "ප්‍රවර්ගය 1" 
+    },
+    images: [slide1, slide2, slide3]
+},
+{
+    productItemID: "2",
+    itemName: { 
+        en: "Product 2", 
+        si: "නිෂ්පාදනය 2" 
+    },
+    price: 29.99,
+    description: { 
+        en: "Description of Product 2 Description of Product 2 Description of Product 2 Description of Product 2", 
+        si: "නිෂ්පාදනය 2 විස්තර" 
+    },
+    quantity: 8,
+    category: { 
+        en: "Category 2", 
+        si: "ප්‍රවර්ගය 2" 
+    },
+    images: [slide1, slide2, slide3]
+},
+{
+    productItemID: "3",
+    itemName: { 
+        en: "Product 3", 
+        si: "නිෂ්පාදනය 3" 
+    },
+    price: 24.99,
+    description: { 
+        en: "Description of Product 3", 
+        si: "නිෂ්පාදනය 3 විස්තර" 
+    },
+    quantity: 10,
+    category: { 
+        en: "Category 3", 
+        si: "ප්‍රවර්ගය 3" 
+    },
+    images: [slide1, slide2, slide3]
+},
+{
+    productItemID: "4",
+    itemName: { 
+        en: "Product 4", 
+        si: "නිෂ්පාදනය 4" 
+    },
+    price: 39.99,
+    description: { 
+        en: "Description of Product 4", 
+        si: "නිෂ්පාදනය 4 විස්තර" 
+    },
+    quantity: 15,
+    category: { 
+        en: "Category 4", 
+        si: "ප්‍රවර්ගය 4" 
+    },
+    images: [slide1, slide2, slide3]
+},
+{
+    productItemID: "5",
+    itemName: { 
+        en: "Product 5", 
+        si: "නිෂ්පාදනය 5" 
+    },
+    price: 49.99,
+    description: { 
+        en: "Description of Product 5", 
+        si: "නිෂ්පාදනය 5 විස්තර" 
+    },
+    quantity: 20,
+    category: { 
+        en: "Category 5", 
+        si: "ප්‍රවර්ගය 5" 
+    },
+    images: [slide1, slide2, slide3]
+},
+{
+    productItemID: "6",
+    itemName: { 
+        en: "Product 6", 
+        si: "නිෂ්පාදනය 6" 
+    },
+    price: 59.99,
+    description: { 
+        en: "Description of Product 6", 
+        si: "නිෂ්පාදනය 6 විස්තර" 
+    },
+    quantity: 25,
+    category: { 
+        en: "Category 6", 
+        si: "ප්‍රවර්ගය 6" 
+    },
+    images: [slide1, slide2, slide3]
+},
+{
+    productItemID: "7",
+    itemName: { 
+        en: "Product 7", 
+        si: "නිෂ්පාදනය 7" 
+    },
+    price: 69.99,
+    description: { 
+        en: "Description of Product 7", 
+        si: "නිෂ්පාදනය 7 විස්තර" 
+    },
+    quantity: 30,
+    category: { 
+        en: "Category 7", 
+        si: "ප්‍රවර්ගය 7" 
+    },
+    images: [slide1, slide2, slide3]
+},
+{
+    productItemID: "8",
+    itemName: { 
+        en: "Product 8", 
+        si: "නිෂ්පාදනය 8" 
+    },
+    price: 79.99,
+    description: { 
+        en: "Description of Product 8", 
+        si: "නිෂ්පාදනය 8 විස්තර" 
+    },
+    quantity: 35,
+    category: { 
+        en: "Category 8", 
+        si: "ප්‍රවර්ගය 8" 
+    },
+    images: [slide1, slide2, slide3]
+},
   
 
   
-// ];
+];
 
 
 
@@ -194,24 +196,24 @@ export const Shop = () => {
 
 //import data from backend
 
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
 
-    useEffect(() => {
-        fetchAllProducts();
-    }, []);
+  //   useEffect(() => {
+  //       fetchAllProducts();
+  //   }, []);
 
-    const fetchAllProducts = async () => {
-        try {
-            const response = await fetch('http://localhost:5000/api/product/all');
-            if (!response.ok) {
-                throw new Error('Failed to fetch products');
-            }
-            const data = await response.json();
-            setProducts(data.data);
-        } catch (error) {
-            console.error('Error fetching products:', error);
-        }
-    };
+  //   const fetchAllProducts = async () => {
+  //       try {
+  //           const response = await fetch('http://localhost:5000/api/product/all');
+  //           if (!response.ok) {
+  //               throw new Error('Failed to fetch products');
+  //           }
+  //           const data = await response.json();
+  //           setProducts(data.data);
+  //       } catch (error) {
+  //           console.error('Error fetching products:', error);
+  //       }
+  //   };
 
 
   return (
