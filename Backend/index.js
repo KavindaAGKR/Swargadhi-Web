@@ -1,17 +1,17 @@
-import express from "express";
-import dbConnect from "./config/dbConnect.js";
-import dotenv from "dotenv";
-import productRoute from "./routes/productRoute.js";
-import adminRoute from "./routes/adminRoute.js"
-import materialRoute from "./routes/materialRoute.js"
-import feedBackRoute from "./routes/feedBackRoute.js"
-import userRoute from "./routes/userRoute.js"
 import bodyParser from 'body-parser';
+import cors from 'cors';
+import dotenv from "dotenv";
+import express from "express";
+import i18next from "i18next";
+import { createRequire } from "module";
+import dbConnect from "./config/dbConnect.js";
+import adminRoute from "./routes/adminRoute.js";
+import feedBackRoute from "./routes/feedBackRoute.js";
+import materialRoute from "./routes/materialRoute.js";
+import productRoute from "./routes/productRoute.js";
+import userRoute from "./routes/userRoute.js";
 import global_English from "./translations/English/global.json" assert { type: "json" };
 import global_Sinhala from "./translations/Sinhala/global.json" assert { type: "json" };
-import i18next from "i18next";
-import cors from 'cors'
-import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
 // Suppress experimental JSON module import warning
@@ -40,7 +40,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ limit: '500mb' }));
-app.use(express.static('public'));
+// app.use(express.static('/public'));
+app.use('/public', express.static('public'))
 app.use('/api/user', userRoute);
 app.use('/api/product', productRoute);
 app.use('/api/material', materialRoute);

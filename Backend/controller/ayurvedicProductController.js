@@ -1,7 +1,7 @@
-import AyurvedicProduct from "../models/productModel.js";
 import multer from 'multer';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
+import AyurvedicProduct from "../models/productModel.js";
 
 // Multer storage configuration
 const storage = multer.diskStorage({
@@ -161,7 +161,7 @@ export const getAllAyurvedicProducts = async (req, res) => {
         // Modify each product to include full image paths
         const productsWithImages = ayurvedicProducts.map(product => {
             // Map each image filename to its full URL path
-            const imagePaths = product.images.map(filename => `path.join(http://localhost:5000/public/item/', filename)`);
+            const imagePaths = product.images.map(filename => filename.slice(1));
             
             // Return product object with updated image paths
             return {
@@ -180,6 +180,7 @@ export const getAllAyurvedicProducts = async (req, res) => {
         res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 };
+
 
 
 
