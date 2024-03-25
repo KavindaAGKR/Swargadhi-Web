@@ -5,50 +5,43 @@ import { Box } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 
-export const Products = () => {
+export const AdminDoctor = () => {
     const [open, setOpen] = useState(false);
-    const [productData, setProductData] = useState({
-        productItemID: '',
-        itemNameEn: '',
-        itemNameSi: '',
-        price: 0,
+    const [doctorData, setDoctorData] = useState({
+        doctorID: '',
+        nameEn: '',
+        nameSi: '',
         descriptionEn: '',
         descriptionSi: '',
-        quantity: 0,
-        categoryEn: '',
-        categorySi: '',
+        time:'0',
         images:[]
     });
    
     const handleChange = (e) => {
-        setProductData({...productData, [e.target.name]: e.target.value});
+        setDoctorData({...doctorData, [e.target.name]: e.target.value});
     }
 
     const handlePhoto = (e) => {
         const imagesArray = Array.from(e.target.files);
-        setProductData({...productData, images: imagesArray});
+        setDoctorData({...doctorData, images: imagesArray});
     }
     
     
     const handleSubmit = async () => {
         try {
             const formData = new FormData();
-            formData.append('productItemID', productData.productItemID);
-            formData.append('itemNameEn', productData.itemNameEn);
-            formData.append('itemNameSi', productData.itemNameSi);
-            formData.append('price', productData.price);
-            formData.append('descriptionEn', productData.descriptionEn);
-            formData.append('descriptionSi', productData.descriptionSi);
-            formData.append('quantity', productData.quantity);
-            formData.append('categoryEn', productData.categoryEn);
-            formData.append('categorySi', productData.categorySi);
-    
-            // Append each file to the FormData
-            productData.images.forEach(file => {
+            formData.append('doctorID', doctorData.doctorID);
+            formData.append('nameEn', doctorData.nameEn);
+            formData.append('nameSi', doctorData.nameSi);
+            formData.append('descriptionEn', doctorData.descriptionEn);
+            formData.append('descriptionSi', doctorData.descriptionSi);
+            formData.append('time', doctorData.time);
+           // Append each file to the FormData
+            doctorData.images.forEach(file => {
                 formData.append('images', file);
             });
     
-            const response = await fetch('http://localhost:5000/api/product/', {
+            const response = await fetch('http://localhost:5000/api/doctor/add', {
                 method: 'POST',
                 body: formData
             });
@@ -57,52 +50,40 @@ export const Products = () => {
             if (response.ok) {
                 console.log('Product added successfully');
             } else {
-                console.error('Failed to add product');
+                console.error('Failed to add doctor');
             }
         } catch (error) {
-            console.error('Error adding product:', error);
+            console.error('Error adding doctor:', error);
         }
         setOpen(false);
     };
     
 
-    const [products, setProducts] = useState([]);
+    const [doctors, setDoctors] = useState([]);
 
     useEffect(() => {
-        fetchAllProducts();
+        fetchAllDoctors();
     }, []);
 
-    // const fetchAllProducts = async () => {
-    //     try {
-    //         const response = await fetch('http://localhost:5000/api/product/all');
-    //         if (!response.ok) {
-    //             throw new Error('Failed to fetch products');
-    //         }
-    //         const data = await response.json();
-    //         setProducts(data.data);
-    //     } catch (error) {
-    //         console.error('Error fetching products:', error);
-    //     }
-    // };
 
-    const fetchAllProducts = async () => {
+    const fetchAllDoctors = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/product/all');
+            const response = await fetch('http://localhost:5000/api/doctor/');
             const data = await response.json();
             if (response.ok) {
                 console.log(data.data)
-                setProducts(data.data);
+                setDoctors(data.data);
             } else {
-                console.error('Error fetching Ayurvedic products:', data.message);
+                console.error('Error fetching doctosr products:', data.message);
             }
         } catch (error) {
-            console.error('Error fetching Ayurvedic products:', error.message);
+            console.error('Error fetching doctors products:', error.message);
         }
     };
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/product/${id}`, {
+            const response = await fetch(`http://localhost:5000/api/doctor/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -111,36 +92,33 @@ export const Products = () => {
     
             if (!response.ok) {
                 const errorMessage = await response.text();
-                throw new Error(`Failed to delete product: ${errorMessage}`);
+                throw new Error(`Failed to delete doctor: ${errorMessage}`);
             }
     
             // Refresh your data or update UI as necessary
         } catch (error) {
-            console.error('Error deleting product:', error);
+            console.error('Error deleting doctor:', error);
         }
     };
     
     
     const columns = [
-        { field: 'id ', headerName: 'Product ID', width: 100 },
+        { field: 'id ', headerName: 'Doctor ID', width: 100 },
         { field: 'name_en', headerName: 'Name (English)', width: 200 },
         { field: 'name_si', headerName: 'Name (Sinhala)', width: 200 },
         { field: 'description_en', headerName: 'Description (English)', width: 300 },
         { field: 'description_si', headerName: 'Description (Sinhala)', width: 300 },
-        { field: 'price', headerName: 'Price (LKR)', width: 150 },
-        { field: 'quantity', headerName: 'Available Quantity', width: 150 },
-        { field: 'category_en', headerName: 'Category(English)', width: 150 },
-        { field: 'category_si', headerName: 'Category(Sinhala)', width: 150 },
+        { field: 'time', headerName: 'Price (LKR)', width: 150 },
         { 
             field: 'images', 
             headerName: 'Images',
             width: 200,
             renderCell: (params) => {
-                const product = params.row;
-                console.log(product)
+                const doctor = params.row;
+                console.log(doctor)
                 return (
                     <div>
-                    {product.images.map((images, index) => (
+                    {doctor.images.map((images, index) => (
 
                         <img
                             key={index}
@@ -177,24 +155,20 @@ export const Products = () => {
     ];
     
     
-    const rows = products.map(product => ({
-        id: product._id,
-        name_en: product.itemName.en,
-        name_si: product.itemName.si,
-        description_en: product.description.en,
-        description_si: product.description.si,
-        price: product.price,
-        quantity: product.quantity,
-        category_en: product.category.en,
-        category_si: product.category.si,
-        images: product.images // Assuming each product object contains an array of image URLs
+    const rows = doctors.map(doctor => ({
+        id: doctor._id,
+        name_en: doctor.name.en,
+        name_si: doctor.name.si,
+        description_en: doctor.description.en,
+        description_si: doctor.description.si,
+        time:doctor.time,
+        images: doctor.images // Assuming each doctor object contains an array of image URLs
     }));
-    
     
     return (
         <Stack>
             <Stack gap={2}>
-                <Typography variant='h3' sx={{ margin:'20px auto'}}>List of Products</Typography>
+                <Typography variant='h3' sx={{ margin:'20px auto'}}>List of Doctor</Typography>
                 <Button variant='contained' sx={{width:'30%', margin:'auto'}} onClick={() => setOpen(true)}>Add New Product</Button>
                 <Dialog
                     open={open}
@@ -205,29 +179,20 @@ export const Products = () => {
                         <Stack gap={2} sx={{ width: '100%' }} justifyContent='space-between' direction='column'>
                             <Typography variant='h3' color='success.main' margin='auto'>Add New Product</Typography>
                             <Stack direction='row' gap={2}>
-                                <TextField name='productItemID' type='text' label='Enter Product ID' value={productData.productItemID} onChange={handleChange} />
-                                <TextField name='categoryEn' label='Select Category' select sx={{ width: "50%" }} value={productData.categoryEn} onChange={handleChange}>
-                                    <MenuItem value='kalka'>Kalka</MenuItem>
-                                    <MenuItem value='Paththu'>Paththu</MenuItem>
-                                    <MenuItem value='Guli'>Guli</MenuItem>
-                                </TextField>
-                                <TextField name='categorySi' label='Select Category' select sx={{ width: "50%" }} value={productData.categorySi} onChange={handleChange}>
-                                    <MenuItem value='kalka'>Kalka</MenuItem>
-                                    <MenuItem value='Paththu'>Paththu</MenuItem>
-                                    <MenuItem value='Guli'>Guli</MenuItem>
-                                </TextField>
+                                <TextField name='doctorID' type='text' label='Enter  ID' value={doctorData.doctorID} onChange={handleChange} />
+                               
                             </Stack>
                             <Stack direction='row' gap={2}>
-                                <TextField name='itemNameEn' type='text' label='Enter Name in English' value={productData.itemNameEn} onChange={handleChange} />
-                                <TextField name='itemNameSi' type='text' label='Enter Name in Sinhala' value={productData.itemNameSi} onChange={handleChange} />
+                                <TextField name='nameEn' type='text' label='Enter Name in English' value={doctorData.nameEn} onChange={handleChange} />
+                                <TextField name='nameSi' type='text' label='Enter Name in Sinhala' value={doctorData.nameSi} onChange={handleChange} />
+                            </Stack>
+                          
+                            <Stack direction='row' gap={2}>
+                                <TextField name='descriptionEn' type='text' label='Enter the doctor description in English' value={doctorData.descriptionEn} onChange={handleChange} />
+                                <TextField name='descriptionSi' type='text' label='Enter the doctor description in Sinhala' value={doctorData.descriptionSi} onChange={handleChange} />
                             </Stack>
                             <Stack direction='row' gap={2}>
-                                <TextField name='quantity' type='number' label='Enter the available quantity' value={productData.quantity} onChange={handleChange} />
-                                <TextField name='price' type='number' label='Price' value={productData.price} onChange={handleChange} />
-                            </Stack>
-                            <Stack direction='row' gap={2}>
-                                <TextField name='descriptionEn' type='text' label='Enter the product description in English' value={productData.descriptionEn} onChange={handleChange} />
-                                <TextField name='descriptionSi' type='text' label='Enter the product description in Sinhala' value={productData.descriptionSi} onChange={handleChange} />
+                                <TextField name='time' type='number' label='Enter the available time' value={doctorData.time} onChange={handleChange} />
                             </Stack>
                             <input 
                                     type="file" 
@@ -244,7 +209,7 @@ export const Products = () => {
                         <Button onClick={handleSubmit}>Submit</Button>
                     </DialogActions>
                 </Dialog>
-                <Typography variant='h5'>List of Products shows here.</Typography>
+                <Typography variant='h5'>List of Doctor shows here.</Typography>
                 <Box sx={{ backgroundColor: 'white', margin: '0 25px ', height: '100%' }}>
                     <Stack>
                         <Stack style={{ height: '100%', width: '100%' }}>   

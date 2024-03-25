@@ -27,7 +27,9 @@ return (
                 <Button variant='contained' color='success' onClick={()=>navigate('users')}  >Users</Button>
                 <Button variant='contained' color='success' onClick={()=>navigate('messages')}  >Messages</Button>
                 <Button variant='contained' color='success' onClick={()=>navigate('settings')}  >Settings</Button>
+                <Button variant='contained' color='success' onClick={()=>navigate('doctor')}  >Doctor</Button>
                 <Button variant='contained' color='success' onClick={()=>alert('You have signed out!')}  >SignOut</Button>
+                
                 
             </Stack >
                 </Stack>
