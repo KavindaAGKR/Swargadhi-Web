@@ -38,7 +38,7 @@ function App() {
             <Route path='orders' element={<AdminOrders/>}/>
             <Route path='salesreport' element={<AdminSaleReport/>}/>
             <Route path='users' element={<AdminUsers/>}/>
-            <Route path='messages' element={<AdminMessages/>}/>
+            <Route path='messages' element={<AdminMessages/>}/> 
 
             <Route path='settings' element={<AdminSettings/>}/>
             {/* Productssssssssssssssss */}
