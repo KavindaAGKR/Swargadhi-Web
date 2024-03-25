@@ -18,6 +18,7 @@ import { UserProfile } from './Pages/Userprofile';
 import { Dispensary } from './Pages/Dispensary';
 import { AdminSignup } from './AdminPanel/AdminSignup';
 import { Shop } from './Pages/Shop/Shop';
+import {AdminDoctor}from './AdminPanel/AdminDoctor'
 
 
 
@@ -41,11 +42,13 @@ function App() {
             <Route path='messages' element={<AdminMessages/>}/> 
 
             <Route path='settings' element={<AdminSettings/>}/>
+            <Route path='doctor' element={<AdminDoctor/>}/>
             {/* Productssssssssssssssss */}
             <Route path='products' element={<Products/>}/>
         </Route>
 
         <Route path='/admin' element={<AdminLogin/>}/>
+        
         <Route path='/adminsignup' element={<AdminSignup/>}/>
 
         

@@ -6,7 +6,7 @@ const router = express.Router();
 
 // Create Ayurvedic Product
 router.post("/", ayurvedicProductController.createAyurvedicProduct);
-router.post("/new", ayurvedicProductController.createAyurvedicProduct2);
+//router.post("/new", ayurvedicProductController.createAyurvedicProduct2);
 
 // Get all Ayurvedic Products for a specific user
 //router.get("/all/:uid", ayurvedicProductController.getAllAyurvedicProducts);
