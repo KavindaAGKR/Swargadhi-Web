@@ -36,10 +36,10 @@ export const CartCard = () => {
 
     return (
     
-        <Stack direction='row' sx={{borderRadius:'20px', border:'solid 1px #B1FDC5', boxShadow:' 5px 10px 13px -6px rgba(0,0,0,0.2)', width:'80%', padding:'10px'}}>
+        <Stack justifyContent='space-between' direction='row' sx={{borderRadius:'20px', border:'solid 1px #B1FDC5', boxShadow:' 5px 10px 13px -6px rgba(0,0,0,0.2)', width:'80%', padding:'10px'}}>
             <img src={product[0].images[1]} alt='product img' width='20%' style={{borderRadius:'20px'}} />
             <Stack direction='column'>
-                <Typography>Product name_en</Typography>
+                <Typography>Product name_endsffff fffffff fffffffffdddd ddddddd ddddddddd</Typography>
                 <Typography>Product name_si</Typography>
                 <Typography>Unit price</Typography>
             </Stack>
