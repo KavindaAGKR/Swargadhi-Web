@@ -36,14 +36,15 @@ export const CartCard = () => {
 
     return (
     
-        <Stack justifyContent='space-between' direction='row' sx={{borderRadius:'20px', border:'solid 1px #B1FDC5', boxShadow:' 5px 10px 13px -6px rgba(0,0,0,0.2)', width:'80%', padding:'10px'}}>
+        <Stack  justifyContent='space-between' direction='row' sx={{borderRadius:'20px', border:'solid 1px #B1FDC5', boxShadow:' 5px 10px 13px -6px rgba(0,0,0,0.2)', width:'80%', padding:'10px'}}>
+            <Stack direction='row' justifyContent='space-between' alignItems='center' >
             <img src={product[0].images[1]} alt='product img' width='20%' style={{borderRadius:'20px'}} />
             <Stack direction='column' width='40%'>
-                <Typography>Product name_endsffff fffffff fffffffffdddd ddddddd ddddddddd</Typography>
+                <Typography variant='h5'>This is Product 1</Typography>
                 <Typography>Product name_si</Typography>
                 <Typography>Unit price</Typography>
             </Stack>
-            <Stack direction='column' width='20%' >
+            <Stack direction='column' width='auto' >
                                 <Stack direction='row'>
                                 <Typography>Quantity : </Typography>
                                 <TextField
@@ -51,14 +52,15 @@ export const CartCard = () => {
                                     inputProps={{ min: 0, max:quantity, style: { padding: '0px', display:'all' }  }}
                                     
                                 />
-                                </Stack>
+                                </Stack >
                                 {quantity > 0 ? 
-                                    <Typography variant='h7' color='success.main' >(Instock-{quantity})</Typography> :
+                                    <Typography variant='body' color='success.main' >(Instock-{quantity})</Typography> :
                                     <Typography variant='h7' color='error'>(Out of Stock)</Typography>
                                 } 
             </Stack>
-            <Typography variant='h6' color='success.main' width='10%'>Rs. 8989</Typography>
-            <IconButton  color='error' sx={{width:'1px', height:'1px'}} ><CancelIcon sx={{ fontSize: 25 , }}/></IconButton> 
+            <Typography variant='h6' color='success.main' width='auto'>Rs. 8989</Typography>
+            </Stack>
+            <IconButton  color='error' sx={{width:'1px', height:'1px', }} ><CancelIcon sx={{ fontSize: 25 , }}/></IconButton> 
         </Stack>
 
     )
