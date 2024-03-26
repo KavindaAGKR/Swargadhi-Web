@@ -20,6 +20,7 @@
     "dotnet": "^1.1.4",
     "express": "^4.19.1",
     "firebase-admin": "^12.0.0",
+    "google-auth-library": "^9.7.0",
     "i18next": "^23.7.13",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.2.0",

@@ -11,8 +11,11 @@ import materialRoute from "./routes/materialRoute.js";
 import productRoute from "./routes/productRoute.js";
 import doctorRoute from "./routes/doctorRoute.js";
 import userRoute from "./routes/userRoute.js";
+import treatmentRoute from "./routes/treatmentRoute.js"
 import global_English from "./translations/English/global.json" assert { type: "json" };
 import global_Sinhala from "./translations/Sinhala/global.json" assert { type: "json" };
+//import authRouter from "./routesnew/oauth.js";
+//import requestRouter from "./routesnew/request.js"
 const require = createRequire(import.meta.url);
 
 // Suppress experimental JSON module import warning
@@ -49,6 +52,9 @@ app.use('/api/material', materialRoute);
 app.use('/api/feedBack', feedBackRoute);
 app.use('/api/admin', adminRoute);
 app.use('/api/doctor',doctorRoute);
+app.use('/api/treatment',treatmentRoute);
+//app.use('/oauth', authRouter);
+//app.use('/request', requestRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is Running at PORT ${PORT}`);

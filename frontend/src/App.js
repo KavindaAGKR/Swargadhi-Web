@@ -19,6 +19,7 @@ import { Dispensary } from './Pages/Dispensary';
 import { AdminSignup } from './AdminPanel/AdminSignup';
 import { Shop } from './Pages/Shop/Shop';
 import {AdminDoctor}from './AdminPanel/AdminDoctor'
+import { AdminTreatment } from './AdminPanel/AdminTreatment';
 
 
 
@@ -43,6 +44,7 @@ function App() {
 
             <Route path='settings' element={<AdminSettings/>}/>
             <Route path='doctor' element={<AdminDoctor/>}/>
+            <Route path='treatment' element={<AdminTreatment/>}/>
             {/* Productssssssssssssssss */}
             <Route path='products' element={<Products/>}/>
         </Route>
