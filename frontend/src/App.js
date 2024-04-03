@@ -20,6 +20,7 @@ import { AdminSignup } from './AdminPanel/AdminSignup';
 import { Shop } from './Pages/Shop/Shop';
 import {AdminDoctor}from './AdminPanel/AdminDoctor'
 import { AdminTreatment } from './AdminPanel/AdminTreatment';
+import { Cart } from './Pages/Cart/Cart';
 
 
 
@@ -65,6 +66,7 @@ function App() {
         <Route path='/user' element={<UserProfile/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>} />
+        <Route path='/cart' element={<Cart/>}/>
 
 
     </Routes>
