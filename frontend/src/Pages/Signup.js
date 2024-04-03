@@ -75,7 +75,7 @@ export const Signup = () => {
     const [issignedup, setisSignedup] = useState(false);
 
     const handleSignUp = async () => {
-        setSnackBarOpen(true)
+        
 
         if (!firstName || !lastName || !email || !password) {
             setSnackMessage('All the fields are required');
@@ -103,16 +103,21 @@ export const Signup = () => {
                 password2
             });
             console.log(response.data.message);
-            setSnackMessage(response.data.message);
+            
+            
             setisSignedup(true);
             if (response.data.alert === 'success') {
-              navigate('/login');
+              
+              setSnackMessage("Sign up is Successful. Now login with your credentials!");
+              setSnackBarOpen(true);
+              // navigate('/login');
             }
             // Redirect to another page after successful signup
            // navigate('/login');
         } catch (error) {
             console.error(error);
-            setSnackMessage("Invalid Inputs");
+            setSnackMessage("Invalid Inputsssssssss");
+            setSnackBarOpen(true)
             // Handle error, show error message to user
         }
     };
@@ -139,7 +144,7 @@ export const Signup = () => {
 {/* Inputs */}
             <Stack className={classes.stackContainer} justifyContent="center" alignItems="center" direction='column' >
 
-
+                <img src={logo} style={{width:'60%'}}></img>
                 <TextField placeholder='first Name' variant="standard"  margin="normal" required style={{width:'80%'}}
                 value={firstName}
                 onChange={(e) => {setFirstName(e.target.value); console.log('name: ' + firstName)}}
@@ -206,14 +211,14 @@ export const Signup = () => {
                 <Snackbar
                                 open={snackBarOpen}
                                 autoHideDuration={3000}
-                                onClose={() => { setSnackBarOpen(false); if (issignedup) { navigate('/admin/') } }}
+                                onClose={() => { setSnackBarOpen(false); if (issignedup) { navigate('/login') } }}
                                 message={snackbarMessage}
                                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                                 sx={{marginTop:"100px"}}
                                 
                             >
                                 <Alert
-                                onClose={() => { setSnackBarOpen(false); if (issignedup) { navigate('/admin/') } }}
+                                onClose={() => { setSnackBarOpen(false); if (issignedup) { navigate('/login') } }}
                                 severity={issignedup ? "success" : "error"}
                                 variant="filled"
                                 >
