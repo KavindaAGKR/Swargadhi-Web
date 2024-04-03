@@ -19,7 +19,7 @@ import { Dispensary } from './Pages/Dispensary';
 import { AdminSignup } from './AdminPanel/AdminSignup';
 import { Shop } from './Pages/Shop/Shop';
 import {AdminDoctor}from './AdminPanel/AdminDoctor'
-import { Cart } from './Pages/Cart/Cart';
+import { AdminTreatment } from './AdminPanel/AdminTreatment';
 
 
 
@@ -44,6 +44,7 @@ function App() {
 
             <Route path='settings' element={<AdminSettings/>}/>
             <Route path='doctor' element={<AdminDoctor/>}/>
+            <Route path='treatment' element={<AdminTreatment/>}/>
             {/* Productssssssssssssssss */}
             <Route path='products' element={<Products/>}/>
         </Route>
@@ -64,7 +65,6 @@ function App() {
         <Route path='/user' element={<UserProfile/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>} />
-        <Route path='/cart' element={<Cart/>} />
 
 
     </Routes>
