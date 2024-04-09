@@ -4,6 +4,10 @@ import IconButton from '@mui/material/IconButton';
 import { Box } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
+import EditIcon from '@mui/icons-material/Edit';
+import { useNavigate } from 'react-router-dom';
+
+
 
 export const Products = () => {
     const [open, setOpen] = useState(false);
@@ -19,7 +23,13 @@ export const Products = () => {
         categorySi: '',
         images:[]
     });
-   
+    const navigate = useNavigate();
+
+    const handleEdit = (id) => {
+        console.log(`Edit button clicked for row with id ${id}`);
+        navigate(`/admin/home/products/${id}/edit`);
+    };
+      
     const handleChange = (e) => {
         setProductData({...productData, [e.target.name]: e.target.value});
     }
@@ -28,7 +38,7 @@ export const Products = () => {
         const imagesArray = Array.from(e.target.files);
         setProductData({...productData, images: imagesArray});
     }
-    
+  
     
     const handleSubmit = async () => {
         try {
@@ -72,19 +82,7 @@ export const Products = () => {
         fetchAllProducts();
     }, []);
 
-    // const fetchAllProducts = async () => {
-    //     try {
-    //         const response = await fetch('http://localhost:5000/api/product/all');
-    //         if (!response.ok) {
-    //             throw new Error('Failed to fetch products');
-    //         }
-    //         const data = await response.json();
-    //         setProducts(data.data);
-    //     } catch (error) {
-    //         console.error('Error fetching products:', error);
-    //     }
-    // };
-
+  
     const fetchAllProducts = async () => {
         try {
             const response = await fetch('http://localhost:5000/api/product/all');
@@ -122,59 +120,56 @@ export const Products = () => {
     
     
     const columns = [
-        { field: 'id ', headerName: 'Product ID', width: 100 },
+        { field: 'id', headerName: 'Product ID', width: 100 },
         { field: 'name_en', headerName: 'Name (English)', width: 200 },
         { field: 'name_si', headerName: 'Name (Sinhala)', width: 200 },
         { field: 'description_en', headerName: 'Description (English)', width: 300 },
         { field: 'description_si', headerName: 'Description (Sinhala)', width: 300 },
         { field: 'price', headerName: 'Price (LKR)', width: 150 },
         { field: 'quantity', headerName: 'Available Quantity', width: 150 },
-        { field: 'category_en', headerName: 'Category(English)', width: 150 },
-        { field: 'category_si', headerName: 'Category(Sinhala)', width: 150 },
-        { 
-            field: 'images', 
+        { field: 'category_en', headerName: 'Category (English)', width: 150 },
+        { field: 'category_si', headerName: 'Category (Sinhala)', width: 150 },
+        {
+            field: 'images',
             headerName: 'Images',
             width: 200,
             renderCell: (params) => {
                 const product = params.row;
-                console.log(product)
                 return (
                     <div>
-                    {product.images.map((images, index) => (
-
-                        <img
-                            key={index}
-                            src={`http://localhost:5000/${images}`} 
-                            alt={`Product Image ${index + 1}`} 
-                            style={{ width: 100, height: 100, marginRight: 10 }}
-                            onError={(e) => {
-                                console.error(`Failed to load image ${index}: ${e.target.src}`);
-                                e.target.onerror = null;
-                            }}
-                        />
-                    ))}
-                </div>
+                        {product.images.map((image, index) => (
+                            <img
+                                key={index}
+                                src={`http://localhost:5000/${image}`}
+                                alt={`Product Image ${index + 1}`}
+                                style={{ width: 100, height: 100, marginRight: 10 }}
+                                onError={(e) => {
+                                    console.error(`Failed to load image ${index}: ${e.target.src}`);
+                                    e.target.onerror = null;
+                                }}
+                            />
+                        ))}
+                    </div>
                 );
             },
         },
-        { 
-            field: 'actions', 
-            headerName: 'Edit/Delete', 
-            width: 150, 
+        {
+            field: 'actions',
+            headerName: 'Edit/Delete',
+            width: 150,
             renderCell: (params) => (
                 <div>
-                    {/* <IconButton onClick={() => handleEdit(params.row.id)}>
-                        <EditIcon color="primary" />
-                    </IconButton> */}
                     <IconButton onClick={() => handleDelete(params.row.id)}>
                         <DeleteIcon color="error" />
                     </IconButton>
-         
-                    {console.log("Row ID:", params.row.id)}
+                    <IconButton onClick={() => handleEdit(params.row.id)}> {/* Call handleEdit function with row id */}
+                        <EditIcon color="primary" />
+                    </IconButton>
                 </div>
             ),
         },
     ];
+    
     
     
     const rows = products.map(product => ({

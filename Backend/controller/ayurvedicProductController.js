@@ -191,17 +191,30 @@ export const getAllAyurvedicProducts = async (req, res) => {
 
 
 // Get an Ayurvedic product by ID
+// export const getAyurvedicProductById = async (request, response) => {
+//     try {
+//         const { id } = request.params;
+//         const ayurvedicProduct = await AyurvedicProduct.findById(id);
+//         return response.status(200).json(ayurvedicProduct);
+//     } catch (error) {
+//         console.log(error.message);
+//         response.status(500).send({ message: error.message });
+//     }
+// };
 export const getAyurvedicProductById = async (request, response) => {
     try {
-        const { id } = request.params;
-        const ayurvedicProduct = await AyurvedicProduct.findById(id);
-        return response.status(200).json(ayurvedicProduct);
+      const { id } = request.params; // Extract the 'id' parameter from request parameters
+      const ayurvedicProduct = await AyurvedicProduct.findById(id);
+      if (!ayurvedicProduct) {
+        return response.status(404).json({ message: "Ayurvedic product not found" });
+      }
+      return response.status(200).json(ayurvedicProduct);
     } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
+      console.log(error.message);
+      response.status(500).send({ message: error.message });
     }
-};
-
+  };
+  
 // Get Ayurvedic products by category
 export const getAyurvedicProductsByCategory = async (request, response) => {
     try {
