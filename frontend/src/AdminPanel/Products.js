@@ -205,11 +205,17 @@ export const Products = () => {
                                     <MenuItem value='kalka'>Kalka</MenuItem>
                                     <MenuItem value='Paththu'>Paththu</MenuItem>
                                     <MenuItem value='Guli'>Guli</MenuItem>
+                                    <MenuItem value='Thel'>Thel</MenuItem>
+                                    <MenuItem value='Chuurna'>Chuurna</MenuItem>
+                                    <MenuItem value='Kashay'>Kashay</MenuItem>
                                 </TextField>
                                 <TextField name='categorySi' label='Select Category' select sx={{ width: "50%" }} value={productData.categorySi} onChange={handleChange}>
-                                    <MenuItem value='kalka'>Kalka</MenuItem>
-                                    <MenuItem value='Paththu'>Paththu</MenuItem>
-                                    <MenuItem value='Guli'>Guli</MenuItem>
+                                    <MenuItem value='කල්ක'>කල්ක</MenuItem>
+                                    <MenuItem value='පත්තු'>පත්තු</MenuItem>
+                                    <MenuItem value='ගුලි'>ගුලි</MenuItem>
+                                    <MenuItem value='තෙල්'>තෙල්</MenuItem>
+                                    <MenuItem value='චූර්න'>චූර්න</MenuItem>
+                                    <MenuItem value='කසාය'>කසාය</MenuItem>
                                 </TextField>
                             </Stack>
                             <Stack direction='row' gap={2}>
@@ -251,7 +257,7 @@ export const Products = () => {
                         </Stack>
                     </Stack>
                 </Box>
-            </Stack>
+            </Stack>Guli
         </Stack>
     );
 };

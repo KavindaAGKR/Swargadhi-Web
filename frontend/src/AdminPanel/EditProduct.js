@@ -168,20 +168,26 @@ export const EditProduct = () => {
             onChange={(e) => handleInputChange('quantity', e.target.value)}
           />
 
-          <label>Category (English):</label>
-          <input
-            type="text"
-            value={product.category.en}
-            onChange={(e) => handleInputChange('category', { ...product.category, en: e.target.value })}
-          />
+<label>Category (English):</label>
+          <select value={product.category.en} onChange={(e) => handleInputChange('category', { ...product.category, en: e.target.value })}>
+            <option value="kalka">Kalka</option>
+            <option value="Paththu">Paththu</option>
+            <option value="Guli">Guli</option>
+            <option value="Thel">Thel</option>
+            <option value="Chuurna">Chuurna</option>
+            <option value="Kashay">Kashay</option>
+          </select>
 
+          {/* Dropdown for Category (Sinhala) */}
           <label>Category (Sinhala):</label>
-          <input
-            type="text"
-            value={product.category.si}
-            onChange={(e) => handleInputChange('category', { ...product.category, si: e.target.value })}
-          />
-
+          <select value={product.category.si} onChange={(e) => handleInputChange('category', { ...product.category, si: e.target.value })}>
+            <option value="කල්ක<">කල්ක</option>
+            <option value="පත්තු">පත්තු</option>
+            <option value="ගුලි">ගුලි</option>
+            <option value="තෙල්">තෙල්</option>
+            <option value="චූර්න">චූර්න</option>
+            <option value="කසාය">කසාය</option>
+          </select>
           {/* Save changes button */}
           <button onClick={handleSaveChanges}>Save Changes</button>
         </div>

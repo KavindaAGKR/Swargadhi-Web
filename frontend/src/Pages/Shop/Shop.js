@@ -9,6 +9,114 @@ import slide1 from '../Images/Slider3.png';
 import slide2 from '../Images/Slider2.png';
 import slide3 from '../Images/Slider1.jpg';
 import {  ProductCatalog } from './ProductCatalog'
+export const Shop = () => {
+
+
+  //To navigate Tab panel
+  const [value, setValue] = useState('1')
+  const handleChange = (event, Value) => {
+    setValue(Value);
+  }
+  
+
+
+//import data from backend
+
+const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        fetchAllProducts();
+    }, []);
+
+    const fetchAllProducts = async () => {
+      try {
+          const response = await fetch('http://localhost:5000/api/product/products/english/all');
+          if (!response.ok) {
+              throw new Error('Failed to fetch products');
+          }
+          const data = await response.json();
+          console.log('Fetched products:', data); // Log fetched data for debugging
+          setProducts(data.data); // Assuming data is an array of products
+      } catch (error) {
+          console.error('Error fetching products:', error);
+      }
+  };
+
+
+  return (
+    <React.Fragment><Header/>
+      
+      <Stack sx={{margin:'auto', maxWidth:'90%',  display:'flex', justifyContent:'center', alignItems:'center'} } >
+      <TabContext value={value} >
+        <Box sx={{margin:'auto',    } }>
+          <TabList onChange={handleChange}  variant="scrollable"
+            scrollButtons allowScrollButtonsMobile 
+            sx={{ width:{xs:'300px',sm:'500px',md:'auto'}} }
+            
+            >
+            <Tab label='All Products' value='1' />
+            <Tab label='Kalka' value='2'/>
+            <Tab label='Thel' value='3'/>
+            <Tab label='Paththu' value='4'/>
+            <Tab label='Guli' value='5'/>
+            <Tab label='Chuurna' value='6'/>
+            <Tab label='Kashaya' value='7'/>
+          </TabList>
+        </Box>
+
+
+        <TabPanel value='1'> <ProductCatalog products={products}/> </TabPanel>
+        <TabPanel value='2'> <ProductCatalog products={products} /> </TabPanel>
+        <TabPanel value='3'> <ProductCatalog products={products} /> </TabPanel>
+        <TabPanel value='4'>Paththu</TabPanel>
+        <TabPanel value='5'>Guli</TabPanel>
+        <TabPanel value='6'>Chuurna</TabPanel>
+        <TabPanel value='7'><ProductCatalog products={products} /></TabPanel>
+
+
+
+      </TabContext>
+      </Stack>
+
+
+
+      
+      <Footer/></React.Fragment>
+  )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -169,92 +277,6 @@ import {  ProductCatalog } from './ProductCatalog'
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-export const Shop = () => {
-
-
-  //To navigate Tab panel
-  const [value, setValue] = useState('1')
-  const handleChange = (event, Value) => {
-    setValue(Value);
-  }
-  
-
-
-//import data from backend
-
-  const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        fetchAllProducts();
-    }, []);
-
-    const fetchAllProducts = async () => {
-        try {
-            const response = await fetch('http://localhost:5000/api/product/all');
-            if (!response.ok) {
-                throw new Error('Failed to fetch products');
-            }
-            const data = await response.json();
-            setProducts(data.data);
-        } catch (error) {
-            console.error('Error fetching products:', error);
-        }
-    };
-
-
-  return (
-    <React.Fragment><Header/>
-      
-      <Stack sx={{margin:'auto', maxWidth:'90%',  display:'flex', justifyContent:'center', alignItems:'center'} } >
-      <TabContext value={value} >
-        <Box sx={{margin:'auto',    } }>
-          <TabList onChange={handleChange}  variant="scrollable"
-            scrollButtons allowScrollButtonsMobile 
-            sx={{ width:{xs:'300px',sm:'500px',md:'auto'}} }
-            
-            >
-            <Tab label='All Products' value='1' />
-            <Tab label='Kalka' value='2'/>
-            <Tab label='Thel' value='3'/>
-            <Tab label='Paththu' value='4'/>
-            <Tab label='Guli' value='5'/>
-            <Tab label='Chuurna' value='6'/>
-            <Tab label='Kashaya' value='7'/>
-          </TabList>
-        </Box>
-
-
-        <TabPanel value='1'> <ProductCatalog products={products}/> </TabPanel>
-        <TabPanel value='2'> <ProductCatalog products={products} /> </TabPanel>
-        <TabPanel value='3'> <ProductCatalog products={products} /> </TabPanel>
-        <TabPanel value='4'>Paththu</TabPanel>
-        <TabPanel value='5'>Guli</TabPanel>
-        <TabPanel value='6'>Chuurna</TabPanel>
-        <TabPanel value='7'><ProductCatalog products={products} /></TabPanel>
-
-
-
-      </TabContext>
-      </Stack>
-
-
-
-      
-      <Footer/></React.Fragment>
-  )
-}
 
 
 

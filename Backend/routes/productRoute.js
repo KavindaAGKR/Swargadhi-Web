@@ -22,12 +22,14 @@ router.get("/:id", ayurvedicProductController.getAyurvedicProductById);
 router.get("/category/:category", ayurvedicProductController.getAyurvedicProductsByCategory);
 router.get("/category/si/:category", ayurvedicProductController.getSinhalaAyurvedicProductsByCategory);
 router.get("/category/en/:category", ayurvedicProductController.getEnglishAyurvedicProductsByCategory);
-
+router.get('/products/sinhala/all', ayurvedicProductController.getAllSinhalaProducts);
+router.get('/products/english/all', ayurvedicProductController.getAllEnglishProducts);
 // Update Ayurvedic Product
 router.put("/:id", ayurvedicProductController.updateAyurvedicProduct);
 
 // Delete Ayurvedic Product
 router.delete("/:id", ayurvedicProductController.deleteAyurvedicProduct);
+
 
 // Get Ayurvedic Products for the authenticated user
 //router.get('/user/items', verifyToken, ayurvedicProductController.getUserAyurvedicProducts);

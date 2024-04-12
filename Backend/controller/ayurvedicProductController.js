@@ -318,6 +318,104 @@ export const getEnglishPart = async (request, response) => {
     }
 };
 
+export const getAllSinhalaProducts = async (request, response) => {
+    try {
+        // Retrieve all products from the database
+        const allProducts = await AyurvedicProduct.find();
+
+        // Map each product to extract Sinhala details and construct response format
+        const sinhalaProducts = allProducts.map(product => ({
+            productItemID: product.productItemID,
+            itemName: product.itemName.si,
+            price: product.price,
+            description: product.description.si,
+            quantity: product.quantity,
+            productDetails: product.productDetails.si,
+            category: product.category.si,
+            imageUrl: product.images && product.images.length > 0 ? product.images[0] : null // Assuming imageUrl is the first element of images array
+        }));
+
+        // Respond with the array of products containing Sinhala details
+        return response.status(200).json(sinhalaProducts);
+    } catch (error) {
+        console.error('Error fetching Sinhala products:', error);
+        return response.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+export const getAllEnglishProducts = async (request, response) => {
+    try {
+        // Retrieve all products from the database
+        const allProducts = await AyurvedicProduct.find();
+
+        // Map each product to extract English details and construct response format
+        const englishProducts = allProducts.map(product => {
+            // Ensure product has itemName, description, and category with 'en' property
+            const itemNameEn = product.itemName && product.itemName.en ? product.itemName.en : '';
+            const descriptionEn = product.description && product.description.en ? product.description.en : '';
+            const categoryEn = product.category && product.category.en ? product.category.en : '';
+            const imageUrls = product.images || []; 
+            return {
+                productItemID: product.productItemID,
+                itemName: itemNameEn,
+                price: product.price,
+                description: descriptionEn,
+                quantity: product.quantity,
+                category: categoryEn,
+                imageUrl: imageUrls
+            };
+        });
+        return response.status(200).json(englishProducts);
+    } catch (error) {
+        console.error('Error fetching English products:', error);
+        return response.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+
+// export const getAllEnglishProducts = async (request, response) => {
+//     try {
+//         // Retrieve all products from the database
+//         const allProducts = await AyurvedicProduct.find();
+
+//         // Modify each product to include full image URLs
+//         const englishProducts = allProducts.map(product => {
+//             // Map each image filename to its full URL path (assuming images are stored in a specific directory)
+//             const imagePaths = product.images.map(filename => filename.slice(1));
+
+//             // Ensure product has itemName, description, and category with 'en' property
+//             const itemNameEn = product.itemName && product.itemName.en ? product.itemName.en : '';
+//             const descriptionEn = product.description && product.description.en ? product.description.en : '';
+//             const categoryEn = product.category && product.category.en ? product.category.en : '';
+
+//             // Return product object with updated image paths and other details
+//             return {
+//                 productItemID: product.productItemID,
+//                 itemName: itemNameEn,
+//                 price: product.price,
+//                 description: descriptionEn,
+//                 quantity: product.quantity,
+//                 category: categoryEn,
+//                 images: imagePaths
+//             };
+//         });
+
+//         // Return the modified products with full image URLs
+//         return response.status(200).json(englishProducts);
+//     } catch (error) {
+//         console.error('Error fetching English products:', error);
+//         return response.status(500).json({ message: 'Internal server error' });
+//     }
+// };
+
+
+
+
+
+
+
+
+
 
 export const getSinhalaAyurvedicProductsByCategory = async (request, response) => {
     try {
