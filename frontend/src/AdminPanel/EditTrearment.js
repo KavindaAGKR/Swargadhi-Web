@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-export const EditProduct = () => {
+export const EditTreatment = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({
     itemName: { en: '', si: '' },
@@ -52,6 +52,8 @@ export const EditProduct = () => {
       formData.append('productItemID', product.productItemID);
       formData.append('price', product.price);
       formData.append('quantity', product.quantity);
+
+      // Append nested fields (stringified)
       formData.append('itemNameEn', product.itemName.en);
       formData.append('itemNameSi', product.itemName.si);
       formData.append('descriptionEn', product.description.en);

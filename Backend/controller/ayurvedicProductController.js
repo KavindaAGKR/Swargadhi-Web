@@ -432,23 +432,6 @@ export const getSinhalaAyurvedicProductsByCategory = async (request, response) =
         response.status(500).send({ message: error.message });
     }
 };
-
-// export const getEnglishAyurvedicProductsByCategory = async (request, response) => {
-//     try {
-//         const { category } = request.params;
-//         const ayurvedicProducts = await AyurvedicProduct.find({ "category.en": category })
-//                                                         .select({ "itemName.en": 1, "description.en": 1, "category.en": 1, "price": 1, "quantity": 1 ,"images":1}) // Projection to select only specific fields in Sinhala
-//                                                         .lean(); // Convert Mongoose documents to plain JavaScript objects
-//         return response.status(200).json({
-//             count: ayurvedicProducts.length,
-//             data: ayurvedicProducts
-//         });
-//     } catch (error) {
-//         console.log(error.message);
-//         response.status(500).send({ message: error.message });
-//     }
-// };
-
 export const getEnglishAyurvedicProductsByCategory = async (request, response) => {
     try {
         const { category } = request.params;
@@ -488,39 +471,6 @@ export const getEnglishAyurvedicProductsByCategory = async (request, response) =
 };
 
 
-
-// export const createAyurvedicProduct2 = async (request, response) => {
-//     try {
-//         // Check if all required fields are present in the request body
-//         const requiredFields = ['productItemID', 'itemName', 'price',  'description', 'quantity',  'category', 'images'];
-//         const missingFields = requiredFields.filter(field => !request.body[field]);
-//         if (missingFields.length > 0) {
-//             return response.status(400).send({
-//                 message: `Please provide all required fields: ${missingFields.join(', ')}`
-//             });
-//         }
-        
-//         // Create a new Ayurvedic product object
-//         const newAyurvedicProduct = {
-//             productItemID: request.body.productItemID,
-//             itemName: request.body.itemName,
-//             price: request.body.price,
-//             description: request.body.description,
-//             quantity: request.body.quantity,
-//             category: request.body.category,
-//             images: request.body.images // Include the images array from the request body
-//         };
-
-//         // Create the Ayurvedic product in the database
-//         const ayurvedicProduct = await AyurvedicProduct.create(newAyurvedicProduct);
-
-//         // Respond with the created Ayurvedic product
-//         return response.status(201).send(ayurvedicProduct);
-//     } catch (error) {
-//         console.error('Error creating Ayurvedic product:', error);
-//         response.status(500).send({ message: 'Internal server error' });
-//     }
-// };
 
 
 

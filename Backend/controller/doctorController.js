@@ -72,40 +72,6 @@ export const createAyurvedicDoctor = async (req, res) => {
     }
 };
 
-
-
-
-// // Update an Ayurvedic product by ID
-// export const updateAyurvedicProduct = async (request, response) => {
-//     try {
-//         const { id } = request.params;
-
-//         const ayurvedicDoctor = await AyurvedicDoctor.findById(id);
-
-//         if (!ayurvedicDoctor) {
-//             return response.status(404).json({ message: "Ayurvedic product not found" });
-//         }
-
-//         ayurvedicDoctor.productItemID = request.body.productItemID || ayurvedicDoctor.productItemID;
-//         ayurvedicDoctor.itemName = request.body.itemName || ayurvedicDoctor.itemName;
-//         ayurvedicDoctor.price = request.body.price || ayurvedicDoctor.price;
-//         ayurvedicDoctor.availability = request.body.availability || ayurvedicDoctor.availability;
-//         ayurvedicDoctor.description = request.body.description || ayurvedicDoctor.description;
-//         ayurvedicDoctor.quantity = request.body.quantity || ayurvedicDoctor.quantity;
-//         ayurvedicDoctor.productDetails = request.body.productDetails || ayurvedicDoctor.productDetails;
-//         ayurvedicDoctor.category = request.body.category || ayurvedicDoctor.category;
-
-//         await ayurvedicDoctor.save();
-
-//         return response.status(200).json({ message: "Ayurvedic product updated successfully", ayurvedicDoctor });
-//     } catch (error) {
-//         console.log(error.message);
-//         response.status(500).json({ message: "Internal Server Error" });
-//     }
-// };
-
-
-
 export const getAllAyurvedicDoctor = async (req, res) => {
     try {
         // Fetch all Ayurvedic products from the database
@@ -214,5 +180,58 @@ export const getEnglishPart = async (request, response) => {
     }
 };
 
+// Update an Ayurvedic doctor by ID
+export const editDoctor = async (req, res) => {
+    try {
+      const { id } = req.params;
 
-
+      upload(req, res, async (err) => {
+        if (err instanceof multer.MulterError) {
+          return res.status(400).json({ message: 'Error uploading files', error: err });
+        } else if (err) {
+          return res.status(500).json({ message: 'Error uploading files', error: err });
+        }
+      const existingDoctor = await AyurvedicDoctor.findById(id);
+  
+      if (!existingDoctor) {
+        return res.status(404).json({ message: 'Ayurvedic doctor not found' });
+      }
+  
+      // Update doctor fields based on request body
+      existingDoctor.doctorID = req.body.doctorID;
+      existingDoctor.name = {
+        en: req.body.nameEn,
+        si: req.body.nameSi,
+      };
+      existingDoctor.description = {
+        en: req.body.descriptionEn,
+        si: req.body.descriptionSi,
+      };
+      existingDoctor.time = req.body.time;
+  
+      // Handle updated images
+      if (req.files && req.files.length > 0) {
+        const newImagePaths = req.files.map((file) => `/public/item/${file.filename}`);
+        const updatedImageIndex = req.body.updatedImageIndex;
+  
+        if (updatedImageIndex !== undefined && updatedImageIndex !== null && updatedImageIndex >= 0) {
+          if (updatedImageIndex < existingDoctor.images.length) {
+            existingDoctor.images[updatedImageIndex] = newImagePaths[0];
+          }
+        } else {
+          existingDoctor.images =newImagePaths;
+        }
+      }
+  
+      // Save updated doctor to the database
+      const updatedDoctor = await existingDoctor.save();
+  
+      // Respond with updated doctor
+      res.status(200).json({ message: 'Ayurvedic doctor updated successfully', updatedDoctor }
+    );
+});
+    } catch (error) {
+      console.error('Error updating doctor:', error);
+      res.status(500).json({ message: 'Internal server error', error: error.message });
+    }
+  };
