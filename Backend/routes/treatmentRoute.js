@@ -11,5 +11,6 @@ router.get('/:id', treatmentController.getAyurvedicTreatmentById);
 router.delete('/:id', treatmentController.deleteAyurvedicTreatment);
 router.get("/si/:id", treatmentController.getSinhalaPart);
 router.get("/en/:id", treatmentController.getEnglishPart);
+router.put("/:id", treatmentController.updateAyurvedicTreatment);
 
 export default router; // Export the router

@@ -22,9 +22,6 @@ const ayurvedicTreatmentSchema = new mongoose.Schema(
       type: multilingualSchema,
      
     },
-    category: {
-      type:multilingualSchema,
-    },
     images: [
       
       { type: String }

@@ -22,6 +22,7 @@ import {AdminDoctor}from './AdminPanel/AdminDoctor'
 import { AdminTreatment } from './AdminPanel/AdminTreatment';
 import {EditProduct} from './AdminPanel/EditProduct';
 import { EditDoctor } from './AdminPanel/EditDoctor';
+import {EditTreatment} from './AdminPanel/EditTrearment'
 
 
 
@@ -49,6 +50,7 @@ function App() {
             <Route path='treatment' element={<AdminTreatment/>}/>
             <Route path='products/:id/edit' element={<EditProduct/>}/>
             <Route path='doctor/:id/edit' element={<EditDoctor/>}/>
+            <Route path='treatment/:id/edit' element={<EditTreatment/>}/>
             {/* Productssssssssssssssss */}
             <Route path='products' element={<Products/>}/>
         </Route>

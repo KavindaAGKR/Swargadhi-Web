@@ -3,39 +3,36 @@ import { useParams } from 'react-router-dom';
 
 export const EditTreatment = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState({
-    itemName: { en: '', si: '' },
-    description: { en: '', si: '' },
-    category: { en: '', si: '' },
-    productItemID: '',
+  const [treatment, setTreatment] = useState({
+    treatmentName: { en: '', si: '' },
     price: 0,
-    quantity: 0,
+    description: { en: '', si: '' },
     images: []
   });
   const [imageFiles, setImageFiles] = useState([]);
   const [currentImages, setCurrentImages] = useState([]);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchTreatment = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/product/${id}`);
+        const response = await fetch(`http://localhost:5000/api/treatment/${id}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch product');
+          throw new Error('Failed to fetch treatment');
         }
         const data = await response.json();
-        setProduct(data);
+        setTreatment(data);
         setCurrentImages(data.images); // Set current images in state
       } catch (error) {
-        console.error('Error fetching product:', error);
+        console.error('Error fetching treatment:', error);
       }
     };
 
-    fetchProduct();
+    fetchTreatment();
   }, [id]);
 
   const handleInputChange = (field, value) => {
-    setProduct((prevProduct) => ({
-      ...prevProduct,
+    setTreatment((prevTreatment) => ({
+      ...prevTreatment,
       [field]: value
     }));
   };
@@ -44,49 +41,43 @@ export const EditTreatment = () => {
     const files = Array.from(event.target.files);
     setImageFiles(files);
   };
+
   const handleSaveChanges = async () => {
     try {
       const formData = new FormData();
 
       // Append flat fields
-      formData.append('productItemID', product.productItemID);
-      formData.append('price', product.price);
-      formData.append('quantity', product.quantity);
-
-      // Append nested fields (stringified)
-      formData.append('itemNameEn', product.itemName.en);
-      formData.append('itemNameSi', product.itemName.si);
-      formData.append('descriptionEn', product.description.en);
-      formData.append('descriptionSi', product.description.si);
-      formData.append('categoryEn', product.category.en);
-      formData.append('categorySi', product.category.si);
+      formData.append('treatmentNameEn', treatment.treatmentName.en);
+      formData.append('treatmentNameSi', treatment.treatmentName.si);
+      formData.append('price', treatment.price);
+      formData.append('descriptionEn', treatment.description.en);
+      formData.append('descriptionSi', treatment.description.si);
 
       // Append new image files
-      imageFiles.forEach((file, index) => {
-        formData.append(`images`, file);
+      imageFiles.forEach((file) => {
+        formData.append('images', file);
       });
 
-      const response = await fetch(`http://localhost:5000/api/product/${id}`, {
+      const response = await fetch(`http://localhost:5000/api/treatment/${id}`, {
         method: 'PUT',
         body: formData,
       });
 
       if (!response.ok) {
-        throw new Error('Failed to update product');
+        throw new Error('Failed to update treatment');
       }
 
-      console.log('Product updated successfully');
+      console.log('Treatment updated successfully');
     } catch (error) {
-      console.error('Error updating product:', error.message);
+      console.error('Error updating treatment:', error.message);
     }
   };
 
-
   return (
     <div>
-      {product ? (
+      {treatment ? (
         <div>
-          <h2>Edit Product: {product.itemName.en}</h2>
+          <h2>Edit Treatment: {treatment.treatmentName.en}</h2>
 
           {/* Display current images */}
           <div>
@@ -120,74 +111,40 @@ export const EditTreatment = () => {
             </div>
           )}
 
-          {/* Edit product fields */}
-          <label>Product Item ID:</label>
+          {/* Edit treatment fields */}
+          <label>Treatment Name (English):</label>
           <input
             type="text"
-            value={product.productItemID}
-            onChange={(e) => handleInputChange('productItemID', e.target.value)}
+            value={treatment.treatmentName.en}
+            onChange={(e) => handleInputChange('treatmentName', { ...treatment.treatmentName, en: e.target.value })}
           />
 
-          <label>Product Name (English):</label>
+          <label>Treatment Name (Sinhala):</label>
           <input
             type="text"
-            value={product.itemName.en}
-            onChange={(e) => handleInputChange('itemName', { ...product.itemName, en: e.target.value })}
-          />
-
-          <label>Product Name (Sinhala):</label>
-          <input
-            type="text"
-            value={product.itemName.si}
-            onChange={(e) => handleInputChange('itemName', { ...product.itemName, si: e.target.value })}
+            value={treatment.treatmentName.si}
+            onChange={(e) => handleInputChange('treatmentName', { ...treatment.treatmentName, si: e.target.value })}
           />
 
           <label>Price:</label>
           <input
             type="number"
-            value={product.price}
+            value={treatment.price}
             onChange={(e) => handleInputChange('price', e.target.value)}
           />
 
           <label>Description (English):</label>
           <textarea
-            value={product.description.en}
-            onChange={(e) => handleInputChange('description', { ...product.description, en: e.target.value })}
+            value={treatment.description.en}
+            onChange={(e) => handleInputChange('description', { ...treatment.description, en: e.target.value })}
           />
 
           <label>Description (Sinhala):</label>
           <textarea
-            value={product.description.si}
-            onChange={(e) => handleInputChange('description', { ...product.description, si: e.target.value })}
+            value={treatment.description.si}
+            onChange={(e) => handleInputChange('description', { ...treatment.description, si: e.target.value })}
           />
 
-          <label>Quantity:</label>
-          <input
-            type="number"
-            value={product.quantity}
-            onChange={(e) => handleInputChange('quantity', e.target.value)}
-          />
-
-<label>Category (English):</label>
-          <select value={product.category.en} onChange={(e) => handleInputChange('category', { ...product.category, en: e.target.value })}>
-            <option value="kalka">Kalka</option>
-            <option value="Paththu">Paththu</option>
-            <option value="Guli">Guli</option>
-            <option value="Thel">Thel</option>
-            <option value="Chuurna">Chuurna</option>
-            <option value="Kashay">Kashay</option>
-          </select>
-
-          {/* Dropdown for Category (Sinhala) */}
-          <label>Category (Sinhala):</label>
-          <select value={product.category.si} onChange={(e) => handleInputChange('category', { ...product.category, si: e.target.value })}>
-            <option value="කල්ක<">කල්ක</option>
-            <option value="පත්තු">පත්තු</option>
-            <option value="ගුලි">ගුලි</option>
-            <option value="තෙල්">තෙල්</option>
-            <option value="චූර්න">චූර්න</option>
-            <option value="කසාය">කසාය</option>
-          </select>
           {/* Save changes button */}
           <button onClick={handleSaveChanges}>Save Changes</button>
         </div>
