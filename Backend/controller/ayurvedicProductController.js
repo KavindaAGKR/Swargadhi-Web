@@ -433,23 +433,59 @@ export const getSinhalaAyurvedicProductsByCategory = async (request, response) =
     }
 };
 
+// export const getEnglishAyurvedicProductsByCategory = async (request, response) => {
+//     try {
+//         const { category } = request.params;
+//         const ayurvedicProducts = await AyurvedicProduct.find({ "category.en": category })
+//                                                         .select({ "itemName.en": 1, "description.en": 1, "category.en": 1, "price": 1, "quantity": 1 ,"images":1}) // Projection to select only specific fields in Sinhala
+//                                                         .lean(); // Convert Mongoose documents to plain JavaScript objects
+//         return response.status(200).json({
+//             count: ayurvedicProducts.length,
+//             data: ayurvedicProducts
+//         });
+//     } catch (error) {
+//         console.log(error.message);
+//         response.status(500).send({ message: error.message });
+//     }
+// };
 
 export const getEnglishAyurvedicProductsByCategory = async (request, response) => {
     try {
         const { category } = request.params;
+
+        // Find all products with the specified category in English
         const ayurvedicProducts = await AyurvedicProduct.find({ "category.en": category })
-                                                        .select({ "itemName.en": 1, "description.en": 1, "category.en": 1, "price": 1, "quantity": 1 ,"images":1}) // Projection to select only specific fields in Sinhala
-                                                        .lean(); // Convert Mongoose documents to plain JavaScript objects
+            .select({ // Project only specific fields
+                "itemName.en": 1,
+                "description.en": 1,
+                "category.en": 1,
+                "price": 1,
+                "quantity": 1,
+                "images": 1
+            })
+            .lean(); // Convert Mongoose documents to plain JavaScript objects
+
+        // Map the retrieved products to the desired response format
+        const formattedProducts = ayurvedicProducts.map(product => ({
+            productItemID: product._id, // Assuming MongoDB _id is used as productItemID
+            itemName: product.itemName.en,
+            price: product.price,
+            description: product.description.en,
+            quantity: product.quantity,
+            category: product.category.en,
+            imageUrl: product.images || [] // Use images array or empty array if undefined
+        }));
+
+        // Return the formatted products array as part of the API response
         return response.status(200).json({
-            count: ayurvedicProducts.length,
-            data: ayurvedicProducts
+            count: formattedProducts.length,
+            data: formattedProducts
         });
     } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
+        console.error('Error fetching English products by category:', error);
+        return response.status(500).json({ message: 'Internal server error' });
     }
 };
-
 
 
 

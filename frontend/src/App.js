@@ -17,7 +17,7 @@ import { AdminSettings } from './AdminPanel/AdminSettings';
 import { UserProfile } from './Pages/Userprofile';
 import { Dispensary } from './Pages/Dispensary';
 import { AdminSignup } from './AdminPanel/AdminSignup';
-import { Shop } from './Pages/Shop/Shop';
+import Shop  from './Pages/Shop/Shop';
 import {AdminDoctor}from './AdminPanel/AdminDoctor'
 import { AdminTreatment } from './AdminPanel/AdminTreatment';
 import {EditProduct} from './AdminPanel/EditProduct';
