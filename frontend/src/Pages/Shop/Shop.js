@@ -51,6 +51,7 @@ const products = [
     },
     images: [slide1, slide2, slide3]
 },
+
 {
     productItemID: "3",
     itemName: { 
