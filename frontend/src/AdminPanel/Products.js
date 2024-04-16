@@ -257,7 +257,7 @@ export const Products = () => {
                         </Stack>
                     </Stack>
                 </Box>
-            </Stack>Guli
+            </Stack>
         </Stack>
     );
 };

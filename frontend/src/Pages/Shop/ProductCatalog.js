@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Paper, Typography, Container, Grid } from '@mui/material';
+import { Paper, Typography, Container, Grid, CircularProgress } from '@mui/material';
 import ProductCard from './ProductCard';
 
 const ProductCatalog = ({ category }) => {
@@ -64,7 +64,7 @@ const ProductCatalog = ({ category }) => {
             <Typography variant="h3" sx={{ textAlign: 'center', margin: '25px' }}>{category === 'all' ? 'All Products' : category}</Typography>
             <Container>
                 {loading ? (
-                    <Typography variant="body1" sx={{ textAlign: 'center', marginTop: '20px' }}>Loading products...</Typography>
+                    <Typography variant="body1" sx={{ textAlign: 'center', marginTop: '20px' }}>Loading products...<CircularProgress value={50}/></Typography>
                 ) : (
                     products.length > 0 ? (
                         <Grid container spacing={5}>
