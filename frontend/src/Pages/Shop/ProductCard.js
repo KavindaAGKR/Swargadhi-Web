@@ -1,20 +1,56 @@
 import React, { useState } from 'react';
 import Carousel from 'react-material-ui-carousel';
-import { Paper, Typography, Stack, Button, Dialog, DialogContent, TextField, InputAdornment, IconButton } from '@mui/material';
+import { Paper, Typography, Stack, Button, Dialog, DialogContent, TextField, InputAdornment, IconButton, Snackbar, Alert } from '@mui/material';
 import NextIcon from '@mui/icons-material/KeyboardArrowRightRounded';
 import CancelIcon from '@mui/icons-material/Cancel';
 
+
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../../redux/slices/cartSlice';
+import {selectIsLoggedIn} from '../../redux/slices/userSlice'
+
+
+
+
 const ProductCard = ({ product }) => {
+
+
+    const [snackbarOpen, setSnackbarOpen] = useState(false); // State for controlling Snackbar visibility
+    const snackMessage = "You must Sign In to add products to the cart"
+
+
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector(selectIsLoggedIn);
+
+    const handleAddToCart = () => {
+
+        if(isLoggedIn){
+            dispatch(addToCart(product));
+        }
+        else{
+            setSnackbarOpen(true)
+            
+        }
+    };
+
+    
+
+
     const { itemName, description, price, imageUrl, quantity } = product; // Destructure product details
     const [openMore, setOpenMore] = useState(false);
     const [selectedQuantity, setSelectedQuantity] = useState(0);
 
-    const handleAddToCart = () => {
-        console.log(`Added ${selectedQuantity} ${itemName} to cart`);
-    };
+
+    // const handleAddToCart = () => {
+    //     console.log(`Added ${selectedQuantity} ${itemName} to cart`);
+    // };
 
     // Render images using Carousel component
     const renderImages = () => {
+
+        
+
+
         if (imageUrl && imageUrl.length > 0) {
             return (
                 <Carousel
@@ -49,7 +85,8 @@ const ProductCard = ({ product }) => {
                     {renderImages()}
                 </Stack>
                 <Stack height='50%' sx={{ padding: '0 10px' }}>
-                    <Typography variant='h5'>{itemName}</Typography>
+                    
+                    <Typography variant='h5'>{itemName.si}</Typography>
                     <Typography variant='body1'>{description}</Typography>
                     <Typography variant='h6' color='success.main'>Rs. {price}</Typography>
                     <Stack direction='row' justifyContent='center' spacing={2}>
@@ -90,14 +127,42 @@ const ProductCard = ({ product }) => {
                                 />
                             </Stack>
                             <Stack direction='row' justifyContent='center' mt={2}>
+
+
                                 <Button variant='contained' color='success' onClick={handleAddToCart}>
                                     Add to Cart
                                 </Button>
+
+
+
+
+
+                                
+
+
+
+
                             </Stack>
                         </Stack>
                     </DialogContent>
                 </Dialog>
             </Stack>
+
+            <Snackbar
+                    open={snackbarOpen}
+                    autoHideDuration={4000}
+                    onClose={() => { setSnackbarOpen(false);  }}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    sx={{ marginTop: "100px" }}
+                    >
+                    <Alert
+                        onClose={() => { setSnackbarOpen(false);  }}
+                        severity="error"
+                        variant="filled"
+                        sx={{ width: '100%' }}>
+                        {snackMessage}
+                    </Alert>
+            </Snackbar>
         </Paper>
     );
 };

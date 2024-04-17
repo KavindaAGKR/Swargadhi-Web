@@ -23,11 +23,35 @@ import { AdminTreatment } from './AdminPanel/AdminTreatment';
 import {EditProduct} from './AdminPanel/EditProduct';
 import { EditDoctor } from './AdminPanel/EditDoctor';
 import {EditTreatment} from './AdminPanel/EditTrearment'
+import { Cart } from './Pages/Cart/Cart';
 
-
+// import { useEffect } from 'react';
+// import { useDispatch } from 'react-redux';
+// import { checkAuthExpiration, logout } from './redux/slices/authSlice';
 
 
 function App() {
+
+
+
+  // //To Check whether the JWT token
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(checkAuthExpiration());    // Dispatch the action to check for token expiration when the app initializes
+  //   // Set up a timer to periodically check for token expiration and clear localStorage after logout
+  //   const expirationCheckInterval = setInterval(() => {
+  //     dispatch(checkAuthExpiration());
+  //   }, 60000); // Check every minute
+  //   // Set up a timer to automatically log out the user after 3 hours (in milliseconds)
+  //   const logoutTimer = setTimeout(() => {
+  //     dispatch(logout());
+  //   }, 3 * 60 * 60 * 1000); // 3 hours
+  //   // Clean up the intervals on component unmount
+  //   return () => {
+  //     clearInterval(expirationCheckInterval);
+  //     clearTimeout(logoutTimer);
+  //   };
+  // }, [dispatch]);
 
 
 
@@ -71,6 +95,7 @@ function App() {
         <Route path='/user' element={<UserProfile/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>} />
+        <Route path='/cart' element={<Cart/>}/>
 
 
     </Routes>

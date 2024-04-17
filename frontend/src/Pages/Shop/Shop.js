@@ -15,6 +15,7 @@ import ProductCatalog from './ProductCatalog';
     return (
         <React.Fragment>
             <Header />
+            
             <Stack sx={{ margin: 'auto', maxWidth: '90%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <TabContext value={value}>
                     <Box sx={{ margin: 'auto' }}>

@@ -14,6 +14,14 @@ import Snackbar from '@mui/material/Snackbar';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
+
+
+import { setUser, setToken } from '../redux/slices/userSlice';
+import { useSelector, useDispatch } from 'react-redux';
+// import { loginStart, loginSuccess, loginFailure } from '../redux/slices/authSlice'
+
+
+
 const theme = createTheme();
 
 const useStyles = makeStyles((theme) => ({
@@ -56,6 +64,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Login = () => {
+    
+    const dispatch = useDispatch();
+    
+
+
+
     const navigate = useNavigate();
     const classes = useStyles();
     const [email, setEmail] = useState('');
@@ -67,46 +81,74 @@ export const Login = () => {
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
 
+
+
     const handleLogin = async () => {
-        if (!email || !password) {
-            setSnackMessage('Both email and password are required');
+    if (!email || !password) {
+        setSnackMessage('Both email and password are required');
+        setSnackbarOpen(true);
+        return;
+    }
+
+    const emailType = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailType.test(email)) {
+        setSnackMessage('Please enter a valid email address');
+        setSnackbarOpen(true);
+        return;
+    }
+
+    // Dispatch loginStart action to indicate the start of login process
+    
+
+    try {
+        const response = await axios.post('http://localhost:5000/api/user/login', {
+            email,
+            password
+        });
+
+        if (response.data.alert) {
+            
+
+            dispatch(setUser(response.data.User));
+            dispatch(setToken(response.data.token)); // Save token in Redux store
+
+            localStorage.setItem('user', JSON.stringify(response.data.User));
+            localStorage.setItem('token', response.data.token);
+            
+            setTimeout(() => {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+              }, 3600000); // 3600000 milliseconds = 1 hour
+            
+
+        // localStorage.setItem('token', response.data.token); // Save token in local storage
+
+            setSnackMessage("Successfully logged in");
             setSnackbarOpen(true);
-            return;
-        }
+            setIsLogin(true);
 
-        const emailType = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailType.test(email)) {
-            setSnackMessage('Please enter a valid email address');
-            setSnackbarOpen(true);
-            return;
-        }
+            
+            // Cookies.set('jwt', response.data.token);
+            console.log('Successfully authenticated as user');
+            console.log('Token:', response.data.token);
+            
+        } else {
+            
+            
 
-        try {
-            const response = await axios.post('http://localhost:5000/api/user/login', {
-                email,
-                password
-            });
-
-            if (response.data.alert) {
-                setSnackMessage("Successfully logged in");
-                setSnackbarOpen(true);
-                setIsLogin(true);
-
-                localStorage.setItem('userDetails', JSON.stringify(response.data.User));
-                Cookies.set('jwt', response.data.token);
-                console.log('Successfully authenticated as user');
-                console.log('Token:', response.data.token);
-                navigate('/shop');
-            } else {
-                setSnackMessage(response.data.message);
-                setSnackbarOpen(true);
-            }
-        } catch (error) {
-            console.error(error);
-            setSnackMessage("Incorrect Email or Password");
+            setSnackMessage(response.data.message);
             setSnackbarOpen(true);
         }
-    };
+    } catch (error) {
+        console.error(error);
+
+        
+
+        setSnackMessage("Incorrect Email or Password");
+        setSnackbarOpen(true);
+    }
+};
+
 
     return (
         <div>
@@ -185,13 +227,13 @@ export const Login = () => {
                                 <Snackbar
                                     open={snackbarOpen}
                                     autoHideDuration={3000}
-                                    onClose={() => { setSnackbarOpen(false); if (isLogin) { navigate('/shop') } }}
+                                    onClose={() => { setSnackbarOpen(false); if (isLogin) { navigate('/') } }}
                                     message={snackMessage}
                                     anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                                     sx={{ marginTop: "100px" }}
                                 >
                                     <Alert
-                                        onClose={() => { setSnackbarOpen(false); if (isLogin) { navigate('/shop') } }}
+                                        onClose={() => { setSnackbarOpen(false); if (isLogin) { navigate('/') } }}
                                         severity={isLogin ? "success" : "error"}
                                         variant="filled"
                                         sx={{ width: '100%' }}>

@@ -1,65 +1,61 @@
-import { IconButton, Paper, TextField, Typography } from '@mui/material'
-import { Stack } from '@mui/system'
-import React from 'react'
+import React from 'react';
+import { IconButton, Paper, TextField, Typography } from '@mui/material';
+import { Stack } from '@mui/system';
 import CancelIcon from '@mui/icons-material/Cancel';
-import slide1 from '../Images/Slider1.jpg'
-import slide2 from '../Images/Slider2.png'
-import slide3 from '../Images/Slider3.png'
 
 
 
 
-const product = [
-{
-    productItemID: "8",
-    itemName: { 
-        en: "Product 8", 
-        si: "නිෂ්පාදනය 8" 
-    },
-    price: 79.99,
-    description: { 
-        en: "Description of Product 8", 
-        si: "නිෂ්පාදනය 8 විස්තර" 
-    },
-    quantity: 35,
-    category: { 
-        en: "Category 8", 
-        si: "ප්‍රවර්ගය 8" 
-    },
-    images: [slide1, slide2, slide3]
-},
-]
+export const CartCard = ({ item, onRemoveItem }) => {
 
-export const CartCard = () => {
+    const { itemName, description, price, imageUrl, quantity , productItemID} = item;
 
-    const quantity = 55;
-
-    return (
+    const handleRemoveClick = () => {
+        onRemoveItem(productItemID);
+    };
     
-        <Stack justifyContent='space-between' direction='row' sx={{borderRadius:'20px', border:'solid 1px #B1FDC5', boxShadow:' 5px 10px 13px -6px rgba(0,0,0,0.2)', width:'80%', padding:'10px'}}>
-            <img src={product[0].images[1]} alt='product img' width='20%' style={{borderRadius:'20px'}} />
-            <Stack direction='column' width='40%'>
-                <Typography>Product name_endsffff fffffff fffffffffdddd ddddddd ddddddddd</Typography>
-                <Typography>Product name_si</Typography>
-                <Typography>Unit price</Typography>
-            </Stack>
-            <Stack direction='column' width='20%' >
-                                <Stack direction='row'>
-                                <Typography>Quantity : </Typography>
-                                <TextField
-                                    type='number'
-                                    inputProps={{ min: 0, max:quantity, style: { padding: '0px', display:'all' }  }}
-                                    
-                                />
-                                </Stack>
-                                {quantity > 0 ? 
-                                    <Typography variant='h7' color='success.main' >(Instock-{quantity})</Typography> :
-                                    <Typography variant='h7' color='error'>(Out of Stock)</Typography>
-                                } 
-            </Stack>
-            <Typography variant='h6' color='success.main' width='10%'>Rs. 8989</Typography>
-            <IconButton  color='error' sx={{width:'1px', height:'1px'}} ><CancelIcon sx={{ fontSize: 25 , }}/></IconButton> 
-        </Stack>
+    // console.log(imageUrl)
+    const firstImageUrl = Object.values(imageUrl)[0];
+    return (
+        <Stack justifyContent='space-between' direction='row' sx={{ borderRadius: '20px', border: 'solid 1px #B1FDC5', boxShadow: ' 5px 10px 13px -6px rgba(0,0,0,0.2)', width: '80%', padding: '10px' }}>
+            
+            
+            
+            {Object.values(imageUrl).slice(0, 1).map((image, index) => (
+    <img
+        key={index}
+        src={`http://localhost:5000${image}`} // Prepend base URL to image path
+        alt={`Slide ${index + 1}`}
+        style={{ width:'20%', borderRadius: '20px' }}
+        onError={(e) => {
+            console.error(`Failed to load image ${index}: ${e.target.src}`);
+            e.target.onerror = null; // Prevent infinite error loops
+        }}
+    />
+))}
 
-    )
-}
+
+            <Stack direction='column' width='40%'>
+                <Typography>{itemName}</Typography>
+                <Typography>{itemName.si}</Typography>
+                <Typography>Unit price: Rs. {price}</Typography>
+            </Stack>
+            <Stack direction='column' width='20%'>
+                <Stack direction='row'>
+                    <Typography>Quantity : </Typography>
+                    <TextField
+                        type='number'
+                        inputProps={{ min: 1, max: quantity, style: { padding: '0px', display: 'all' } }}
+                    />
+                </Stack>
+                {quantity > 0 ? (
+                    <Typography variant='h7' color='success.main' >(In stock: {quantity})</Typography>
+                ) : (
+                    <Typography variant='h7' color='error'>(Out of Stock)</Typography>
+                )}
+            </Stack>
+            <Typography variant='h6' color='success.main' width='10%'>Rs. {price}</Typography>
+            <IconButton color='error' sx={{ width: '1px', height: '1px' }} onClick={handleRemoveClick}><CancelIcon sx={{ fontSize: 25 }} /></IconButton>
+        </Stack>
+    );
+};
