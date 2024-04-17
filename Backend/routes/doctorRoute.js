@@ -10,6 +10,7 @@ router.get('/:id', doctorController.getAyurvedicDoctorById);
 router.delete('/:id', doctorController.deleteAyurvedicDoctor);
 router.get("/si/:category", doctorController.getEnglishPart);
 router.get("/en/:category", doctorController.getSinhalaPart);
+router.put("/:id", doctorController.editDoctor);
 
 // Continue with the rest of your code...
 

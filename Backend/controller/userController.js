@@ -9,7 +9,7 @@ dotenv.config();
 
 
 const createToken = (userId) => {
-  return jwt.sign({ userId }, "jwtSecretKey", { expiresIn: "1h" });
+  return jwt.sign({ userId }, "jwtSecretKey", { expiresIn: "5s" });
 };
 
 export const createUser = async (req, res) => {

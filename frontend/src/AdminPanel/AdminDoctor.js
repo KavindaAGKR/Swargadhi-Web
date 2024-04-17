@@ -4,6 +4,9 @@ import IconButton from '@mui/material/IconButton';
 import { Box } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
+import EditIcon from '@mui/icons-material/Edit';
+import { useNavigate } from 'react-router-dom';
+
 
 export const AdminDoctor = () => {
     const [open, setOpen] = useState(false);
@@ -25,8 +28,11 @@ export const AdminDoctor = () => {
         const imagesArray = Array.from(e.target.files);
         setDoctorData({...doctorData, images: imagesArray});
     }
-    
-    
+    const navigate = useNavigate();
+    const handleEdit = (id) => {
+        console.log(`Edit button clicked for row with id ${id}`);
+        navigate(`/admin/home/doctor/${id}/edit`);
+    };
     const handleSubmit = async () => {
         try {
             const formData = new FormData();
@@ -146,6 +152,9 @@ export const AdminDoctor = () => {
                     </IconButton> */}
                     <IconButton onClick={() => handleDelete(params.row.id)}>
                         <DeleteIcon color="error" />
+                    </IconButton>
+                    <IconButton onClick={() => handleEdit(params.row.id)}> {/* Call handleEdit function with row id */}
+                        <EditIcon color="primary" />
                     </IconButton>
          
                     {console.log("Row ID:", params.row.id)}

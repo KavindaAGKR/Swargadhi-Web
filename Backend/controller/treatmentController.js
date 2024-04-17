@@ -178,3 +178,62 @@ export const getEnglishPart = async (req, res) => {
         res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 };
+export const updateAyurvedicTreatment = async (req, res) => {
+    try {
+      const { id } = req.params;
+  
+      // Use `upload` middleware to handle file uploads
+      upload(req, res, async (err) => {
+        if (err instanceof multer.MulterError) {
+          return res.status(400).json({ message: 'Error uploading files', error: err });
+        } else if (err) {
+          return res.status(500).json({ message: 'Error uploading files', error: err });
+        }
+  
+        // Retrieve existing treatment from database
+        const existingTreatment = await AyurvedicTreatment.findById(id);
+  
+        if (!existingTreatment) {
+          return res.status(404).json({ message: 'Ayurvedic treatment not found' });
+        }
+  
+        // Update treatment fields
+        existingTreatment.treatmentName = {
+          en: req.body.treatmentNameEn,
+          si: req.body.treatmentNameSi
+        };
+        existingTreatment.price = req.body.price;
+        existingTreatment.description = {
+          en: req.body.descriptionEn,
+          si: req.body.descriptionSi
+        };
+  
+        // Handle updated images
+        if (req.files && req.files.length > 0) {
+          // Map uploaded files to new image paths
+          const newImagePaths = req.files.map((file) => `/public/item/${file.filename}`);
+  
+          // Replace existing images or update specific image based on request
+          const updatedImageIndex = req.body.updatedImageIndex;
+          if (updatedImageIndex !== undefined && updatedImageIndex !== null && updatedImageIndex >= 0) {
+            // Replace the image at the specified index
+            if (updatedImageIndex < existingTreatment.images.length) {
+              existingTreatment.images[updatedImageIndex] = newImagePaths[0];
+            }
+          } else {
+            // Append new image paths to existing images
+            existingTreatment.images = newImagePaths;
+          }
+        }
+  
+        // Save updated treatment to database
+        const updatedTreatment = await existingTreatment.save();
+  
+        // Respond with updated treatment
+        res.status(200).json({ message: 'Ayurvedic treatment updated successfully', updatedTreatment });
+      });
+    } catch (error) {
+      console.error('Error updating treatment:', error);
+      res.status(500).json({ message: 'Internal server error', error: error.message });
+    }
+  };

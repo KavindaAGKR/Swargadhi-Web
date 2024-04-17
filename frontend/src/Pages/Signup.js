@@ -75,7 +75,7 @@ export const Signup = () => {
     const [issignedup, setisSignedup] = useState(false);
 
     const handleSignUp = async () => {
-        
+        setSnackBarOpen(true)
 
         if (!firstName || !lastName || !email || !password) {
             setSnackMessage('All the fields are required');
@@ -103,22 +103,13 @@ export const Signup = () => {
                 password2
             });
             console.log(response.data.message);
-            
-            
+            setSnackMessage("Successfully Signed Up");
             setisSignedup(true);
-            if (response.data.alert === 'success') {
-              
-              setSnackMessage("Sign up is Successful. Now login with your credentials!");
-              setSnackBarOpen(true);
-              // navigate('/login');
-            }
-            // Redirect to another page after successful signup
-           // navigate('/login');
+            
         } catch (error) {
             console.error(error);
-            setSnackMessage("Invalid Inputsssssssss");
-            setSnackBarOpen(true)
-            // Handle error, show error message to user
+            setSnackMessage("Invalid Inputs");
+            
         }
     };
 
@@ -144,8 +135,9 @@ export const Signup = () => {
 {/* Inputs */}
             <Stack className={classes.stackContainer} justifyContent="center" alignItems="center" direction='column' >
 
-                <img src={logo} style={{width:'60%'}}></img>
-                <TextField placeholder='first Name' variant="standard"  margin="normal" required style={{width:'80%'}}
+                <img src={logo} style={{width:'80%', marginBottom:'10px'}}/>
+                <Typography variant='h4' color='success.main'>SignUp</Typography>
+                <TextField placeholder='first Name' variant="standard"  margin="normal" required style={{width:'80%', marginTop:'20px'}}
                 value={firstName}
                 onChange={(e) => {setFirstName(e.target.value); console.log('name: ' + firstName)}}
                     InputProps={{
@@ -193,7 +185,7 @@ export const Signup = () => {
                       }}
                       
                 />
-                <TextField placeholder='Re Enter Password' variant="standard"  margin="normal" type='password' required style={{width:'80%'}}
+                <TextField placeholder='Re Enter Password' variant="standard"  margin="normal" type='password' required style={{width:'80%', marginBottom:'50px'}}
                     value={password2}
                     onChange={(pw2)=>{setPw2(pw2.target.value); console.log('Re entered password: ' + password2)}}
                     InputProps={{
@@ -212,7 +204,7 @@ export const Signup = () => {
                                 open={snackBarOpen}
                                 autoHideDuration={3000}
                                 onClose={() => { setSnackBarOpen(false); if (issignedup) { navigate('/login') } }}
-                                message={snackbarMessage}
+                                // message={snackbarMessage}
                                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                                 sx={{marginTop:"100px"}}
                                 

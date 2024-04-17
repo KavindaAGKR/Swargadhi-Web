@@ -4,13 +4,32 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import { store } from './redux/store';
+import {Provider} from 'react-redux'
+
+
+import { setUser, setToken } from './redux/slices/userSlice';
+
+const userFromStorage = localStorage.getItem('user');
+const tokenFromStorage = localStorage.getItem('token');
+
+if (userFromStorage && tokenFromStorage) {
+  store.dispatch(setUser(JSON.parse(userFromStorage)));
+  store.dispatch(setToken(tokenFromStorage));
+}
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <Provider store = {store}>
     <BrowserRouter>
     <App />
     </BrowserRouter>
+
+    </Provider>
+    
     
   </React.StrictMode>
 );

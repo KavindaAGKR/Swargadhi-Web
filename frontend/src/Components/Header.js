@@ -7,8 +7,8 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
   import MenuIcon from "@mui/icons-material/Menu";
 
 
-
-
+import { useSelector } from 'react-redux';
+import {selectUser, selectIsLoggedIn} from '../redux/slices/userSlice'
 
 
 //Responsive Navigation Bar
@@ -59,19 +59,29 @@ export const ResponsiveNav = (props) =>{
 
 
 //To show the DP when user logged in
-export const IsLogged = (props) => {
+// export const IsLogged = () => {
+
+//     const isLoggedIn = useSelector(selectIsLoggedIn);
+//     const user = useSelector(selectUser);
     
-    const navigate = useNavigate();
-    if (!props.isLogged) {
-        return (
-            <Button variant='contained' color="success" onClick={()=>navigate('/login')} >Sign In</Button>
-        );
-    } else {
-        return (
-            <Button><Avatar sx={{bgcolor:'primary.light'}}>DP</Avatar></Button>
-        );
-    }
-};
+    
+//     const navigate = useNavigate();
+//     if (!isLoggedIn) {
+//         return (
+//             <Button variant='contained' color="success" onClick={()=>navigate('/login')} >Sign In</Button>
+//         );
+//     } else {
+//         const firstNameInitial = user.firstName.charAt(0);
+//         const lastNameInitial = user.lastName.charAt(0);
+
+//         return (
+//             <Button>
+//             <Avatar sx={{ bgcolor: 'primary.light' }}>{firstNameInitial}{lastNameInitial}</Avatar>
+//             {/* <Avatar sx={{ bgcolor: 'primary.light' }}>AA</Avatar> */}
+//             </Button>
+//         );
+//     }
+// };
 
 
 
@@ -81,9 +91,10 @@ export const IsLogged = (props) => {
 export const Header = () => {
     
     const navigate = useNavigate();
-
-    //const [isLoggedIn] = useState(true);
-    const isLoggedIn = false;
+    const isLoggedIn = useSelector(selectIsLoggedIn);
+    const user = useSelector(selectUser);
+    
+    
     
 
     const theme = useTheme();
@@ -100,8 +111,24 @@ export const Header = () => {
 
                             <ResponsiveNav isMatch={isMatch}/>
                             <Button variant='contained'>සිංහල</Button>
-                            <IsLogged isLogged={isLoggedIn}/>
-                            <IconButton onClick={()=>{navigate('/cart')}} sx={{padding:'0px'}}><ShoppingCartIcon/></IconButton>
+
+                            { isLoggedIn ? (<>
+                                <Button>
+            <Avatar sx={{ bgcolor: 'primary.light' }}>{user.firstName.charAt(0)}{user.lastName.charAt(0)}</Avatar>
+            
+            </Button>
+            <IconButton onClick={()=>{navigate('/cart')}} sx={{padding:'0px'}}><ShoppingCartIcon/></IconButton></>
+        ): (
+                <Button variant='contained' color="success" onClick={()=>navigate('/login')} >Sign In</Button>
+            )
+                            }
+
+                            {/* <IsLogged/> */}
+                            
+
+
+
+
                         </Stack> 
                     </Toolbar>
                 </AppBar>
