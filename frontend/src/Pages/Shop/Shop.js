@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { Header } from '../../Components/Header';
 import { Footer } from '../../Components/Footer';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Tab, Box, Stack } from '@mui/material';
+import { Tab, Box, Stack, GlobalStyles } from '@mui/material';
 import ProductCatalog from './ProductCatalog';
 
+
+
  const Shop = () => {
+
+   
+
     const [value, setValue] = useState('all');
 
     const handleChange = (event, newValue) => {
@@ -16,8 +21,8 @@ import ProductCatalog from './ProductCatalog';
         <React.Fragment>
             <Header />
             
-            <Stack sx={{ margin: 'auto', maxWidth: '90%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <TabContext value={value}>
+            <Stack sx={{ margin: '25px auto', maxWidth: '90%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <TabContext value={value} sx={{width:'100%'}}>
                     <Box sx={{ margin: 'auto' }}>
                         <TabList
                             onChange={handleChange}
@@ -32,30 +37,32 @@ import ProductCatalog from './ProductCatalog';
                             <Tab label='Paththu' value='Paththu' />
                             <Tab label='Guli' value='Guli' />
                             <Tab label='Chuurna' value='Chuurna' />
-                            <Tab label='Kashay' value='Kashay' />
+                            <Tab label='Kashaya' value='Kashay' />
                         </TabList>
                     </Box>
 
-                    <TabPanel value='all'>
+
+                    
+                    <TabPanel value='all' sx={{width:'100%'}}>
                     <ProductCatalog category="all" />
                     </TabPanel>
-                    <TabPanel value='kalka'>
+                    <TabPanel value='kalka' sx={{width:'100%'}}>
                     <ProductCatalog category="kalka" />
                     </TabPanel>
-                    <TabPanel value='Thel'>
+                    <TabPanel value='Thel' sx={{width:'100%'}}>
                     <ProductCatalog category="Thel" />
                     </TabPanel>
-                    <TabPanel value='Paththu'>
+                    <TabPanel value='Paththu' sx={{width:'100%'}}>
                     <ProductCatalog category="Paththu" />
                     </TabPanel>
-                    <TabPanel value='Guli'>
+                    <TabPanel value='Guli' sx={{width:'100%'}}>
                     <ProductCatalog category="Guli" />
                     </TabPanel>
-                    <TabPanel value='Chuurna'>
+                    <TabPanel value='Chuurna' sx={{width:'100%'}}>
                     <ProductCatalog category="Chuurna" />
                     </TabPanel>
-                    <TabPanel value='Kashay'>
-                    <ProductCatalog category="Kashay" />
+                    <TabPanel value='Kashay' sx={{width:'100%'}}>
+                    <ProductCatalog category="Kashaya" />
                     </TabPanel>
                 </TabContext>
             </Stack>
