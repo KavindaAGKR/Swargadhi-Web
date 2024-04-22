@@ -103,18 +103,18 @@ export const Header = () => {
     return (
             <React.Fragment >
                 <AppBar position='static' >
-                    <Toolbar sx={{backgroundColor:'white', justifyContent:'space-between'  }}>
+                    <Toolbar sx={{backgroundColor:'#F3FFD0', justifyContent:'space-between'  }}>
                         <img src={logo} alt="Swargadhi logo" width="30%"/>
 
 
-                        <Stack direction='row' spacing={2} >
+                        <Stack direction='row' spacing={1} alignItems='center' >
 
                             <ResponsiveNav isMatch={isMatch}/>
-                            <Button variant='contained'>සිංහල</Button>
+                            <Button variant='contained' style={{height:'30px', marginLeft:'20px'}}>සිංහල</Button>
 
                             { isLoggedIn ? (<>
                                 <Button>
-            <Avatar sx={{ bgcolor: 'primary.light' }}>{user.firstName.charAt(0)}{user.lastName.charAt(0)}</Avatar>
+            <Avatar sx={{ bgcolor: 'success.light', marginLeft:'0px' }}>{user.firstName.charAt(0)}{user.lastName.charAt(0)}</Avatar>
             
             </Button>
             <IconButton onClick={()=>{navigate('/cart')}} sx={{padding:'0px'}}><ShoppingCartIcon/></IconButton></>
@@ -122,10 +122,6 @@ export const Header = () => {
                 <Button variant='contained' color="success" onClick={()=>navigate('/login')} >Sign In</Button>
             )
                             }
-
-                            {/* <IsLogged/> */}
-                            
-
 
 
 
