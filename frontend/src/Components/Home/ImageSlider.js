@@ -55,7 +55,7 @@ function ImageSlider({ images, imageSize, slideInterval }) {
 }
 
 ImageSlider.defaultProps = {
-  imageSize: '800px',
+  imageSize: '70%',
   slideInterval: 4000, 
 };
 

@@ -22,6 +22,10 @@ export const Home = () => {
       slider1,slider2,slider3
           ];
 
+
+
+
+          
   return (
     <React.Fragment>
         <Header/>
