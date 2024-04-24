@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Typography, TextField } from '@mui/material';
+import { Button, Typography, TextField, Stack, Icon, Avatar } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import axios from 'axios'; // Import axios for making HTTP requests
 import { Header } from '../Components/Header';
@@ -8,6 +8,7 @@ import { Footer } from '../Components/Footer';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../redux/slices/userSlice'; 
 import { selectUser, selectIsLoggedIn } from '../redux/slices/userSlice';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -88,30 +89,52 @@ export const UserProfile = () => {
     return (
         <React.Fragment>
             <Header />
+            <Stack justifyContent='center' alignItems='center'>
             
-                <Typography variant="h4" gutterBottom>
-                    User Profile
+                <Stack direction='row' margin="40px 0 25px 0" color='blue'>
+                <PersonOutlineIcon sx={{fontSize:'60px'}} />
+                <Typography variant='h3' margin='auto' >
+                My Account
                 </Typography>
+                </Stack>
 
                 
                 {isLoggedIn ? (
                     <React.Fragment>
-                        <Typography variant="body1">
+                        <Stack direction='row' sx={{width:'90%'}}>
+                            <Stack sx={{width:'40%',height:'500px', backgroundColor:'#F5F9FC', boxShadow:'1px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14)', margin:'20px'}}>
+                            <Avatar sx={{width:'150px' , height:'150px' , margin:'0 auto'}}>QQ</Avatar>
+                            </Stack>
+                            <Stack sx={{width:'60%', backgroundColor:'#F5F9FC', boxShadow:'0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14)',margin:'20px' }}>
+                            <Typography variant="h6">
                             
                             First Name: { user.firstName } <br />
+                            </Typography>
+                            <Typography>
+
+                            </Typography>
+                            <Typography>
                             Last Name: {user.lastName} <br />
+                            </Typography>
+                            <Typography>
+
+                            </Typography>
+                            <Typography>
                             Email: {user.email} <br />
                             
                             Address: 
                         </Typography>
-                        <Button
-                            className={classes.button}
-                            variant="contained"
-                            color="primary"
-                            onClick={handleSignOut}
-                        >
-                            Sign Out
-                        </Button>
+                            </Stack>
+                        
+                        </Stack>
+                        
+
+
+
+
+
+
+
                         <Typography variant="h5" gutterBottom>
                     Feedback
                 </Typography>
@@ -134,10 +157,19 @@ export const UserProfile = () => {
                         variant="contained"
                         color="primary"
                         type="submit"
+                        sx={{width:'250px'}}
                     >
                         Submit Feedback
                     </Button>
                 </form>
+                <Button
+                            className={classes.button}
+                            variant="contained"
+                            color="error"
+                            onClick={handleSignOut}
+                        >
+                            Sign Out
+                        </Button>
                 <Button
                     className={classes.button}
                     variant="contained"
@@ -146,7 +178,12 @@ export const UserProfile = () => {
                 >
                     Edit Profile
                 </Button>
+
+
                     </React.Fragment>
+
+
+
                 ) : (
                     <Typography variant="body1">
                         Please <a href="/login">login</a> to view your details.
@@ -154,7 +191,7 @@ export const UserProfile = () => {
                 )}
 
 
-
+</Stack>
                 
                 
             

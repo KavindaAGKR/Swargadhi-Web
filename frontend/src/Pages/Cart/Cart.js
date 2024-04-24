@@ -26,8 +26,8 @@ export const Cart = () => {
             <Header />
             <Stack>
                 <Typography textAlign='center' variant='h3' padding='25px'>
-                    {' '}
-                    <ShoppingCartIcon fontSize='30' color='red' /> My Cart
+                    
+                    <ShoppingCartIcon fontSize='30' /> My Cart
                 </Typography>
 
                 {cartItems.length === 0 ? (
