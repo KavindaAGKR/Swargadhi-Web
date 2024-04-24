@@ -88,7 +88,7 @@ export const UserProfile = () => {
     return (
         <React.Fragment>
             <Header />
-            <div className={classes.root}>
+            
                 <Typography variant="h4" gutterBottom>
                     User Profile
                 </Typography>
@@ -112,17 +112,7 @@ export const UserProfile = () => {
                         >
                             Sign Out
                         </Button>
-                    </React.Fragment>
-                ) : (
-                    <Typography variant="body1">
-                        Please <a href="/login">login</a> to view your details.
-                    </Typography>
-                )}
-
-
-
-                
-                <Typography variant="h5" gutterBottom>
+                        <Typography variant="h5" gutterBottom>
                     Feedback
                 </Typography>
                 <ul>
@@ -156,7 +146,18 @@ export const UserProfile = () => {
                 >
                     Edit Profile
                 </Button>
-            </div>
+                    </React.Fragment>
+                ) : (
+                    <Typography variant="body1">
+                        Please <a href="/login">login</a> to view your details.
+                    </Typography>
+                )}
+
+
+
+                
+                
+            
             <Footer />
         </React.Fragment>
     );
