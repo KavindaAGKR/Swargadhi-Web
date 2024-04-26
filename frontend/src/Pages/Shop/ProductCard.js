@@ -8,6 +8,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/slices/cartSlice';
 import {selectIsLoggedIn} from '../../redux/slices/userSlice'
+import { selectCartItems } from '../../redux/slices/cartSlice';
 
 
 
@@ -16,24 +17,41 @@ const ProductCard = ({ product }) => {
 
 
     const [snackbarOpen, setSnackbarOpen] = useState(false); // State for controlling Snackbar visibility
-    const snackMessage = "You must Sign In to add products to the cart"
+    const [snackMessage, setSnackMessage] = useState('')
+    
 
 
     const dispatch = useDispatch();
     const isLoggedIn = useSelector(selectIsLoggedIn);
+    const cartItems = useSelector(selectCartItems);
 
     const handleAddToCart = () => {
 
+        const isProductInCart = cartItems.some(item => item.productItemID === product.productItemID);
+
         if(isLoggedIn){
-            dispatch(addToCart(product));
-        }
-        else{
-            setSnackbarOpen(true)
+
+            if(isProductInCart){
+                setSnackMessage("The product is already in the cart")
+                
+            }
+            else{
+                dispatch(addToCart(product));
+                setSnackMessage("Product added to the cart")
+                
+            }
             
         }
+        else{
+            setSnackMessage("You must Sign In to add products to the cart")
+            
+            
+            
+        }
+        setSnackbarOpen(true)
     };
 
-    
+
 
 
     const { itemName, description, price, imageUrl, quantity } = product; // Destructure product details
@@ -157,7 +175,7 @@ const ProductCard = ({ product }) => {
                     >
                     <Alert
                         onClose={() => { setSnackbarOpen(false);  }}
-                        severity="error"
+                        severity={(snackMessage == "Product added to the cart") ? ('success'): ('error') }
                         variant="filled"
                         sx={{ width: '100%' }}>
                         {snackMessage}
