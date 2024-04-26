@@ -7,6 +7,7 @@ export const cartSlice = createSlice({
 
   initialState: {
     items: [],
+    subtotal: 0,
   },
   
   reducers: {
@@ -19,6 +20,7 @@ export const cartSlice = createSlice({
           state.items.splice(indexToRemove, 1);
       }
   },
+
     // Add more reducers as needed
   },
 });

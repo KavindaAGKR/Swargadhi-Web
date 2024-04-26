@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import logo from '../Images/logo.png'
 import { useNavigate } from 'react-router-dom'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-  import MenuIcon from "@mui/icons-material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
 
 
 import { useSelector, useDispatch } from 'react-redux';

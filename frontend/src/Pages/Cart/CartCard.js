@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Box, IconButton, Paper, TextField, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -6,7 +6,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 
 
 
-export const CartCard = ({ item, onRemoveItem }) => {
+export const CartCard = ({ item, onRemoveItem,  updateProductTotalPrice }) => {
 
     const { itemName, description, price, imageUrl, quantity , productItemID} = item;
 
@@ -15,11 +15,18 @@ export const CartCard = ({ item, onRemoveItem }) => {
     const productTotPrice = buyingCount*price;
 
 
-    const handleRemoveClick = () => {
+useEffect(() => {
+    updateProductTotalPrice(productItemID, productTotPrice);
+}, [ productTotPrice]);
+
+const handleRemoveClick = () => {
         onRemoveItem(productItemID);
+        updateProductTotalPrice(productItemID, 0); 
+        
     };
-    
-    // console.log(imageUrl)
+
+
+
     const firstImageUrl = Object.values(imageUrl)[0];
     return (
         <Stack justifyContent='space-between' direction='row' sx={{ borderRadius: '20px', border: 'solid 1px #B1FDC5', boxShadow: ' 5px 10px 13px -6px rgba(0,0,0,0.2)', width: '80%', padding: '10px' }}>
