@@ -17,7 +17,7 @@ import axios from 'axios';
 
 
 import { setUser, setToken } from '../redux/slices/userSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import {  useDispatch } from 'react-redux';
 // import { loginStart, loginSuccess, loginFailure } from '../redux/slices/authSlice'
 
 
