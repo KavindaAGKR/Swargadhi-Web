@@ -29,6 +29,7 @@ export const Dispensary = () => {
             </Stack>
             <Stack direction='column'>
               <Typography>Available Tratments</Typography>
+              <Typography>Fix Disabled joints</Typography>
             </Stack>
           </Stack>
         
