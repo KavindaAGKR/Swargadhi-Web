@@ -18,7 +18,6 @@ const ProductCard = ({ product }) => {
 
     const [snackbarOpen, setSnackbarOpen] = useState(false); // State for controlling Snackbar visibility
     const [snackMessage, setSnackMessage] = useState('')
-    
 
 
     const dispatch = useDispatch();

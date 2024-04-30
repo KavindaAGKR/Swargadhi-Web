@@ -1,24 +1,10 @@
 import React, { useState } from 'react'
 import { Header } from '../Components/Header'
 import { Footer } from '../Components/Footer'
-import { Button, Dialog, Typography } from '@mui/material'
+import { Button, Dialog, Stack, Typography } from '@mui/material'
+import Carousel from 'react-material-ui-carousel'
 
 
-// const ProductViewMore = (open) => {
-
-//   return(
-//     <Dialog
-//     open = {open}
-//     >
-//       <Typography>handleUpload</Typography>
-
-
-
-
-//     </Dialog>
-
-//   )
-// }
 
 
 
@@ -32,13 +18,20 @@ export const Dispensary = () => {
   return (
     <React.Fragment>
         <Header/>
-        <Button onClick={()=>setOpen(true)} >ViewMore</Button>
-        
 
-        <Dialog open = {openn}>
-          <Button onClick={()=>setOpen(false)}>close</Button>
-          
-        </Dialog>
+          <Stack>
+            <Stack direction='row'>
+
+            <Carousel>
+              
+            </Carousel>
+
+            </Stack>
+            <Stack direction='column'>
+              <Typography>Available Tratments</Typography>
+            </Stack>
+          </Stack>
+        
 
 
         <Footer/>
