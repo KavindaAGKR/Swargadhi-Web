@@ -30,8 +30,14 @@ export const Dispensary = () => {
             <Stack direction='column'>
               <Typography variant='h3'>Available Tratments</Typography>
               <Typography>Fix Disabled joints</Typography>
+<<<<<<< HEAD
               <Typography>Wakugadu Amaruwa</Typography>
               <Typography>Back Pain/Typography</Typography>
+=======
+    <Typography>Wakugadu Amaruwa</Typography>
+    <Typography>Back Pain/Typography</Typography>
+
+>>>>>>> f17dad5394a6b752b04ca4e92ff4ce13d7d069dd
             </Stack>
           </Stack>
         
