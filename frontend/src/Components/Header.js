@@ -123,7 +123,7 @@ export const Header = () => {
                                 </Button>
                                 <IconButton onClick={()=>{navigate('/cart')}} sx={{padding:'0px'}}><ShoppingCartIcon/></IconButton></>
                             ): (
-                                <Button variant='contained' color="success" onClick={()=>navigate('/login')} >Sign In</Button>
+                                <Button variant='contained' color="success" onClick={()=>navigate('/login')} >{isSinhalaTrue ? ("ලොග් වන්න"): ("Sign In")}</Button>
                                 )
                             }
                         </Stack> 
