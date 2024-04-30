@@ -106,24 +106,26 @@ export const UserProfile = () => {
                             <Avatar sx={{width:'150px' , height:'150px' , margin:'0 auto'}}>QQ</Avatar>
                             </Stack>
                             <Stack sx={{width:'60%', backgroundColor:'#F5F9FC', boxShadow:'0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14)',margin:'20px' }}>
-                            <Typography variant="h6">
+                            <Stack sx={{margin:'25px'}}>
+                            <Typography variant="h5">
                             
                             First Name: { user.firstName } <br />
                             </Typography>
                             <Typography>
 
                             </Typography>
-                            <Typography>
+                            <Typography variant="h5">
                             Last Name: {user.lastName} <br />
                             </Typography>
                             <Typography>
 
                             </Typography>
-                            <Typography>
+                            <Typography variant="h5">
                             Email: {user.email} <br />
                             
                             Address: 
                         </Typography>
+                            </Stack>
                             </Stack>
                         
                         </Stack>
