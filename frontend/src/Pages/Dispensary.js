@@ -30,6 +30,7 @@ export const Dispensary = () => {
             <Stack direction='column'>
               <Typography>Available Tratments</Typography>
               <Typography>Fix Disabled joints</Typography>
+    <Typography>Wakugadu Amaruwa</Typography>
     <Typography>Back Pain/Typography>
             </Stack>
           </Stack>
