@@ -1,9 +1,9 @@
 
 import { Route , Routes} from 'react-router-dom';
-import { Login } from './Pages/Login';
-import { Home } from './Pages/Home';
-import { Signup } from './Pages/Signup';
-import { About } from './Pages/About';
+import { Login } from './Pages/UserLogin/Login';
+import { Home } from './Pages/Home/Home';
+import { Signup } from './Pages/UserSignup/Signup';
+import { About } from './Pages/About/About';
 import { AdminLogin } from './AdminPanel/AdminLogin';
 import { AdminHome } from './AdminPanel/AdminHome';
 import { Products } from './AdminPanel/Products';
@@ -14,8 +14,8 @@ import { AdminSaleReport } from './AdminPanel/AdminSaleReport';
 import { AdminUsers } from './AdminPanel/AdminUsers';
 import { AdminMessages } from './AdminPanel/AdminMessages';
 import { AdminSettings } from './AdminPanel/AdminSettings';
-import { UserProfile } from './Pages/Userprofile';
-import { Dispensary } from './Pages/Dispensary';
+import { UserProfile } from './Pages/UserProfile/Userprofile';
+import { Dispensary } from './Pages/Dispensary/Dispensary';
 import { AdminSignup } from './AdminPanel/AdminSignup';
 import Shop  from './Pages/Shop/Shop';
 import {AdminDoctor}from './AdminPanel/AdminDoctor'
@@ -33,25 +33,6 @@ import { Cart } from './Pages/Cart/Cart';
 function App() {
 
 
-
-  // //To Check whether the JWT token
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(checkAuthExpiration());    // Dispatch the action to check for token expiration when the app initializes
-  //   // Set up a timer to periodically check for token expiration and clear localStorage after logout
-  //   const expirationCheckInterval = setInterval(() => {
-  //     dispatch(checkAuthExpiration());
-  //   }, 60000); // Check every minute
-  //   // Set up a timer to automatically log out the user after 3 hours (in milliseconds)
-  //   const logoutTimer = setTimeout(() => {
-  //     dispatch(logout());
-  //   }, 3 * 60 * 60 * 1000); // 3 hours
-  //   // Clean up the intervals on component unmount
-  //   return () => {
-  //     clearInterval(expirationCheckInterval);
-  //     clearTimeout(logoutTimer);
-  //   };
-  // }, [dispatch]);
 
 
 
