@@ -74,7 +74,7 @@ const ProductCard = ({ product }) => {
                     sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                     navButtonsAlwaysVisible={false}
                     indicators={false}
-                    NextIcon={<NextIcon />}
+                    fullHeightHover
                 >
                     {imageUrl.map((image, index) => (
                         <img
@@ -82,6 +82,7 @@ const ProductCard = ({ product }) => {
                             src={`http://localhost:5000${image}`} // Prepend base URL to image path
                             alt={`Slide ${index + 1}`}
                             style={{ maxWidth: '100%', borderRadius: '20px' }}
+                            height='100%'
                             onError={(e) => {
                                 console.error(`Failed to load image ${index}: ${e.target.src}`);
                                 e.target.onerror = null; // Prevent infinite error loops
