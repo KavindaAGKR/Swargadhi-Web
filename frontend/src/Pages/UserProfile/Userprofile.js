@@ -110,63 +110,63 @@ export const UserProfile = () => {
                 
                 {isLoggedIn ? (
                     <React.Fragment>
-                        <Stack direction='row' sx={{width:'90%'}}>
-                            <Stack sx={{width:'40%',height:'500px', backgroundColor:'#F5F9FC', boxShadow:'1px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14)', margin:'20px'}}>
-                            <Avatar sx={{width:'150px' , height:'150px' , margin:'0 auto'}}>QQ</Avatar>
+                        <Stack direction={{xs:'column', md:'row'}} sx={{width:'90%'}} justifyContent='center' alignItems='center'>
+                            <Stack sx={{width:'40%', backgroundColor:'#F5F9FC', boxShadow: '2px 2px 5px 1px #D6D3D2', margin:'20px'}}>
+                            <Avatar sx={{width:{xs:'100px', sm:'150px'} ,height:{xs:'100px', sm:'150px'} , margin:'100px auto'}}>QQ</Avatar>
                             </Stack>
-                            <Stack sx={{width:'60%', backgroundColor:'#F5F9FC', boxShadow:'0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14)',margin:'20px' }}>
+                            <Stack sx={{width:{xs:'80%', md:'60%'}, backgroundColor:'#F5F9FC', boxShadow: '2px 2px 5px 1px #D6D3D2',margin:'20px' }}>
                             
                             
                             
                             <Stack sx={{margin:'25px'}}>
-                           
-                        <Grid container spacing={1} rowGap={5} sx={{fontWeight:'bold'}}>
-  <Grid item xs={2}>
+                        
+                        <Grid container spacing={1} rowGap={5} columnGap={3} sx={{fontWeight:'bold'}}>
+  <Grid item xs={2.2} >
   First Name:
   </Grid>
-  <Grid item xs={3} sx={{...detailStyles}}>
+  <Grid item sm={2.8} xs={8} sx={{...detailStyles}}>
   { user.firstName }
   </Grid>
-  <Grid item xs={2}/>
-  <Grid item xs={2}>
+  
+  <Grid item xs={2.2}>
   Last Name:
   </Grid>
-  <Grid item xs={3} sx={{...detailStyles}}>
+  <Grid item sm={2.8} xs={8} sx={{...detailStyles}}>
   {user.lastName}
   </Grid>
-  <Grid item xs={2}>
+  <Grid item xs={2.2}>
   Email:
   </Grid>
-  <Grid item xs={10} sx={{...detailStyles}}>
+  <Grid item xs={8} sx={{...detailStyles}}>
   {user.email}
   </Grid>
-  <Grid item xs={3}>
+  <Grid item xs={2.2}>
   Mobile Number:
   </Grid>
-  <Grid  item xs={3} sx={{...detailStyles}}>
+  <Grid  item sm={3} xs={7} sx={{...detailStyles}}>
   07123456789
   </Grid>
-  <Grid item xs={6}/>
-  <Grid item container rowGap={2} >
+
+  <Grid item container gap={2} >
   Address:
   <Grid xs={10}/>
-  <Grid item xs={2.5}>
+  <Grid item sm={2.2}>
   Address Line 01:
   </Grid>
-  <Grid  item xs={3} sx={{...detailStyles}}>
+  <Grid  item  sm={8} xs={12} sx={{...detailStyles}}>
   071
   </Grid>
-  <Grid xs='1'/>
-  <Grid item xs={2.5}>
+  
+  <Grid item sm={2.2}>
   Address Line 02:
   </Grid>
-  <Grid  item xs={3} sx={{...detailStyles}}>
+  <Grid  item sm={8} xs={12} sx={{...detailStyles}}>
   asd
-  </Grid><Grid item xs={2.5}>
+  </Grid><Grid item sm={2.2}>
   Address Line 03:
   </Grid>
-  <Grid  item xs={3} sx={{...detailStyles}}>
- fdgfd
+  <Grid  item  sm={8} xs={12} sx={{...detailStyles}}>
+ fdgfdsdfdsfdsfdsdsfdssf
   </Grid>
   </Grid>
   

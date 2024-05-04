@@ -72,7 +72,7 @@ const ProductCard = ({ product }) => {
             return (
                 <Carousel
                     sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                    navButtonsAlwaysVisible={true}
+                    navButtonsAlwaysVisible={false}
                     indicators={false}
                     NextIcon={<NextIcon />}
                 >
