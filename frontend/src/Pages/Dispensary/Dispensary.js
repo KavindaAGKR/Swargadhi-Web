@@ -18,9 +18,70 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
+
+import Grow from '@mui/material/Grow';
 const slides = [
 slide1,slide2,slide3
 ]
+
+// dummy data
+const ayurvedicTreatments = [
+  {
+      treatmentNameEn: "Sinhasa Treatment",
+      treatmentNameSi: "සිටුවල් ස්ථානය",
+      price: "5000 LKR",
+      descriptionEn: "Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.",
+      descriptionSi: "සිටුවල් ස්ථානය සඳහා ආයුර්වේද ප්‍රදේශය භාවිතයේ ජනවාරි අයිරිපාලය, රුසිරු හෝ සුළඟ වැනි අයුරික්‍රියකට භාවිතයේ බොහෝ විනිසුරු සහ පියතුමාලා ප්‍රදේශ හෝ සප්පාදු මල් වැනි රුත්‍රක් බහුලූණ ප්‍රකාශකාරකයා විසින් පහත ස්ථානයේ මූලික අයුරින් ස්වයංක්‍රීයයි පහසුකම් හා සිදුකරයි.",
+      images: [slide1]
+  },
+  {
+      treatmentNameEn: "Ukka Treatment",
+      treatmentNameSi: "උක්ට ස්ථානය",
+      price: "7500 LKR",
+      descriptionEn: "Ayurvedic treatment for arthritis involves massage with herbal oils, application of herbal poultices, and consumption of herbal formulations to reduce inflammation and alleviate pain.",
+      descriptionSi: "ක්‍රීඩ්මුට් සඳහා ආයුර්වේද ප්‍රදේශය සහිත ස්වයංක්‍රීය බහුලූණ බොහෝ ප්‍රකාශකයි. එය පාතුවන් හෝ මීරුම ස්ථාන සඳහා හිරුම් තුනකට මස්වත් ස්වයංක්‍රීය හෝ ස්වයංක්‍රීය පොහොර භාවිතයේ හා බොහෝ අයුරින් ස්වයංක්‍රීය ප්‍රකාශකාරකයා විසින් ස්වයංක්‍රීයයි සහ බුද්ධි පියතුමාලා ප්‍රකාශකාරකයා සහිත ස්වයංක්‍රීය ප්‍රකාශකයි.",
+      images: [slide2]
+  },
+  {
+      treatmentNameEn: "Ruka Treatment",
+      treatmentNameSi: "රුක ස්ථානය",
+      price: "6000 LKR",
+      descriptionEn: "Ayurvedic treatment for eczema involves topical application of herbal pastes, internal consumption of herbal formulations, and dietary modifications to reduce inflammation and itching.",
+      descriptionSi: "ඇයිඩාස් සඳහා ආයුර්වේද ප්‍රදේශය භාවිතයේ බොහෝ විනිසුරු ලෙස සුළඟ වැනි ප්‍රතිරූ භාවිතා කිරීම, අයුරින් ස්වයංක්‍රීය ප්‍රකාශ හෝ සප්පාදු ප්‍රකාශ හෝ වෙනත් සංස්කෘතියක් මඟින් සුළඟ හා සත්කාර වූවත් ප්‍රකාශකයා විසින් අයුරින් ස්වයංක්‍රීයයි.",
+      images: [slide3]
+  },
+  {
+      treatmentNameEn: "Diwayina Treatment",
+      treatmentNameSi: "දිවයින ස්ථානය",
+      price: "8000 LKR",
+      descriptionEn: "Ayurvedic treatment for diabetes involves dietary modifications, regular physical exercise, and consumption of herbal formulations to regulate blood sugar levels.",
+      descriptionSi: "මගේ ඇයිඩාස් රෝගයට ප්‍රදේශයක් ලබා දීම පිළිබඳව, බොහෝ අයුරින් මගේ ඇයිඩාස් පහසුකම් හා නිර්මාණශීලී ප්‍රකාශකාරකයා සහිත අයුරින් ස්වයංක්‍රීයයි.",
+      images: [slide1]
+  },
+  {
+      treatmentNameEn: "Asudhu Samanakarana Treatment",
+      treatmentNameSi: "අසූදු සමානාකරණය ස්ථානය",
+      price: "5500 LKR",
+      descriptionEn: "Ayurvedic treatment for digestive disorders involves dietary modifications, consumption of herbal formulations, and lifestyle changes.",
+      descriptionSi: "පාළි වර්ගයන්ට සඳහා ආයුර්වේද ප්‍රදේශය සහිත පොහොර හා ස්වයංක්‍රීය ප්‍රකාශ හෝ වෛරයෙහි වෙනස් වීම් සඳහා හා ප්‍රකාශිත විනිසුරු භාවිතයේ සිදුකරයි.",
+      images: [slide2]
+  },
+  {
+      treatmentNameEn: "Nivsitha Treatment",
+      treatmentNameSi: "නිව්සිත්ථා ස්ථානය",
+      price: "7000 LKR",
+      descriptionEn: "Ayurvedic treatment for insomnia involves relaxation techniques, consumption of herbal formulations, and establishing a consistent bedtime routine.",
+      descriptionSi: "විශේෂඥයේදී, අයුරින් ස්වයංක්‍රීය ප්‍රකාශ හා සුවිශේෂිත ප්‍රකාශ ස්ථානය සහිත අයුරින් ස්වයංක්‍රීයයි.",
+      images: [slide3]
+  }
+];
+
+
+
+
+
+
+
 
 const customStack = {
     backgroundColor:'white',
@@ -33,7 +94,7 @@ const customStack = {
 
 export const Dispensary = () => {
 
-  
+
 
 
 
@@ -44,7 +105,7 @@ export const Dispensary = () => {
         <Stack  color='green'  direction='row' margin='25px' justifyContent='center' gap={2}>
                 <MedicalInformationIcon sx={{fontSize:'60px'}} />
                 <Typography variant='h2'  >
-                 Dispensary
+                  Dispensary
                 </Typography>
         </Stack>
 <Stack>
@@ -70,7 +131,7 @@ export const Dispensary = () => {
                 className="mySwiper"
                 >
                 {
-                  slides.map( (item, i) => (<SwiperSlide><img key={i} src={item} width='100%' height='auto' style={{borderRadius:'25px'}}/></SwiperSlide>) )
+                  ayurvedicTreatments.map( (item, i) => (<SwiperSlide><img key={i} src={item.images} width='100%' height='auto' style={{borderRadius:'25px'}}/></SwiperSlide>) )
                 }
               </Swiper>
 
@@ -80,7 +141,27 @@ export const Dispensary = () => {
             <Container sx={{backgroundColor:'#F9E8E8', margin:'0px 20px' , borderRadius:'15px'}} >
               <Typography variant='h4' textAlign='center' margin='25px'>Available Treatments</Typography>
               <Stack gap={3}>
-              <Stack justifyContent='space-between' direction='row' sx={customStack}>
+
+                {
+                  ayurvedicTreatments.map(
+                    (item, i) => (
+                      
+                      <Stack justifyContent='space-between' direction='row' 
+                      sx={{backgroundColor:'white',
+                      borderRadius:'15px',
+                      fontWeight:'bold',
+                      padding:'0 15px',}}>
+                        <Typography variant='h6' key={i}>{item.treatmentNameEn} </Typography>
+                        <Button>See More</Button>
+                      </Stack>
+                      
+                    )
+                  )
+                }
+
+
+
+              {/* <Stack justifyContent='space-between' direction='row' sx={customStack}>
                 <Typography variant='h6'>Fracture Healing </Typography>
                 <Button>See More</Button>
               </Stack>
@@ -103,22 +184,38 @@ export const Dispensary = () => {
               <Stack  justifyContent='space-between' direction='row' sx={customStack}>
                 <Typography variant='h6'>Other Treatments </Typography>
                 <Button>See More</Button>
-              </Stack>
+              </Stack> */}
               </Stack>
 
               
             </Container>
           </Stack>
-          <Container>
-            <Stack>
-              <Typography variant='h6'>Fracture Healing</Typography>
-              <Typography variant='body'>Ayurveda, the ancient Indian system of medicine, offers holistic approaches to fracture healing that focus on restoring balance to the body's natural energies. In Ayurveda, fractures are understood as disruptions in the flow of vital energy, or "prana," within the body. To facilitate healing, Ayurvedic practitioners employ a combination of herbal remedies, dietary recommendations, and therapeutic techniques tailored to each individual's constitution, or "dosha."
-Herbal remedies commonly used in Ayurveda for fracture healing include substances such as Ashwagandha, Guggulu, and Shatavari, known for their anti-inflammatory and bone-strengthening properties. Additionally, external applications of herbal pastes or oils containing ingredients like turmeric and garlic may be employed to promote tissue regeneration and reduce pain and inflammation at the site of the fracture.
-Ayurvedic dietary guidelines for fracture healing emphasize the consumption of nutrient-rich foods that support bone health, such as dairy products, green leafy vegetables, and bone broth. Moreover, lifestyle modifications, including adequate rest and gentle exercise, are recommended to enhance the body's natural healing processes and prevent complications during the recovery period.
-Therapeutic techniques such as Panchakarma, which involves detoxification and rejuvenation therapies, may also be utilized in Ayurveda to support fracture healing by removing toxins and restoring equilibrium to the body-mind system. Additionally, specific yoga asanas and pranayama (breathing exercises) tailored to the individual's condition may be prescribed to promote circulation, flexibility, and overall well-being during the recovery phase.
-By addressing the underlying imbalances contributing to the fracture and employing a comprehensive approach that integrates herbal remedies, dietary modifications, and therapeutic interventions, Ayurveda offers a holistic framework for promoting optimal healing and restoring mobility and function to the affected area.</Typography>
-            </Stack>
-          </Container>
+          <Stack >
+          
+
+
+{
+  ayurvedicTreatments.map((item, i) => 
+
+            (
+              <Stack backgroundColor='#C6F6D4' style={{margin:'25px', borderRadius:'20px', padding:'20px'}}>
+              <Typography variant='h4' key={i} textAlign='center'>{item.treatmentNameEn}</Typography>
+              <Stack direction='row' margin='20px' height='500px'>
+              <img key={i} src={item.images} style={{width:'35%', height:'auto'}}/>
+            <Container sx={{textAlign:'justify'}}>
+            
+            
+            <Typography variant='body' key={i}  >{item.descriptionEn}</Typography>
+            
+            </Container>
+              </Stack></Stack>
+            )
+
+  )
+}
+
+            
+          </Stack>
         
 
 
