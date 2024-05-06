@@ -19,7 +19,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 
-import Grow from '@mui/material/Grow';
+
 
 
 // dummy data
@@ -103,7 +103,7 @@ export const Dispensary = () => {
 
   return (
     <React.Fragment>
-      <ScrollToTop />
+<ScrollToTop/>
         <Header/>
 
         <Stack  color='green'  direction='row' margin='25px' justifyContent='center' gap={2}>
@@ -125,7 +125,7 @@ export const Dispensary = () => {
             
               <Swiper
                 style={{width:'100%', color:'green'}}
-                spaceBetween={30000}
+                spaceBetween={15}
                 slidesPerView={1}
                 centeredSlides={true}
                 autoplay={{ delay: 4000,}}
@@ -133,6 +133,9 @@ export const Dispensary = () => {
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
                 className="mySwiper"
+                speed={1200}
+                loop={true}
+                hideOnClick={true}
                 >
                 {
                   ayurvedicTreatments.map( (item, i) => (<SwiperSlide key={item.key}><img  src={item.images} width='100%' height='auto' style={{borderRadius:'25px'}}/></SwiperSlide>) )
