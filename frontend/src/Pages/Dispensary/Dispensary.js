@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useRef } from 'react'
 import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
 import { Box, Button, Container, Dialog, Grid, Stack, Typography } from '@mui/material'
@@ -7,7 +7,7 @@ import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import slide1 from '../../Images/Slider1.jpg'
 import slide2 from '../../Images/Slider2.png'
 import slide3 from '../../Images/Slider3.png'
-
+import ScrollToTop from "react-scroll-to-top";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -20,13 +20,12 @@ import 'swiper/css/scrollbar';
 
 
 import Grow from '@mui/material/Grow';
-const slides = [
-slide1,slide2,slide3
-]
+
 
 // dummy data
 const ayurvedicTreatments = [
   {
+      key: 1,
       treatmentNameEn: "Sinhasa Treatment",
       treatmentNameSi: "සිටුවල් ස්ථානය",
       price: "5000 LKR",
@@ -35,6 +34,7 @@ const ayurvedicTreatments = [
       images: [slide1]
   },
   {
+    key: 2,
       treatmentNameEn: "Ukka Treatment",
       treatmentNameSi: "උක්ට ස්ථානය",
       price: "7500 LKR",
@@ -43,6 +43,7 @@ const ayurvedicTreatments = [
       images: [slide2]
   },
   {
+    key: 3,
       treatmentNameEn: "Ruka Treatment",
       treatmentNameSi: "රුක ස්ථානය",
       price: "6000 LKR",
@@ -51,6 +52,7 @@ const ayurvedicTreatments = [
       images: [slide3]
   },
   {
+    key: 4,
       treatmentNameEn: "Diwayina Treatment",
       treatmentNameSi: "දිවයින ස්ථානය",
       price: "8000 LKR",
@@ -59,6 +61,7 @@ const ayurvedicTreatments = [
       images: [slide1]
   },
   {
+    key: 5,
       treatmentNameEn: "Asudhu Samanakarana Treatment",
       treatmentNameSi: "අසූදු සමානාකරණය ස්ථානය",
       price: "5500 LKR",
@@ -67,6 +70,7 @@ const ayurvedicTreatments = [
       images: [slide2]
   },
   {
+    key: 6,
       treatmentNameEn: "Nivsitha Treatment",
       treatmentNameSi: "නිව්සිත්ථා ස්ථානය",
       price: "7000 LKR",
@@ -83,25 +87,25 @@ const ayurvedicTreatments = [
 
 
 
-const customStack = {
-    backgroundColor:'white',
-    borderRadius:'15px',
-    fontWeight:'bold',
-    padding:'0 15px',
-};
 
 
 
 export const Dispensary = () => {
 
 
+  const sectionRefs = useRef(Array(ayurvedicTreatments.length).fill(null).map(() => React.createRef()));
 
-
+  // Function to scroll to a specific section
+  const scrollToSection = (index) => {
+    sectionRefs.current[index].current.scrollIntoView({ behavior: 'smooth' });
+  };
 
 
   return (
     <React.Fragment>
+      <ScrollToTop />
         <Header/>
+
         <Stack  color='green'  direction='row' margin='25px' justifyContent='center' gap={2}>
                 <MedicalInformationIcon sx={{fontSize:'60px'}} />
                 <Typography variant='h2'  >
@@ -109,8 +113,8 @@ export const Dispensary = () => {
                 </Typography>
         </Stack>
 <Stack>
-  
-  
+
+
 </Stack>
 
 
@@ -131,7 +135,7 @@ export const Dispensary = () => {
                 className="mySwiper"
                 >
                 {
-                  ayurvedicTreatments.map( (item, i) => (<SwiperSlide><img key={i} src={item.images} width='100%' height='auto' style={{borderRadius:'25px'}}/></SwiperSlide>) )
+                  ayurvedicTreatments.map( (item, i) => (<SwiperSlide key={item.key}><img  src={item.images} width='100%' height='auto' style={{borderRadius:'25px'}}/></SwiperSlide>) )
                 }
               </Swiper>
 
@@ -144,47 +148,22 @@ export const Dispensary = () => {
 
                 {
                   ayurvedicTreatments.map(
-                    (item, i) => (
-                      
-                      <Stack justifyContent='space-between' direction='row' 
+                    (item, i) => 
+                      (
+                      <Stack key={item.key}
+                      justifyContent='space-between' direction='row' 
                       sx={{backgroundColor:'white',
                       borderRadius:'15px',
                       fontWeight:'bold',
                       padding:'0 15px',}}>
-                        <Typography variant='h6' key={i}>{item.treatmentNameEn} </Typography>
-                        <Button>See More</Button>
+                        <Typography variant='h6' >{item.treatmentNameEn} </Typography>
+                        <Button onClick={() => scrollToSection(i)}>See More</Button>
                       </Stack>
                       
                     )
                   )
                 }
 
-
-
-              {/* <Stack justifyContent='space-between' direction='row' sx={customStack}>
-                <Typography variant='h6'>Fracture Healing </Typography>
-                <Button>See More</Button>
-              </Stack>
-              <Stack justifyContent='space-between' direction='row' sx={customStack}>
-                <Typography variant='h6'>Neurological Diseases </Typography>
-                <Button>See More</Button>
-              </Stack>
-              <Stack justifyContent='space-between' direction='row' sx={customStack}>
-                <Typography variant='h6'>Skin Deseases </Typography>
-                <Button>See More</Button>
-              </Stack>
-              <Stack  justifyContent='space-between' direction='row' sx={customStack}>
-                <Typography variant='h6'>Respiration Disorders </Typography>
-                <Button>See More</Button>
-              </Stack>
-              <Stack justifyContent='space-between' direction='row' sx={customStack}>
-                <Typography variant='h6'>Chronic Diseases </Typography>
-                <Button>See More</Button>
-              </Stack>
-              <Stack  justifyContent='space-between' direction='row' sx={customStack}>
-                <Typography variant='h6'>Other Treatments </Typography>
-                <Button>See More</Button>
-              </Stack> */}
               </Stack>
 
               
@@ -198,14 +177,15 @@ export const Dispensary = () => {
   ayurvedicTreatments.map((item, i) => 
 
             (
-              <Stack backgroundColor='#C6F6D4' style={{margin:'25px', borderRadius:'20px', padding:'20px'}}>
-              <Typography variant='h4' key={i} textAlign='center'>{item.treatmentNameEn}</Typography>
+              <Stack key={item.key} ref={sectionRefs.current[i]}
+              backgroundColor='#C6F6D4' style={{margin:'25px', borderRadius:'20px', padding:'20px'}}>
+              <Typography variant='h4'  textAlign='center'>{item.treatmentNameEn}</Typography>
               <Stack direction='row' margin='20px' height='500px'>
-              <img key={i} src={item.images} style={{width:'35%', height:'auto'}}/>
+              <img  src={item.images} style={{width:'35%', height:'auto'}}/>
             <Container sx={{textAlign:'justify'}}>
             
             
-            <Typography variant='body' key={i}  >{item.descriptionEn}</Typography>
+            <Typography variant='body'  >{item.descriptionEn}</Typography>
             
             </Container>
               </Stack></Stack>
