@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Carousel from 'react-material-ui-carousel';
+// import Carousel from 'react-material-ui-carousel';
 import { Paper, Typography, Stack, Button, Dialog, DialogContent, TextField, InputAdornment, IconButton, Snackbar, Alert } from '@mui/material';
-import NextIcon from '@mui/icons-material/KeyboardArrowRightRounded';
+
 import CancelIcon from '@mui/icons-material/Cancel';
 
 
@@ -10,7 +10,11 @@ import { addToCart } from '../../redux/slices/cartSlice';
 import {selectIsLoggedIn} from '../../redux/slices/userSlice'
 import { selectCartItems } from '../../redux/slices/cartSlice';
 
-
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay,Navigation   } from 'swiper/modules';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 
 const ProductCard = ({ product }) => {
@@ -58,6 +62,9 @@ const ProductCard = ({ product }) => {
     const [selectedQuantity, setSelectedQuantity] = useState(0);
 
 
+    //
+    const [firstImgLoaded, setFirstImgLoaded] = useState(false);
+
     // const handleAddToCart = () => {
     //     console.log(`Added ${selectedQuantity} ${itemName} to cart`);
     // };
@@ -70,30 +77,64 @@ const ProductCard = ({ product }) => {
 
         if (imageUrl && imageUrl.length > 0) {
             return (
-                <Carousel
-                    sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                    navButtonsAlwaysVisible={false}
-                    indicators={false}
-                    fullHeightHover
+                
+                // <Carousel
+                //     sx={{  display: 'flex', justifyContent: 'center', alignItems: 'center',overflowY:'hidden', overflowX: 'hidden' }}
+                //     navButtonsAlwaysVisible={false}
+                //     indicators={false}
+                //     duration={1}
+                //     changeOnFirstRender={true}
+                    
+                    
+                // >
+                //     {imageUrl.map((image, index) => (
+                //         <img
+                //             key={index}
+                //             src={`http://localhost:5000${image}`} // Prepend base URL to image path
+                //             alt={`Slide ${index + 1}`}
+                //             style={{ maxWidth: '100%', borderRadius: '20px', }}
+                            
+                //             onError={(e) => {
+                //                 console.error(`Failed to load image ${index}: ${e.target.src}`);
+                //                 e.target.onerror = null; // Prevent infinite error loops
+                //             }}
+                //         />
+                //     ))}
+                // </Carousel>
+                <Swiper
+                style={{width:'100%', color:'green'}}
+                spaceBetween={15}
+                slidesPerView={1}
+                autoplay={{ delay: 4000,}}
+                navigation={true}
+                modules={[Autoplay,Navigation]}
+                className="mySwiper"
+                speed={1200}
+                loop={true}
                 >
-                    {imageUrl.map((image, index) => (
+                
+                {imageUrl.map((image, index) => (
+                    <SwiperSlide>
                         <img
                             key={index}
                             src={`http://localhost:5000${image}`} // Prepend base URL to image path
                             alt={`Slide ${index + 1}`}
-                            style={{ maxWidth: '100%', borderRadius: '20px' }}
-                            height='100%'
+                            style={{ maxWidth: '100%', borderRadius: '20px', }}
+                            
                             onError={(e) => {
                                 console.error(`Failed to load image ${index}: ${e.target.src}`);
                                 e.target.onerror = null; // Prevent infinite error loops
                             }}
                         />
+                        </SwiperSlide>
                     ))}
-                </Carousel>
+              </Swiper>
             );
         } else {
             return <Typography variant="body1">No images available</Typography>;
         }
+        
+        
     };
 
     return (

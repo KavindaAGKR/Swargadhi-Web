@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
+import React, {useRef } from 'react'
 import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
 import { Box, Button, Container, Dialog, Grid, Stack, Typography } from '@mui/material'
-import Carousel from 'react-material-ui-carousel'
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 
 import slide1 from '../../Images/Slider1.jpg'
 import slide2 from '../../Images/Slider2.png'
 import slide3 from '../../Images/Slider3.png'
-
+import ScrollToTop from "react-scroll-to-top";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -19,10 +18,73 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-const slides = [
-slide1,slide2,slide3
-]
-  
+
+
+
+
+// dummy data
+const ayurvedicTreatments = [
+  {
+      key: 1,
+      treatmentNameEn: "Sinhasa Treatment",
+      treatmentNameSi: "සිටුවල් ස්ථානය",
+      price: "5000 LKR",
+      descriptionEn: "Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.",
+      descriptionSi: "සිටුවල් ස්ථානය සඳහා ආයුර්වේද ප්‍රදේශය භාවිතයේ ජනවාරි අයිරිපාලය, රුසිරු හෝ සුළඟ වැනි අයුරික්‍රියකට භාවිතයේ බොහෝ විනිසුරු සහ පියතුමාලා ප්‍රදේශ හෝ සප්පාදු මල් වැනි රුත්‍රක් බහුලූණ ප්‍රකාශකාරකයා විසින් පහත ස්ථානයේ මූලික අයුරින් ස්වයංක්‍රීයයි පහසුකම් හා සිදුකරයි.",
+      images: [slide1]
+  },
+  {
+    key: 2,
+      treatmentNameEn: "Ukka Treatment",
+      treatmentNameSi: "උක්ට ස්ථානය",
+      price: "7500 LKR",
+      descriptionEn: "Ayurvedic treatment for arthritis involves massage with herbal oils, application of herbal poultices, and consumption of herbal formulations to reduce inflammation and alleviate pain.",
+      descriptionSi: "ක්‍රීඩ්මුට් සඳහා ආයුර්වේද ප්‍රදේශය සහිත ස්වයංක්‍රීය බහුලූණ බොහෝ ප්‍රකාශකයි. එය පාතුවන් හෝ මීරුම ස්ථාන සඳහා හිරුම් තුනකට මස්වත් ස්වයංක්‍රීය හෝ ස්වයංක්‍රීය පොහොර භාවිතයේ හා බොහෝ අයුරින් ස්වයංක්‍රීය ප්‍රකාශකාරකයා විසින් ස්වයංක්‍රීයයි සහ බුද්ධි පියතුමාලා ප්‍රකාශකාරකයා සහිත ස්වයංක්‍රීය ප්‍රකාශකයි.",
+      images: [slide2]
+  },
+  {
+    key: 3,
+      treatmentNameEn: "Ruka Treatment",
+      treatmentNameSi: "රුක ස්ථානය",
+      price: "6000 LKR",
+      descriptionEn: "Ayurvedic treatment for eczema involves topical application of herbal pastes, internal consumption of herbal formulations, and dietary modifications to reduce inflammation and itching.",
+      descriptionSi: "ඇයිඩාස් සඳහා ආයුර්වේද ප්‍රදේශය භාවිතයේ බොහෝ විනිසුරු ලෙස සුළඟ වැනි ප්‍රතිරූ භාවිතා කිරීම, අයුරින් ස්වයංක්‍රීය ප්‍රකාශ හෝ සප්පාදු ප්‍රකාශ හෝ වෙනත් සංස්කෘතියක් මඟින් සුළඟ හා සත්කාර වූවත් ප්‍රකාශකයා විසින් අයුරින් ස්වයංක්‍රීයයි.",
+      images: [slide3]
+  },
+  {
+    key: 4,
+      treatmentNameEn: "Diwayina Treatment",
+      treatmentNameSi: "දිවයින ස්ථානය",
+      price: "8000 LKR",
+      descriptionEn: "Ayurvedic treatment for diabetes involves dietary modifications, regular physical exercise, and consumption of herbal formulations to regulate blood sugar levels.",
+      descriptionSi: "මගේ ඇයිඩාස් රෝගයට ප්‍රදේශයක් ලබා දීම පිළිබඳව, බොහෝ අයුරින් මගේ ඇයිඩාස් පහසුකම් හා නිර්මාණශීලී ප්‍රකාශකාරකයා සහිත අයුරින් ස්වයංක්‍රීයයි.",
+      images: [slide1]
+  },
+  {
+    key: 5,
+      treatmentNameEn: "Asudhu Samanakarana Treatment",
+      treatmentNameSi: "අසූදු සමානාකරණය ස්ථානය",
+      price: "5500 LKR",
+      descriptionEn: "Ayurvedic treatment for digestive disorders involves dietary modifications, consumption of herbal formulations, and lifestyle changes.",
+      descriptionSi: "පාළි වර්ගයන්ට සඳහා ආයුර්වේද ප්‍රදේශය සහිත පොහොර හා ස්වයංක්‍රීය ප්‍රකාශ හෝ වෛරයෙහි වෙනස් වීම් සඳහා හා ප්‍රකාශිත විනිසුරු භාවිතයේ සිදුකරයි.",
+      images: [slide2]
+  },
+  {
+    key: 6,
+      treatmentNameEn: "Nivsitha Treatment",
+      treatmentNameSi: "නිව්සිත්ථා ස්ථානය",
+      price: "7000 LKR",
+      descriptionEn: "Ayurvedic treatment for insomnia involves relaxation techniques, consumption of herbal formulations, and establishing a consistent bedtime routine.",
+      descriptionSi: "විශේෂඥයේදී, අයුරින් ස්වයංක්‍රීය ප්‍රකාශ හා සුවිශේෂිත ප්‍රකාශ ස්ථානය සහිත අයුරින් ස්වයංක්‍රීයයි.",
+      images: [slide3]
+  }
+];
+
+
+
+
+
+
 
 
 
@@ -30,23 +92,29 @@ slide1,slide2,slide3
 
 export const Dispensary = () => {
 
-  const [openn, setOpen] = useState(false);
 
+  const sectionRefs = useRef(Array(ayurvedicTreatments.length).fill(null).map(() => React.createRef()));
 
+  // Function to scroll to a specific section
+  const scrollToSection = (index) => {
+    sectionRefs.current[index].current.scrollIntoView({ behavior: 'smooth' });
+  };
 
 
   return (
     <React.Fragment>
+<ScrollToTop/>
         <Header/>
+
         <Stack  color='green'  direction='row' margin='25px' justifyContent='center' gap={2}>
                 <MedicalInformationIcon sx={{fontSize:'60px'}} />
                 <Typography variant='h2'  >
-                 Dispensary
+                  Dispensary
                 </Typography>
         </Stack>
 <Stack>
-  
-  
+
+
 </Stack>
 
 
@@ -57,17 +125,20 @@ export const Dispensary = () => {
             
               <Swiper
                 style={{width:'100%', color:'green'}}
-                spaceBetween={30}
+                spaceBetween={15}
                 slidesPerView={1}
                 centeredSlides={true}
-                autoplay={{ delay: 2500,}}
+                autoplay={{ delay: 4000,}}
                 pagination={{clickable: true,}}
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
                 className="mySwiper"
+                speed={1200}
+                loop={true}
+                hideOnClick={true}
                 >
                 {
-                  slides.map( (item, i) => (<SwiperSlide><img key={i} src={item} width='100%' height='auto' style={{borderRadius:'25px'}}/></SwiperSlide>) )
+                  ayurvedicTreatments.map( (item, i) => (<SwiperSlide key={item.key}><img  src={item.images} width='100%' height='auto' style={{borderRadius:'25px'}}/></SwiperSlide>) )
                 }
               </Swiper>
 
@@ -75,36 +146,58 @@ export const Dispensary = () => {
 
             
             <Container sx={{backgroundColor:'#F9E8E8', margin:'0px 20px' , borderRadius:'15px'}} >
-              <Typography variant='h4' textAlign='center'>Available Treatments</Typography>
+              <Typography variant='h4' textAlign='center' margin='25px'>Available Treatments</Typography>
               <Stack gap={3}>
-              <Stack direction='row' justifyContent='space-between' sx={{backgroundColor:'white', borderRadius:'15px', fontWeight:'bold', padding:'0 15px '}}>
-                <Typography variant='h6'>Fracture Healing </Typography>
-                <Button>See More</Button>
-              </Stack>
-              <Stack direction='row' justifyContent='space-between' sx={{backgroundColor:'white', borderRadius:'15px', fontWeight:'bold', padding:'0 15px'}}>
-                <Typography variant='h6'>Neurological Diseases </Typography>
-                <Button>See More</Button>
-              </Stack>
-              <Stack direction='row' justifyContent='space-between' sx={{backgroundColor:'white', borderRadius:'15px', fontWeight:'bold', padding:'0 15px'}}>
-                <Typography variant='h6'>Skin Deseases </Typography>
-                <Button>See More</Button>
-              </Stack>
-              <Stack direction='row' justifyContent='space-between' sx={{backgroundColor:'white', borderRadius:'15px', fontWeight:'bold', padding:'0 15px'}}>
-                <Typography variant='h6'>Respiration Disorders </Typography>
-                <Button>See More</Button>
-              </Stack>
-              <Stack direction='row' justifyContent='space-between' sx={{backgroundColor:'white', borderRadius:'15px', fontWeight:'bold', padding:'0 15px'}}>
-                <Typography variant='h6'>Chronic Diseases </Typography>
-                <Button>See More</Button>
-              </Stack>
-              <Stack direction='row' justifyContent='space-between' sx={{backgroundColor:'white', borderRadius:'15px', fontWeight:'bold', padding:'0 15px'}}>
-                <Typography variant='h6'>Other Treatments </Typography>
-                <Button>See More</Button>
-              </Stack>
+
+                {
+                  ayurvedicTreatments.map(
+                    (item, i) => 
+                      (
+                      <Stack key={item.key}
+                      justifyContent='space-between' direction='row' 
+                      sx={{backgroundColor:'white',
+                      borderRadius:'15px',
+                      fontWeight:'bold',
+                      padding:'0 15px',}}>
+                        <Typography variant='h6' >{item.treatmentNameEn} </Typography>
+                        <Button onClick={() => scrollToSection(i)}>See More</Button>
+                      </Stack>
+                      
+                    )
+                  )
+                }
+
               </Stack>
 
               
             </Container>
+          </Stack>
+          <Stack >
+          
+
+
+{
+  ayurvedicTreatments.map((item, i) => 
+
+            (
+              <Stack key={item.key} ref={sectionRefs.current[i]}
+              backgroundColor='#C6F6D4' style={{margin:'25px', borderRadius:'20px', padding:'20px'}}>
+              <Typography variant='h4'  textAlign='center'>{item.treatmentNameEn}</Typography>
+              <Stack direction='row' margin='20px' height='500px'>
+              <img  src={item.images} style={{width:'35%', height:'auto'}}/>
+            <Container sx={{textAlign:'justify'}}>
+            
+            
+            <Typography variant='body'  >{item.descriptionEn}</Typography>
+            
+            </Container>
+              </Stack></Stack>
+            )
+
+  )
+}
+
+            
           </Stack>
         
 
