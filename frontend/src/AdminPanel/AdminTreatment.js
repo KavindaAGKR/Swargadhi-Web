@@ -23,8 +23,8 @@ export const AdminTreatment = () => {
         console.log(`Edit button clicked for row with id ${id}`);
         navigate(`/admin/home/treatment/${id}/edit`);
     };
-      
-   
+
+
     const handleChange = (e) => {
         setTreatmentData({...treatmentData, [e.target.name]: e.target.value});
     }

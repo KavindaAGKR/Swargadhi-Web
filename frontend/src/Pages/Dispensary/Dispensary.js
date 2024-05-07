@@ -103,7 +103,7 @@ export const Dispensary = () => {
 
   return (
     <React.Fragment>
-<ScrollToTop/>
+<ScrollToTop smooth={true}/>
         <Header/>
 
         <Stack  color='green'  direction='row' margin='25px' justifyContent='center' gap={2}>
@@ -124,7 +124,8 @@ export const Dispensary = () => {
 
             
               <Swiper
-                style={{width:'100%', color:'green'}}
+                style={{width:'100%', color:'green',"--swiper-navigation-color":"red",
+                "--swiper-pagination-color": "red",}}
                 spaceBetween={15}
                 slidesPerView={1}
                 centeredSlides={true}
@@ -136,7 +137,9 @@ export const Dispensary = () => {
                 speed={1200}
                 loop={true}
                 hideOnClick={true}
+                
                 >
+                  
                 {
                   ayurvedicTreatments.map( (item, i) => (<SwiperSlide key={item.key}><img  src={item.images} width='100%' height='auto' style={{borderRadius:'25px'}}/></SwiperSlide>) )
                 }
