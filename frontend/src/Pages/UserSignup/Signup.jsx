@@ -11,7 +11,6 @@ import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import axios from 'axios'; 
-//import { Password } from '@mui/icons-material';
 //import axios from 'axios';
 
 
@@ -134,7 +133,7 @@ export const Signup = () => {
 {/* Inputs */}
             <Stack className={classes.stackContainer} justifyContent="center" alignItems="center" direction='column' >
 
-                <img src={logo} style={{width:'80%', marginBottom:'10px'}}/>
+                <img alt='Swargadhi' src={logo}  style={{width:'80%', marginBottom:'10px'}}/>
                 <Typography variant='h4' color='success.main'>SignUp</Typography>
                 <TextField placeholder='first Name' variant="standard"  margin="normal" required style={{width:'80%', marginTop:'20px'}}
                 value={firstName}

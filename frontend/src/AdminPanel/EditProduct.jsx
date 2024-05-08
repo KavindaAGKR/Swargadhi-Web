@@ -24,7 +24,7 @@ export const EditProduct = () => {
         }
         const data = await response.json();
         setProduct(data);
-        setCurrentImages(data.images); // Set current images in state
+        setCurrentImages(data.images);
       } catch (error) {
         console.error('Error fetching product:', error);
       }
@@ -48,7 +48,7 @@ export const EditProduct = () => {
     try {
       const formData = new FormData();
 
-      // Append flat fields
+
       formData.append('productItemID', product.productItemID);
       formData.append('price', product.price);
       formData.append('quantity', product.quantity);
@@ -59,7 +59,7 @@ export const EditProduct = () => {
       formData.append('categoryEn', product.category.en);
       formData.append('categorySi', product.category.si);
 
-      // Append new image files
+
       imageFiles.forEach((file, index) => {
         formData.append(`images`, file);
       });

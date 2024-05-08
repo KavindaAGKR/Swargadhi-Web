@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Header } from '../../Components/Header';
 import { Footer } from '../../Components/Footer';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Tab, Box, Stack, GlobalStyles } from '@mui/material';
+import { Tab, Box, Stack } from '@mui/material';
 import ProductCatalog from './ProductCatalog';
 
 

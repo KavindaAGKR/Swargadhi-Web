@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import Carousel from 'react-material-ui-carousel';
+
 import { Paper, Typography, Stack, Button, Dialog, DialogContent, TextField, InputAdornment, IconButton, Snackbar, Alert } from '@mui/material';
 
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -20,7 +20,7 @@ import 'swiper/css/navigation';
 const ProductCard = ({ product }) => {
 
 
-    const [snackbarOpen, setSnackbarOpen] = useState(false); // State for controlling Snackbar visibility
+    const [snackbarOpen, setSnackbarOpen] = useState(false); 
     const [snackMessage, setSnackMessage] = useState('')
 
 
@@ -57,13 +57,13 @@ const ProductCard = ({ product }) => {
 
 
 
-    const { itemName, description, price, imageUrl, quantity } = product; // Destructure product details
+    const { itemName, description, price, imageUrl, quantity } = product; 
     const [openMore, setOpenMore] = useState(false);
     const [selectedQuantity, setSelectedQuantity] = useState(0);
 
 
     //
-    const [firstImgLoaded, setFirstImgLoaded] = useState(false);
+
 
     // const handleAddToCart = () => {
     //     console.log(`Added ${selectedQuantity} ${itemName} to cart`);
@@ -78,29 +78,7 @@ const ProductCard = ({ product }) => {
         if (imageUrl && imageUrl.length > 0) {
             return (
                 
-                // <Carousel
-                //     sx={{  display: 'flex', justifyContent: 'center', alignItems: 'center',overflowY:'hidden', overflowX: 'hidden' }}
-                //     navButtonsAlwaysVisible={false}
-                //     indicators={false}
-                //     duration={1}
-                //     changeOnFirstRender={true}
-                    
-                    
-                // >
-                //     {imageUrl.map((image, index) => (
-                //         <img
-                //             key={index}
-                //             src={`http://localhost:5000${image}`} // Prepend base URL to image path
-                //             alt={`Slide ${index + 1}`}
-                //             style={{ maxWidth: '100%', borderRadius: '20px', }}
-                            
-                //             onError={(e) => {
-                //                 console.error(`Failed to load image ${index}: ${e.target.src}`);
-                //                 e.target.onerror = null; // Prevent infinite error loops
-                //             }}
-                //         />
-                //     ))}
-                // </Carousel>
+
                 <Swiper
                 style={{width:'100%', color:'green'}}
                 spaceBetween={15}
@@ -117,13 +95,13 @@ const ProductCard = ({ product }) => {
                     <SwiperSlide>
                         <img
                             key={index}
-                            src={`http://localhost:5000${image}`} // Prepend base URL to image path
+                            src={`http://localhost:5000${image}`} 
                             alt={`Slide ${index + 1}`}
                             style={{ maxWidth: '100%', borderRadius: '20px', }}
                             
                             onError={(e) => {
                                 console.error(`Failed to load image ${index}: ${e.target.src}`);
-                                e.target.onerror = null; // Prevent infinite error loops
+                                e.target.onerror = null; 
                             }}
                         />
                         </SwiperSlide>
@@ -134,7 +112,7 @@ const ProductCard = ({ product }) => {
             return <Typography variant="body1">No images available</Typography>;
         }
         
-        
+        return <Typography variant="body1">No images available</Typography>;
     };
 
     return (
@@ -216,7 +194,7 @@ const ProductCard = ({ product }) => {
                     >
                     <Alert
                         onClose={() => { setSnackbarOpen(false);  }}
-                        severity={(snackMessage == "Product added to the cart") ? ('success'): ('error') }
+                        severity={(snackMessage === "Product added to the cart") ? ('success'): ('error') }
                         variant="filled"
                         sx={{ width: '100%' }}>
                         {snackMessage}

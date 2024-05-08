@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Box, IconButton, Paper, TextField, Typography } from '@mui/material';
+import { Box, IconButton, TextField, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import CancelIcon from '@mui/icons-material/Cancel';
 
@@ -17,7 +17,7 @@ export const CartCard = ({ item, onRemoveItem,  updateProductTotalPrice }) => {
 
 useEffect(() => {
     updateProductTotalPrice(productItemID, productTotPrice);
-}, [ productTotPrice]);
+}, [productItemID, productTotPrice, updateProductTotalPrice]);
 
 const handleRemoveClick = () => {
         onRemoveItem(productItemID);
@@ -27,7 +27,7 @@ const handleRemoveClick = () => {
 
 
 
-    const firstImageUrl = Object.values(imageUrl)[0];
+    // const firstImageUrl = Object.values(imageUrl)[0];
     return (
         <Stack justifyContent='space-between' direction='row' sx={{ borderRadius: '20px', border: 'solid 1px #B1FDC5', boxShadow: ' 5px 10px 13px -6px rgba(0,0,0,0.2)', width: '80%', padding: '10px' }}>
             
@@ -37,12 +37,12 @@ const handleRemoveClick = () => {
             {Object.values(imageUrl).slice(0, 1).map((image, index) => (
     <img
         key={index}
-        src={`http://localhost:5000${image}`} // Prepend base URL to image path
+        src={`http://localhost:5000${image}`} 
         alt={`Slide ${index + 1}`}
         style={{ width:'100%', borderRadius: '20px' }}
         onError={(e) => {
             console.error(`Failed to load image ${index}: ${e.target.src}`);
-            e.target.onerror = null; // Prevent infinite error loops
+            e.target.onerror = null; 
         }}
     />
 ))}
