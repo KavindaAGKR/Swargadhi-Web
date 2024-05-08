@@ -1,7 +1,7 @@
 import React, {useRef } from 'react'
 import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
-import { Box, Button, Container, Dialog, Grid, Stack, Typography } from '@mui/material'
+import { Button, Container, Stack, Typography } from '@mui/material'
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 
 import slide1 from '../../Images/Slider1.jpg'
@@ -9,14 +9,8 @@ import slide2 from '../../Images/Slider2.png'
 import slide3 from '../../Images/Slider3.png'
 import ScrollToTop from "react-scroll-to-top";
 
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay,Navigation, Pagination   } from 'swiper/modules';
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
+import { SwiperSlider } from '../../Components/Swiper';
+
 
 
 
@@ -122,28 +116,11 @@ export const Dispensary = () => {
           <Stack direction='row' height='500px' margin='50px'>
             <Stack width='40%'>
 
-            
-              <Swiper
-                style={{width:'100%', color:'green',"--swiper-navigation-color":"red",
-                "--swiper-pagination-color": "red",}}
-                spaceBetween={15}
-                slidesPerView={1}
-                centeredSlides={true}
-                autoplay={{ delay: 4000,}}
-                pagination={{clickable: true,}}
-                navigation={true}
-                modules={[Autoplay, Pagination, Navigation]}
-                className="mySwiper"
-                speed={1200}
-                loop={true}
-                hideOnClick={true}
-                
-                >
-                  
-                {
-                  ayurvedicTreatments.map( (item, i) => (<SwiperSlide key={item.key}><img  src={item.images} width='100%' height='auto' style={{borderRadius:'25px'}}/></SwiperSlide>) )
-                }
-              </Swiper>
+              <SwiperSlider imageArray={ayurvedicTreatments} altName='Dispensary Treatments' styles={{
+    width: '100%',
+    '--swiper-navigation-color': '#0DFE0D',
+    '--swiper-pagination-color': '#0DFE0D',
+  }}/>
 
             </Stack>
 

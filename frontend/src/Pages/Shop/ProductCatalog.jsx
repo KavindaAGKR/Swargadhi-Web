@@ -25,7 +25,7 @@ const ProductCatalog = ({ category }) => {
                 const data = await response.json();
                 console.log(`Fetched ${category} products:`, data);
 
-                // Process the data based on the expected format
+
                 const extractedProducts = extractProducts(data);
 
                 if (Array.isArray(extractedProducts)) {
@@ -45,13 +45,13 @@ const ProductCatalog = ({ category }) => {
         fetchData();
     }, [category]);
 
-    // Function to extract products from the API response based on category
+
     const extractProducts = (data) => {
         if (category === 'all') {
-            // Handle the 'all' category response
+
             return Array.isArray(data) ? data : [];
         } else {
-            // Handle specific category response (e.g., 'Guli')
+
             if (data && data.data && Array.isArray(data.data)) {
                 return data.data;
             }

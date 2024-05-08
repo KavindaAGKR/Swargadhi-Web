@@ -43,7 +43,6 @@ export const AdminTreatment = () => {
             formData.append('price', treatmentData.price);
             formData.append('descriptionEn', treatmentData.descriptionEn);
             formData.append('descriptionSi', treatmentData.descriptionSi);
-           // Append each file to the FormData
             treatmentData.images.forEach(file => {
                 formData.append('images', file);
             });
@@ -102,7 +101,6 @@ export const AdminTreatment = () => {
                 throw new Error(`Failed to delete treatment: ${errorMessage}`);
             }
     
-            // Refresh your data or update UI as necessary
         } catch (error) {
             console.error('Error deleting treatment:', error);
         }
@@ -150,7 +148,7 @@ export const AdminTreatment = () => {
                         <DeleteIcon color="error" />
                     </IconButton>
                     {console.log("Row ID:", params.row.id)}
-                    <IconButton onClick={() => handleEdit(params.row.id)}> {/* Call handleEdit function with row id */}
+                    <IconButton onClick={() => handleEdit(params.row.id)}> 
                         <EditIcon color="primary" />
                     </IconButton>
                 </div>
@@ -166,7 +164,7 @@ export const AdminTreatment = () => {
         description_en: treatment.description.en,
         description_si: treatment.description.si,
         price: treatment.price,
-        images: treatment.images // Assuming each treatment object contains an array of image URLs
+        images: treatment.images 
     }));
     
     return (
@@ -214,7 +212,7 @@ export const AdminTreatment = () => {
                             <DataGrid
                                 rows={rows}
                                 columns={columns}
-                                pageSize={10} // You can adjust the pageSize as per your requirement
+                                pageSize={10} 
                             />
                         </Stack>
                     </Stack>

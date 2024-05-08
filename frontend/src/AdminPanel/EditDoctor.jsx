@@ -24,7 +24,7 @@ export const EditDoctor = () => {
 
         const data = await response.json();
         setDoctor(data);
-        setCurrentImages(data.images); // Set current images in state
+        setCurrentImages(data.images); 
       } catch (error) {
         console.error('Error fetching doctor:', error);
       }
@@ -44,7 +44,7 @@ export const EditDoctor = () => {
     try {
       const formData = new FormData();
 
-      // Append flat fields
+
       formData.append('doctorID', doctor.doctorID);
       formData.append('nameEn', doctor.name.en);
       formData.append('nameSi', doctor.name.si);
@@ -52,7 +52,7 @@ export const EditDoctor = () => {
       formData.append('descriptionSi', doctor.description.si);
       formData.append('time', doctor.time);
 
-      // Append new image files
+
       imageFiles.forEach((file) => {
         formData.append('images', file);
       });
@@ -78,7 +78,7 @@ export const EditDoctor = () => {
         <div>
           <h2>Edit Doctor: {doctor.name.en}</h2>
 
-          {/* Display current images */}
+
           <div>
             <h3>Current Images:</h3>
             {currentImages.map((imageUrl, index) => (

@@ -42,7 +42,7 @@ export const AdminDoctor = () => {
             formData.append('descriptionEn', doctorData.descriptionEn);
             formData.append('descriptionSi', doctorData.descriptionSi);
             formData.append('time', doctorData.time);
-           // Append each file to the FormData
+
             doctorData.images.forEach(file => {
                 formData.append('images', file);
             });
@@ -101,7 +101,6 @@ export const AdminDoctor = () => {
                 throw new Error(`Failed to delete doctor: ${errorMessage}`);
             }
     
-            // Refresh your data or update UI as necessary
         } catch (error) {
             console.error('Error deleting doctor:', error);
         }
@@ -171,7 +170,7 @@ export const AdminDoctor = () => {
         description_en: doctor.description.en,
         description_si: doctor.description.si,
         time:doctor.time,
-        images: doctor.images // Assuming each doctor object contains an array of image URLs
+        images: doctor.images // Assum object contains an array of image URLs
     }));
     
     return (
@@ -225,7 +224,7 @@ export const AdminDoctor = () => {
                         <DataGrid
                                 rows={rows}
                                 columns={columns}
-                                pageSize={10} // You can adjust the pageSize as per your requirement
+                                pageSize={10} 
                             />
                         </Stack>
                     </Stack>

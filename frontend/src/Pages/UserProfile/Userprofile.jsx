@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Typography, TextField, Stack, Icon,Box, Avatar, Grid } from '@mui/material';
+import { Button, Typography, TextField, Stack, Avatar, Grid } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import axios from 'axios'; // Import axios for making HTTP requests
 import { Header } from '../../Components/Header';
@@ -52,7 +52,7 @@ export const UserProfile = () => {
 
     const classes = useStyles();
     const [feedback, setFeedback] = useState('');
-    const [userFeedback, setUserFeedback] = useState([]);
+    // const [userFeedback, setUserFeedback] = useState([]);
 
     useEffect(() => {
         fetchUserFeedback();
@@ -187,11 +187,11 @@ export const UserProfile = () => {
                         <Typography variant="h5" gutterBottom>
                     Feedback
                 </Typography>
-                <ul>
+                {/* <ul>
                     {userFeedback.map((feedbackItem, index) => (
                         <li key={index}>{feedbackItem.feedBack}</li>
                     ))}
-                </ul>
+                </ul> */}
                 <form className={classes.form} onSubmit={handleSubmitFeedback}>
                     <TextField
                         label="Feedback"
