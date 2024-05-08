@@ -1,4 +1,3 @@
-// orderModel.js
 import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
@@ -28,6 +27,8 @@ const orderSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  deliveryAddress: String,
+  mobileNumber: String,
 },
 {
   timestamps: true,

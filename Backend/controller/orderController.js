@@ -1,11 +1,12 @@
-// orderController.js
 import Order from "../models/orderModel.js";
 import Cart from "../models/cartModel.js";
 import {User} from "../models/userModel.js";
 import Product from "../models/productModel.js";
+//import uniqid from "uniqid";
 
 export const createOrder = async (req, res) => {
   const { _id } = req.user;
+  const { deliveryAddress, mobileNumber } = req.body;
   try {
     const user = await User.findById(_id);
     let userCart = await Cart.findOne({ orderedby: user._id });
@@ -21,6 +22,8 @@ export const createOrder = async (req, res) => {
         currency: "Rupees",
       },
       orderedby: user._id,
+      deliveryAddress,
+      mobileNumber,
     }).save();
     let update = userCart.products.map((item) => {
       return {
