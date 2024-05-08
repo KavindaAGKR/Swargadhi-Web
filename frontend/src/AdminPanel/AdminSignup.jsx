@@ -78,7 +78,7 @@ export const AdminSignup = () => {
             console.error(error);
             setSnackMessage("Invalid Inputs");
 
-            // Handle error, show error message to user
+            
         }
 
 

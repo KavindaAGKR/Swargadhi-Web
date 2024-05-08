@@ -21,7 +21,7 @@ export const EditTreatment = () => {
         }
         const data = await response.json();
         setTreatment(data);
-        setCurrentImages(data.images); // Set current images in state
+        setCurrentImages(data.images);
       } catch (error) {
         console.error('Error fetching treatment:', error);
       }
@@ -46,14 +46,14 @@ export const EditTreatment = () => {
     try {
       const formData = new FormData();
 
-      // Append flat fields
+
       formData.append('treatmentNameEn', treatment.treatmentName.en);
       formData.append('treatmentNameSi', treatment.treatmentName.si);
       formData.append('price', treatment.price);
       formData.append('descriptionEn', treatment.description.en);
       formData.append('descriptionSi', treatment.description.si);
 
-      // Append new image files
+
       imageFiles.forEach((file) => {
         formData.append('images', file);
       });

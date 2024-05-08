@@ -31,7 +31,7 @@ export const AdminLogin = () => {
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [snackbarOpen, setSnackbarOpen] = useState(false); // State for controlling Snackbar visibility
+    const [snackbarOpen, setSnackbarOpen] = useState(false); 
     const [snackMessage, setSnackMessage] = useState('');
     const [isLogin, setIsLogin] = useState(false);
     const [emailError, setEmailError] = useState(false);

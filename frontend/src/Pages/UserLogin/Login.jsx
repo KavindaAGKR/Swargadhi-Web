@@ -11,7 +11,7 @@ import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import GoogleButton from 'react-google-button'
 import Snackbar from '@mui/material/Snackbar';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 import axios from 'axios';
 
 
@@ -79,7 +79,7 @@ export const Login = () => {
     const [snackMessage, setSnackMessage] = useState('');
     const [isLogin, setIsLogin] = useState(false);
     const [emailError, setEmailError] = useState(false);
-    const [passwordError, setPasswordError] = useState(false);
+    // const [passwordError, setPasswordError] = useState(false);
 
 
 

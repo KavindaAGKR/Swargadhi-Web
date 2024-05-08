@@ -1,4 +1,4 @@
-import DeleteIcon from '@mui/icons-material/Delete'; // Imported DeleteIcon only, EditIcon is not used
+import DeleteIcon from '@mui/icons-material/Delete'; 
 import { Button, Dialog, DialogActions, DialogContent, MenuItem, Stack, TextField, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import { Box } from '@mui/system';
@@ -53,7 +53,7 @@ export const Products = () => {
             formData.append('categoryEn', productData.categoryEn);
             formData.append('categorySi', productData.categorySi);
     
-            // Append each file to the FormData
+
             productData.images.forEach(file => {
                 formData.append('images', file);
             });
@@ -112,7 +112,7 @@ export const Products = () => {
                 throw new Error(`Failed to delete product: ${errorMessage}`);
             }
     
-            // Refresh your data or update UI as necessary
+
         } catch (error) {
             console.error('Error deleting product:', error);
         }
@@ -162,7 +162,7 @@ export const Products = () => {
                     <IconButton onClick={() => handleDelete(params.row.id)}>
                         <DeleteIcon color="error" />
                     </IconButton>
-                    <IconButton onClick={() => handleEdit(params.row.id)}> {/* Call handleEdit function with row id */}
+                    <IconButton onClick={() => handleEdit(params.row.id)}> 
                         <EditIcon color="primary" />
                     </IconButton>
                 </div>
@@ -182,7 +182,7 @@ export const Products = () => {
         quantity: product.quantity,
         category_en: product.category.en,
         category_si: product.category.si,
-        images: product.images // Assuming each product object contains an array of image URLs
+        images: product.images 
     }));
     
     
@@ -252,7 +252,7 @@ export const Products = () => {
                         <DataGrid
                                 rows={rows}
                                 columns={columns}
-                                pageSize={10} // You can adjust the pageSize as per your requirement
+                                pageSize={10} 
                             />
                         </Stack>
                     </Stack>
