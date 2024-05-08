@@ -15,7 +15,7 @@ export const SwiperSlider = ({imageArray, altName,styles}) => {
     <Swiper
                 
                 spaceBetween={15}
-                slidesPerView={3}
+                slidesPerView={1}
                 centeredSlides={true}
                 autoplay={{ delay: 4000,}}
                 pagination={{clickable: true,}}
