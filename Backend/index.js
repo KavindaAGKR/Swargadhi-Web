@@ -14,8 +14,9 @@ import userRoute from "./routes/userRoute.js";
 import treatmentRoute from "./routes/treatmentRoute.js"
 import global_English from "./translations/English/global.json" assert { type: "json" };
 import global_Sinhala from "./translations/Sinhala/global.json" assert { type: "json" };
-//import authRouter from "./routesnew/oauth.js";
-//import requestRouter from "./routesnew/request.js"
+import cartRoute from "./routes/cartRoute.js";
+import orderRoute from "./routes/orderRoute.js"
+
 const require = createRequire(import.meta.url);
 
 // Suppress experimental JSON module import warning
@@ -44,19 +45,17 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ limit: '500mb' }));
-// app.use(express.static('/public'));
 app.use('/public', express.static('public'))
 app.use('/api/user', userRoute);
 app.use('/api/product', productRoute);
 app.use('/api/material', materialRoute);
 app.use('/api/feedBack', feedBackRoute);
 app.use('/api/admin', adminRoute);
-app.use('/api/doctor',doctorRoute);
-app.use('/api/treatment',treatmentRoute);
-//app.use('/oauth', authRouter);
-//app.use('/request', requestRouter);
+app.use('/api/doctor', doctorRoute);
+app.use('/api/treatment', treatmentRoute);
+app.use('/api/cart', cartRoute);
+app.use("/api/orders", orderRoute);
 
 app.listen(PORT, () => {
     console.log(`Server is Running at PORT ${PORT}`);
 });
-
