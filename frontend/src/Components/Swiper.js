@@ -24,7 +24,6 @@ export const SwiperSlider = ({imageArray, altName,styles}) => {
                 className="mySwiper"
                 speed={1200}
                 loop={true}
-                hideOnClick={true}
                 style={styles}
                 >
 

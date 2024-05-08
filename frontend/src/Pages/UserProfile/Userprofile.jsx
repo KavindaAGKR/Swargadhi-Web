@@ -149,7 +149,7 @@ export const UserProfile = () => {
 
   <Grid item container gap={2} >
   Address:
-  <Grid xs={10}/>
+  <Grid item xs={10}/>
   <Grid item sm={2.2}>
   Address Line 01:
   </Grid>

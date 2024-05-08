@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Header } from '../../Components/Header';
 import { Footer } from '../../Components/Footer';
 import { useNavigate } from 'react-router-dom';
@@ -16,19 +16,16 @@ export const Cart = () => {
 
     const [productTotalPrices, setProductTotalPrices] = useState({});
 
-    // useEffect(() => {
-    //     console.log('Product Total Prices:', productTotalPrices);
-    // }, [productTotalPrices]);
-
-    const handleRemoveItem = (productItemID) => {
-        dispatch(removeItemFromCart(productItemID));
-    };
-
-    const updateProductTotalPrice = (productId, totalPrice) => {
+    const updateProductTotalPrice = useCallback((productId, totalPrice) => {
         setProductTotalPrices((prevPrices) => ({
             ...prevPrices,
             [productId]: totalPrice
         }));
+    }, []);
+
+    const handleRemoveItem = (productItemID) => {
+        dispatch(removeItemFromCart(productItemID));
+        updateProductTotalPrice(productItemID, 0); // Reset total price for removed item
     };
 
 

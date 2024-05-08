@@ -72,9 +72,6 @@ const ProductCard = ({ product }) => {
     // Render images using Carousel component
     const renderImages = () => {
 
-        
-
-
         if (imageUrl && imageUrl.length > 0) {
             return (
                 
@@ -92,9 +89,9 @@ const ProductCard = ({ product }) => {
                 >
                 
                 {imageUrl.map((image, index) => (
-                    <SwiperSlide>
+                    <SwiperSlide key={index}>
                         <img
-                            key={index}
+                            
                             src={`http://localhost:5000${image}`} 
                             alt={`Slide ${index + 1}`}
                             style={{ maxWidth: '100%', borderRadius: '20px', }}
@@ -106,14 +103,17 @@ const ProductCard = ({ product }) => {
                         />
                         </SwiperSlide>
                     ))}
-              </Swiper>
+            </Swiper>
             );
         } else {
             return <Typography variant="body1">No images available</Typography>;
         }
         
-        return <Typography variant="body1">No images available</Typography>;
+        
     };
+
+
+
 
     return (
         <Paper sx={{ height: '350px', borderRadius: '20px' }} elevation={5}>
