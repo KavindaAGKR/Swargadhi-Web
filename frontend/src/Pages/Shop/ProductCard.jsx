@@ -6,7 +6,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../../redux/slices/cartSlice';
+import { addToCart, sendCartData} from '../../redux/slices/cartSlice';
 import {selectIsLoggedIn} from '../../redux/slices/userSlice'
 import { selectCartItems } from '../../redux/slices/cartSlice';
 
@@ -28,10 +28,14 @@ const ProductCard = ({ product }) => {
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const cartItems = useSelector(selectCartItems);
 
+
+
+
+
     const handleAddToCart = () => {
 
         const isProductInCart = cartItems.some(item => item.productItemID === product.productItemID);
-
+const { productId, quantity, price } = product;
         if(isLoggedIn){
 
             if(isProductInCart){
@@ -40,6 +44,7 @@ const ProductCard = ({ product }) => {
             }
             else{
                 dispatch(addToCart(product));
+                dispatch(sendCartData(product));
                 setSnackMessage("Product added to the cart")
                 
             }
