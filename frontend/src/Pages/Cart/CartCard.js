@@ -1,38 +1,52 @@
-import React from 'react';
-import { IconButton, Paper, TextField, Typography } from '@mui/material';
+import React, {useState, useEffect} from 'react';
+import { Box, IconButton, Paper, TextField, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import CancelIcon from '@mui/icons-material/Cancel';
 
 
 
 
-export const CartCard = ({ item, onRemoveItem }) => {
+export const CartCard = ({ item, onRemoveItem,  updateProductTotalPrice }) => {
 
     const { itemName, description, price, imageUrl, quantity , productItemID} = item;
 
-    const handleRemoveClick = () => {
+
+    const [buyingCount, setBuyingCount] = useState(1)
+    const productTotPrice = buyingCount*price;
+
+
+useEffect(() => {
+    updateProductTotalPrice(productItemID, productTotPrice);
+}, [ productTotPrice]);
+
+const handleRemoveClick = () => {
         onRemoveItem(productItemID);
+        updateProductTotalPrice(productItemID, 0); 
+        
     };
-    
-    // console.log(imageUrl)
+
+
+
     const firstImageUrl = Object.values(imageUrl)[0];
     return (
         <Stack justifyContent='space-between' direction='row' sx={{ borderRadius: '20px', border: 'solid 1px #B1FDC5', boxShadow: ' 5px 10px 13px -6px rgba(0,0,0,0.2)', width: '80%', padding: '10px' }}>
             
             
             
+            <Box sx={{width:'20%'}}>
             {Object.values(imageUrl).slice(0, 1).map((image, index) => (
     <img
         key={index}
         src={`http://localhost:5000${image}`} // Prepend base URL to image path
         alt={`Slide ${index + 1}`}
-        style={{ width:'20%', borderRadius: '20px' }}
+        style={{ width:'100%', borderRadius: '20px' }}
         onError={(e) => {
             console.error(`Failed to load image ${index}: ${e.target.src}`);
             e.target.onerror = null; // Prevent infinite error loops
         }}
     />
 ))}
+            </Box>
 
 
             <Stack direction='column' width='40%'>
@@ -45,7 +59,10 @@ export const CartCard = ({ item, onRemoveItem }) => {
                     <Typography>Quantity : </Typography>
                     <TextField
                         type='number'
-                        inputProps={{ min: 1, max: quantity, style: { padding: '0px', display: 'all' } }}
+                        
+                        onChange={(e)=>setBuyingCount(e.target.value)}
+                        defaultValue={1}
+                        inputProps={{ min: 1, max: quantity, style: { padding: '0px 0px 0 10px', display: 'all', width:'40px' } }}
                     />
                 </Stack>
                 {quantity > 0 ? (
@@ -54,7 +71,7 @@ export const CartCard = ({ item, onRemoveItem }) => {
                     <Typography variant='h7' color='error'>(Out of Stock)</Typography>
                 )}
             </Stack>
-            <Typography variant='h6' color='success.main' width='10%'>Rs. {price}</Typography>
+            <Typography variant='h6' color='success.main' width='10%'>Rs.{productTotPrice}</Typography>
             <IconButton color='error' sx={{ width: '1px', height: '1px' }} onClick={handleRemoveClick}><CancelIcon sx={{ fontSize: 25 }} /></IconButton>
         </Stack>
     );

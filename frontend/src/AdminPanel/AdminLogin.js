@@ -66,6 +66,11 @@ export const AdminLogin = () => {
                 Cookies.set('jwt', response.data.token); 
                 console.log('Successfully authenticated as admin');
                 console.log('Token:', response.data.token); 
+
+                setTimeout(() => {
+                    localStorage.removeItem('userDetails');
+                    
+                }, 3600000);
             } else {
                 setSnackMessage(response.data.message)
                 setSnackbarOpen(true);

@@ -60,14 +60,14 @@ const ProductCatalog = ({ category }) => {
     };
 
     return (
-        <Paper sx={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#C6F6D4', width: { lg: '1250px' } }}>
+        <Paper sx={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#C6F6D4', width:'100%', padding:'50px 0px 100px 0px ' }}>
             <Typography variant="h3" sx={{ textAlign: 'center', margin: '25px' }}>{category === 'all' ? 'All Products' : category}</Typography>
             <Container>
                 {loading ? (
                     <Typography variant="body1" sx={{ textAlign: 'center', marginTop: '20px' }}>Loading products...<CircularProgress value={50}/></Typography>
                 ) : (
                     products.length > 0 ? (
-                        <Grid container spacing={5}>
+                        <Grid container spacing={5} >
                             {products.map(product => (
                                 <Grid item key={product.productItemID} xs={12} sm={6} lg={3}>
                                     <ProductCard product={product} />
