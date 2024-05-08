@@ -15,6 +15,7 @@ import treatmentRoute from "./routes/treatmentRoute.js"
 import global_English from "./translations/English/global.json" assert { type: "json" };
 import global_Sinhala from "./translations/Sinhala/global.json" assert { type: "json" };
 import cartRoute from "./routes/cartRoute.js";
+import orderRoute from "./routes/orderRoute.js"
 
 const require = createRequire(import.meta.url);
 
@@ -53,6 +54,7 @@ app.use('/api/admin', adminRoute);
 app.use('/api/doctor', doctorRoute);
 app.use('/api/treatment', treatmentRoute);
 app.use('/api/cart', cartRoute);
+app.use("/api/orders", orderRoute);
 
 app.listen(PORT, () => {
     console.log(`Server is Running at PORT ${PORT}`);
