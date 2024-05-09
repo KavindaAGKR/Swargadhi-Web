@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Paper, Typography, Stack, Button, Dialog, DialogContent, TextField, InputAdornment, IconButton, Snackbar, Alert } from '@mui/material';
+import { Paper, Typography, Stack, Button, Dialog, DialogContent, TextField, InputAdornment, IconButton, Snackbar, Alert, Box, Container } from '@mui/material';
 
 import CancelIcon from '@mui/icons-material/Cancel';
 
@@ -85,7 +85,7 @@ const { productId, quantity, price } = product;
                 style={{width:'100%', color:'green'}}
                 spaceBetween={15}
                 slidesPerView={1}
-                autoplay={{ delay: 4000,}}
+                autoplay={{ delay: 4000000,}}
                 navigation={true}
                 modules={[Autoplay,Navigation]}
                 className="mySwiper"
@@ -94,12 +94,12 @@ const { productId, quantity, price } = product;
                 >
                 
                 {imageUrl.map((image, index) => (
-                    <SwiperSlide key={index}>
+                    <SwiperSlide key={index} style={{display:'flex' ,alignItems:'center', justifyContent:'center', margin:'auto'}} >
                         <img
                             
                             src={`http://localhost:5000${image}`} 
                             alt={`Slide ${index + 1}`}
-                            style={{ maxWidth: '100%', borderRadius: '20px', }}
+                            style={{ maxWidth: '100%', borderRadius: '20px', height:'100%', margin:'auto' }}
                             
                             onError={(e) => {
                                 console.error(`Failed to load image ${index}: ${e.target.src}`);
@@ -145,43 +145,33 @@ const { productId, quantity, price } = product;
                         </Button>
                     </Stack>
                 </Stack>
-                <Dialog open={openMore} onClose={() => setOpenMore(false)} fullWidth maxWidth='sm'>
-                    <DialogContent>
-                        <Stack sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <IconButton onClick={() => setOpenMore(false)} color='success'>
-                                <CancelIcon />
-                            </IconButton>
-                        </Stack>
-                        <Stack sx={{ margin: '20px', textAlign: 'center' }}>
+                <Dialog open={openMore} onClose={() => setOpenMore(false)} >
+                    <DialogContent sx={{ width:{xs:'300px',sm:'500px', lg:'550px' },
+                                height:'500px', padding:'0px'
+                            }}>
+                                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                <IconButton onClick={()=>setOpenMore(false)} color='success' ><CancelIcon sx={{ fontSize: 25 , }}/></IconButton>
+                                </Box>
+                        <Stack direction='column' alignItems='center' justifyContent='center'>
+                                
+                                <Stack sx={{  margin: '0 20px', height:'200px', width:'80%' }} height='50%' style={{
+                    
+                    '--swiper-navigation-color': 'white',
+                    '--swiper-pagination-color': '#0DFE0D',
+                }} >
+                        
                             {renderImages()}
-                            <Typography variant='h5' mt={2}>{itemName}</Typography>
-                            <Typography variant='body1'>{description}</Typography>
-                            <Stack direction='row' justifyContent='center' mt={2}>
-                                <TextField
-                                    type='number'
-                                    label='Quantity'
-                                    InputProps={{
-                                        inputProps: { min: 0, max: quantity },
-                                        startAdornment: <InputAdornment position="start">In stock: {quantity}</InputAdornment>,
-                                    }}
-                                    value={selectedQuantity}
-                                    onChange={(e) => setSelectedQuantity(e.target.value)}
-                                />
                             </Stack>
+                            </Stack>
+                            <Stack sx={{ margin: '20px', textAlign: 'left' }}>
+                            <Typography variant='h3' mt={2}>{itemName}</Typography>
+                            <Typography variant='body1'>{description}</Typography>
+                            <Typography variant='body1'> Avilable Quantity: {quantity}</Typography>
+                            
                             <Stack direction='row' justifyContent='center' mt={2}>
-
-
                                 <Button variant='contained' color='success' onClick={handleAddToCart}>
                                     Add to Cart
                                 </Button>
-
-
-
-
-
-                                
-
-
 
 
                             </Stack>
