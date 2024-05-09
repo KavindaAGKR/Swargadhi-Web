@@ -128,15 +128,15 @@ const { productId, quantity, price } = product;
                 </Stack>
                 <Stack height='50%' sx={{ padding: '0 10px' }}>
                     
-                    <Typography variant='h5'>{itemName.si}</Typography>
-                    <Typography variant='body1'>{description}</Typography>
+                    <Typography variant='h5' sx={{fontWeight:'bold'}}>{itemName}</Typography>
+                    
                     <Typography variant='h6' color='success.main'>Rs. {price}</Typography>
                     <Stack direction='row' justifyContent='center' spacing={2}>
                         <Button variant='contained' color='success' size='small' onClick={handleAddToCart}>
                             Add to Cart
                         </Button>
                         <Button
-                            variant='contained'
+                            variant='outlined'
                             color='success'
                             size='small'
                             onClick={() => setOpenMore(true)}
@@ -167,7 +167,7 @@ const { productId, quantity, price } = product;
                             <Typography variant='h3' mt={2}>{itemName}</Typography>
                             <Typography variant='body1'>{description}</Typography>
                             <Typography variant='body1'> Avilable Quantity: {quantity}</Typography>
-                            
+                            <Typography variant='h5' color='success.main'> Unit Price: {price}</Typography>
                             <Stack direction='row' justifyContent='center' mt={2}>
                                 <Button variant='contained' color='success' onClick={handleAddToCart}>
                                     Add to Cart
