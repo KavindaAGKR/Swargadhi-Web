@@ -25,9 +25,6 @@ import { EditDoctor } from './AdminPanel/EditDoctor';
 import {EditTreatment} from './AdminPanel/EditTrearment'
 import { Cart } from './Pages/Cart/Cart';
 
-// import { useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { checkAuthExpiration, logout } from './redux/slices/authSlice';
 
 
 function App() {

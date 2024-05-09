@@ -16,6 +16,11 @@ reducers: {
     setUser: (state, action) => {
         state.user = action.payload;
         state.isLoggedIn = true;
+        setTimeout(() => {
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+          }, 7200000); // 3600000 milliseconds = 1 hour
+        
     },
     setToken: (state, action) => {
         state.token = action.payload;

@@ -7,7 +7,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { CartCard } from './CartCard';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { selectCartItems, removeItemFromCart, removeFromCartInBackend, fetchCartData } from '../../redux/slices/cartSlice';
+import { selectCartItems, removeItemFromCart,  } from '../../redux/slices/cartSlice';
 
 export const Cart = () => {
     const dispatch = useDispatch();
@@ -25,13 +25,9 @@ export const Cart = () => {
 
     const handleRemoveItem = (productItemID) => {
         dispatch(removeItemFromCart(productItemID));
-        dispatch(removeFromCartInBackend(productItemID));
         updateProductTotalPrice(productItemID, 0); // Reset total price for removed item
     };
 
-    useEffect(() => {
-        dispatch(fetchCartData()); // Fetch cart data when component mounts
-    }, [dispatch]);
 
 // subTotal
 const subTotal = Object.values(productTotalPrices).reduce((acc, curr) => acc + curr, 0);

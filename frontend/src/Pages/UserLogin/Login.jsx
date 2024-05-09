@@ -115,10 +115,10 @@ export const Login = () => {
             localStorage.setItem('user', JSON.stringify(response.data.User));
             localStorage.setItem('token', response.data.token);
             
-            setTimeout(() => {
-                localStorage.removeItem('user');
-                localStorage.removeItem('token');
-              }, 3600000); // 3600000 milliseconds = 1 hour
+            // setTimeout(() => {
+            //     localStorage.removeItem('user');
+            //     localStorage.removeItem('token');
+            //   }, 3600); // 3600000 milliseconds = 1 hour
             
 
         // localStorage.setItem('token', response.data.token); // Save token in local storage
