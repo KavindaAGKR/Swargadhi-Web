@@ -8,6 +8,7 @@ import { CartCard } from './CartCard';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCartItems, removeItemFromCart,  } from '../../redux/slices/cartSlice';
+import axios from 'axios';
 
 export const Cart = () => {
     const dispatch = useDispatch();
@@ -27,6 +28,35 @@ export const Cart = () => {
         dispatch(removeItemFromCart(productItemID));
         updateProductTotalPrice(productItemID, 0); // Reset total price for removed item
     };
+
+  // Whenever cartItems changes, send the cart data to backend
+  useEffect(() => {
+    saveCartDataToBackend();
+  }, [cartItems]);
+
+  const saveCartDataToBackend = async () => {
+    // Extract user ID from local storage
+    const userID = JSON.parse(localStorage.getItem('user'))._id;
+
+    // Extract product IDs from cart items
+    const productIDs = cartItems.map(item => item.productItemID);
+    console.log("UserID:", userID);
+    console.log("Product IDs:", productIDs);
+    try {
+      // Make API request to save cart data to backend
+      await axios.post('/api/cart/user-cart', {
+        userID: userID,
+        productIDs: productIDs,
+      });
+    } catch (error) {
+      console.error('Error saving cart data to backend:', error);
+    }
+  };
+
+
+
+
+
 
 
 // subTotal
