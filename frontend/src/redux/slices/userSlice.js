@@ -19,7 +19,7 @@ reducers: {
         setTimeout(() => {
             localStorage.removeItem('user');
             localStorage.removeItem('token');
-          }, 7200000); // 3600000 milliseconds = 1 hour
+          }, 3600000); // logout if inactive for 1 hour 
         
     },
     setToken: (state, action) => {
