@@ -122,6 +122,7 @@ const { productId, quantity, price } = product;
 
     return (
         <Paper sx={{ height: '350px', borderRadius: '20px' }} elevation={5}>
+            
             <Stack sx={{ margin: '10px', height: '100%' }}>
                 <Stack sx={{ height: '50%', margin: '10px 0px' }}>
                     {renderImages()}
@@ -176,6 +177,21 @@ const { productId, quantity, price } = product;
 
                             </Stack>
                         </Stack>
+                        <Snackbar
+                    open={snackbarOpen}
+                    autoHideDuration={4000}
+                    onClose={() => { setSnackbarOpen(false);  }}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    sx={{ marginTop: "100px" }}
+                    >
+                    <Alert
+                        onClose={() => { setSnackbarOpen(false);  }}
+                        severity={(snackMessage === "Product added to the cart") ? ('success'): ('error') }
+                        variant="filled"
+                        sx={{ width: '100%' }}>
+                        {snackMessage}
+                    </Alert>
+            </Snackbar>
                     </DialogContent>
                 </Dialog>
             </Stack>
