@@ -10,6 +10,7 @@ import slider3 from '../../Images/Slider3.png'
 import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
 import { BestSales, HomeSwiper } from './BestSales'
+import { MotionButton } from '../../Components/FramerMotion/MotionButton'
 
 
 
@@ -40,7 +41,7 @@ export const Home = () => {
         </Stack>
         <HomeText/>
 
-        <Button sx={{
+        <MotionButton style={{
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     width:'150px',
     borderRadius: '3px',
@@ -50,7 +51,7 @@ export const Home = () => {
     color: 'white', // Set text color to white
   }}> 
           Shop Now
-        </Button>
+        </MotionButton>
         <Container >
           <BestSales fetchData={true}  />
         </Container>

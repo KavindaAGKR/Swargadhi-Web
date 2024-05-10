@@ -6,7 +6,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import { Paper, Typography, Container, Grid, CircularProgress, Box } from '@mui/material';
+import {  Box } from '@mui/material';
 import ProductCard from '../Shop/ProductCard';
 
 
