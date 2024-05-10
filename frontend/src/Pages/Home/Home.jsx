@@ -11,6 +11,8 @@ import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
 import { BestSales, HomeSwiper } from './BestSales'
 import { MotionButton } from '../../Components/FramerMotion/MotionButton'
+import { motion } from "framer-motion"
+
 
 
 
@@ -35,8 +37,14 @@ export const Home = () => {
     <React.Fragment>
         <Header/>
         <Stack >
-        <Stack width='50%' margin='50px auto '>
-          <HomeSwiper imageArray={images}  />
+        <Stack width='50%' margin='50px auto '
+        component={motion.div}
+        initial={{ opacity: 0 , y:40}}
+whileInView={{ opacity: 1,y:0,  }}
+viewport={{ amount:0.3}}
+transition={{ duration: 2 }} >
+          <HomeSwiper imageArray={images} 
+          />
 
         </Stack>
         <HomeText/>

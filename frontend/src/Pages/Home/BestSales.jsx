@@ -148,6 +148,7 @@ export const HomeSwiper = ({imageArray}) => {
                     width: '100%',
                     '--swiper-navigation-color': '#0DFE0D',
                     '--swiper-pagination-color': '#0DFE0D',
+                    borderRadius:'25px'
                   }}
                   >
 
