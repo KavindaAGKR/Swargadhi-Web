@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, } from '../../redux/slices/cartSlice';
 import {selectIsLoggedIn} from '../../redux/slices/userSlice'
 import { selectCartItems } from '../../redux/slices/cartSlice';
-
+import {  motion } from "framer-motion"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay,Navigation   } from 'swiper/modules';
 // Import Swiper styles
@@ -121,7 +121,22 @@ const { productId, quantity, price } = product;
 
 
     return (
-        <Paper sx={{ height: '350px', borderRadius: '20px' }} elevation={5}>
+        <Paper sx={{ height: '350px', borderRadius: '20px' }} elevation={5} 
+        component={motion.div} 
+            whileHover={{
+                scale: 1.06,
+                transition: { duration: 0.3 },
+                color:'Black'
+            }}
+            initial={{ opacity: 0 , y:50}}
+            whileInView={{ opacity: 1,y:0,  }}
+            viewport={{ amount:0.4}}
+            transition={{ duration: 2 }}
+            
+
+
+        >
+                        
             
             <Stack sx={{ margin: '10px', height: '100%' }}>
                 <Stack sx={{ height: '50%', margin: '10px 0px' }}>
@@ -145,6 +160,21 @@ const { productId, quantity, price } = product;
                             View More
                         </Button>
                     </Stack>
+                    <Snackbar
+                    open={snackbarOpen}
+                    autoHideDuration={3000}
+                    onClose={() => { setSnackbarOpen(false);  }}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    sx={{ marginTop: "100px", width:'100%' }}
+                    >
+                    <Alert
+                        onClose={() => { setSnackbarOpen(false);  }}
+                        severity={(snackMessage === "Product added to the cart") ? ('success'): ('error') }
+                        variant="filled"
+                        >
+                        {snackMessage}
+                    </Alert>
+            </Snackbar>
                 </Stack>
                 <Dialog open={openMore} onClose={() => setOpenMore(false)} >
                     <DialogContent sx={{ width:{xs:'300px',sm:'500px', lg:'550px' },
@@ -194,23 +224,12 @@ const { productId, quantity, price } = product;
             </Snackbar>
                     </DialogContent>
                 </Dialog>
+
+
+                
             </Stack>
 
-            <Snackbar
-                    open={snackbarOpen}
-                    autoHideDuration={4000}
-                    onClose={() => { setSnackbarOpen(false);  }}
-                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                    sx={{ marginTop: "100px" }}
-                    >
-                    <Alert
-                        onClose={() => { setSnackbarOpen(false);  }}
-                        severity={(snackMessage === "Product added to the cart") ? ('success'): ('error') }
-                        variant="filled"
-                        sx={{ width: '100%' }}>
-                        {snackMessage}
-                    </Alert>
-            </Snackbar>
+
         </Paper>
     );
 };
