@@ -82,7 +82,9 @@ const { productId, quantity, price } = product;
                 
 
                 <Swiper
-                style={{width:'100%', color:'green'}}
+                style={{width:'100%', color:'green', '--swiper-navigation-color': ' #B2BEB5',
+                '--swiper-navigation-size': '25px',borderRadius: '20px',
+                }}
                 spaceBetween={15}
                 slidesPerView={1}
                 autoplay={{ delay: 4000000,}}
@@ -91,6 +93,7 @@ const { productId, quantity, price } = product;
                 className="mySwiper"
                 speed={1200}
                 loop={true}
+                
                 >
                 
                 {imageUrl.map((image, index) => (
@@ -99,7 +102,7 @@ const { productId, quantity, price } = product;
                             
                             src={`http://localhost:5000${image}`} 
                             alt={`Slide ${index + 1}`}
-                            style={{ maxWidth: '100%', borderRadius: '20px', height:'100%', margin:'auto' }}
+                            style={{ maxWidth: '100%',borderRadius: '20px',  height:'100%', margin:'auto' }}
                             
                             onError={(e) => {
                                 console.error(`Failed to load image ${index}: ${e.target.src}`);
@@ -130,7 +133,7 @@ const { productId, quantity, price } = product;
             }}
             initial={{ opacity: 0 , y:50}}
             whileInView={{ opacity: 1,y:0,  }}
-            viewport={{ amount:0.4}}
+            viewport={{ amount:0.4 , once: true}}
             transition={{ duration: 2 }}
             
 

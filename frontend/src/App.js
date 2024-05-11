@@ -1,5 +1,5 @@
 
-import { Route , Routes} from 'react-router-dom';
+import { Route , Routes, useNavigate} from 'react-router-dom';
 import { Login } from './Pages/UserLogin/Login';
 import { Home } from './Pages/Home/Home';
 import { Signup } from './Pages/UserSignup/Signup';
@@ -24,11 +24,19 @@ import {EditProduct} from './AdminPanel/EditProduct';
 import { EditDoctor } from './AdminPanel/EditDoctor';
 import {EditTreatment} from './AdminPanel/EditTrearment'
 import { Cart } from './Pages/Cart/Cart';
+import { PageNotFound } from './Pages/PageNotFound/PageNotFound';
 
+
+
+
+
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from './redux/slices/userSlice';
 
 
 function App() {
-
+  const isUserLoggedIn = useSelector(selectIsLoggedIn);
+  const navigate= useNavigate();
 
 
 
@@ -63,7 +71,7 @@ function App() {
 
         
 
-        
+        <Route path='/error' element={<PageNotFound/>}/>
 
         {/* User part Routes */}
         <Route path='/' element={<Home/>}/>
@@ -73,7 +81,9 @@ function App() {
         <Route path='/user' element={<UserProfile/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>} />
-        <Route path='/cart' element={<Cart/>}/>
+
+        {isUserLoggedIn ? (<Route path='/cart' element={<Cart/>}/>) : (<Route path='/cart' element={<PageNotFound/>}/>)}
+
 
 
     </Routes>
