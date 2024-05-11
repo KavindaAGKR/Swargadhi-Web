@@ -1,9 +1,4 @@
 
-
-
-
-// src/redux/slices/cartSlice.js
-
 import { createSlice } from '@reduxjs/toolkit';
 
 export const cartSlice = createSlice({
@@ -13,11 +8,6 @@ export const cartSlice = createSlice({
     subtotal: 0,
   },
   reducers: {
-    // setCart: (state, action) => {
-    //   state.items = action.payload.items;
-    //   state.subtotal = action.payload.subtotal;
-    //   saveCartItemsToLocalStorage(action.payload.items);
-    // },
     addToCart: (state, action) => {
       state.items.push(action.payload);
       saveCartItemsToLocalStorage(state.items);

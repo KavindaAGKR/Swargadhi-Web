@@ -9,12 +9,13 @@ import { CartCard } from './CartCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCartItems, removeItemFromCart,  } from '../../redux/slices/cartSlice';
 import axios from 'axios';
+import { selectToken } from '../../redux/slices/userSlice'; 
 
 export const Cart = () => {
     const dispatch = useDispatch();
     const cartItems = useSelector(selectCartItems);
     const navigate = useNavigate();
-
+    const token = useSelector(selectToken);
     const [productTotalPrices, setProductTotalPrices] = useState({});
 
     const updateProductTotalPrice = useCallback((productId, totalPrice) => {
@@ -35,23 +36,40 @@ export const Cart = () => {
   }, [cartItems]);
 
   const saveCartDataToBackend = async () => {
-    // Extract user ID from local storage
-    const userID = JSON.parse(localStorage.getItem('user'))._id;
-
-    // Extract product IDs from cart items
-    const productIDs = cartItems.map(item => item.productItemID);
-    console.log("UserID:", userID);
-    console.log("Product IDs:", productIDs);
     try {
+      // Check if user data exists in local storage
+      const userData = localStorage.getItem('user');
+      if (!userData) {
+        console.error('User data not found in local storage');
+        return;
+      }
+  
+      // Extract user ID from local storage
+      const user = JSON.parse(userData);
+      const userID = user._id;
+  
+      // Extract product IDs and prices from cart items
+      const cartData = cartItems.map(item => ({
+        productId: item.productItemID,
+        quantity: item.quantity, // You may need to adjust this if you're not tracking quantity in your frontend
+        price: item.price, // Assuming you have price in your cart item
+      }));
+  
       // Make API request to save cart data to backend
-      await axios.post('/api/cart/user-cart', {
+      await axios.post('http://localhost:5000/api/cart/user-cart', {
         userID: userID,
-        productIDs: productIDs,
+        cartData: cartData,
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       });
     } catch (error) {
       console.error('Error saving cart data to backend:', error);
     }
   };
+  
+
 
 
 
