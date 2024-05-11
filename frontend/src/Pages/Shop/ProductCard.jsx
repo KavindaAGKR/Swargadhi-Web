@@ -93,7 +93,6 @@ const { productId, quantity, price } = product;
                 className="mySwiper"
                 speed={1200}
                 loop={true}
-                prevEl={<IconButton><CancelIcon/></IconButton>}
                 
                 >
                 
@@ -134,7 +133,7 @@ const { productId, quantity, price } = product;
             }}
             initial={{ opacity: 0 , y:50}}
             whileInView={{ opacity: 1,y:0,  }}
-            viewport={{ amount:0.4}}
+            viewport={{ amount:0.4 , once: true}}
             transition={{ duration: 2 }}
             
 

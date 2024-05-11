@@ -40,8 +40,7 @@ export const Home = () => {
         <Stack width='50%' margin='50px auto '
         component={motion.div}
         initial={{ opacity: 0 , y:40}}
-whileInView={{ opacity: 1,y:0,  }}
-viewport={{ amount:0.3}}
+animate={{ opacity: 1,y:0,  }}
 transition={{ duration: 2 }} >
           <HomeSwiper imageArray={images} 
           />

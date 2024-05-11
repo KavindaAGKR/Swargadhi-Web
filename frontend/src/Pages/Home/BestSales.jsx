@@ -6,7 +6,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import {  Box } from '@mui/material';
+import {  Box, Typography } from '@mui/material';
 import ProductCard from '../Shop/ProductCard';
 
 
@@ -81,6 +81,7 @@ export const BestSales = (fetchData) => {
 
 return(
     <Box margin='50px 0px'>
+        <Typography variant='h5'>Best Sales</Typography>
 <Swiper
                 
                 spaceBetween={50}
