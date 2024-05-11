@@ -32,7 +32,7 @@ import ProductCatalog from './ProductCatalog';
                             sx={{ width: { xs: '300px', sm: '500px', md: 'auto' } }}
                         >
                             <Tab label='All Products' value='all' />
-                            <Tab label='kalka' value='kalka' />
+                            <Tab label='Kalka' value='kalka' />
                             <Tab label='Thel' value='Thel' />
                             <Tab label='Paththu' value='Paththu' />
                             <Tab label='Guli' value='Guli' />

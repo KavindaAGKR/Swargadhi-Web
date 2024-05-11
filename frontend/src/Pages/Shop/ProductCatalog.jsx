@@ -64,8 +64,8 @@ const ProductCatalog = ({ category }) => {
     };
 
     return (
-        <Paper sx={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', width:'100%', padding:'50px 0px 100px 0px ' , boxShadow:'none'}}>
-            <Typography variant="h3" sx={{ textAlign: 'center', margin: '25px' }}>{category === 'all' ? 'All Products' : category}</Typography>
+        <Paper sx={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', width:'100%', padding:'0px 0px 100px 0px ' , boxShadow:'none'}}>
+            <Typography variant="h3" sx={{ textAlign: 'center', margin:'25px'  }}>{category === 'all' ? 'All Products' : category}</Typography>
             <Container>
                 {loading ? (
                     <Typography variant="body1" sx={{ textAlign: 'center', marginTop: '20px' }}>Loading products...<CircularProgress value={50}/></Typography>
