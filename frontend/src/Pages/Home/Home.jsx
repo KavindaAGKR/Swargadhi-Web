@@ -1,16 +1,16 @@
 import React from 'react'
-import {  Stack } from '@mui/material'
+import {  Button, Container, Stack } from '@mui/material'
 //import { useNavigate } from 'react-router-dom'
 
 import { HomeText } from '../../Components/Home/HomeText'
-import ShopNow from '../../Components/Home/ShopNow'
-import { BestSales } from '../../Components/Home/BestSales'
+
 import slider1 from '../../Images/Slider1.jpg'
 import slider2 from '../../Images/Slider2.png'
 import slider3 from '../../Images/Slider3.png'
 import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
-import { SwiperSlider } from '../../Components/Swiper'
+import { BestSales, HomeSwiper } from './BestSales'
+import { MotionButton } from '../../Components/FramerMotion/MotionButton'
 
 
 
@@ -36,15 +36,25 @@ export const Home = () => {
         <Header/>
         <Stack >
         <Stack width='50%' margin='50px auto '>
-        <SwiperSlider imageArray={images} altName='Slider Images' styles={{
-    width: '100%',
-    '--swiper-navigation-color': '#0DFE0D',
-    '--swiper-pagination-color': '#0DFE0D',
-  }}/>
+          <HomeSwiper imageArray={images}  />
+
         </Stack>
         <HomeText/>
-        <ShopNow/>
-        <BestSales/>
+
+        <MotionButton style={{
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    width:'150px',
+    borderRadius: '3px',
+    height: '48px',
+    margin:'auto',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    color: 'white', // Set text color to white
+  }}> 
+          Shop Now
+        </MotionButton>
+        <Container >
+          <BestSales fetchData={true}  />
+        </Container>
         </Stack>
         <Footer/>
     </React.Fragment>

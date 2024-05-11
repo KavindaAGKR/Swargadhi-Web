@@ -11,6 +11,7 @@ import ScrollToTop from "react-scroll-to-top";
 
 import { SwiperSlider } from '../../Components/Swiper';
 
+import { motion } from "framer-motion"
 
 
 
@@ -87,12 +88,14 @@ const ayurvedicTreatments = [
 export const Dispensary = () => {
 
 
+
   const sectionRefs = useRef(Array(ayurvedicTreatments.length).fill(null).map(() => React.createRef()));
 
   // Function to scroll to a specific section
   const scrollToSection = (index) => {
     sectionRefs.current[index].current.scrollIntoView({ behavior: 'smooth' });
   };
+
 
 
   return (
@@ -114,7 +117,13 @@ export const Dispensary = () => {
 
 
           <Stack direction='row' height='500px' margin='50px'>
-            <Stack width='40%'>
+            <Stack width='40%'
+            component={motion.div}
+            initial={{ opacity: 0 , x:-40}}
+  whileInView={{ opacity: 1,x:0,  }}
+  viewport={{ amount:0.3}}
+  transition={{ duration: 2 }}
+            >
 
               <SwiperSlider imageArray={ayurvedicTreatments} altName='Dispensary Treatments' styles={{
     width: '100%',
@@ -125,7 +134,13 @@ export const Dispensary = () => {
             </Stack>
 
             
-            <Container sx={{backgroundColor:'#F9E8E8', margin:'0px 20px' , borderRadius:'15px'}} >
+            <Container sx={{backgroundColor:'#F9E8E8', margin:'0px 20px' , borderRadius:'15px'}} 
+            component={motion.div}
+            initial={{ opacity: 0 , x:40}}
+  whileInView={{ opacity: 1,x:0,  }}
+  viewport={{ amount:0.3}}
+  transition={{ duration: 1 }}
+            >
               <Typography variant='h4' textAlign='center' margin='25px'>Available Treatments</Typography>
               <Stack gap={3}>
 
@@ -138,9 +153,16 @@ export const Dispensary = () => {
                       sx={{backgroundColor:'white',
                       borderRadius:'15px',
                       fontWeight:'bold',
-                      padding:'0 15px',}}>
+                      padding:'0 15px',}}
+                      component={motion.div}
+                      whileHover={{
+                        scale: 1.05,
+                        transition: { duration: 0.3 }
+                      }}>
                         <Typography variant='h6' >{item.treatmentNameEn} </Typography>
-                        <Button onClick={() => scrollToSection(i)}>See More</Button>
+                        <Button onClick={() => scrollToSection(i)} 
+  
+  whileTap={{ scale: 0.9 }}>See More</Button>
                       </Stack>
                       
                     )
@@ -152,7 +174,7 @@ export const Dispensary = () => {
               
             </Container>
           </Stack>
-          <Stack >
+          <Stack margin='auto' alignItems='center'>
           
 
 
@@ -160,8 +182,19 @@ export const Dispensary = () => {
   ayurvedicTreatments.map((item, i) => 
 
             (
-              <Stack key={item.key} ref={sectionRefs.current[i]}
-              backgroundColor='#C6F6D4' style={{margin:'25px', borderRadius:'20px', padding:'20px'}}>
+              <motion.div 
+              key={item.key} ref={sectionRefs.current[i]}
+             
+              style={{width:'70%', justifyContent:'center'}}
+              initial={{ opacity: 0 , x:20}}
+  whileInView={{ opacity: 1,x:0,  }}
+  viewport={{ amount:0.3}}
+  transition={{ duration: 2 }}
+  
+                >
+
+              <Stack 
+              backgroundColor='#C6F6D4' style={{borderRadius:'20px',margin:'25px auto ',  padding:'20px'}} >
               <Typography variant='h4'  textAlign='center'>{item.treatmentNameEn}</Typography>
               <Stack direction='row' margin='20px' height='500px'>
               <img  src={item.images} style={{width:'35%', height:'auto'}}/>
@@ -172,6 +205,7 @@ export const Dispensary = () => {
             
             </Container>
               </Stack></Stack>
+              </motion.div>
             )
 
   )

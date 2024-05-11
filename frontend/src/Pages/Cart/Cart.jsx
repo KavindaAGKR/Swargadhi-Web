@@ -107,6 +107,9 @@ const totalAmount = total + deliveryFee;
                             {cartItems.map((item) => (
                                 <CartCard key={item.productItemID} item={item} onRemoveItem={handleRemoveItem}  updateProductTotalPrice={updateProductTotalPrice} />
                             ))}
+                            <Button variant='contained' onClick={() => navigate('/shop')}>
+                            Buy More Products
+                        </Button>
                         </Stack>
                         <Stack sx={{ width: '30%' }}>
                             <Paper elevation={5} sx={{ padding: '50px' }}>

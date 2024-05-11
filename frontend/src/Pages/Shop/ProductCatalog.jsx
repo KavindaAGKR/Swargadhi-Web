@@ -3,12 +3,15 @@ import { Paper, Typography, Container, Grid, CircularProgress } from '@mui/mater
 import ProductCard from './ProductCard';
 
 const ProductCatalog = ({ category }) => {
+
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
 
+
+
+
     useEffect(() => {
         setLoading(true);
-
         const fetchData = async () => {
             try {
                 let response;
@@ -17,23 +20,23 @@ const ProductCatalog = ({ category }) => {
                 } else {
                     response = await fetch(`http://localhost:5000/api/product/category/en/${encodeURIComponent(category)}`);
                 }
-
+    
                 if (!response.ok) {
                     throw new Error('Failed to fetch products');
                 }
-
+    
                 const data = await response.json();
                 console.log(`Fetched ${category} products:`, data);
-
-
+    
+    
                 const extractedProducts = extractProducts(data);
-
+    
                 if (Array.isArray(extractedProducts)) {
                     setProducts(extractedProducts);
                 } else {
                     throw new Error('Invalid data format');
                 }
-
+    
                 setLoading(false);
             } catch (error) {
                 console.error(`Error fetching ${category} products:`, error);
@@ -41,9 +44,10 @@ const ProductCatalog = ({ category }) => {
                 setLoading(false);
             }
         };
-
+    
+    
         fetchData();
-    }, [category]);
+    },[category]);
 
 
     const extractProducts = (data) => {
