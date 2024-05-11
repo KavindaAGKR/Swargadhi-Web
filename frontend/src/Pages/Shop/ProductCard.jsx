@@ -128,12 +128,12 @@ const { productId, quantity, price } = product;
         component={motion.div} 
             whileHover={{
                 scale: 1.06,
-                transition: { duration: 0.3 },
+                transition: { duration: 0.2 },
                 color:'Black'
             }}
             initial={{ opacity: 0 , y:50}}
             whileInView={{ opacity: 1,y:0,  }}
-            viewport={{ amount:0.4 , once: true}}
+            viewport={{ amount:0.3 , once: true}}
             transition={{ duration: 2 }}
             
 
