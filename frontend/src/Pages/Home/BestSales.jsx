@@ -6,7 +6,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import {  Box } from '@mui/material';
+import {  Box, Typography } from '@mui/material';
 import ProductCard from '../Shop/ProductCard';
 
 
@@ -81,6 +81,7 @@ export const BestSales = (fetchData) => {
 
 return(
     <Box margin='50px 0px'>
+        <Typography variant='h5'>Best Sales</Typography>
 <Swiper
                 
                 spaceBetween={50}
@@ -98,6 +99,13 @@ return(
                     '--swiper-navigation-color': 'transparent',
                     '--swiper-pagination-color': '#0DFE0D',
                   }}
+                breakpoints={{
+                    0:{slidesPerView:1},
+                    500:{slidesPerView:2},
+                    900:{slidesPerView:3},
+                    1200:{slidesPerView:4},
+                
+                }}
                   >
 
                   
@@ -148,6 +156,7 @@ export const HomeSwiper = ({imageArray}) => {
                     width: '100%',
                     '--swiper-navigation-color': '#0DFE0D',
                     '--swiper-pagination-color': '#0DFE0D',
+                    borderRadius:'25px'
                   }}
                   >
 
