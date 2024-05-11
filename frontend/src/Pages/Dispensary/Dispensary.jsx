@@ -1,7 +1,7 @@
 import React, {useRef } from 'react'
 import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
-import { Button, Container, Stack, Typography } from '@mui/material'
+import { Button, Container, List, Stack, Typography } from '@mui/material'
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 
 import slide1 from '../../Images/Slider1.jpg'
@@ -198,18 +198,30 @@ export const Dispensary = () => {
   viewport={{ amount:0.3}}
   transition={{ duration: 2 }}
   
-                >
+              >
 
               <Stack 
-              backgroundColor='#C6F6D4' style={{borderRadius:'20px',margin:'25px auto ',  padding:'20px'}} >
+              backgroundColor='#C6F6D4' style={{borderRadius:'20px',margin:'25px auto ',  padding:'20px', height:'500px'}} >
               <Typography variant='h4'  textAlign='center'>{item.treatmentNameEn}</Typography>
               <Stack width='100%'>
-              <Stack Stack direction={{xs:'column', md:'row'}} margin='20px' height='auto'>
+              <Stack Stack direction={{xs:'column', md:'row'}} margin='20px' height='auto' gap={2}>
               <img  src={item.images} style={{width:'40%' , height:'60%' }}/>
             <Stack sx={{textAlign:'justify'}}>
             
-            
+            <List
+            sx={{
+              width: '100%',
+              height:'300px',
+              bgcolor: 'background.paper',
+              position: 'relative',
+              overflow: 'auto',
+              backgroundColor:'none'
+              
+            }}
+            >
             <Typography variant='body'  >{item.descriptionEn}</Typography>
+            </List>
+            
             
             </Stack>
               </Stack>
