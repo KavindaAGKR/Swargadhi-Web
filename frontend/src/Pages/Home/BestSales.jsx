@@ -99,6 +99,13 @@ return(
                     '--swiper-navigation-color': 'transparent',
                     '--swiper-pagination-color': '#0DFE0D',
                   }}
+                breakpoints={{
+                    0:{slidesPerView:1},
+                    500:{slidesPerView:2},
+                    900:{slidesPerView:3},
+                    1200:{slidesPerView:4},
+                
+                }}
                   >
 
                   

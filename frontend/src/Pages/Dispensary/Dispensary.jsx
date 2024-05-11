@@ -103,29 +103,29 @@ export const Dispensary = () => {
 <ScrollToTop smooth={true}/>
         <Header/>
 
+<Stack >
         <Stack  color='green'  direction='row' margin='25px' justifyContent='center' gap={2}>
                 <MedicalInformationIcon sx={{fontSize:'60px'}} />
                 <Typography variant='h2'  >
                   Dispensary
                 </Typography>
         </Stack>
-<Stack>
-
-
-</Stack>
 
 
 
-          <Stack direction='row' height='500px' margin='50px'>
-            <Stack width='40%'
+
+          <Stack direction={{xs:'column', md:'row'}} width='90%'  margin='auto' justifyContent='center' alignItems='center'>
+            <Stack width={{xs:'70%', md:'40%'}}
             component={motion.div}
             initial={{ opacity: 0 , x:-40}}
   whileInView={{ opacity: 1,x:0,  }}
   viewport={{ amount:0.3}}
   transition={{ duration: 2 }}
+  
             >
 
               <SwiperSlider imageArray={ayurvedicTreatments} altName='Dispensary Treatments' styles={{
+                margin:'auto',
     width: '100%',
     '--swiper-navigation-color': '#0DFE0D',
     '--swiper-pagination-color': '#0DFE0D',
@@ -134,7 +134,7 @@ export const Dispensary = () => {
             </Stack>
 
             
-            <Container sx={{backgroundColor:'#F9E8E8', margin:'0px 20px' , borderRadius:'15px'}} 
+            <Stack sx={{backgroundColor:'#F9E8E8', margin:'0px 20px' , borderRadius:'15px' ,padding:'20px', width:{xs:'80%', md:'60%'}}} 
             component={motion.div}
             initial={{ opacity: 0 , x:40}}
   whileInView={{ opacity: 1,x:0,  }}
@@ -172,9 +172,16 @@ export const Dispensary = () => {
               </Stack>
 
               
-            </Container>
+            </Stack>
           </Stack>
-          <Stack margin='auto' alignItems='center'>
+
+
+
+
+
+
+
+          <Stack margin='auto' alignItems='center' width='95%'>
           
 
 
@@ -196,15 +203,18 @@ export const Dispensary = () => {
               <Stack 
               backgroundColor='#C6F6D4' style={{borderRadius:'20px',margin:'25px auto ',  padding:'20px'}} >
               <Typography variant='h4'  textAlign='center'>{item.treatmentNameEn}</Typography>
-              <Stack direction='row' margin='20px' height='500px'>
-              <img  src={item.images} style={{width:'35%', height:'auto'}}/>
-            <Container sx={{textAlign:'justify'}}>
+              <Stack width='100%'>
+              <Stack Stack direction={{xs:'column', md:'row'}} margin='20px' height='auto'>
+              <img  src={item.images} style={{width:'40%' , height:'60%' }}/>
+            <Stack sx={{textAlign:'justify'}}>
             
             
             <Typography variant='body'  >{item.descriptionEn}</Typography>
             
-            </Container>
-              </Stack></Stack>
+            </Stack>
+              </Stack>
+              </Stack>
+              </Stack>
               </motion.div>
             )
 
@@ -213,7 +223,7 @@ export const Dispensary = () => {
 
             
           </Stack>
-        
+          </Stack>
 
 
         <Footer/>

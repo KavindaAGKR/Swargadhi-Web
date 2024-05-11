@@ -37,7 +37,7 @@ export const Home = () => {
     <React.Fragment>
         <Header/>
         <Stack >
-        <Stack width='50%' margin='50px auto '
+        <Stack width={{xs:'80%', sm:'70%', md:'60%'}} margin='50px auto '
         component={motion.div}
         initial={{ opacity: 0 , y:40}}
 animate={{ opacity: 1,y:0,  }}
