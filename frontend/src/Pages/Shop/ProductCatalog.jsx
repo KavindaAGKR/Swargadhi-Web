@@ -64,7 +64,7 @@ const ProductCatalog = ({ category }) => {
     };
 
     return (
-        <Paper sx={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#C6F6D4', width:'100%', padding:'50px 0px 100px 0px ' }}>
+        <Paper sx={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', width:'100%', padding:'50px 0px 100px 0px ' , boxShadow:'none'}}>
             <Typography variant="h3" sx={{ textAlign: 'center', margin: '25px' }}>{category === 'all' ? 'All Products' : category}</Typography>
             <Container>
                 {loading ? (

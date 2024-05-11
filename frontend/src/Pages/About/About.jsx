@@ -1,15 +1,15 @@
 import React from 'react'
-import { Grid, Paper,  Typography } from '@mui/material'
+import { Button, Grid, Paper,  Stack,  Typography } from '@mui/material'
 import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
+import { Call, Email, Facebook, WhatsApp } from '@mui/icons-material'
 
 export const About = () => {
 return (
     <React.Fragment>
         <Header/>
-    <Grid container justifyContent="center" alignItems="center">
-        <Grid item xs={10} >
-        <Paper sx={{ margin:'50px', textAlign: 'center' }} elevation={20}>
+    
+        <Stack sx={{ margin:'50px', textAlign: 'center' }} >
         
             <Typography variant='h2' color='success.main' sx={{marginBottom:'50px'}}>About Us</Typography>
             <Typography variant='h5' sx={{marginBottom:'20px'}}>About Swargadhi</Typography>
@@ -20,10 +20,15 @@ return (
             <Typography variant='body'>The FDA considers herbal supplements foods, not drugs. Therefore, they are not subject to the same testing, manufacturing, and labeling standards and regulations as drugs.
 You can now see labels that explain how herbs can influence different actions in the body. However, herbal supplement labels can't refer to treating specific medical conditions. This is because herbal supplements are not subject to clinical trials or to the same manufacturing standards as prescription or traditional over-the-counter drugs.</Typography>
             <Typography variant='h5'sx={{marginBottom:'20px',marginTop:'50px'}}>Contact Us</Typography>
+            <Stack direction='column' spacing={1} justifyContent="center" padding="25px" alignItems='center'>
+                    
+                    <Button variant='text' startIcon={<Call/>} sx={{justifyContent:'left'}}>081 7822142</Button>
+                    <Button variant='text' startIcon={<Email/>} sx={{justifyContent:'left'}}>swargadhi@gmail.com</Button>
+                    <Button variant='text' startIcon={<WhatsApp/>} sx={{justifyContent:'left'}}>071 1947550</Button>
+                    <Button variant='text' startIcon={<Facebook/>} sx={{justifyContent:'left'}} href='https://web.facebook.com/profile.php?id=100063950014549'>ස්වර්ගධී ආයුර්වේද නිෂ්පාදන</Button>
+                    </Stack>
+        </Stack>
         
-        </Paper>
-        </Grid>
-    </Grid>
     <Footer/>
     </React.Fragment>
 )
