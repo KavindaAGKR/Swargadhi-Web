@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Paper, Typography, Stack, Button, Dialog, DialogContent, TextField, InputAdornment, IconButton, Snackbar, Alert, Box, Container } from '@mui/material';
+import { Paper, Typography, Stack, Button, Dialog, DialogContent, IconButton, Snackbar, Alert, Box } from '@mui/material';
 
 import CancelIcon from '@mui/icons-material/Cancel';
 
@@ -35,7 +35,7 @@ const ProductCard = ({ product }) => {
     const handleAddToCart = () => {
 
         const isProductInCart = cartItems.some(item => item.productItemID === product.productItemID);
-const { productId, quantity, price } = product;
+        const { productId, quantity, price } = product;
         if(isLoggedIn){
 
             if(isProductInCart){
@@ -87,7 +87,7 @@ const { productId, quantity, price } = product;
                 }}
                 spaceBetween={15}
                 slidesPerView={1}
-                autoplay={{ delay: 4000000,}}
+                autoplay={{ delay: 3000,}}
                 navigation={true}
                 modules={[Autoplay,Navigation]}
                 className="mySwiper"
