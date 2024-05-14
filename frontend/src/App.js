@@ -72,7 +72,7 @@ function App() {
 
         
 
-        <Route path='/error' element={<PageNotFound/>}/>
+        <Route path='*' element={<PageNotFound/>}/>
 
         {/* User part Routes */}
         <Route path='/' element={<Home/>}/>
@@ -89,7 +89,7 @@ function App() {
         <Route path='/cart' element={<Cart/>}/>
         <Route path='/checkout' element={<CheckOut/>}/>
         </>
-        ) : (()=>{navigate('/error')})}
+        ) : (<Route path='*' element={<PageNotFound/>}/>)}
 
 
 

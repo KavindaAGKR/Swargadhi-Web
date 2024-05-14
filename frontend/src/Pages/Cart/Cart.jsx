@@ -1,58 +1,63 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header } from '../../Components/Header';
 import { Footer } from '../../Components/Footer';
 import { useNavigate } from 'react-router-dom';
 import { Grid, Paper, Stack, Typography, Button } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { CartCard } from './CartCard';
+import { useSelector } from 'react-redux';
+import { selectCartItems   } from '../../redux/slices/cartSlice';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { selectCartItems, removeItemFromCart,  } from '../../redux/slices/cartSlice';
-import axios from 'axios';
-import { CheckOut } from '../Checkout/Checkout';
+
+
 
 export const Cart = () => {
-    const dispatch = useDispatch();
+
     const cartItems = useSelector(selectCartItems);
     const navigate = useNavigate();
 
-    const [productTotalPrices, setProductTotalPrices] = useState({});
 
-    const updateProductTotalPrice = useCallback((productId, totalPrice) => {
-        setProductTotalPrices((prevPrices) => ({
-            ...prevPrices,
-            [productId]: totalPrice
-        }));
-    }, []);
 
-    const handleRemoveItem = (productItemID) => {
-        dispatch(removeItemFromCart(productItemID));
-        updateProductTotalPrice(productItemID, 0); // Reset total price for removed item
-    };
+    const HandleCheckout = ()=>{
+    navigate('/checkout')
+    
+}
 
-  // Whenever cartItems changes, send the cart data to backend
-  useEffect(() => {
-    saveCartDataToBackend();
-  }, [cartItems]);
 
-  const saveCartDataToBackend = async () => {
-    // Extract user ID from local storage
-    const userID = JSON.parse(localStorage.getItem('user'))._id;
 
-    // Extract product IDs from cart items
-    const productIDs = cartItems.map(item => item.productItemID);
-    console.log("UserID:", userID);
-    console.log("Product IDs:", productIDs);
-    try {
-      // Make API request to save cart data to backend
-      await axios.post('/api/cart/user-cart', {
-        userID: userID,
-        productIDs: productIDs,
-      });
-    } catch (error) {
-      console.error('Error saving cart data to backend:', error);
+let subTotal = 0;
+    for(var i=0; i<cartItems.length;i++){
+        console.log("assa" + cartItems.map((i) => i.buyingCount ));
+        subTotal += cartItems[i].buyingCount * cartItems[i].price;
     }
-  };
+
+
+
+
+
+//   // Whenever cartItems changes, send the cart data to backend
+//   useEffect(() => {
+//     saveCartDataToBackend();
+//   }, [cartItems]);
+
+//   const saveCartDataToBackend = async () => {
+//     // Extract user ID from local storage
+//     const userID = JSON.parse(localStorage.getItem('user'))._id;
+
+//     // Extract product IDs from cart items
+//     const productIDs = cartItems.map(item => item.productItemID);
+//     console.log("UserID:", userID);
+//     console.log("Product IDs:", productIDs);
+//     // try {
+//     //   // Make API request to save cart data to backend
+//     //   await axios.post('/api/cart/user-cart', {
+//     //     userID: userID,
+//     //     productIDs: productIDs,
+//     //   });
+//     // } catch (error) {
+//     //   console.error('Error saving cart data to backend:', error);
+//     // }
+//   };
 
 
 
@@ -61,12 +66,12 @@ export const Cart = () => {
 
 
 // subTotal
-const subTotal = Object.values(productTotalPrices).reduce((acc, curr) => acc + curr, 0);
+//  const subTotal = Object.values(cartItems.buyingcount).reduce((acc, curr) => acc + curr, 0);
+// const subTotal = 565;
 const discount = 10;
 const total = subTotal*(100-discount)/100;
 const deliveryFee = 450;
 const totalAmount = total + deliveryFee;
-
 
 
     return (
@@ -88,7 +93,7 @@ const totalAmount = total + deliveryFee;
                     <Stack direction='row' padding='20px'>
                         <Stack sx={{ width: '70%' }} justifyContent='center' alignItems='center' spacing={5}>
                             {cartItems.map((item) => (
-                                <CartCard key={item.productItemID} item={item} onRemoveItem={handleRemoveItem}  updateProductTotalPrice={updateProductTotalPrice} />
+                                <CartCard key={item.productItemID} item={item} />
                             ))}
                             <Button variant='contained' onClick={() => navigate('/shop')}>
                             Buy More Products
@@ -124,7 +129,9 @@ const totalAmount = total + deliveryFee;
                                 </Grid>
 
                                 <Stack margin='25px auto' width='60%'>
-                                    <Button variant='contained' onClick={()=> navigate('/checkout')}>Proceed to Checkout</Button>
+                                    <Button variant='contained' onClick={()=> {
+                                        HandleCheckout();
+                                    }}>Proceed to Checkout</Button>
                                 </Stack>
                             </Paper>
                         </Stack>

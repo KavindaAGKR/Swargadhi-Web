@@ -2,28 +2,42 @@ import React, {useState, useEffect} from 'react';
 import { Box, IconButton, TextField, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { useDispatch } from 'react-redux';
+import { updateItemBuyingCount, removeItemFromCart } from '../../redux/slices/cartSlice';
 
 
 
+export const CartCard = ({ item}) => {
 
-export const CartCard = ({ item, onRemoveItem,  updateProductTotalPrice }) => {
+    const { itemName,  price, imageUrl, quantity , productItemID,buyingCount} = item;
+    const dispatch = useDispatch();
 
-    const { itemName, description, price, imageUrl, quantity , productItemID} = item;
 
-
-    const [buyingCount, setBuyingCount] = useState(1)
+    const [buyingCountt, setBuyingCount] = useState(1)
+    const [error, setError] = useState(false)
     const productTotPrice = buyingCount*price;
 
 
-useEffect(() => {
-    updateProductTotalPrice(productItemID, productTotPrice);
-}, [productItemID, productTotPrice, updateProductTotalPrice]);
+    const handleBuyingCountChange = (value) => {
+        setBuyingCount(value);
+        dispatch(updateItemBuyingCount({ productItemID, buyingCount: value }));
+        if (value>quantity || value<1) {
+            setError(true);
+          } 
+          else{setError(false)}
+    };
+
 
 const handleRemoveClick = () => {
-        onRemoveItem(productItemID);
-        updateProductTotalPrice(productItemID, 0); 
+    dispatch(removeItemFromCart(productItemID));
+        
+
         
     };
+
+
+
+
 
 
 
@@ -59,9 +73,13 @@ const handleRemoveClick = () => {
                     <Typography>Quantity : </Typography>
                     <TextField
                         type='number'
+                        onChange={(e) => {handleBuyingCountChange(parseInt(e.target.value));
+                            // setBuyingCount(e.target.value)
+                        }}
                         
-                        onChange={(e)=>setBuyingCount(e.target.value)}
-                        defaultValue={1}
+                        error={error}
+                        helperText={error? 'Invalid quentity': ''}
+                        defaultValue={buyingCount}
                         inputProps={{ min: 1, max: quantity, style: { padding: '0px 0px 0 10px', display: 'all', width:'40px' } }}
                     />
                 </Stack>
