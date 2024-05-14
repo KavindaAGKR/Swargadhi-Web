@@ -9,6 +9,7 @@ import { CartCard } from './CartCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCartItems, removeItemFromCart,  } from '../../redux/slices/cartSlice';
 import axios from 'axios';
+import { CheckOut } from '../Checkout/Checkout';
 
 export const Cart = () => {
     const dispatch = useDispatch();
@@ -123,7 +124,7 @@ const totalAmount = total + deliveryFee;
                                 </Grid>
 
                                 <Stack margin='25px auto' width='60%'>
-                                    <Button variant='contained'>Proceed to Checkout</Button>
+                                    <Button variant='contained' onClick={()=> navigate('/checkout')}>Proceed to Checkout</Button>
                                 </Stack>
                             </Paper>
                         </Stack>

@@ -55,6 +55,8 @@ export const MultilingualHeader = () => {
 
 
 
+
+
 //Responsive Navigation Bar Component
 export const ResponsiveNav = (props) =>{
     
@@ -94,6 +96,8 @@ export const ResponsiveNav = (props) =>{
 
 
 
+
+
 //Header
 export const Header = () => {
     
@@ -128,8 +132,8 @@ export const Header = () => {
                                 <MotionButton>
                                 <Avatar sx={{ bgcolor: 'success.light', marginLeft:'0px' }}>{user.firstName.charAt(0)}{user.lastName.charAt(0)}</Avatar>
                                 </MotionButton>
-                                <MotionButton>
-                                <IconButton onClick={()=>{navigate('/cart')}} sx={{padding:'0px'}}><ShoppingCartIcon/></IconButton>
+                                <MotionButton onClick={()=>{navigate('/cart')}} >
+                                <IconButton sx={{padding:'0px'}}><ShoppingCartIcon/></IconButton>
                                 </MotionButton>
                                 </>
                             ): (

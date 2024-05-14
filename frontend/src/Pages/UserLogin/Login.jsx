@@ -13,7 +13,7 @@ import GoogleButton from 'react-google-button'
 import Snackbar from '@mui/material/Snackbar';
 // import Cookies from 'js-cookie';
 import axios from 'axios';
-
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 
 import { setUser, setToken } from '../../redux/slices/userSlice';
@@ -25,8 +25,13 @@ import {  useDispatch } from 'react-redux';
 const theme = createTheme();
 
 const useStyles = makeStyles((theme) => ({
+    paperContainer:{
+        
+        width: '70%',
+    },
     imageContainer: {
         position: 'relative',
+        display:'flex',
         width: '50%',
     },
     stackContainer: {
@@ -49,16 +54,17 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 0 0 10px',
         zIndex: 1,
     },
+
     '@media (max-width: 600px)': {
-        imageContainer: {
-            display: 'none',
-        },
+
         stackContainer: {
             width: '100%',
             margin: '25px'
         },
         paperContainer: {
-            margin: '25px'
+            
+            width:'90%'
+            
         },
     },
 }));
@@ -115,13 +121,6 @@ export const Login = () => {
             localStorage.setItem('user', JSON.stringify(response.data.User));
             localStorage.setItem('token', response.data.token);
             
-            // setTimeout(() => {
-            //     localStorage.removeItem('user');
-            //     localStorage.removeItem('token');
-            //   }, 3600); // 3600000 milliseconds = 1 hour
-            
-
-        // localStorage.setItem('token', response.data.token); // Save token in local storage
 
             setSnackMessage("Successfully logged in");
             setSnackbarOpen(true);
@@ -153,25 +152,19 @@ export const Login = () => {
     return (
         <div>
             <ThemeProvider theme={theme}>
-                <Grid
-                    container
-                    justifyContent="center"
-                    alignItems="center"
-                    margin='auto'
-                    style={{ minHeight: '100vh', maxWidth: '1200px', maxHeight: '80%' }}
-                >
+                
                     <Paper sx={{
-                        width: 'auto', margin: '50px', borderRadius: '35px',
+                          borderRadius: '35px',margin: '50px auto ',
                     }} elevation={20} className={classes.paperContainer}>
 
                         <Grid container>
-                            <Stack className={classes.imageContainer} >
+                            <Stack className={classes.imageContainer} sx={{display:{xs:'none', sm:'flex'}}} >
                                 <img src={signpng} alt="The signup" className={classes.image} />
                                 <img src={signback} alt="The signup" className={classes.image2} />
                             </Stack>
 
-                            <Stack className={classes.stackContainer} justifyContent="center" alignItems="center" direction='column'  >
-
+                            <Stack className={classes.stackContainer} justifyContent="center" alignItems="center" direction='column' spacing={2} >
+                                
                                 <img src={logo} alt="Swargadhi logo" style={{ width: '80%', margin: '0px 0 0 0' }} />
                                 <Typography variant='h4' color='success' style={{ color: 'green' }} >Login</Typography>
 
@@ -221,22 +214,23 @@ export const Login = () => {
                                 <Button variant="contained" onClick={handleLogin} color='success'>Login</Button>
                                 <Button variant='text' onClick={() => { navigate('/forgotpassword') }}>Forgot password?</Button>
                                 <Typography variant='body'>Don't have an account?<Button variant='text' onClick={() => { navigate('/signup') }}>Sign Up</Button> </Typography>
-                                <GoogleButton type="light"
+                                <GoogleButton type="light" width={'80%'}
                                     onClick={() => { console.log('Google button clicked') }}
                                 />
                                 <Snackbar
                                     open={snackbarOpen}
                                     autoHideDuration={3000}
-                                    onClose={() => { setSnackbarOpen(false); if (isLogin) { navigate('/') } }}
-                                    message={snackMessage}
+                                    onClose={() => { setSnackbarOpen(false); if (isLogin) { navigate(-1) } }}
+                                    // message={snackMessage}
                                     anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                                    sx={{ marginTop: "100px" }}
+                                    
                                 >
                                     <Alert
                                         onClose={() => { setSnackbarOpen(false); if (isLogin) { navigate('/') } }}
                                         severity={isLogin ? "success" : "error"}
                                         variant="filled"
-                                        sx={{ width: '100%' }}>
+                                        sx={{marginTop:'150px'}}
+                                        >
                                         {snackMessage}
                                     </Alert>
                                     </Snackbar>
@@ -244,7 +238,7 @@ export const Login = () => {
 
                         </Grid>
                     </Paper>
-                </Grid>
+                
             </ThemeProvider>
 
         </div>

@@ -133,7 +133,7 @@ const ProductCard = ({ product }) => {
             }}
             initial={{ opacity: 0 , y:50}}
             whileInView={{ opacity: 1,y:0,  }}
-            viewport={{ amount:0.3 , once: true}}
+            viewport={{ amount:0.1 , once: true}}
             transition={{ duration: 2 }}
             
 

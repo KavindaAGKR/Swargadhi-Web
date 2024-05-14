@@ -11,52 +11,56 @@ import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import axios from 'axios'; 
-//import axios from 'axios';
+
 
 
 
 const theme = createTheme();
 
+
 const useStyles = makeStyles((theme) => ({
-    imageContainer: {
-    position: 'relative',
-    width:'50%'
-    },
-    stackContainer:{
-      width:'50%',
-      margin:'50px 0px'
-    },
-    image: {
-    
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    zIndex: 2,
-    },
-    image2: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    margin: '0 0 0 10px',
-    zIndex: 1,
-    },
-    '@media (max-width: 600px)': {
+  paperContainer:{
+      
+      width: '70%',
+  },
+  imageContainer: {
+      position: 'relative',
+      width: '50%',
+  },
+  stackContainer: {
+      width: '50%',
+      margin: '50px 0px'
+  },
+  image: {
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      zIndex: 2,
+  },
+  image2: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      margin: '0 0 0 10px',
+      zIndex: 1,
+  },
 
-    imageContainer:{
-        display: 'none',
-    },
-    stackContainer: {
-    width: '100%',
-          margin:'15px' 
-    },paperContainer:{
-        margin:'15px'
-    },
-},
+  '@media (max-width: 600px)': {
+
+      stackContainer: {
+          width: '100%',
+          margin: '25px'
+      },
+      paperContainer: {
+          
+          width:'90%'
+          
+      },
+  },
 }));
-
               
 
 export const Signup = () => {
@@ -113,23 +117,15 @@ export const Signup = () => {
 
     return (
     <ThemeProvider theme={theme}>
-        <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-        margin='auto'
-        style={{ minHeight: '100vh',maxWidth:'1200px' }}
-        >
-        <Paper sx={{ width: 'auto', margin:'50px', borderRadius:'35px' }} elevation={10}>
+       
+        <Paper className={classes.paperContainer} sx={{  margin:'50px auto', borderRadius:'35px' }}  elevation={10}>
 
             <Grid container>
-            <Stack className={classes.imageContainer}>
+            <Stack className={classes.imageContainer} sx={{display:{xs:'none', sm:'flex'}}}>
                 <img src={signpng} alt="The signup" className={classes.image} />
                 <img src={signback} alt="The signup" className={classes.image2} />
             </Stack>
-            {/* <Grid item xs={2}>
-
-            </Grid> */}
+            
 {/* Inputs */}
             <Stack className={classes.stackContainer} justifyContent="center" alignItems="center" direction='column' >
 
@@ -204,7 +200,7 @@ export const Signup = () => {
                                 onClose={() => { setSnackBarOpen(false); if (issignedup) { navigate('/login') } }}
                                 // message={snackbarMessage}
                                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                                sx={{marginTop:"100px"}}
+                                sx={{marginTop:"150px"}}
                                 
                             >
                                 <Alert
@@ -223,7 +219,7 @@ export const Signup = () => {
             
             </Grid>
         </Paper>
-        </Grid>
+        
     </ThemeProvider>
     );
 };

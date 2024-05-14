@@ -32,6 +32,7 @@ import { PageNotFound } from './Pages/PageNotFound/PageNotFound';
 
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from './redux/slices/userSlice';
+import { CheckOut } from './Pages/Checkout/Checkout';
 
 
 function App() {
@@ -81,8 +82,14 @@ function App() {
         <Route path='/user' element={<UserProfile/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>} />
+        
 
-        {isUserLoggedIn ? (<Route path='/cart' element={<Cart/>}/>) : (<Route path='/cart' element={<PageNotFound/>}/>)}
+        {isUserLoggedIn ? (
+        <>
+        <Route path='/cart' element={<Cart/>}/>
+        <Route path='/checkout' element={<CheckOut/>}/>
+        </>
+        ) : (()=>{navigate('/error')})}
 
 
 
