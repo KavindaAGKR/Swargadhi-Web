@@ -5,3 +5,5 @@ export const AdminProfile = () => {
     <div>AdminProfile</div>
   )
 }
+
+

@@ -154,7 +154,7 @@ export const Login = () => {
             <ThemeProvider theme={theme}>
                 
                     <Paper sx={{
-                          borderRadius: '35px',margin: '50px auto ',
+                        borderRadius: '35px',margin: '50px auto ',
                     }} elevation={20} className={classes.paperContainer}>
 
                         <Grid container>
@@ -214,13 +214,11 @@ export const Login = () => {
                                 <Button variant="contained" onClick={handleLogin} color='success'>Login</Button>
                                 <Button variant='text' onClick={() => { navigate('/forgotpassword') }}>Forgot password?</Button>
                                 <Typography variant='body'>Don't have an account?<Button variant='text' onClick={() => { navigate('/signup') }}>Sign Up</Button> </Typography>
-                                <GoogleButton type="light" width={'80%'}
-                                    onClick={() => { console.log('Google button clicked') }}
-                                />
+                                
                                 <Snackbar
                                     open={snackbarOpen}
                                     autoHideDuration={3000}
-                                    onClose={() => { setSnackbarOpen(false); if (isLogin) { navigate(-1) } }}
+                                    onClose={() => { setSnackbarOpen(false); if (isLogin) { navigate('/') } }}
                                     // message={snackMessage}
                                     anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                                     

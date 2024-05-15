@@ -100,7 +100,7 @@ export const UserProfile = () => {
             <Header />
             <Stack justifyContent='center' alignItems='center' >
             
-                <Stack direction='row' margin="40px 0 25px 0" color='blue'>
+                <Stack direction='row' margin="40px 0 25px 0" color='green'>
                 <PersonOutlineIcon sx={{fontSize:'60px'}} />
                 <Typography variant='h3' margin='auto' >
                 My Account

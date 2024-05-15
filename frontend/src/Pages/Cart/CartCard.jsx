@@ -43,17 +43,17 @@ const handleRemoveClick = () => {
 
     // const firstImageUrl = Object.values(imageUrl)[0];
     return (
-        <Stack justifyContent='space-between' direction='row' sx={{ borderRadius: '20px', border: 'solid 1px #B1FDC5', boxShadow: ' 5px 10px 13px -6px rgba(0,0,0,0.2)', width: '80%', padding: '10px' }}>
+        <Stack justifyContent='space-between' direction='row' sx={{ borderRadius: '20px', border: 'solid 1px #B1FDC5', boxShadow: ' 5px 10px 13px -6px rgba(0,0,0,0.2)', width: '80%', padding: '10px', height:'100px' }}>
             
             
             
-            <Box sx={{width:'20%'}}>
+            <Box sx={{width:'20%', }}>
             {Object.values(imageUrl).slice(0, 1).map((image, index) => (
     <img
         key={index}
         src={`http://localhost:5000${image}`} 
         alt={`Slide ${index + 1}`}
-        style={{ width:'100%', borderRadius: '20px' }}
+        style={{ height:'100%',width:'100%', borderRadius: '20px' }}
         onError={(e) => {
             console.error(`Failed to load image ${index}: ${e.target.src}`);
             e.target.onerror = null; 

@@ -3,15 +3,21 @@ import { Button, Grid, Paper,  Stack,  Typography } from '@mui/material'
 import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
 import { Call, Email, Facebook, WhatsApp } from '@mui/icons-material'
+import LocationCityIcon from '@mui/icons-material/LocationCity';
 
-export const About = () => {
+
+export const AboutEn = () => {
 return (
     <React.Fragment>
         <Header/>
     
-        <Stack sx={{ margin:'50px', textAlign: 'center' }} >
+        <Stack sx={{ margin:'50px', textAlign: 'center', }} >
         
-            <Typography variant='h2' color='success.main' sx={{marginBottom:'50px'}}>About Us</Typography>
+        <Stack direction='row' margin="auto" color='green'>
+                <LocationCityIcon sx={{fontSize:'60px'}} />
+                <Typography variant='h2' color='success.main' sx={{marginBottom:'50px'}}>About Us</Typography>
+                </Stack>
+            
             <Typography variant='h5' sx={{marginBottom:'20px'}}>About Swargadhi</Typography>
             <Typography variant='body'>Products made from botanicals, or plants, that are used to treat diseases or to maintain health are called herbal products, botanical products, or phytomedicines. A product made from plants and used solely for internal use is called an herbal supplement. Many prescription drugs and over-the-counter medicines are also made from plant products, but these products contain only purified ingredients and are regulated by the FDA. Herbal supplements may contain entire plants or plant parts.</Typography>
             <Typography variant='h5'sx={{marginBottom:'20px',marginTop:'50px'}}>Doctors</Typography>

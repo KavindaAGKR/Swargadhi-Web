@@ -85,7 +85,7 @@ const ayurvedicTreatments = [
 
 
 
-export const Dispensary = () => {
+export const DispensarySi = () => {
 
 
 
@@ -107,7 +107,7 @@ export const Dispensary = () => {
         <Stack  color='green'  direction='row' margin='25px' justifyContent='center' gap={2}>
                 <MedicalInformationIcon sx={{fontSize:'60px'}} />
                 <Typography variant='h2'  >
-                  Dispensary
+                වෛද්‍ය මධ්‍යස්ථානය ගැන
                 </Typography>
         </Stack>
 
@@ -141,7 +141,7 @@ export const Dispensary = () => {
   viewport={{ amount:0.3}}
   transition={{ duration: 1 }}
             >
-              <Typography variant='h4' textAlign='center' margin='25px'>Available Treatments</Typography>
+              <Typography variant='h4' textAlign='center' margin='25px'>ප්‍රතිකාර ක්‍රම</Typography>
               <Stack gap={3}>
 
                 {
@@ -159,7 +159,7 @@ export const Dispensary = () => {
                         scale: 1.05,
                         transition: { duration: 0.3 }
                       }}>
-                        <Typography variant='h6' >{item.treatmentNameEn} </Typography>
+                        <Typography variant='h6' >{item.treatmentNameSi} </Typography>
                         <Button onClick={() => scrollToSection(i)} 
   
   whileTap={{ scale: 0.9 }}>See More</Button>
@@ -197,12 +197,11 @@ export const Dispensary = () => {
   whileInView={{ opacity: 1,x:0,  }}
   viewport={{ amount:0.3}}
   transition={{ duration: 2 }}
-  
-              >
 
+              >
               <Stack 
               backgroundColor='#C6F6D4' style={{borderRadius:'20px',margin:'25px auto ',  padding:'20px', height:'500px'}} >
-              <Typography variant='h4'  textAlign='center'>{item.treatmentNameEn}</Typography>
+              <Typography variant='h4'  textAlign='center'>{item.treatmentNameSi}</Typography>
               <Stack width='100%'>
               <Stack Stack direction={{xs:'column', md:'row'}} margin='20px' height='auto' gap={2}>
               <img  src={item.images} style={{width:'40%' , height:'60%' }}/>
@@ -219,7 +218,7 @@ export const Dispensary = () => {
               
             }}
             >
-            <Typography variant='body'  >{item.descriptionEn}</Typography>
+            <Typography variant='body'  >{item.descriptionSi}</Typography>
             </List>
             
             

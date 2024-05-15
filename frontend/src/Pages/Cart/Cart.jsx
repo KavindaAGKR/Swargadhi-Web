@@ -54,10 +54,6 @@ export const Cart = () => {
         navigate('/checkout', {
             state: {
                 cartItems: cartItems,
-                discount: discount,
-                subTotal: subTotal,
-                total: total,
-                deliveryFee: deliveryFee,
                 totalAmount: totalAmount,
             },
         });
@@ -70,9 +66,13 @@ export const Cart = () => {
         <React.Fragment>
             <Header />
             <Stack>
-                <Typography textAlign='center' variant='h3' padding='25px'>
-                    <ShoppingCartIcon fontSize='30' /> My Cart
+            <Stack direction='row' margin="auto" color='green' gap={1}>
+                <ShoppingCartIcon sx={{fontSize:'60px'}} />
+                <Typography  variant='h3'  sx={{marginBottom:'50px'}}>
+                     My Cart
                 </Typography>
+                </Stack>
+                
 
                 {cartItems.length === 0 ? (
                     <Stack direction='column' sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '300px' }}>

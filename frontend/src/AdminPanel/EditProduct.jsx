@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const EditProduct = () => {
+
+  const navigate = useNavigate();
+
+
   const { id } = useParams();
   const [product, setProduct] = useState({
     itemName: { en: '', si: '' },
@@ -33,6 +37,8 @@ export const EditProduct = () => {
     fetchProduct();
   }, [id]);
 
+
+
   const handleInputChange = (field, value) => {
     setProduct((prevProduct) => ({
       ...prevProduct,
@@ -40,13 +46,20 @@ export const EditProduct = () => {
     }));
   };
 
+
+
   const handleImageUpload = (event) => {
     const files = Array.from(event.target.files);
     setImageFiles(files);
   };
+
+
+
   const handleSaveChanges = async () => {
+
     try {
       const formData = new FormData();
+
 
 
       formData.append('productItemID', product.productItemID);
@@ -73,10 +86,13 @@ export const EditProduct = () => {
         throw new Error('Failed to update product');
       }
 
+      
+
       console.log('Product updated successfully');
     } catch (error) {
       console.error('Error updating product:', error.message);
     }
+    navigate(-1)
   };
 
 

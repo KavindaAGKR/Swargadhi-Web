@@ -3,7 +3,7 @@ import { Route , Routes, useNavigate} from 'react-router-dom';
 import { Login } from './Pages/UserLogin/Login';
 import { Home } from './Pages/Home/Home';
 import { Signup } from './Pages/UserSignup/Signup';
-import { About } from './Pages/About/About';
+import { AboutEn } from './Pages/About/AboutEn';
 import { AdminLogin } from './AdminPanel/AdminLogin';
 import { AdminHome } from './AdminPanel/AdminHome';
 import { Products } from './AdminPanel/Products';
@@ -15,7 +15,6 @@ import { AdminUsers } from './AdminPanel/AdminUsers';
 import { AdminMessages } from './AdminPanel/AdminMessages';
 import { AdminSettings } from './AdminPanel/AdminSettings';
 import { UserProfile } from './Pages/UserProfile/Userprofile';
-import { Dispensary } from './Pages/Dispensary/Dispensary';
 import { AdminSignup } from './AdminPanel/AdminSignup';
 import Shop  from './Pages/Shop/Shop';
 import {AdminDoctor}from './AdminPanel/AdminDoctor'
@@ -32,12 +31,17 @@ import { PageNotFound } from './Pages/PageNotFound/PageNotFound';
 
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from './redux/slices/userSlice';
+import { selectIsSinhalaTrue } from './redux/slices/languageSlice'; 
 import { CheckOut } from './Pages/Checkout/Checkout';
+import { DispensarySi } from './Pages/Dispensary/DispensarySi';
+import { DispensaryEn } from './Pages/Dispensary/DispensaryEn';
+import { AboutSi } from './Pages/About/AboutSi';
 
 
 function App() {
   const isUserLoggedIn = useSelector(selectIsLoggedIn);
-  const navigate= useNavigate();
+  const isSinhalaTrue = useSelector(selectIsSinhalaTrue);
+  // const navigate= useNavigate();
 
 
 
@@ -74,11 +78,24 @@ function App() {
 
         <Route path='*' element={<PageNotFound/>}/>
 
+        {isSinhalaTrue? (
+          <>
+          <Route path='/dispensary' element={<DispensarySi/>}/>
+          <Route path='/about' element={<AboutSi/>}/></>
+        ):(
+          <>
+          <Route path='/dispensary' element={<DispensaryEn/>}/>
+          <Route path='/about' element={<AboutEn/>}/></>
+        )}
+
+
+
         {/* User part Routes */}
         <Route path='/' element={<Home/>}/>
         <Route path='/shop' element={<Shop/>}/>
-        <Route path='/about' element={<About/>}/>
-        <Route path='/dispensary' element={<Dispensary/>}/>
+        
+
+        
         <Route path='/user' element={<UserProfile/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>} />
