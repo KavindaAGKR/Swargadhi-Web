@@ -10,6 +10,36 @@ import {Provider} from 'react-redux'
 
 import { setUser, setToken } from './redux/slices/userSlice';
 
+
+
+
+
+
+
+
+
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+export default function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
+
+
+
+
+
+
+
+
+
 const userFromStorage = localStorage.getItem('user');
 const tokenFromStorage = localStorage.getItem('token');
 
@@ -25,6 +55,7 @@ root.render(
   <React.StrictMode>
     <Provider store = {store}>
     <BrowserRouter>
+    <ScrollToTop/>
     <App />
     </BrowserRouter>
 

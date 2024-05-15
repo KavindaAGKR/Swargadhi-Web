@@ -1,6 +1,6 @@
 import React from 'react'
-import {  Button, Container, Stack } from '@mui/material'
-//import { useNavigate } from 'react-router-dom'
+import {  Container, Stack } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 import { HomeText } from '../../Components/Home/HomeText'
 
@@ -13,13 +13,14 @@ import { BestSales, HomeSwiper } from './BestSales'
 import { MotionButton } from '../../Components/FramerMotion/MotionButton'
 import { motion } from "framer-motion"
 import { SwiperSlider } from '../../Components/Swiper'
+import { Navigate } from 'react-router-dom'
 
 
 
 
 
 export const Home = () => {
-    //const navigate = useNavigate()
+    const navigate = useNavigate()
 
 
     //Images For Image Slider
@@ -58,7 +59,9 @@ export const Home = () => {
                 margin:'auto',
                 boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
                 color: 'white'
-        }}> 
+        }}
+        onClick={()=>navigate('/shop')}
+        > 
           Shop Now
         </MotionButton>
 

@@ -52,7 +52,7 @@ export const Products = () => {
             formData.append('quantity', productData.quantity);
             formData.append('categoryEn', productData.categoryEn);
             formData.append('categorySi', productData.categorySi);
-    
+
 
             productData.images.forEach(file => {
                 formData.append('images', file);

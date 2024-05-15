@@ -18,23 +18,6 @@ export const Cart = () => {
 
 
 
-    const HandleCheckout = ()=>{
-    navigate('/checkout')
-    
-}
-
-
-
-let subTotal = 0;
-    for(var i=0; i<cartItems.length;i++){
-        console.log("assa" + cartItems.map((i) => i.buyingCount ));
-        subTotal += cartItems[i].buyingCount * cartItems[i].price;
-    }
-
-
-
-
-
 //   // Whenever cartItems changes, send the cart data to backend
 //   useEffect(() => {
 //     saveCartDataToBackend();
@@ -61,17 +44,26 @@ let subTotal = 0;
 
 
 
+    const discount = 10;
+    const subTotal = cartItems.reduce((total, item) => total + (item.buyingCount * item.price), 0);
+    const total = subTotal*(100-discount)/100;
+    const deliveryFee = 450;
+    const totalAmount = total + deliveryFee;
+
+    const HandleCheckout = () => {
+        navigate('/checkout', {
+            state: {
+                cartItems: cartItems,
+                discount: discount,
+                subTotal: subTotal,
+                total: total,
+                deliveryFee: deliveryFee,
+                totalAmount: totalAmount,
+            },
+        });
+    };
 
 
-
-
-// subTotal
-//  const subTotal = Object.values(cartItems.buyingcount).reduce((acc, curr) => acc + curr, 0);
-// const subTotal = 565;
-const discount = 10;
-const total = subTotal*(100-discount)/100;
-const deliveryFee = 450;
-const totalAmount = total + deliveryFee;
 
 
     return (
@@ -106,25 +98,25 @@ const totalAmount = total + deliveryFee;
                                         <Typography variant='h6'>Sub Total</Typography>
                                     </Grid>
                                     <Grid item xs={4} md={4}>
-                                        <Typography variant='h6'>{subTotal}</Typography>
+                                        <Typography variant='h6'>{subTotal.toString()}</Typography>
                                     </Grid>
                                     <Grid item xs={8} md={8}>
                                         <Typography variant='h6'>Discount</Typography>
                                     </Grid>
                                     <Grid item xs={4} md={4}>
-                                        <Typography variant='h6'>{discount}%</Typography>
+                                        <Typography variant='h6'>{discount.toString()}%</Typography>
                                     </Grid>
                                     <Grid item xs={8} md={8}>
                                         <Typography variant='h6'>Delivery Charges</Typography>
                                     </Grid>
                                     <Grid item xs={4} md={4}>
-                                        <Typography variant='h6'>{deliveryFee}</Typography>
+                                        <Typography variant='h6'>{deliveryFee.toString()}</Typography>
                                     </Grid>
                                     <Grid item xs={8} md={8}>
                                         <Typography variant='h5'>Total Cost</Typography>
                                     </Grid>
                                     <Grid item xs={4} md={4}>
-                                        <Typography variant='h5'> {totalAmount}</Typography>
+                                        <Typography variant='h5'> {totalAmount.toString()}</Typography>
                                     </Grid>
                                 </Grid>
 
@@ -142,3 +134,4 @@ const totalAmount = total + deliveryFee;
         </React.Fragment>
     );
 };
+

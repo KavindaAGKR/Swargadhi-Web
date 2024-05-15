@@ -98,7 +98,7 @@ export const UserProfile = () => {
     return (
         <React.Fragment>
             <Header />
-            <Stack justifyContent='center' alignItems='center'>
+            <Stack justifyContent='center' alignItems='center' >
             
                 <Stack direction='row' margin="40px 0 25px 0" color='blue'>
                 <PersonOutlineIcon sx={{fontSize:'60px'}} />
@@ -234,7 +234,7 @@ export const UserProfile = () => {
 
 
                 ) : (
-                    <Typography variant="body1">
+                    <Typography variant="body1" sx={{minHeight:'400px'}}>
                         Please <a href="/login">login</a> to view your details.
                     </Typography>
                 )}
