@@ -66,7 +66,7 @@ function App() {
             <Route path='products/:id/edit' element={<EditProduct/>}/>
             <Route path='doctor/:id/edit' element={<EditDoctor/>}/>
             <Route path='treatment/:id/edit' element={<EditTreatment/>}/>
-            {/* Productssssssssssssssss */}
+            {/* Productss */}
             <Route path='products' element={<Products/>}/>
         </Route>
 

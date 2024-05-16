@@ -62,7 +62,7 @@ const ProductCard = ({ product }) => {
 
 
 
-    const { itemNameE,itemNameS, description, price, imageUrl, quantity } = product; 
+    const { itemName, description, price, imageUrl, quantity } = product; 
     const [openMore, setOpenMore] = useState(false);
     const [selectedQuantity, setSelectedQuantity] = useState(0);
 
@@ -139,7 +139,7 @@ const ProductCard = ({ product }) => {
 
 
         >
-                        
+            
             
             <Stack sx={{ margin: '10px', height: '100%' }}>
                 <Stack sx={{ height: '50%', margin: '10px 0px' }}>
@@ -147,8 +147,8 @@ const ProductCard = ({ product }) => {
                 </Stack>
                 <Stack height='50%' sx={{ padding: '0 10px' }}>
                     
-                    <Typography variant='h5' sx={{fontWeight:'bold'}}>{itemNameE}</Typography>
-                    <Typography variant='h7' sx={{fontWeight:'bold'}}>{itemNameS}</Typography>
+                    <Typography variant='h5' sx={{fontWeight:'bold'}}>{itemName}</Typography>
+
                     <Typography variant='h6' color='success.main'>Rs. {price}</Typography>
                     <Stack direction='row' justifyContent='center' spacing={2}>
                         <Button variant='contained' color='success' size='small' onClick={handleAddToCart}>
@@ -198,8 +198,8 @@ const ProductCard = ({ product }) => {
                             </Stack>
                             </Stack>
                             <Stack sx={{ margin: '20px', textAlign: 'left' }}>
-                            <Typography variant='h3' mt={2}>{itemNameE}</Typography>
-                            <Typography variant='h5' mt={2}>{itemNameS}</Typography>
+                            <Typography variant='h3' mt={2}>{itemName}</Typography>
+
                             <Typography variant='body1'>{description}</Typography>
                             <Typography variant='body1'> Avilable Quantity: {quantity}</Typography>
                             <Typography variant='h5' color='success.main'> Unit Price: {price}</Typography>
