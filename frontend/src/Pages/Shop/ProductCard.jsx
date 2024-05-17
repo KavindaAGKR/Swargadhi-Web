@@ -87,7 +87,7 @@ const ProductCard = ({ product }) => {
                 }}
                 spaceBetween={15}
                 slidesPerView={1}
-                autoplay={{ delay: 3000,}}
+                autoplay={{ delay: 5000,}}
                 navigation={true}
                 modules={[Autoplay,Navigation]}
                 className="mySwiper"
@@ -124,16 +124,17 @@ const ProductCard = ({ product }) => {
 
 
     return (
-        <Paper sx={{ height: '350px', borderRadius: '20px' }} elevation={5} 
+        <Paper sx={{ height: '350px', borderRadius: '20px', margin:'5px' }} elevation={5} 
+        
         component={motion.div} 
             whileHover={{
                 scale: 1.06,
                 transition: { duration: 0.2 },
                 color:'Black'
             }}
-            initial={{ opacity: 0 , y:50}}
-            whileInView={{ opacity: 1,y:0,  }}
-            viewport={{ amount:0.1 , once: true}}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1  }}
+            viewport={{ amount:0.3 , once: true}}
             transition={{ duration: 2 }}
             
 
@@ -141,13 +142,13 @@ const ProductCard = ({ product }) => {
         >
             
             
-            <Stack sx={{ margin: '10px', height: '100%' }}>
+            <Stack sx={{ margin: '10px', height: '100%' }} >
                 <Stack sx={{ height: '50%', margin: '10px 0px' }}>
                     {renderImages()}
                 </Stack>
                 <Stack height='50%' sx={{ padding: '0 10px' }}>
                     
-                    <Typography variant='h5' sx={{fontWeight:'bold'}}>{itemName}</Typography>
+                    <Typography variant='h5' noWrap={true} sx={{fontWeight:'bold'}}>{itemName}</Typography>
 
                     <Typography variant='h6' color='success.main'>Rs. {price}</Typography>
                     <Stack direction='row' justifyContent='center' spacing={2}>
