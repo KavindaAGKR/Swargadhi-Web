@@ -1,6 +1,6 @@
-import React from 'react'
-import { Swiper,SwiperSlide } from 'swiper/react';
-import { Autoplay,Navigation, Pagination   } from 'swiper/modules';
+import React from 'react';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -28,7 +28,7 @@ export const SwiperSlider = ({imageArray, altName,styles}) => {
                 >
 
                 {
-                imageArray.map( (item, i) => (<SwiperSlide key={item.key}><img alt={altName}  src={item.images} width='100%' height='auto' style={{borderRadius:'25px'}}/></SwiperSlide>) )
+                imageArray.map( (item, i) => (<SwiperSlide key={item.key}><img alt={altName}  src={item.src} width='100%' height='auto' style={{borderRadius:'25px'}}/></SwiperSlide>) )
                 }
             </Swiper>
   )

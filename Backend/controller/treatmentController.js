@@ -237,3 +237,31 @@ export const updateAyurvedicTreatment = async (req, res) => {
       res.status(500).json({ message: 'Internal server error', error: error.message });
     }
   };
+
+
+export const getAllEnglishTreatment = async (req, res) => {
+    try {
+        const allTreatments = await AyurvedicTreatment.find();
+
+        const treatmentsDetails = allTreatments.map(treatment => {
+            const treatmentNameEn = treatment.treatmentName.en || '';
+            const treatmentNameSi = treatment.treatmentName.si || '';
+            const descriptionEn = treatment.description.en || '';
+            const images = treatment.images || [];
+
+            return {
+                treatmentName: treatmentNameEn,
+                treatmentNameSi: treatmentNameSi,
+                price: treatment.price,
+                description: descriptionEn,
+                images: images
+            };
+        });
+
+        return res.status(200).json(treatmentsDetails);
+    } catch (error) {
+        console.error('Error fetching treatments:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+};
+  
