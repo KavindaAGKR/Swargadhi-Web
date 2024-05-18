@@ -146,7 +146,7 @@ const ProductCard = ({ product }) => {
                 <Stack sx={{ height: '50%', margin: '10px 0px' }}>
                     {renderImages()}
                 </Stack>
-                <Stack height='50%' sx={{ padding: '0 10px' }}>
+                <Stack height='50%' sx={{ padding: '0 10px' , overflow: 'auto'}}>
                     
                     <Typography variant='h5' noWrap={false} sx={{fontWeight:'bold'}}>{itemName}</Typography>
 
