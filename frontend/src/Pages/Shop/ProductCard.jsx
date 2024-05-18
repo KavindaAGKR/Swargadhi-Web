@@ -146,7 +146,7 @@ const ProductCard = ({ product }) => {
                 <Stack sx={{ height: '50%', margin: '10px 0px' }}>
                     {renderImages()}
                 </Stack>
-                <Stack height='50%' sx={{ padding: '0 10px' , overflow: 'auto'}}>
+                <Stack height='50%' sx={{ padding: '0 10px' , overflowY:'unset'}}>
                     
                     <Typography variant='h5' noWrap={false} sx={{fontWeight:'bold'}}>{itemName}</Typography>
 
@@ -182,7 +182,7 @@ const ProductCard = ({ product }) => {
                 </Stack>
                 <Dialog open={openMore} onClose={() => setOpenMore(false)} >
                     <DialogContent sx={{ width:{xs:'300px',sm:'500px', lg:'550px' },
-                                height:'500px', padding:'0px'
+                                height:'500px', padding:'0px', overflow:'unset'
                             }}>
                                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                                 <IconButton onClick={()=>setOpenMore(false)} color='success' ><CancelIcon sx={{ fontSize: 25 , }}/></IconButton>
