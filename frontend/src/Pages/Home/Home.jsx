@@ -40,7 +40,7 @@ export const Home = () => {
         <Header/>
 
         <Stack >
-        <Stack width={{xs:'80%', sm:'70%', md:'60%'}} margin='50px auto '
+        <Stack width={{xs:'90%', sm:'80%', md:'70%', lg:'60%'}} height={{xs:'300px', sm:'400px', lg:'500px'}} margin='50px auto '
               component={motion.div}
               initial={{ opacity: 0 , y:40}}
               animate={{ opacity: 1,y:0,  }}

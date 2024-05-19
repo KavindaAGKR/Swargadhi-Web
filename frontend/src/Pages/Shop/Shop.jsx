@@ -21,7 +21,7 @@ import ProductCatalog from './ProductCatalog';
         <React.Fragment>
             <Header />
             
-            <Stack sx={{ margin: '25px auto', maxWidth: '90%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Stack sx={{ margin: 'auto',  display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <TabContext value={value} sx={{width:'100%'}}>
                     <Box sx={{ margin: 'auto' }}>
                         <TabList
