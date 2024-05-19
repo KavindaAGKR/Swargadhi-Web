@@ -50,7 +50,7 @@ export const updateOrderStatus = async (req, res) => {
   try {
     const orderId = req.params.id;
     const { status } = req.body;
-
+    console.log(`Received request to update order status: orderId=${orderId}, status=${status}`);
     if (!orderId || !status) {
       return res.status(400).json({ message: 'Order ID and status are required.' });
     }
