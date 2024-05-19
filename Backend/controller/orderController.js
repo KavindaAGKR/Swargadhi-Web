@@ -1,46 +1,37 @@
 import Order from "../models/orderModel.js";
-import Cart from "../models/cartModel.js";
-import {User} from "../models/userModel.js";
-import Product from "../models/productModel.js";
-//import uniqid from "uniqid";
 
 export const createOrder = async (req, res) => {
-  const { _id } = req.user;
-  const { deliveryAddress, mobileNumber } = req.body;
   try {
-    const user = await User.findById(_id);
-    let userCart = await Cart.findOne({ orderedby: user._id });
-    let finalAmount = userCart.cartTotal;
-    let newOrder = await new Order({
-      products: userCart.products,
-      paymentIntent: {
-        id: uniqid(),
-        method: "Home Delivery",
-        amount: finalAmount,
-        status: "Processing",
-        created: Date.now(),
-        currency: "Rupees",
-      },
-      orderedby: user._id,
-      deliveryAddress,
-      mobileNumber,
-    }).save();
-    let update = userCart.products.map((item) => {
-      return {
-        updateOne: {
-          filter: { _id: item.product._id },
-          update: { $inc: { quantity: -item.count, sold: +item.count } },
-        },
-      };
-    });
-    const updated = await Product.bulkWrite(update, {});
-    res.json({ message: "success" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-};
+    const { cartItems, paymentMethod, user, addressL1, addressL2, addressL3, mobileNo, totalAmount } = req.body;
 
+    if (!user || !user._id) {
+        return res.status(400).json({ message: 'User information is missing or invalid.' });
+    }
+
+    const newOrder = new Order({
+        products: cartItems.map(item => ({
+            itemName: item.itemName,
+            price: item.price,
+            buyingCount: item.buyingCount
+        })),
+        paymentMethod,
+        orderedby: user._id, // Ensure correct property name
+        deliveryAddress: {
+            addressL1,
+            addressL2,
+            addressL3
+        },
+        mobileNumber: mobileNo,
+        totalAmount
+    });
+
+    const savedOrder = await newOrder.save();
+    res.status(201).json(savedOrder);
+} catch (error) {
+    console.error('Error creating order:', error);
+    res.status(500).json({ message: 'Error creating order', error });
+}
+};
 export const getOrders = async (req, res) => {
   const { _id } = req.user;
   try {
