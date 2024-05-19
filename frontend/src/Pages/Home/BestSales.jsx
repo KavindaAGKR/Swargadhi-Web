@@ -24,14 +24,14 @@ export const BestSales = () => {
 
 
 return(
-    <Box margin='50px auto'>
+    <Box margin='50px auto' width='90%'>
         <Typography variant='h5'>Best Sales</Typography>
 <Swiper
                 
                 spaceBetween={50}
                 slidesPerView={4}
 
-                autoplay={{ delay: 20000}}
+                autoplay={{ delay: 5000}}
                 
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}

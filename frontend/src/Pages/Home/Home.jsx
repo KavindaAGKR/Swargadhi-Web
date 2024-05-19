@@ -65,9 +65,9 @@ export const Home = () => {
           Shop Now
         </MotionButton>
 
-        <Container >
+        
           <BestSales/>
-        </Container>
+        
 
         </Stack>
         <Footer/>

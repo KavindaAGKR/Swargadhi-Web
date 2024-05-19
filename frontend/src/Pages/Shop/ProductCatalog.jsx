@@ -20,6 +20,7 @@ const ProductCatalog = ({ category }) => {
                             {products.map(product => (
                                 <Grid item key={product.productItemID} xs={12} sm={6} lg={3}>
                                     <ProductCard product={product} />
+                                    
                                 </Grid>
                             ))}
                         </Grid>

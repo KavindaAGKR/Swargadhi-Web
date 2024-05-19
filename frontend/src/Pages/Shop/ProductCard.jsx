@@ -87,18 +87,9 @@ const ProductCard = ({ product }) => {
     const [selectedQuantity, setSelectedQuantity] = useState(0);
 
 
-    //
-
-
-    // const handleAddToCart = () => {
-    //     console.log(`Added ${selectedQuantity} ${itemName} to cart`);
-    // };
-
-    // Render images using Carousel component
-    
 
     return (
-        <Paper sx={{ height: '350px', borderRadius: '20px', margin:'5px' }} elevation={5} 
+        <Paper sx={{ height: '400px', borderRadius: '20px', margin:'5px',  }} elevation={5} 
         
         component={motion.div} 
             whileHover={{
@@ -125,8 +116,8 @@ const ProductCard = ({ product }) => {
                     <Typography variant='h5' noWrap={false} sx={{fontWeight:'semiBold'}}>{itemName}</Typography>
                     <Typography  noWrap={false} >සිංහල නම මෙහි දැක්වේ</Typography>
                     <Typography variant='h6' color='success.main'>Rs. {price}</Typography>
-                    <Stack direction='row' justifyContent='center' spacing={2}>
-                        <Button variant='contained' color='success' size='small' sx={{padding:'2px', width:'200px'}} onClick={handleAddToCart}>
+                    <Stack direction='row' justifyContent='center' spacing={2} padding='0px 0px 5px 0px '>
+                        <Button variant='contained' color='success' size='small' sx={{padding:'10px 5px', width:'200px'}} onClick={handleAddToCart}>
                             Add to Cart
                         </Button>
                         <Button
@@ -157,7 +148,16 @@ const ProductCard = ({ product }) => {
                 </Stack>
 
 
-                <Dialog open={openMore} onClose={() => setOpenMore(false)} sx={{ width:{xs:'300px',sm:'500px', lg:'700px' },
+                
+
+
+                
+            </Stack>
+
+
+
+
+            <Dialog open={openMore} onClose={() => setOpenMore(false)} sx={{ width:{xs:'300px',sm:'500px', lg:'700px' },
                                 height:'1000px', margin:'auto'
                             }} overflow={false}>
                     <DialogContent  >
@@ -189,7 +189,7 @@ const ProductCard = ({ product }) => {
                             <Typography variant='body1'>{description}</Typography>
                             </Stack>
                                 <Stack gap={5} >
-                                <Button variant='contained'  color='success' sx={{padding:'5px', width:'140px'}} onClick={handleAddToCart}>
+                                <Button variant='contained'  color='success' sx={{padding:'5px 10px', width:'140px'}} onClick={handleAddToCart}>
                                     Add to Cart
                                 </Button>
                                 <Button variant='contained' color='success' sx={{padding:'5px', width:'140px'}} onClick={handleBuyNow}>
@@ -217,11 +217,6 @@ const ProductCard = ({ product }) => {
             </Snackbar>
                     </DialogContent>
                 </Dialog>
-
-
-                
-            </Stack>
-
 
         </Paper>
     );
