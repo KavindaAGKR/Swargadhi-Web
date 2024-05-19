@@ -21,15 +21,15 @@ import ProductCatalog from './ProductCatalog';
         <React.Fragment>
             <Header />
             
-            <Stack sx={{ margin: '25px auto', maxWidth: '90%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <TabContext value={value} sx={{width:'100%'}}>
+            <Stack sx={{ margin: 'auto',  display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <TabContext value={value} sx={{width:'90%', padding:'0px'}}>
                     <Box sx={{ margin: 'auto' }}>
                         <TabList
                             onChange={handleChange}
                             variant="scrollable"
                             scrollButtons
                             allowScrollButtonsMobile
-                            sx={{ width: { xs: '300px', sm: '500px', md: 'auto' } }}
+                            sx={{ width: { xs: '300px', sm: '500px', md: 'auto' } , padding:'0px'}}
                         >
                             <Tab label='All Products' value='all' />
                             <Tab label='Kalka' value='kalka' />
@@ -43,7 +43,7 @@ import ProductCatalog from './ProductCatalog';
 
 
                     
-                    <TabPanel value='all' sx={{width:'100%'}}>
+                    <TabPanel value='all' sx={{width:'95%', padding:'0px'}}>
                     <ProductCatalog category="all" />
                     </TabPanel>
                     <TabPanel value='kalka' sx={{width:'100%'}}>
@@ -64,6 +64,7 @@ import ProductCatalog from './ProductCatalog';
                     <TabPanel value='Kashay' sx={{width:'100%'}}>
                     <ProductCatalog category="Kashaya" />
                     </TabPanel>
+                
                 </TabContext>
             </Stack>
             <Footer />

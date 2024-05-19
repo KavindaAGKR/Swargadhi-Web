@@ -24,14 +24,14 @@ export const BestSales = () => {
 
 
 return(
-    <Box margin='50px auto'>
+    <Box margin='50px auto' width='90%'>
         <Typography variant='h5'>Best Sales</Typography>
 <Swiper
                 
                 spaceBetween={50}
                 slidesPerView={4}
 
-                autoplay={{ delay: 20000}}
+                autoplay={{ delay: 5000}}
                 
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
@@ -77,7 +77,7 @@ export const HomeSwiper = ({imageArray}) => {
                 spaceBetween={15}
                 slidesPerView={1}
                 centeredSlides={true}
-                autoplay={{ delay: 4000,}}
+                autoplay={{ delay: 100000,}}
                 
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
@@ -88,12 +88,13 @@ export const HomeSwiper = ({imageArray}) => {
                     width: '100%',
                     '--swiper-navigation-color': '#0DFE0D',
                     '--swiper-pagination-color': '#0DFE0D',
-                    borderRadius:'25px'
+                    borderRadius:'25px',
+                    minHeight:'100%'
                 }}
                 >
 
                 {
-                imageArray.map( (item, i) => (<SwiperSlide key={item.key}><img alt={item.key} src={item.images} width='100%' height='auto' style={{borderRadius:'25px'}}/></SwiperSlide>) )
+                imageArray.map( (item, i) => (<SwiperSlide key={item.key}><img alt={item.key} src={item.images}  width='100%' height='100%'  style={{borderRadius:'25px'}}/></SwiperSlide>) )
                 }
             </Swiper>
     )

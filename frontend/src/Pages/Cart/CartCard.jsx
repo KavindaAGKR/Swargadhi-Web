@@ -13,13 +13,13 @@ export const CartCard = ({ item}) => {
     const dispatch = useDispatch();
 
 
-    // const [buyingCountt, setBuyingCount] = useState(1)
+     const [buyingCountt, setBuyingCount] = useState(buyingCount)
     const [error, setError] = useState(false)
-    const productTotPrice = buyingCount*price;
+    const productTotPrice = buyingCountt*price;
 
 
     const handleBuyingCountChange = (value) => {
-        // setBuyingCount(value);
+        setBuyingCount(value);
         dispatch(updateItemBuyingCount({ productItemID, buyingCount: value }));
         if (value>quantity || value<1) {
             setError(true);
@@ -79,7 +79,7 @@ const handleRemoveClick = () => {
                         
                         error={error}
                         helperText={error? 'Invalid quentity': ''}
-                        defaultValue={buyingCount || 1}
+                        defaultValue={1 || buyingCount}
                         inputProps={{ min: 1, max: quantity, style: { padding: '0px 0px 0 10px', display: 'all', width:'40px' } }}
                     />
                 </Stack>
