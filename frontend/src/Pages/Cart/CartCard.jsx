@@ -15,7 +15,7 @@ export const CartCard = ({ item}) => {
 
      const [buyingCountt, setBuyingCount] = useState(buyingCount)
     const [error, setError] = useState(false)
-    const productTotPrice = buyingCountt*price;
+    const productTotPrice = buyingCount*price;
 
 
     const handleBuyingCountChange = (value) => {
@@ -74,12 +74,12 @@ const handleRemoveClick = () => {
                     <TextField
                         type='number'
                         onChange={(e) => {handleBuyingCountChange(parseInt(e.target.value));
-                            // setBuyingCount(e.target.value)
+                        
                         }}
                         
                         error={error}
                         helperText={error? 'Invalid quentity': ''}
-                        defaultValue={1 || buyingCount}
+                        defaultValue={buyingCount || 1}
                         inputProps={{ min: 1, max: quantity, style: { padding: '0px 0px 0 10px', display: 'all', width:'40px' } }}
                     />
                 </Stack>

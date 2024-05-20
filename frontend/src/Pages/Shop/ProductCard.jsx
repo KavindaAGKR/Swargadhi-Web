@@ -97,10 +97,10 @@ const ProductCard = ({ product }) => {
                 transition: { duration: 0.1 },
                 color:'Black'
             }}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1  }}
+            initial={{ opacity: 0,transition: { duration: 0.1 }, }}
+            whileInView={{ opacity: 1 , transition: { duration: 1 },  }}
             viewport={{ amount:0.3 , once: true}}
-            transition={{ duration: 0.1 }}
+            
             
 
 
