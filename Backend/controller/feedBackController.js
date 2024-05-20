@@ -1,28 +1,27 @@
-// feedBackController.js
 import mongoose from 'mongoose';
 import Feedback from '../models/feedBackModel.js';
 
 // Create Feedback Controller
 export const createFeedback = async (request, response) => {
     try {
-        const { UserName, feedBack } = request.body;
+        const { givenBy, feedBack } = request.body;
 
-        if (!UserName || !feedBack) {
+        if (!givenBy || !feedBack) {
             return response.status(400).json({
-                message: 'Please provide UserName and feedBack',
+                message: 'Please provide user ID and feedback',
                 alert: 'error'
             });
         }
 
-        const newFeedback = {
-            UserName,
+        const newFeedback = new Feedback({
+            givenBy,
             feedBack,
-        };
+        });
 
-        const feedback = await Feedback.create(newFeedback);
+        const saveFeedback = await newFeedback.save();
 
         return response.status(201).json({
-            feedback,
+            feedback: saveFeedback,
             message: 'Feedback created successfully',
             alert: 'success'
         });
@@ -32,19 +31,18 @@ export const createFeedback = async (request, response) => {
         response.status(500).json({ message: 'Internal Server Error', alert: 'error' });
     }
 };
-
 // Get all Feedbacks Controller
-export const getAllFeedbacks = async (request, response) => {
+// Add this function to your controller file
+export const getAllFeedback = async (request, response) => {
     try {
-        // Your implementation here
+        const feedbackList = await Feedback.find().populate('givenBy', 'firstName lastName'); 
+        return response.status(200).json(feedbackList);
     } catch (error) {
-        console.log(error.message);
-        response.status(500).json({
-            message: error.message,
-            alert: false
-        });
+        console.error(error.message);
+        response.status(500).json({ message: 'Internal Server Error', alert: 'error' });
     }
 };
+
 
 // Get Feedback by ID Controller
 export const getFeedbackById = async (request, response) => {

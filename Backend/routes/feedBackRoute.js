@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/', feedBackController.createFeedback);
 
 // Get all Feedbacks
-router.get('/create', feedBackController.getAllFeedbacks);
+router.get('/get', feedBackController.getAllFeedback);
 
 // Get Feedback by ID
 router.get('/:id', feedBackController.getFeedbackById);

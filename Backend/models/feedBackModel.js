@@ -2,17 +2,14 @@ import mongoose from "mongoose";
 
 // Declare the Schema of the Mongo model
 const feedbackSchema = new mongoose.Schema({
-    UserName: {
-        type: String,
-        required: true,
-    },
-   
     feedBack: {
         type: String,
         required: true,
     },
-    user:{
+    givenBy:{
         type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required:true
       }
    
 });
