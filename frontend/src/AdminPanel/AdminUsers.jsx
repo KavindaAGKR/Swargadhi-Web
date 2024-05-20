@@ -32,6 +32,9 @@ export const AdminUsers = () => {
     try {
       const response = await fetch(`http://localhost:5000/api/user/users/${id}`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
 
       if (response.ok) {

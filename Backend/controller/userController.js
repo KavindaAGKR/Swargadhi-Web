@@ -97,6 +97,7 @@ export const getAllUsers = async (req, res) => {
 
       // Modify each user to include only firstName, lastName, and email
       const usersWithFilteredDetails = users.map(user => ({
+          _id:user._id,
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email
