@@ -1,4 +1,4 @@
-import React, {useRef } from 'react'
+import React, {useEffect, useRef, useState } from 'react'
 import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
 import { Button, Container, List, Stack, Typography } from '@mui/material'
@@ -18,63 +18,62 @@ import { motion } from "framer-motion"
 
 
 // dummy data
-const ayurvedicTreatments = [
-  {
-      key: 1,
-      treatmentNameEn: "Sinhasa Treatment",
-      treatmentNameSi: "සිටුවල් ස්ථානය",
-      price: "5000 LKR",
-      descriptionEn: "Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.",
-      descriptionSi: "සිටුවල් ස්ථානය සඳහා ආයුර්වේද ප්‍රදේශය භාවිතයේ ජනවාරි අයිරිපාලය, රුසිරු හෝ සුළඟ වැනි අයුරික්‍රියකට භාවිතයේ බොහෝ විනිසුරු සහ පියතුමාලා ප්‍රදේශ හෝ සප්පාදු මල් වැනි රුත්‍රක් බහුලූණ ප්‍රකාශකාරකයා විසින් පහත ස්ථානයේ මූලික අයුරින් ස්වයංක්‍රීයයි පහසුකම් හා සිදුකරයි.",
-      images: [slide1]
-  },
-  {
-    key: 2,
-      treatmentNameEn: "Ukka Treatment",
-      treatmentNameSi: "උක්ට ස්ථානය",
-      price: "7500 LKR",
-      descriptionEn: "Ayurvedic treatment for arthritis involves massage with herbal oils, application of herbal poultices, and consumption of herbal formulations to reduce inflammation and alleviate pain.",
-      descriptionSi: "ක්‍රීඩ්මුට් සඳහා ආයුර්වේද ප්‍රදේශය සහිත ස්වයංක්‍රීය බහුලූණ බොහෝ ප්‍රකාශකයි. එය පාතුවන් හෝ මීරුම ස්ථාන සඳහා හිරුම් තුනකට මස්වත් ස්වයංක්‍රීය හෝ ස්වයංක්‍රීය පොහොර භාවිතයේ හා බොහෝ අයුරින් ස්වයංක්‍රීය ප්‍රකාශකාරකයා විසින් ස්වයංක්‍රීයයි සහ බුද්ධි පියතුමාලා ප්‍රකාශකාරකයා සහිත ස්වයංක්‍රීය ප්‍රකාශකයි.",
-      images: [slide2]
-  },
-  {
-    key: 3,
-      treatmentNameEn: "Ruka Treatment",
-      treatmentNameSi: "රුක ස්ථානය",
-      price: "6000 LKR",
-      descriptionEn: "Ayurvedic treatment for eczema involves topical application of herbal pastes, internal consumption of herbal formulations, and dietary modifications to reduce inflammation and itching.",
-      descriptionSi: "ඇයිඩාස් සඳහා ආයුර්වේද ප්‍රදේශය භාවිතයේ බොහෝ විනිසුරු ලෙස සුළඟ වැනි ප්‍රතිරූ භාවිතා කිරීම, අයුරින් ස්වයංක්‍රීය ප්‍රකාශ හෝ සප්පාදු ප්‍රකාශ හෝ වෙනත් සංස්කෘතියක් මඟින් සුළඟ හා සත්කාර වූවත් ප්‍රකාශකයා විසින් අයුරින් ස්වයංක්‍රීයයි.",
-      images: [slide3]
-  },
-  {
-    key: 4,
-      treatmentNameEn: "Diwayina Treatment",
-      treatmentNameSi: "දිවයින ස්ථානය",
-      price: "8000 LKR",
-      descriptionEn: "Ayurvedic treatment for diabetes involves dietary modifications, regular physical exercise, and consumption of herbal formulations to regulate blood sugar levels.",
-      descriptionSi: "මගේ ඇයිඩාස් රෝගයට ප්‍රදේශයක් ලබා දීම පිළිබඳව, බොහෝ අයුරින් මගේ ඇයිඩාස් පහසුකම් හා නිර්මාණශීලී ප්‍රකාශකාරකයා සහිත අයුරින් ස්වයංක්‍රීයයි.",
-      images: [slide1]
-  },
-  {
-    key: 5,
-      treatmentNameEn: "Asudhu Samanakarana Treatment",
-      treatmentNameSi: "අසූදු සමානාකරණය ස්ථානය",
-      price: "5500 LKR",
-      descriptionEn: "Ayurvedic treatment for digestive disorders involves dietary modifications, consumption of herbal formulations, and lifestyle changes.",
-      descriptionSi: "පාළි වර්ගයන්ට සඳහා ආයුර්වේද ප්‍රදේශය සහිත පොහොර හා ස්වයංක්‍රීය ප්‍රකාශ හෝ වෛරයෙහි වෙනස් වීම් සඳහා හා ප්‍රකාශිත විනිසුරු භාවිතයේ සිදුකරයි.",
-      images: [slide2]
-  },
-  {
-    key: 6,
-      treatmentNameEn: "Nivsitha Treatment",
-      treatmentNameSi: "නිව්සිත්ථා ස්ථානය",
-      price: "7000 LKR",
-      descriptionEn: "Ayurvedic treatment for insomnia involves relaxation techniques, consumption of herbal formulations, and establishing a consistent bedtime routine.",
-      descriptionSi: "විශේෂඥයේදී, අයුරින් ස්වයංක්‍රීය ප්‍රකාශ හා සුවිශේෂිත ප්‍රකාශ ස්ථානය සහිත අයුරින් ස්වයංක්‍රීයයි.",
-      images: [slide3]
-  }
-];
-
+// const ayurvedicTreatments = [
+//   {
+//       key: 1,
+//       treatmentNameEn: "Sinhasa Treatment",
+//       treatmentNameSi: "සිටුවල් ස්ථානය",
+//       price: "5000 LKR",
+//       descriptionEn: "Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.Ayurvedic treatment for sinusitis involves nasal irrigation, herbal steam inhalation, and consumption of herbal formulations to reduce inflammation and clear congestion.",
+//       descriptionSi: "සිටුවල් ස්ථානය සඳහා ආයුර්වේද ප්‍රදේශය භාවිතයේ ජනවාරි අයිරිපාලය, රුසිරු හෝ සුළඟ වැනි අයුරික්‍රියකට භාවිතයේ බොහෝ විනිසුරු සහ පියතුමාලා ප්‍රදේශ හෝ සප්පාදු මල් වැනි රුත්‍රක් බහුලූණ ප්‍රකාශකාරකයා විසින් පහත ස්ථානයේ මූලික අයුරින් ස්වයංක්‍රීයයි පහසුකම් හා සිදුකරයි.",
+//       images: [slide1]
+//   },
+//   {
+//     key: 2,
+//       treatmentNameEn: "Ukka Treatment",
+//       treatmentNameSi: "උක්ට ස්ථානය",
+//       price: "7500 LKR",
+//       descriptionEn: "Ayurvedic treatment for arthritis involves massage with herbal oils, application of herbal poultices, and consumption of herbal formulations to reduce inflammation and alleviate pain.",
+//       descriptionSi: "ක්‍රීඩ්මුට් සඳහා ආයුර්වේද ප්‍රදේශය සහිත ස්වයංක්‍රීය බහුලූණ බොහෝ ප්‍රකාශකයි. එය පාතුවන් හෝ මීරුම ස්ථාන සඳහා හිරුම් තුනකට මස්වත් ස්වයංක්‍රීය හෝ ස්වයංක්‍රීය පොහොර භාවිතයේ හා බොහෝ අයුරින් ස්වයංක්‍රීය ප්‍රකාශකාරකයා විසින් ස්වයංක්‍රීයයි සහ බුද්ධි පියතුමාලා ප්‍රකාශකාරකයා සහිත ස්වයංක්‍රීය ප්‍රකාශකයි.",
+//       images: [slide2]
+//   },
+//   {
+//     key: 3,
+//       treatmentNameEn: "Ruka Treatment",
+//       treatmentNameSi: "රුක ස්ථානය",
+//       price: "6000 LKR",
+//       descriptionEn: "Ayurvedic treatment for eczema involves topical application of herbal pastes, internal consumption of herbal formulations, and dietary modifications to reduce inflammation and itching.",
+//       descriptionSi: "ඇයිඩාස් සඳහා ආයුර්වේද ප්‍රදේශය භාවිතයේ බොහෝ විනිසුරු ලෙස සුළඟ වැනි ප්‍රතිරූ භාවිතා කිරීම, අයුරින් ස්වයංක්‍රීය ප්‍රකාශ හෝ සප්පාදු ප්‍රකාශ හෝ වෙනත් සංස්කෘතියක් මඟින් සුළඟ හා සත්කාර වූවත් ප්‍රකාශකයා විසින් අයුරින් ස්වයංක්‍රීයයි.",
+//       images: [slide3]
+//   },
+//   {
+//     key: 4,
+//       treatmentNameEn: "Diwayina Treatment",
+//       treatmentNameSi: "දිවයින ස්ථානය",
+//       price: "8000 LKR",
+//       descriptionEn: "Ayurvedic treatment for diabetes involves dietary modifications, regular physical exercise, and consumption of herbal formulations to regulate blood sugar levels.",
+//       descriptionSi: "මගේ ඇයිඩාස් රෝගයට ප්‍රදේශයක් ලබා දීම පිළිබඳව, බොහෝ අයුරින් මගේ ඇයිඩාස් පහසුකම් හා නිර්මාණශීලී ප්‍රකාශකාරකයා සහිත අයුරින් ස්වයංක්‍රීයයි.",
+//       images: [slide1]
+//   },
+//   {
+//     key: 5,
+//       treatmentNameEn: "Asudhu Samanakarana Treatment",
+//       treatmentNameSi: "අසූදු සමානාකරණය ස්ථානය",
+//       price: "5500 LKR",
+//       descriptionEn: "Ayurvedic treatment for digestive disorders involves dietary modifications, consumption of herbal formulations, and lifestyle changes.",
+//       descriptionSi: "පාළි වර්ගයන්ට සඳහා ආයුර්වේද ප්‍රදේශය සහිත පොහොර හා ස්වයංක්‍රීය ප්‍රකාශ හෝ වෛරයෙහි වෙනස් වීම් සඳහා හා ප්‍රකාශිත විනිසුරු භාවිතයේ සිදුකරයි.",
+//       images: [slide2]
+//   },
+//   {
+//     key: 6,
+//       treatmentNameEn: "Nivsitha Treatment",
+//       treatmentNameSi: "නිව්සිත්ථා ස්ථානය",
+//       price: "7000 LKR",
+//       descriptionEn: "Ayurvedic treatment for insomnia involves relaxation techniques, consumption of herbal formulations, and establishing a consistent bedtime routine.",
+//       descriptionSi: "විශේෂඥයේදී, අයුරින් ස්වයංක්‍රීය ප්‍රකාශ හා සුවිශේෂිත ප්‍රකාශ ස්ථානය සහිත අයුරින් ස්වයංක්‍රීයයි.",
+//       images: [slide3]
+//   }
+// ];
 
 
 
@@ -87,10 +86,35 @@ const ayurvedicTreatments = [
 
 export const DispensarySi = () => {
 
+  const [ayurvedicTreatments, setTreatments] = useState([]);
 
+  useEffect(() => {
+    const fetchTreatments = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/treatment/treatments');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          setTreatments(data);
+          
+        } else {
+          console.error('Expected data to be an array');
+        }
+      } catch (error) {
+        console.error('Error fetching treatments:', error);
+      }
+    };
 
-  const sectionRefs = useRef(Array(ayurvedicTreatments.length).fill(null).map(() => React.createRef()));
+    fetchTreatments();
+  }, []);
+  
 
+  const sectionRefs = useRef([]);
+  sectionRefs.current = ayurvedicTreatments.map(
+    (item, i) => sectionRefs.current[i] ?? React.createRef()
+  );
   // Function to scroll to a specific section
   const scrollToSection = (index) => {
     sectionRefs.current[index].current.scrollIntoView({ behavior: 'smooth' });
@@ -103,7 +127,7 @@ export const DispensarySi = () => {
 <ScrollToTop smooth={true}/>
         <Header/>
 
-<Stack >
+<Stack minHeight='1000px'>
         <Stack  color='green'  direction='row' margin='25px' justifyContent='center' gap={2}>
                 <MedicalInformationIcon sx={{fontSize:'60px'}} />
                 <Typography variant='h2'  >
@@ -117,14 +141,18 @@ export const DispensarySi = () => {
           <Stack direction={{xs:'column', md:'row'}} width='90%'  margin='auto' justifyContent='center' alignItems='center'>
             <Stack width={{xs:'70%', md:'40%'}}
             component={motion.div}
-            initial={{ opacity: 0 , x:-40}}
-  whileInView={{ opacity: 1,x:0,  }}
+            initial={{ opacity: 0 ,}}
+  whileInView={{ opacity: 1  }}
   viewport={{ amount:0.3}}
   transition={{ duration: 2 }}
   
             >
 
-              <SwiperSlider imageArray={ayurvedicTreatments} altName='Dispensary Treatments' styles={{
+              <SwiperSlider
+              imageArray={ayurvedicTreatments.flatMap(treatment =>
+                treatment.images.map(image => ({ src: `http://localhost:5000${image}`, alt: treatment.treatmentName }))
+            )}
+               altName='Dispensary Treatments' styles={{
                 margin:'auto',
     width: '100%',
     '--swiper-navigation-color': '#0DFE0D',
@@ -136,10 +164,10 @@ export const DispensarySi = () => {
             
             <Stack sx={{backgroundColor:'#F9E8E8', margin:'0px 20px' , borderRadius:'15px' ,padding:'20px', width:{xs:'80%', md:'60%'}}} 
             component={motion.div}
-            initial={{ opacity: 0 , x:40}}
-  whileInView={{ opacity: 1,x:0,  }}
+            initial={{ opacity: 0}}
+  whileInView={{ opacity: 1 }}
   viewport={{ amount:0.3}}
-  transition={{ duration: 1 }}
+  transition={{ duration: 2 }}
             >
               <Typography variant='h4' textAlign='center' margin='25px'>ප්‍රතිකාර ක්‍රම</Typography>
               <Stack gap={3}>
@@ -204,7 +232,15 @@ export const DispensarySi = () => {
               <Typography variant='h4'  textAlign='center'>{item.treatmentNameSi}</Typography>
               <Stack width='100%'>
               <Stack Stack direction={{xs:'column', md:'row'}} margin='20px' height='auto' gap={2}>
-              <img  src={item.images} style={{width:'40%' , height:'60%' }}/>
+              <img
+                  src={`http://localhost:5000${item.images[0]}`}
+                  style={{ width: '35%', height: 'auto' }}
+                  alt={item.treatmentName}
+                  onError={(e) => {
+                    console.error(`Failed to load image: ${e.target.src}`);
+                    e.target.onerror = null; 
+                  }}
+                />
             <Stack sx={{textAlign:'justify'}}>
             
             <List
