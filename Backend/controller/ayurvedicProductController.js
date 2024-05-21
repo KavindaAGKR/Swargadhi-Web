@@ -469,3 +469,38 @@ export const getEnglishAyurvedicProductsByCategory = async (request, response) =
         return response.status(500).json({ message: 'Internal server error' });
     }
 };
+
+// Search Ayurvedic products
+export const searchAyurvedicProducts = async (req, res) => {
+    try {
+        const { query } = req.query;
+
+        if (!query) {
+            return res.status(400).json({ message: 'Search query is required' });
+        }
+
+        // Construct search criteria
+        const searchCriteria = {
+            $or: [
+                { 'itemName.en': { $regex: query, $options: 'i' } },
+                { 'itemName.si': { $regex: query, $options: 'i' } },
+                { 'description.en': { $regex: query, $options: 'i' } },
+                { 'description.si': { $regex: query, $options: 'i' } },
+                { 'category.en': { $regex: query, $options: 'i' } },
+                { 'category.si': { $regex: query, $options: 'i' } }
+            ]
+        };
+
+        // Fetch products matching the search criteria
+        const ayurvedicProducts = await AyurvedicProduct.find(searchCriteria);
+
+        // Return the search results
+        return res.status(200).json({
+            count: ayurvedicProducts.length,
+            data: ayurvedicProducts
+        });
+    } catch (error) {
+        console.error('Error searching products:', error);
+        res.status(500).json({ message: 'Internal server error', error: error.message });
+    }
+};
