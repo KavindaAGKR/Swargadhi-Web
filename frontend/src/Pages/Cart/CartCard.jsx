@@ -65,7 +65,7 @@ const handleRemoveClick = () => {
 
             <Stack direction='column' width='40%'>
                 <Typography>{itemName}</Typography>
-                <Typography>{itemName.si}</Typography>
+                <Typography>{itemName}</Typography>
                 <Typography>Unit price: Rs. {price}</Typography>
             </Stack>
             <Stack direction='column' width='20%'>
