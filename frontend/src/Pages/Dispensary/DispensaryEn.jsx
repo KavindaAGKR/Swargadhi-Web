@@ -48,14 +48,14 @@ export const DispensaryEn = () => {
 
 
   return (
-    <React.Fragment>
+    <React.Fragment width='100%'>
 <ScrollToTop smooth={true}/>
         <Header/>
 
 <Stack minHeight='1000px'>
         <Stack  color='green'  direction='row' margin='25px' justifyContent='center' gap={2}>
                 <MedicalInformationIcon sx={{fontSize:'60px'}} />
-                <Typography variant='h2'  >
+                <Typography variant='h3'  >
                 Dispensary
                 </Typography>
         </Stack>
@@ -145,9 +145,9 @@ export const DispensaryEn = () => {
               <motion.div 
               key={item.key} ref={sectionRefs.current[i]}
              
-              style={{width:'70%', justifyContent:'center'}}
-              initial={{ opacity: 0 , x:20}}
-  whileInView={{ opacity: 1,x:0,  }}
+              style={{width:'90%', justifyContent:'center', margin:'auto'}}
+              initial={{ opacity: 0 , y:-20}}
+  whileInView={{ opacity: 1,y:0,  }}
   viewport={{ amount:0.3}}
   transition={{ duration: 2 }}
 
@@ -156,22 +156,24 @@ export const DispensaryEn = () => {
               backgroundColor='#C6F6D4' style={{borderRadius:'20px',margin:'25px auto ',  padding:'20px', height:'500px'}} >
               <Typography variant='h4'  textAlign='center'>{item.treatmentName}</Typography>
               <Stack width='100%'>
-              <Stack Stack direction={{xs:'column', md:'row'}} margin='20px' height='auto' gap={2}>
+              <Stack Stack direction={{xs:'column', md:'row'}} margin='20px' height='100%' gap={2}>
+              <Stack style={{ width:{xs:'60%', md:'60%'} , height:{xs:'40%', md:'auto'}  }}>
               <img
                   src={`http://localhost:5000${item.images[0]}`}
-                  style={{ width: '35%', height: 'auto' }}
+                  style={{ width:'100%', height:'100%'  }}
                   alt={item.treatmentNameSi}
                   onError={(e) => {
                     console.error(`Failed to load image: ${e.target.src}`);
                     e.target.onerror = null; 
                   }}
                 />
+              </Stack>
             <Stack sx={{textAlign:'justify'}}>
             
             <List
             sx={{
               width: '100%',
-              height:'300px',
+              height:'60%',
               bgcolor: 'background.paper',
               position: 'relative',
               overflow: 'auto',

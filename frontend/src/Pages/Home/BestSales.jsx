@@ -31,9 +31,9 @@ return(
                 spaceBetween={50}
                 slidesPerView={4}
 
-                autoplay={{ delay: 5000}}
+                autoplay={{ delay: 1000}}
                 
-                navigation={true}
+                navigation={false}
                 modules={[Autoplay, Pagination, Navigation]}
                 className="mySwiper"
                 speed={1200}
@@ -52,8 +52,8 @@ return(
                 
                 }}
                 >
-                            {products.map(product => (
-                                <SwiperSlide key={product.productItemID} style={{padding:'25px 0px'}}>
+                            {products.map((product,i) => (
+                                <SwiperSlide key={i} style={{padding:'25px 0px'}}>
                                 
                                     <ProductCard product={product} />
                                     
@@ -77,7 +77,7 @@ export const HomeSwiper = ({imageArray}) => {
                 spaceBetween={15}
                 slidesPerView={1}
                 centeredSlides={true}
-                autoplay={{ delay: 100000,}}
+                autoplay={{ delay: 1000,}}
                 
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}

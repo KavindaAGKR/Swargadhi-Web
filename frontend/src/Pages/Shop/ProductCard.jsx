@@ -94,7 +94,7 @@ const ProductCard = ({ product }) => {
         
         component={motion.div} 
             whileHover={{
-                scale: 1.0,
+                scale: 1.06,
                 transition: { duration: 0.1 },
                 color:'Black',
                 
