@@ -21,7 +21,7 @@ import ProductCatalog from './ProductCatalog';
         <React.Fragment>
             <Header />
             
-            <Stack sx={{ margin: 'auto',  display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Stack sx={{ margin: 'auto',  display: 'flex', justifyContent: 'center', alignItems: 'center' , width:'95%'}}>
                 <TabContext value={value} sx={{width:'90%', padding:'0px'}}>
                     <Box sx={{ margin: 'auto' }}>
                         <TabList
@@ -43,7 +43,7 @@ import ProductCatalog from './ProductCatalog';
 
 
                     
-                    <TabPanel value='all' sx={{width:'95%', padding:'0px'}}>
+                    <TabPanel value='all' sx={{width:'100%', padding:'0px'}}>
                     <ProductCatalog category="all" />
                     </TabPanel>
                     <TabPanel value='kalka' sx={{width:'100%'}}>

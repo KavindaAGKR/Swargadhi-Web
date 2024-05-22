@@ -189,6 +189,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { Header } from '../../Components/Header';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../redux/slices/userSlice';
+import { MotionButton } from '../../Components/FramerMotion/MotionButton';
 
 export const CheckOut = () => {
     const location = useLocation();
@@ -242,33 +243,23 @@ export const CheckOut = () => {
     return (
         <React.Fragment>
             <Header />
-            <Stack>
+            <Stack margin="25px">
                 <Stack direction="row" margin="auto" color="green" gap={1}>
                     <ShoppingBasketIcon sx={{ fontSize: '60px' }} />
                     <Typography variant="h2" sx={{ marginBottom: '25px' }}>
                         Check Out
                     </Typography>
                 </Stack>
-                <Stack direction={{ xs: 'column', md: 'row' }} gap={3} justifyContent="center">
-                    <Stack margin="25px" gap={5} sx={{ backgroundColor: '#DDF9DD', height: '500px', padding: '25px', width: { xs: '90%', md: '40%' } }}>
-                        <Typography align="left" variant="h4">Order Summary</Typography>
-                        <Typography align="center" variant="h5">Total Amount: {totalAmount}</Typography>
-                        <ToggleButtonGroup onClick={(e) => handlePaymentMethod(e.target.value)} value={paymentMethod} exclusive orientation="vertical" sx={{ width: '70%', margin: 'auto' }}>
-                            <Typography>Select your payment method:</Typography>
-                            <ToggleButton value="cashOnDelivery"><LocalShippingIcon sx={{ fontSize: '100px' }} />Cash on Delivery</ToggleButton>
-                            <ToggleButton value="cardpayment" disabled><AddCardIcon sx={{ fontSize: '100px', display: 'flex', flexDirection: 'column' }} />Card Payment</ToggleButton>
-                            <Typography color="error">Card Payment isn't available right now!</Typography>
-                        </ToggleButtonGroup>
-                        <Button onClick={handlePlaceOrder}>Place Order</Button>
-                    </Stack>
-                    <Stack width={{ xs: '90%', md: '60%' }} margin="25px" gap={2}>
+                <Stack direction={{ xs: 'column', md: 'row' }}   gap={2}>
+
+                    <Stack width={{ xs: '100%', md: '60%' }}  gap={2} justifyContent="center">
                         <Stack sx={{ backgroundColor: '#DDF9DD', padding: '25px' }}>
                             <Typography variant="h4">Delivery Details</Typography>
-                            <Table>
-                                <TableBody>
+                            <Table width='300px'>
+                                <TableBody width='300px'>
                                     <TableRow>
                                         <TableCell>Full Name</TableCell>
-                                        <TableCell>{user.firstName} {user.lastName}</TableCell>
+                                        <TableCell >{user.firstName} {user.lastName}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>Email</TableCell>
@@ -311,6 +302,18 @@ export const CheckOut = () => {
                                 </TableBody>
                             </Table>
                         </Stack>
+                    </Stack>
+                    <Stack  gap={1} sx={{ backgroundColor: '#DDF9DD', height: '550px',  width: { xs: '100%', md: '40%' } }} >
+                        <Typography padding='25px' align="left" variant="h4">Order Summary</Typography>
+                        
+                        <ToggleButtonGroup onClick={(e) => handlePaymentMethod(e.target.value)} value={paymentMethod} exclusive orientation="vertical" sx={{ width: '70%', margin: '0px auto' }}>
+                            <Typography margin='5px'>Select your payment method: </Typography>
+                            <ToggleButton value="cashOnDelivery"><LocalShippingIcon sx={{ fontSize: '100px' }} />Cash on Delivery</ToggleButton>
+                            <ToggleButton value="cardpayment" disabled><AddCardIcon sx={{ fontSize: '100px', display: 'flex', flexDirection: 'column' }} />Card Payment</ToggleButton>
+                            <Typography color="error">Card Payment isn't available right now!</Typography>
+                        </ToggleButtonGroup>
+                        <Typography align="center" variant="h5" margin='15px'>Total Amount: {totalAmount}</Typography>
+                        <MotionButton  onClick={handlePlaceOrder} variant='contained' style={{width:'150px', margin:'auto'}} >Place Order</MotionButton>
                     </Stack>
                 </Stack>
             </Stack>

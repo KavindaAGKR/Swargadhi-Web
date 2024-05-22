@@ -89,15 +89,18 @@ const ProductCard = ({ product }) => {
 
 
     return (
-        <Paper sx={{ height: '400px', borderRadius: '20px', margin:'5px',  }} elevation={5} 
+        <Paper sx={{ height: '400px', borderRadius: '20px', margin:'5px',  }} 
+        elevation={5}
         
         component={motion.div} 
             whileHover={{
-                scale: 1.06,
+                scale: 1.0,
                 transition: { duration: 0.1 },
-                color:'Black'
+                color:'Black',
+                
+                
             }}
-            initial={{ opacity: 0,transition: { duration: 0.1 }, }}
+            initial={{ opacity: 0,transition: { duration: 0.1 },}}
             whileInView={{ opacity: 1 , transition: { duration: 1 },  }}
             viewport={{ amount:0.3 , once: true}}
             

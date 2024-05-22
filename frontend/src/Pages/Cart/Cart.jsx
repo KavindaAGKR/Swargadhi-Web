@@ -82,8 +82,8 @@ export const Cart = () => {
                         </Button>
                     </Stack>
                 ) : (
-                    <Stack direction='row' padding='20px'>
-                        <Stack sx={{ width: '70%' }} justifyContent='center' alignItems='center' spacing={5}>
+                    <Stack direction={{xs:'column',md:'row'}}   margin='20px' >
+                        <Stack sx={{ width: {xs:'95%', md:'65%'} }} justifyContent='center' alignItems='center' gap={5} margin='20px auto' >
                             {cartItems.map((item) => (
                                 <CartCard key={item.productItemID} item={item} />
                             ))}
@@ -91,7 +91,7 @@ export const Cart = () => {
                             Buy More Products
                         </Button>
                         </Stack>
-                        <Stack sx={{ width: '30%' }}>
+                        <Stack sx={{ width: {xs:'100%',sm:'80%', md:'35%'}, margin:'20px auto ' }} >
                             <Paper elevation={5} sx={{ padding: '50px' }}>
                                 <Grid container spacing={2}>
                                 <Grid item xs={8} md={8}>
@@ -120,7 +120,7 @@ export const Cart = () => {
                                     </Grid>
                                 </Grid>
 
-                                <Stack margin='25px auto' width='60%'>
+                                <Stack margin='25px auto' width='auto'>
                                     <Button variant='contained' onClick={()=> {
                                         HandleCheckout();
                                     }}>Proceed to Checkout</Button>

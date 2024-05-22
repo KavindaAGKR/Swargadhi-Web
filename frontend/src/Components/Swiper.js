@@ -19,7 +19,7 @@ export const SwiperSlider = ({imageArray, altName,styles}) => {
                 centeredSlides={true}
                 autoplay={{ delay: 4000,}}
                 pagination={{clickable: true,}}
-                navigation={{clickable: true,}}
+                navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
                 className="mySwiper"
                 speed={1200}
