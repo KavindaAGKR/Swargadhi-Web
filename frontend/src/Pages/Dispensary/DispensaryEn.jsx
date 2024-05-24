@@ -155,9 +155,9 @@ export const DispensaryEn = () => {
               <Stack 
               backgroundColor='#C6F6D4' style={{borderRadius:'20px',margin:'25px auto ',  padding:'20px', height:'500px'}} >
               <Typography variant='h4'  textAlign='center'>{item.treatmentName}</Typography>
-              <Stack width='100%'>
+              <Stack width='auto' height='100%' >
               <Stack Stack direction={{xs:'column', md:'row'}} margin='20px' height='100%' gap={2}>
-              <Stack style={{ width:{xs:'60%', md:'60%'} , height:{xs:'40%', md:'auto'}  }}>
+              <Stack style={{ width:{xs:'60%', md:'60%'} , height:{xs:'40%', md:'60%'}  }}>
               <img
                   src={`http://localhost:5000${item.images[0]}`}
                   style={{ width:'100%', height:'100%'  }}
