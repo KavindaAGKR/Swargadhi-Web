@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Header } from '../../Components/Header';
 import { Footer } from '../../Components/Footer';
-import { Button, Container, List, Stack, Typography } from '@mui/material';
+import { Button, CircularProgress, Container, List, Stack, Typography } from '@mui/material';
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import ScrollToTop from 'react-scroll-to-top';
 import { SwiperSlider } from '../../Components/Swiper';
@@ -11,8 +11,12 @@ import { motion } from 'framer-motion';
 
 export const DispensaryEn = () => {
   const [treatments, setTreatments] = useState([]);
+  const [errorLoading, setErrorLoading] = useState('')
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+
+    setLoading(true);
     const fetchTreatments = async () => {
       try {
         const response = await fetch('http://localhost:5000/api/treatment/treatments');
@@ -23,11 +27,16 @@ export const DispensaryEn = () => {
         if (Array.isArray(data)) {
           setTreatments(data);
           
+          
         } else {
           console.error('Expected data to be an array');
+          
         }
+        setLoading(false);
       } catch (error) {
+        
         console.error('Error fetching treatments:', error);
+        setLoading(false);
       }
     };
 
@@ -61,72 +70,74 @@ export const DispensaryEn = () => {
         </Stack>
 
 
-
-
-          <Stack direction={{xs:'column', md:'row'}} width='90%'  margin='auto' justifyContent='center' alignItems='center'>
-            <Stack width={{xs:'70%', md:'40%'}}
+        {
+          loading ? (<Stack margin='auto'><Typography variant='body'>Loading Treatments... <CircularProgress color='success'/></Typography></Stack>):
+          (
+            <Stack direction={{xs:'column', md:'row'}} width='90%'  margin='auto' 
             component={motion.div}
-            initial={{ opacity: 0 ,}}
-  whileInView={{ opacity: 1  }}
-  viewport={{ amount:0.3}}
-  transition={{ duration: 2 }}
-  
-            >
-
-              <SwiperSlider
-              imageArray={treatments.flatMap(treatment =>
-                treatment.images.map(image => ({ src: `http://localhost:5000${image}`, alt: treatment.treatmentName }))
-            )}
-               altName='Dispensary Treatments' styles={{
-                margin:'auto',
-    width: '100%',
-    '--swiper-navigation-color': '#0DFE0D',
-    '--swiper-pagination-color': '#0DFE0D',
-  }}/>
-
-            </Stack>
-
+              initial={{ opacity: 0 ,}}
+    whileInView={{ opacity: 1  }}
+    viewport={{ amount:0.3}}
+    transition={{ duration: 2 }}
             
-            <Stack sx={{backgroundColor:'#F9E8E8', margin:'0px 20px' , borderRadius:'15px' ,padding:'20px', width:{xs:'80%', md:'60%'}}} 
-            component={motion.div}
-            initial={{ opacity: 0}}
-  whileInView={{ opacity: 1 }}
-  viewport={{ amount:0.3}}
-  transition={{ duration: 2 }}
             >
-              <Typography variant='h4' textAlign='center' margin='25px'>Available Treatments</Typography>
-              <Stack gap={3}>
 
-                {
-                  treatments.map(
-                    (item, i) => 
-                      (
-                      <Stack key={item.key}
-                      justifyContent='space-between' direction='row' 
-                      sx={{backgroundColor:'white',
-                      borderRadius:'15px',
-                      fontWeight:'bold',
-                      padding:'0 15px',}}
-                      component={motion.div}
-                      whileHover={{
-                        scale: 1.05,
-                        transition: { duration: 0.3 }
-                      }}>
-                        <Typography variant='h6' >{item.treatmentName} </Typography>
-                        <Button onClick={() => scrollToSection(i)} 
+              <Stack width={{xs:'70%', md:'40%'}}>
   
-  whileTap={{ scale: 0.9 }}>See More</Button>
-                      </Stack>
-                      
-                    )
-                  )
-                }
-
+                <SwiperSlider
+                imageArray={treatments.flatMap(treatment =>
+                  treatment.images.map(image => ({ src: `http://localhost:5000${image}`, alt: treatment.treatmentName }))
+              )}
+                 altName='Dispensary Treatments' styles={{
+                  margin:'auto',
+      width: '100%',
+      '--swiper-navigation-color': '#0DFE0D',
+      '--swiper-pagination-color': '#0DFE0D',
+    }}/>
+  
               </Stack>
-
+  
               
+              <Stack sx={{backgroundColor:'#F9E8E8', margin:'10px 20px' , borderRadius:'15px' ,padding:'20px', width:{xs:'80%', md:'60%'}}} 
+              >
+                <Typography variant='h4' textAlign='center' margin='25px'>Available Treatments</Typography>
+                <Stack gap={3}>
+  
+                  {
+                    treatments.map(
+                      (item, i) => 
+                        (
+                        <Stack key={item.key}
+                        justifyContent='space-between' direction='row' 
+                        sx={{backgroundColor:'white',
+                        borderRadius:'15px',
+                        fontWeight:'bold',
+                        padding:'0 15px',}}
+                        component={motion.div}
+                        whileHover={{
+                          scale: 1.05,
+                          transition: { duration: 0.3 }
+                        }}>
+                          <Typography variant='h6' >{item.treatmentName} </Typography>
+                          <Button onClick={() => scrollToSection(i)} 
+    
+    whileTap={{ scale: 0.9 }}>See More</Button>
+                        </Stack>
+                        
+                      )
+                    )
+                  }
+  
+                </Stack>
+  
+                
+              </Stack>
             </Stack>
-          </Stack>
+  )
+        }
+
+
+
 
 
 
@@ -146,8 +157,8 @@ export const DispensaryEn = () => {
               key={item.key} ref={sectionRefs.current[i]}
              
               style={{width:'90%', justifyContent:'center', margin:'auto'}}
-              initial={{ opacity: 0 , y:-20}}
-  whileInView={{ opacity: 1,y:0,  }}
+              initial={{ opacity: 0 , }}
+  whileInView={{ opacity: 1,  }}
   viewport={{ amount:0.3}}
   transition={{ duration: 2 }}
 
@@ -155,12 +166,12 @@ export const DispensaryEn = () => {
               <Stack 
               backgroundColor='#C6F6D4' style={{borderRadius:'20px',margin:'25px auto ',  padding:'20px', height:'500px'}} >
               <Typography variant='h4'  textAlign='center'>{item.treatmentName}</Typography>
-              <Stack width='auto' height='100%' >
-              <Stack Stack direction={{xs:'column', md:'row'}} margin='20px' height='100%' gap={2}>
-              <Stack style={{ width:{xs:'60%', md:'60%'} , height:{xs:'40%', md:'60%'}  }}>
+              
+              <Stack Stack direction={{xs:'column', md:'row'}} margin='20px' width='100%'  gap={2}>
+              <Stack sx={{ width:{xs:'60%', md:'60%'}, height:{xs:'60%', md:'100%'}, margin:'auto'    }}>
               <img
                   src={`http://localhost:5000${item.images[0]}`}
-                  style={{ width:'100%', height:'100%'  }}
+                  style={{width:'100%', height:'100%'}}
                   alt={item.treatmentNameSi}
                   onError={(e) => {
                     console.error(`Failed to load image: ${e.target.src}`);
@@ -173,7 +184,7 @@ export const DispensaryEn = () => {
             <List
             sx={{
               width: '100%',
-              height:'60%',
+              height:'auto',
               bgcolor: 'background.paper',
               position: 'relative',
               overflow: 'auto',
@@ -186,7 +197,6 @@ export const DispensaryEn = () => {
             
             
             </Stack>
-              </Stack>
               </Stack>
               </Stack>
               </motion.div>

@@ -31,7 +31,7 @@ return(
                 spaceBetween={50}
                 slidesPerView={4}
 
-                autoplay={{ delay: 1000}}
+                autoplay={{ delay: 5000}}
                 
                 navigation={false}
                 modules={[Autoplay, Pagination, Navigation]}

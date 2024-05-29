@@ -2,7 +2,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Header } from '../../Components/Header';
 import { Footer } from '../../Components/Footer';
-import { Button, Container, Stack, Typography } from '@mui/material';
+import { Button, CircularProgress, Container, Stack, Typography } from '@mui/material';
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import ScrollToTop from 'react-scroll-to-top';
 import { SwiperSlider } from '../../Components/Swiper';
@@ -13,8 +13,11 @@ const initialTreatments = [];
 export const DispensarySi = () => {
   const [treatments, setTreatments] = useState(initialTreatments);
   const sectionRefs = useRef([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+
+    setLoading(true);
     const fetchTreatments = async () => {
       try {
         const response = await fetch('http://localhost:5000/api/treatment/treatmentsSi');
@@ -28,8 +31,10 @@ export const DispensarySi = () => {
         } else {
           console.error('Expected data to be an array');
         }
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching treatments:', error);
+        setLoading(false);
       }
     };
 
@@ -57,9 +62,14 @@ export const DispensarySi = () => {
       <Header />
       <Stack color="green" direction="row" margin="25px" justifyContent="center" gap={2}>
         <MedicalInformationIcon sx={{ fontSize: '60px' }} />
-        <Typography variant="h2">වෛද්‍ය මධ්‍යස්ථානය</Typography>
+        <Typography variant="h3">වෛද්‍ය මධ්‍යස්ථානය</Typography>
       </Stack>
 
+
+
+      {
+          loading ? (<Stack margin='auto'><Typography variant='body'>Loading Treatments... <CircularProgress color='success'/></Typography></Stack>):
+          (
       <Stack direction="row" height="500px" margin="50px">
         <Stack
           width="40%"
@@ -130,7 +140,7 @@ export const DispensarySi = () => {
             ))}
           </Stack>
         </Container>
-      </Stack>
+      </Stack>)}
 
       <Stack margin="auto" alignItems="center">
         {treatments.map((item, i) => (
