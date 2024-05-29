@@ -164,11 +164,11 @@ export const DispensaryEn = () => {
 
               >
               <Stack 
-              backgroundColor='#C6F6D4' style={{borderRadius:'20px',margin:'25px auto ',  padding:'20px', height:'500px'}} >
-              <Typography variant='h4'  textAlign='center'>{item.treatmentName}</Typography>
+              backgroundColor='#C6F6D4' sx={{borderRadius:'20px',margin:'25px auto ', padding:'20px',  height:'500px'}} >
+              <Typography variant='h4'  textAlign='center' margin='20px 0px' noWrap>{item.treatmentName}</Typography>
               
-              <Stack Stack direction={{xs:'column', md:'row'}} margin='20px' width='100%'  gap={2}>
-              <Stack sx={{ width:{xs:'60%', md:'60%'}, height:{xs:'60%', md:'100%'}, margin:'auto'    }}>
+              <Stack Stack direction={{xs:'column', md:'row'}}  width='auto' height='auto' gap={2}>
+              <Stack sx={{ width:{xs:'60%', md:'60%'}, height:{xs:'60%', md:'auto'}, margin:'auto'    }}>
               <img
                   src={`http://localhost:5000${item.images[0]}`}
                   style={{width:'100%', height:'100%'}}
@@ -179,22 +179,22 @@ export const DispensaryEn = () => {
                   }}
                 />
               </Stack>
-            <Stack sx={{textAlign:'justify'}}>
+            <Stack sx={{height:'80%'}}>
             
             <List
             sx={{
               width: '100%',
-              height:'auto',
+              height:'100%',
               bgcolor: 'background.paper',
               position: 'relative',
-              overflow: 'auto',
-              backgroundColor:'none'
+              overflow:'auto',
+              backgroundColor:'transparent'
               
             }}
             >
-            <Typography variant='body'  >{item.description}</Typography>
+            {/* <Typography variant='body' textAlign='justify' >{item.description}</Typography> */}
+            {item.description}
             </List>
-            
             
             </Stack>
               </Stack>

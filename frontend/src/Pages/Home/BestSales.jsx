@@ -77,7 +77,7 @@ export const HomeSwiper = ({imageArray}) => {
                 spaceBetween={15}
                 slidesPerView={1}
                 centeredSlides={true}
-                autoplay={{ delay: 1000,}}
+                autoplay={{ delay: 4000,}}
                 
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
