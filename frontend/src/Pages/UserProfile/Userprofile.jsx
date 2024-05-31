@@ -56,6 +56,7 @@ export const UserProfile = () => {
             console.log(response.data.message);
             fetchUserFeedback();
             setFeedback('');
+            
         } catch (error) {
             console.error('Error submitting feedback:', error);
         }
@@ -91,21 +92,30 @@ export const UserProfile = () => {
                                         <Grid item xs={2.2}>Email:</Grid>
                                         <Grid item xs={8} sx={{...detailStyles}}>{user.email}</Grid>
                                         <Grid item xs={2.2}>Mobile Number:</Grid>
-                                        <Grid item sm={3} xs={7} sx={{...detailStyles}}>07123456789</Grid>
+                                        <Grid item sm={3} xs={7} sx={{...detailStyles}}></Grid>
                                         <Grid item container gap={2} >Address:
                                             <Grid item xs={10}/>
                                             <Grid item sm={2.2}>Address Line 01:</Grid>
-                                            <Grid item sm={8} xs={12} sx={{...detailStyles}}>071</Grid>
+                                            <Grid item sm={8} xs={12} sx={{...detailStyles}}></Grid>
                                             <Grid item sm={2.2}>Address Line 02:</Grid>
-                                            <Grid item sm={8} xs={12} sx={{...detailStyles}}>asd</Grid>
+                                            <Grid item sm={8} xs={12} sx={{...detailStyles}}></Grid>
                                             <Grid item sm={2.2}>Address Line 03:</Grid>
-                                            <Grid item sm={8} xs={12} sx={{...detailStyles}}>fdgfdsdfdsfdsfdsdsfdssf</Grid>
+                                            <Grid item sm={8} xs={12} sx={{...detailStyles}}></Grid>
                                         </Grid>
                                     </Grid>
                                 </Stack>
                             </Stack>
                         </Stack>
+                        <Button
+                            className={classes.button}
+                            variant="contained"
+                            color="primary"
+                        >
+                            Edit Profile
+                        </Button>
+                        <Stack width='80%'>
                         <Typography variant="h5" gutterBottom>Feedback</Typography>
+                        <Typography variant="h7" gutterBottom>Tell us about your experience with our products!</Typography>
                         <form className={classes.form} onSubmit={handleSubmitFeedback}>
                             <TextField
                                 label="Feedback"
@@ -125,6 +135,7 @@ export const UserProfile = () => {
                                 Submit Feedback
                             </Button>
                         </form>
+                        </Stack>
                         <Button
                             className={classes.button}
                             variant="contained"
@@ -133,13 +144,7 @@ export const UserProfile = () => {
                         >
                             Sign Out
                         </Button>
-                        <Button
-                            className={classes.button}
-                            variant="contained"
-                            color="primary"
-                        >
-                            Edit Profile
-                        </Button>
+                        
                     </React.Fragment>
                 ) : (
                     <Typography variant="body1" sx={{minHeight:'400px'}}>

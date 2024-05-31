@@ -1,6 +1,6 @@
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay,Navigation   } from 'swiper/modules';
+import { Autoplay,Navigation,Pagination   } from 'swiper/modules';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -18,12 +18,14 @@ export const ProductSwiper = ({imageUrl}) => {
             <Swiper
             style={{width:'100%', color:'green', '--swiper-navigation-color': ' #B2BEB5',
             '--swiper-navigation-size': '25px',borderRadius: '20px',
+            '--swiper-pagination-color': '#0DFE0D',
             }}
             spaceBetween={15}
             slidesPerView={1}
             autoplay={{ delay: 5000,}}
-            navigation={true}
-            modules={[Autoplay,Navigation]}
+            navigation={false}
+            pagination={{clickable: true,}}
+            modules={[Autoplay,Navigation,Pagination]}
             className="mySwiper"
             speed={1200}
             loop={true}

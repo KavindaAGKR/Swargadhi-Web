@@ -31,16 +31,16 @@ return(
                 spaceBetween={50}
                 slidesPerView={4}
 
-                autoplay={{ delay: 5000}}
+                autoplay={false}
                 
-                navigation={false}
+                navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
                 className="mySwiper"
                 speed={1200}
                 loop={true}
                 style={{
                     width: '100%',
-                    '--swiper-navigation-color': 'black',
+                    '--swiper-navigation-color': '#0DFE0D',
                     '--swiper-pagination-color': '#0DFE0D',
                     
                 }}
