@@ -31,12 +31,14 @@ import { PageNotFound } from './Pages/PageNotFound/PageNotFound';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from './redux/slices/userSlice';
 import { selectIsSinhalaTrue } from './redux/slices/languageSlice'; 
-import { CheckOut } from './Pages/Checkout/Checkout';
+import { CheckOut, CheckOutEn } from './Pages/Checkout/CheckoutEn';
 import { DispensarySi } from './Pages/Dispensary/DispensarySi';
 import { DispensaryEn } from './Pages/Dispensary/DispensaryEn';
 import { AboutSi } from './Pages/About/AboutSi';
 import { CartEn } from './Pages/Cart/CartEn';
 import { CartSi } from './Pages/Cart/CartSi';
+import { PageNotFoundSi } from './Pages/PageNotFound/PageNotFoundSi';
+import { CheckOutSi } from './Pages/Checkout/CheckoutSi';
 
 
 function App() {
@@ -75,7 +77,7 @@ function App() {
         
         <Route path='/adminsignup' element={<AdminSignup/>}/>
 
-        
+
 
         <Route path='*' element={<PageNotFound/>}/>
 
@@ -86,9 +88,9 @@ function App() {
           {isUserLoggedIn ? (
                     <>
                     <Route path='/cart' element={<CartSi/>}/>
-                    <Route path='/checkout' element={<CheckOut/>}/>
+                    <Route path='/checkout' element={<CheckOutSi/>}/>
                     </>
-                    ) : (<Route path='*' element={<PageNotFound/>}/>)}
+                    ) : (<Route path='*' element={<PageNotFoundSi/>}/>)}
           
           </>
         ):(
@@ -98,7 +100,7 @@ function App() {
           {isUserLoggedIn ? (
                     <>
                     <Route path='/cart' element={<CartEn/>}/>
-                    <Route path='/checkout' element={<CheckOut/>}/>
+                    <Route path='/checkout' element={<CheckOutEn/>}/>
                     </>
                     ) : (<Route path='*' element={<PageNotFound/>}/>)}
           </>

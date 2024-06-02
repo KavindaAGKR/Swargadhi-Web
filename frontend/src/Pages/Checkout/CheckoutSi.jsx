@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '../../redux/slices/userSlice';
 import { MotionButton } from '../../Components/FramerMotion/MotionButton';
 
-export const CheckOut = () => {
+export const CheckOutSi = () => {
 
 
     const location = useLocation();
@@ -88,52 +88,52 @@ export const CheckOut = () => {
                 <Stack direction="row" margin="auto" color="green" gap={1}>
                     <ShoppingBasketIcon sx={{ fontSize: '60px' }} />
                     <Typography variant="h2" sx={{ marginBottom: '25px' }}>
-                        Check Out
+                    ඇණවුම
                     </Typography>
                 </Stack>
                 <Stack direction={{ xs: 'column', md: 'row' }}   gap={2}>
 
                     <Stack width={{ xs: '100%', md: '60%' }}  gap={2} justifyContent="center">
                         <Stack sx={{ backgroundColor: '#DDF9DD', padding: '25px' }}>
-                            <Typography variant="h4">Delivery Details</Typography>
+                            <Typography variant="h4">බෙදාහැරීමේ විස්තර</Typography>
                             
                             <Table >
                                 <TableBody >
                                     <TableRow>
-                                        <TableCell>Full Name</TableCell>
+                                        <TableCell>සම්පූර්ණ නම</TableCell>
                                         <TableCell >{user.firstName} {user.lastName}</TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>Email</TableCell>
+                                        <TableCell>විද්යුත් තැපෑල</TableCell>
                                         <TableCell>{user.email}</TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>Mobile Number</TableCell>
+                                        <TableCell>දුරකථන අංකය</TableCell>
                                         <TableCell>{mobileNo}</TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>Delivery Address</TableCell>
+                                        <TableCell>බෙදා හැරීමේ ලිපිනය</TableCell>
                                         <TableCell>{addressL1 ? `${addressL1}, ${addressL2}, ${addressL3}` : ''}</TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
                             
                             <Stack margin="20px auto" gap={2} width='auto'>
-                                <Button color="success" variant='contained'  onClick={() => setOpen(true)}>Edit Details</Button>
+                                <Button color="success" variant='contained'  onClick={() => setOpen(true)}>විස්තර වෙනස් කරන්න</Button>
                             </Stack>
                         </Stack>
                         <Stack sx={{ backgroundColor: '#DDF9DD', padding: '25px', }}>
-                            <Typography variant="h4">Order List</Typography>
+                            <Typography variant="h4">ඇණවුම් ලැයිස්තුව</Typography>
 
                             <TableContainer style={{width:'100%'}}>
 
                             <Table >
                                 <TableHead>
                                     <TableRow width='100%'> 
-                                        <TableCell>Product Name</TableCell>
-                                        <TableCell>Unit Price</TableCell>
-                                        <TableCell>Quantity</TableCell>
-                                        <TableCell>Total</TableCell>
+                                        <TableCell>නිෂ්පාදන නාමය</TableCell>
+                                        <TableCell>ඒකකයක මිල</TableCell>
+                                        <TableCell>ප්‍රමාණය</TableCell>
+                                        <TableCell>එකතුව</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -151,29 +151,29 @@ export const CheckOut = () => {
                         </Stack>
                     </Stack>
                     <Stack  gap={1} sx={{ backgroundColor: '#DDF9DD', height: { xs: 'auto', md: '550px' },  width: { xs: '100%', md: '40%' } }} >
-                        <Typography padding='25px' align="left" variant="h4">Order Summary</Typography>
+                        <Typography padding='25px' align="left" variant="h4">ඇණවුම් සාරාංශය</Typography>
                         
                         <ToggleButtonGroup onClick={(e) => handlePaymentMethod(e.target.value)} value={paymentMethod} exclusive orientation="vertical" sx={{ width: '70%', margin: '0px auto' }}>
-                            <Typography margin='5px'>Select your payment method: </Typography>
-                            <ToggleButton value="cashOnDelivery"><LocalShippingIcon sx={{ fontSize: '100px' }} />Cash on Delivery</ToggleButton>
-                            <ToggleButton value="cardpayment" disabled><AddCardIcon sx={{ fontSize: '100px', display: 'flex', flexDirection: 'column' }} />Card Payment</ToggleButton>
-                            <Typography color="error">Card Payment isn't available right now!</Typography>
+                            <Typography margin='5px'>ඔබේ ගෙවීමේ ක්‍රමය තෝරන්න: </Typography>
+                            <ToggleButton value="cashOnDelivery"><LocalShippingIcon sx={{ fontSize: '100px' }} />භාණ්ඩ ලැබුණ පසු ගෙවන්න</ToggleButton>
+                            <ToggleButton value="cardpayment" disabled><AddCardIcon sx={{ fontSize: '100px', display: 'flex', flexDirection: 'column' }} />කාඩ්පත් ගෙවීම</ToggleButton>
+                            <Typography color="error">කාඩ්පත් ගෙවීම් තාවකාලිකව අත්හිටුවා ඇත!</Typography>
                         </ToggleButtonGroup>
-                        <Typography align="center" variant="h5" margin='15px'>Total Amount: {totalAmount}</Typography>
-                        <MotionButton  onClick={()=>{setOpenOrder(true)} } variant='contained' style={{width:'150px', margin:'25px auto'}} >Place Order</MotionButton>
+                        <Typography align="center" variant="h5" margin='15px'>මුලු වටිනාකම: {totalAmount}</Typography>
+                        <MotionButton  onClick={()=>{setOpenOrder(true)} } variant='contained' style={{width:'150px', margin:'25px auto'}} >ඇණවුම් කරන්න</MotionButton>
                     </Stack>
                 </Stack>
             </Stack>
             <Footer />
             <Dialog open={openDialog} onClose={() => setOpen(false)}>
-                <DialogTitle>Enter Delivery Details</DialogTitle>
+                <DialogTitle>බෙදා හැරීමේ විස්තර ඇතුළත් කරන්න</DialogTitle>
                 <DialogContent>
                     <Stack>
-                        <TextField label="Mobile Number" placeholder="Mobile Number" defaultValue={mobileNo} type="number" inputProps={{ maxLength: 2 }} onChange={(e) => setMobileNo(e.target.value)} />
-                        <TextField placeholder="Address" defaultValue={addressL1} onChange={(e) => setAddressL1(e.target.value)} />
-                        <TextField placeholder="Address" defaultValue={addressL2} onChange={(e) => setAddressL2(e.target.value)} />
-                        <TextField placeholder="Address" defaultValue={addressL3} onChange={(e) => setAddressL3(e.target.value)} />
-                        <Button variant="contained" onClick={() => (setOpen(false))}>Save Details</Button>
+                        <TextField label="දුරකථන අංකය" placeholder="දුරකථන අංකය" defaultValue={mobileNo} type="number" inputProps={{ maxLength: 2 }} onChange={(e) => setMobileNo(e.target.value)} />
+                        <TextField placeholder="ලිපිනය පළමු පේලිය" defaultValue={addressL1} onChange={(e) => setAddressL1(e.target.value)} />
+                        <TextField placeholder="ලිපිනය දෙවන පේලිය" defaultValue={addressL2} onChange={(e) => setAddressL2(e.target.value)} />
+                        <TextField placeholder="ලිපිනය තෙවන පේලිය" defaultValue={addressL3} onChange={(e) => setAddressL3(e.target.value)} />
+                        <Button variant="contained" onClick={() => (setOpen(false))}>විස්තර සුරකින්න</Button>
                     </Stack>
                 </DialogContent>
             </Dialog>
@@ -184,13 +184,13 @@ export const CheckOut = () => {
         
       >
         <DialogTitle width={{xs:'250px', sm:'400px'}}>
-          {"Confirm Your Order?"}
+          {"ඔබ ඇණවුම තහවුරු කරනවාද?"}
         </DialogTitle>
         
         <DialogActions>
-          <Button  onClick={()=>setOpenOrder(false)}>Cancel</Button>
+          <Button  onClick={()=>setOpenOrder(false)}>අවලංගු කරන්න</Button>
           <Button  autoFocus onClick={handlePlaceOrder}>
-            Confirm
+          තහවුරු කරන්න
           </Button>
         </DialogActions>
       </Dialog>
