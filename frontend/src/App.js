@@ -22,7 +22,6 @@ import { AdminTreatment } from './AdminPanel/AdminTreatment';
 import {EditProduct} from './AdminPanel/EditProduct';
 import { EditDoctor } from './AdminPanel/EditDoctor';
 import {EditTreatment} from './AdminPanel/EditTrearment'
-import { Cart } from './Pages/Cart/Cart';
 import { PageNotFound } from './Pages/PageNotFound/PageNotFound';
 
 
@@ -36,6 +35,8 @@ import { CheckOut } from './Pages/Checkout/Checkout';
 import { DispensarySi } from './Pages/Dispensary/DispensarySi';
 import { DispensaryEn } from './Pages/Dispensary/DispensaryEn';
 import { AboutSi } from './Pages/About/AboutSi';
+import { CartEn } from './Pages/Cart/CartEn';
+import { CartSi } from './Pages/Cart/CartSi';
 
 
 function App() {
@@ -81,11 +82,26 @@ function App() {
         {isSinhalaTrue? (
           <>
           <Route path='/dispensary' element={<DispensarySi/>}/>
-          <Route path='/about' element={<AboutSi/>}/></>
+          <Route path='/about' element={<AboutSi/>}/>
+          {isUserLoggedIn ? (
+                    <>
+                    <Route path='/cart' element={<CartSi/>}/>
+                    <Route path='/checkout' element={<CheckOut/>}/>
+                    </>
+                    ) : (<Route path='*' element={<PageNotFound/>}/>)}
+          
+          </>
         ):(
           <>
           <Route path='/dispensary' element={<DispensaryEn/>}/>
-          <Route path='/about' element={<AboutEn/>}/></>
+          <Route path='/about' element={<AboutEn/>}/>
+          {isUserLoggedIn ? (
+                    <>
+                    <Route path='/cart' element={<CartEn/>}/>
+                    <Route path='/checkout' element={<CheckOut/>}/>
+                    </>
+                    ) : (<Route path='*' element={<PageNotFound/>}/>)}
+          </>
         )}
 
 
@@ -101,12 +117,7 @@ function App() {
         <Route path='/signup' element={<Signup/>} />
         
 
-        {isUserLoggedIn ? (
-        <>
-        <Route path='/cart' element={<Cart/>}/>
-        <Route path='/checkout' element={<CheckOut/>}/>
-        </>
-        ) : (<Route path='*' element={<PageNotFound/>}/>)}
+
 
 
 
