@@ -14,8 +14,8 @@ return (
         <Stack sx={{ margin:'50px', textAlign: 'center', }} >
         
         <Stack direction='row' margin="auto" color='green'>
-                <LocationCityIcon sx={{fontSize:'60px'}} />
-                <Typography variant='h2' color='success.main' sx={{marginBottom:'50px'}}>ස්වර්ගධී ගැන</Typography>
+                <LocationCityIcon sx={{fontSize:'50px'}} />
+                <Typography variant='h3' color='success.main' sx={{marginBottom:'50px'}}>ස්වර්ගධී ගැන</Typography>
                 </Stack>
             
             <Typography variant='h5' sx={{marginBottom:'20px'}}>ස්වර්ගධී ගැන</Typography>

@@ -87,7 +87,7 @@ export const CheckOutSi = () => {
             <Stack margin="25px">
                 <Stack direction="row" margin="auto" color="green" gap={1}>
                     <ShoppingBasketIcon sx={{ fontSize: '60px' }} />
-                    <Typography variant="h2" sx={{ marginBottom: '25px' }}>
+                    <Typography variant="h3" sx={{ marginBottom: '25px' }}>
                     ඇණවුම
                     </Typography>
                 </Stack>

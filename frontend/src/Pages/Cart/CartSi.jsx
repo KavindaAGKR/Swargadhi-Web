@@ -41,8 +41,8 @@ export const CartSi = () => {
             <Header />
             <Stack>
             <Stack direction='row' margin="auto" color='green' gap={1}>
-                <ShoppingCartIcon sx={{fontSize:'60px'}} />
-                <Typography  variant='h3'  sx={{marginBottom:'50px'}}>
+                <ShoppingCartIcon sx={{fontSize:'50px'}} />
+                <Typography  variant='h4'  sx={{marginBottom:'50px'}}>
                 ගැණුම් ලැයිස්තුව
                 </Typography>
                 </Stack>
