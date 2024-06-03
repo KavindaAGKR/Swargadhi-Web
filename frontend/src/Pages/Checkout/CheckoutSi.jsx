@@ -168,7 +168,7 @@ export const CheckOutSi = () => {
             <Dialog open={openDialog} onClose={() => setOpen(false)}>
                 <DialogTitle>බෙදා හැරීමේ විස්තර ඇතුළත් කරන්න</DialogTitle>
                 <DialogContent>
-                    <Stack>
+                    <Stack gap={2}>
                         <TextField label="දුරකථන අංකය" placeholder="දුරකථන අංකය" defaultValue={mobileNo} type="number" inputProps={{ maxLength: 2 }} onChange={(e) => setMobileNo(e.target.value)} />
                         <TextField placeholder="ලිපිනය පළමු පේලිය" defaultValue={addressL1} onChange={(e) => setAddressL1(e.target.value)} />
                         <TextField placeholder="ලිපිනය දෙවන පේලිය" defaultValue={addressL2} onChange={(e) => setAddressL2(e.target.value)} />

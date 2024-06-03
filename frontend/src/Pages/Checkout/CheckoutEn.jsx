@@ -168,7 +168,7 @@ export const CheckOutEn = () => {
             <Dialog open={openDialog} onClose={() => setOpen(false)}>
                 <DialogTitle>Enter Delivery Details</DialogTitle>
                 <DialogContent>
-                    <Stack>
+                    <Stack gap={2}>
                         <TextField label="Mobile Number" placeholder="Mobile Number" defaultValue={mobileNo} type="number" inputProps={{ maxLength: 2 }} onChange={(e) => setMobileNo(e.target.value)} />
                         <TextField placeholder="Address Line 1" defaultValue={addressL1} onChange={(e) => setAddressL1(e.target.value)} />
                         <TextField placeholder="Address Line 2" defaultValue={addressL2} onChange={(e) => setAddressL2(e.target.value)} />
