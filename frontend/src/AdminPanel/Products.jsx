@@ -1,7 +1,6 @@
 import DeleteIcon from '@mui/icons-material/Delete'; 
 import { Button, Dialog, DialogActions, DialogContent, MenuItem, Stack, TextField, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import { Box } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
@@ -130,30 +129,6 @@ export const Products = () => {
         { field: 'category_en', headerName: 'Category (English)', width: 150 },
         { field: 'category_si', headerName: 'Category (Sinhala)', width: 150 },
         {
-            field: 'images',
-            headerName: 'Images',
-            width: 200,
-            renderCell: (params) => {
-                const product = params.row;
-                return (
-                    <div>
-                        {product.images.map((image, index) => (
-                            <img
-                                key={index}
-                                src={`http://localhost:5000/${image}`}
-                                alt={`Product Image ${index + 1}`}
-                                style={{ width: 100, height: 100, marginRight: 10 }}
-                                onError={(e) => {
-                                    console.error(`Failed to load image ${index}: ${e.target.src}`);
-                                    e.target.onerror = null;
-                                }}
-                            />
-                        ))}
-                    </div>
-                );
-            },
-        },
-        {
             field: 'actions',
             headerName: 'Edit/Delete',
             width: 150,
@@ -168,12 +143,37 @@ export const Products = () => {
                 </div>
             ),
         },
+        {
+            field: 'images',
+            headerName: 'Images',
+            width: 200,
+            renderCell: (params) => {
+                const product = params.row;
+                return (
+                    <Stack direction='row'>
+                        {product.images.map((image, index) => (
+                            <img
+                                key={index}
+                                src={`http://localhost:5000/${image}`}
+                                alt={`Product Image ${index + 1}`}
+                                style={{ width: '100', height: 100, marginRight: 10 }}
+                                onError={(e) => {
+                                    console.error(`Failed to load image ${index}: ${e.target.src}`);
+                                    e.target.onerror = null;
+                                }}
+                            />
+                        ))}
+                    </Stack>
+                );
+            },
+        },
+        
     ];
     
     
     
     const rows = products.map(product => ({
-        id: product._id,
+        id: product.productItemID,
         name_en: product.itemName.en,
         name_si: product.itemName.si,
         description_en: product.description.en,
@@ -246,17 +246,13 @@ export const Products = () => {
                     </DialogActions>
                 </Dialog>
                 <Typography variant='h5'>List of Products shows here.</Typography>
-                <Box sx={{ backgroundColor: 'white', margin: '0 25px ', height: '100%' }}>
-                    <Stack>
-                        <Stack style={{ height: '100%', width: '100%' }}>   
                         <DataGrid
                                 rows={rows}
+                                getRowHeight={() => 'auto'}
                                 columns={columns}
                                 pageSize={10} 
+                                sx={{ backgroundColor: 'white', margin: '0 25px '}}
                             />
-                        </Stack>
-                    </Stack>
-                </Box>
             </Stack>
         </Stack>
     );

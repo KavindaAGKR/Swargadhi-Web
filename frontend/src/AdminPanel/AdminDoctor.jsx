@@ -223,6 +223,7 @@ export const AdminDoctor = () => {
                         <Stack style={{ height: '100%', width: '100%' }}>   
                         <DataGrid
                                 rows={rows}
+                                getRowHeight={() => 'auto'}
                                 columns={columns}
                                 pageSize={10} 
                             />

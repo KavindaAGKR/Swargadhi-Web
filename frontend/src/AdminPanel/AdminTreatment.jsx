@@ -107,8 +107,23 @@ export const AdminTreatment = () => {
     };
     
     
+    
+    
+    const rows = treatments.map(treatment => ({
+        id: treatment._id,
+        treatmentName_en: treatment.treatmentName.en,
+        treatmentName_si: treatment.treatmentName.si,
+        description_en: treatment.description.en,
+        description_si: treatment.description.si,
+        price: treatment.price,
+        images: treatment.images 
+    }));
+    
+
+
+    
     const columns = [
-        { field: 'id ', headerName: 'Treatment ID', width: 100 },
+        { field: 'id', headerName: 'Treatment ID', width: 100 },
         { field: 'treatmentName_en', headerName: 'Treatment Name (English)', width: 250 },
         { field: 'treatmentName_si', headerName: 'Treatment Name (Sinhala)', width: 250 },
         { field: 'description_en', headerName: 'Description (English)', width: 300 },
@@ -155,17 +170,7 @@ export const AdminTreatment = () => {
             ),
         },
     ];
-    
-    
-    const rows = treatments.map(treatment => ({
-        id: treatment._id,
-        treatmentName_en: treatment.treatmentName.en,
-        treatmentName_si: treatment.treatmentName.si,
-        description_en: treatment.description.en,
-        description_si: treatment.description.si,
-        price: treatment.price,
-        images: treatment.images 
-    }));
+
     
     return (
         <Stack>
@@ -211,6 +216,7 @@ export const AdminTreatment = () => {
                         <Stack style={{ height: '100%', width: '100%' }}>   
                             <DataGrid
                                 rows={rows}
+                                getRowHeight={() => 'auto'}
                                 columns={columns}
                                 pageSize={10} 
                             />

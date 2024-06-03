@@ -24,7 +24,7 @@ return (
         <Grid item xs={12} md={3} >
             
         
-            <Box gap='50px' sx={{backgroundColor:{xs:'white', md:'#A1FEC0'},borderRadius:'25px' , margin:'20px', height:'100%', textAlign:'center', }} >
+            <Box gap='50px' sx={{backgroundColor:{xs:'white', md:'#A1FEC0'},borderRadius:'15px' , margin:'20px', height:'100%', textAlign:'center', }} >
                 <Stack>
                 <img src={logo} alt='Swargadhi logo' style={{margin:'20px auto',width:'80%', maxWidth:'500px'}}/>
                 <Stack direction='row' margin='auto'>
@@ -79,11 +79,8 @@ return (
             
         </Grid>
         <Grid item xs={12 } md={9}>
-            <Box sx={{backgroundColor:'#C8FFDB',borderRadius:'25px' , margin:{xs:'5px' , md:'20px'},height:'100%'}}>
-            <Stack  >
-                
+            <Box sx={{backgroundColor:'#C8FFDB',borderRadius:'15px' , margin:{xs:'10px' , md:'20px'},height:'100%', minHeight:'500px' }}>
                 <Outlet/>
-            </Stack>
             </Box>
 
         </Grid>

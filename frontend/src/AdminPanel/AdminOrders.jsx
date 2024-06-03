@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Box, Stack, Tab, Typography } from '@mui/material';
+import { Box, CircularProgress, Stack, Tab, Typography } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 
 export const AdminOrders = () => {
@@ -120,42 +120,47 @@ export const AdminOrders = () => {
 
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Stack  height='100%'><Typography variant='h5' margin='auto'><CircularProgress color="success" /></Typography></Stack>;
   }
   if (error) {
-    return <div>{error}</div>;
+    return <Stack  height='100%'><Typography variant='h5' margin='auto'>{error}</Typography></Stack>;
   }
 
   return (
-    <Stack spacing={3}>
-      <Typography variant='h3' align='center'>Orders</Typography>
+    <Stack spacing={3}  sx={{justifyContent:'center', alignItems:'center', margin:'10px', pt:'25px' }}>
+      <Typography variant='h3' >Orders</Typography>
 
-      <TabContext value={value} sx={{width:'100%',}}>
-                    <Box >
+      <TabContext value={value}  >
+                    
+                        <Box width={{xs:'95%', md:'75%'}}>
                         <TabList
                             onChange={handleTabChange}
                             variant="scrollable"
                             scrollButtons
                             allowScrollButtonsMobile
-                            
+                            width='100%'
                         >
                           {orderStatuses.map(status =>
-                            (<Tab label={status} value={status} key={status}/>)
+                            (<Tab label={status} value={status} key={status} />)
                           )}
 
 
                         </TabList>
-                    </Box>
+                        </Box>
 
 
 {
   orderStatuses.map(status =>(
     <TabPanel value={status} key={status} sx={{width:'100%', padding:'0px'}}>
-      {filterOrdersByStatus(status).length>0 ? (<DataGrid
+      {filterOrdersByStatus(status).length>0 ? (
+      <DataGrid
               rows={filterOrdersByStatus(status)}
+              getRowHeight={() => 'auto'}
               columns={columns}
               pageSize={5}
-            />): (<Typography>No any '{status}' orders</Typography>)}
+              sx={{ backgroundColor: 'white' }}
+            />
+            ): (<Typography textAlign='center'>No any '{status}' orders</Typography>)}
                     
                     </TabPanel>
   ))

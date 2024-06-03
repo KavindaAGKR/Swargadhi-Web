@@ -9,8 +9,8 @@ export const AdminUsers = () => {
         const response = await fetch('http://localhost:5000/api/user/users');
         if (response.ok) {
           const data = await response.json();
-          console.log('Fetched users:', data.data); // Debugging line
-          setUsers(data.data); // Ensure data is set correctly
+          console.log('Fetched users:', data.data); 
+          setUsers(data.data); 
         } else {
           console.error('Error fetching users:', response.statusText);
         }
@@ -23,7 +23,7 @@ export const AdminUsers = () => {
   }, []);
 
   const handleDeleteUser = async (id) => {
-    console.log('Attempting to delete user with id:', id); // Debugging line
+    console.log('Attempting to delete user with id:', id);
     if (!id) {
       console.error('Invalid user id:', id);
       return;
