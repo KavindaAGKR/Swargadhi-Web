@@ -57,7 +57,7 @@ export const DispensaryEn = () => {
 
 
   return (
-    <React.Fragment width='100%'>
+    <React.Fragment >
 <ScrollToTop smooth={true}/>
         <Header/>
 
@@ -84,21 +84,27 @@ export const DispensaryEn = () => {
 
               <Stack width={{xs:'70%', md:'40%'}}>
   
-                <SwiperSlider
-                imageArray={treatments.flatMap(treatment =>
-                  treatment.images.map(image => ({ src: `http://localhost:5000${image}`, alt: treatment.treatmentName }))
-              )}
-                 altName='Dispensary Treatments' styles={{
-                  margin:'auto',
-      width: '100%',
-      '--swiper-navigation-color': '#0DFE0D',
-      '--swiper-pagination-color': '#0DFE0D',
-    }}/>
+              <SwiperSlider
+  imageArray={treatments.flatMap(treatment =>
+    treatment.images.map((image, i) => ({
+      src: `http://localhost:5000${image}`,
+      alt: treatment.treatmentName,
+    }))
+  )}
+  altName="Dispensary Treatments"
+  styles={{
+    margin: 'auto',
+    width: '100%',
+    '--swiper-navigation-color': '#0DFE0D',
+    '--swiper-pagination-color': '#0DFE0D',
+  }}
+/>
+
   
               </Stack>
   
               
-              <Stack sx={{backgroundColor:'#F9E8E8', margin:'10px 20px' , borderRadius:'15px' ,padding:'20px', width:{xs:'80%', md:'60%'}}} 
+            <Stack sx={{backgroundColor:'#F9E8E8', margin:'10px 20px' , borderRadius:'15px' ,padding:'20px', width:{xs:'80%', md:'60%'}}} 
               >
                 <Typography variant='h4' textAlign='center' margin='25px'>Available Treatments</Typography>
                 <Stack gap={3}>
@@ -107,7 +113,7 @@ export const DispensaryEn = () => {
                     treatments.map(
                       (item, i) => 
                         (
-                        <Stack key={item.key}
+                        <Stack key={i}
                         justifyContent='space-between' direction='row' 
                         sx={{backgroundColor:'white',
                         borderRadius:'15px',
@@ -117,11 +123,10 @@ export const DispensaryEn = () => {
                         whileHover={{
                           scale: 1.05,
                           transition: { duration: 0.3 }
-                        }}>
+                        }}
+                        >
                           <Typography variant='h6' >{item.treatmentName} </Typography>
-                          <Button onClick={() => scrollToSection(i)} 
-    
-    whileTap={{ scale: 0.9 }}>See More</Button>
+                          <Button onClick={() => scrollToSection(i)}>See More</Button>
                         </Stack>
                         
                       )
@@ -154,7 +159,8 @@ export const DispensaryEn = () => {
 
             (
               <motion.div 
-              key={item.key} ref={sectionRefs.current[i]}
+              key={i} 
+              ref={sectionRefs.current[i]}
              
               style={{width:'90%', justifyContent:'center', margin:'auto'}}
               initial={{ opacity: 0 , }}
@@ -167,7 +173,7 @@ export const DispensaryEn = () => {
               backgroundColor='#C6F6D4' sx={{borderRadius:'20px',margin:'25px auto ', padding:'20px',  height:'500px'}} >
               <Typography variant='h4'  textAlign='center' margin='20px 0px' noWrap>{item.treatmentName}</Typography>
               
-              <Stack Stack direction={{xs:'column', md:'row'}}  width='auto' height='auto' gap={2}>
+              <Stack direction={{xs:'column', md:'row'}}  width='auto' height='auto' gap={2}>
               <Stack sx={{ width:{xs:'60%', md:'60%'}, height:{xs:'60%', md:'auto'}, margin:'auto'    }}>
               <img
                   src={`http://localhost:5000${item.images[0]}`}
