@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 
 export const AdminMessages = () => {
     const [feedbacks, setFeedbacks] = useState([]);
@@ -18,24 +19,34 @@ export const AdminMessages = () => {
     }, []);
 
     return (
-        <div>
-            <h1>Admin Messages</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Feedback</th>
-                        <th>Given By</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {feedbacks.map((feedback) => (
-                        <tr key={feedback._id}>
-                            <td>{feedback.feedBack}</td>
-                            <td>{feedback.givenBy ? `${feedback.givenBy.firstName} ${feedback.givenBy.lastName}` : 'Unknown'}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+        <>
+
+      <Typography variant='h4' textAlign='center' sx={{p:'25px'}}>Feedbacks</Typography>
+
+    <TableContainer style={{width:'80%', margin:'auto'}}>
+      <Table >
+        <TableHead >
+            <TableRow  > 
+              <TableCell sx={{fontWeight:'bold' }}>Feedback by</TableCell>
+              <TableCell sx={{fontWeight:'bold' }}>Feedback</TableCell>
+
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {feedbacks.map(
+              (feedback) => (
+                <TableRow key={feedback._id}>
+                   
+                    <TableCell>{feedback.givenBy ? `${feedback.givenBy.firstName} ${feedback.givenBy.lastName}` : 'Unknown'}</TableCell>
+                    <TableCell>{feedback.feedBack}</TableCell>
+                  </TableRow>
+              )
+            )}
+              
+          </TableBody>
+      </Table>
+      </TableContainer>
+        
+        </>
     );
 };

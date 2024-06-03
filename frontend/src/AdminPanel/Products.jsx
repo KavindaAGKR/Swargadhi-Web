@@ -193,15 +193,19 @@ export const Products = () => {
                 <Button variant='contained' sx={{width:'30%', margin:'auto'}} onClick={() => setOpen(true)}>Add New Product</Button>
                 <Dialog
                     open={open}
+                    onClose={() => setOpen(false)}
                     aria-labelledby='Dialog-title'
                     aria-describedby='Dialog-description'
+                    fullWidth
+                    maxWidth='md'
                 >
                     <DialogContent>
                         <Stack gap={2} sx={{ width: '100%' }} justifyContent='space-between' direction='column'>
                             <Typography variant='h3' color='success.main' margin='auto'>Add New Product</Typography>
-                            <Stack direction='row' gap={2}>
-                                <TextField name='productItemID' type='text' label='Enter Product ID' value={productData.productItemID} onChange={handleChange} />
-                                <TextField name='categoryEn' label='Select Category' select sx={{ width: "50%" }} value={productData.categoryEn} onChange={handleChange}>
+                            <TextField name='productItemID' type='text' label='Enter Product ID' value={productData.productItemID} onChange={handleChange} />
+                            <Stack direction={{xs:'column', sm:'row'}} gap={2}>
+                                
+                                <TextField name='categoryEn' label='Select Category in English' select sx={{ width: "100%" }} value={productData.categoryEn} onChange={handleChange}>
                                     <MenuItem value='kalka'>Kalka</MenuItem>
                                     <MenuItem value='Paththu'>Paththu</MenuItem>
                                     <MenuItem value='Guli'>Guli</MenuItem>
@@ -209,7 +213,7 @@ export const Products = () => {
                                     <MenuItem value='Chuurna'>Chuurna</MenuItem>
                                     <MenuItem value='Kashay'>Kashay</MenuItem>
                                 </TextField>
-                                <TextField name='categorySi' label='Select Category' select sx={{ width: "50%" }} value={productData.categorySi} onChange={handleChange}>
+                                <TextField name='categorySi' label='Select Category in Sinhala' select sx={{ width: "100%" }} value={productData.categorySi} onChange={handleChange}>
                                     <MenuItem value='කල්ක'>කල්ක</MenuItem>
                                     <MenuItem value='පත්තු'>පත්තු</MenuItem>
                                     <MenuItem value='ගුලි'>ගුලි</MenuItem>
@@ -218,17 +222,17 @@ export const Products = () => {
                                     <MenuItem value='කසාය'>කසාය</MenuItem>
                                 </TextField>
                             </Stack>
-                            <Stack direction='row' gap={2}>
-                                <TextField name='itemNameEn' type='text' label='Enter Name in English' value={productData.itemNameEn} onChange={handleChange} />
-                                <TextField name='itemNameSi' type='text' label='Enter Name in Sinhala' value={productData.itemNameSi} onChange={handleChange} />
+                            <Stack direction={{xs:'column', sm:'row'}}gap={2}>
+                                <TextField name='itemNameEn' type='text' label='Enter Name in English' select sx={{ width: "100%" }}  value={productData.itemNameEn} onChange={handleChange} />
+                                <TextField name='itemNameSi' type='text' label='Enter Name in Sinhala' select sx={{ width: "100%" }}  value={productData.itemNameSi} onChange={handleChange} />
                             </Stack>
-                            <Stack direction='row' gap={2}>
-                                <TextField name='quantity' type='number' label='Enter the available quantity' value={productData.quantity} onChange={handleChange} />
-                                <TextField name='price' type='number' label='Price' value={productData.price} onChange={handleChange} />
+                            <Stack direction={{xs:'column', sm:'row'}} gap={2}>
+                                <TextField name='quantity' type='number' label='Enter the available quantity' select sx={{ width: "100%" }}  value={productData.quantity} onChange={handleChange} />
+                                <TextField name='price' type='number' label='Price' select sx={{ width: "100%" }}  value={productData.price} onChange={handleChange} />
                             </Stack>
-                            <Stack direction='row' gap={2}>
-                                <TextField name='descriptionEn' type='text' label='Enter the product description in English' value={productData.descriptionEn} onChange={handleChange} />
-                                <TextField name='descriptionSi' type='text' label='Enter the product description in Sinhala' value={productData.descriptionSi} onChange={handleChange} />
+                            <Stack direction={{xs:'column', sm:'row'}} gap={2}>
+                                <TextField name='descriptionEn' type='text' label='Product description in English' select sx={{ width: "100%" }}  value={productData.descriptionEn} onChange={handleChange} />
+                                <TextField name='descriptionSi' type='text' label='Product description in Sinhala' select sx={{ width: "100%" }}  value={productData.descriptionSi} onChange={handleChange} />
                             </Stack>
                             <input 
                                     type="file" 

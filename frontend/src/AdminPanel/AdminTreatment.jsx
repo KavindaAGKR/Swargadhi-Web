@@ -171,7 +171,7 @@ export const AdminTreatment = () => {
         },
     ];
 
-    
+
     return (
         <Stack>
             <Stack gap={2}>
@@ -179,24 +179,27 @@ export const AdminTreatment = () => {
                 <Button variant='contained' sx={{width:'30%', margin:'auto'}} onClick={() => setOpen(true)}>Add New Treatment</Button>
                 <Dialog
                     open={open}
+                    onClose={() => setOpen(false)}
                     aria-labelledby='Dialog-title'
                     aria-describedby='Dialog-description'
+                    fullWidth
+                    maxWidth='md'
                 >
                     <DialogContent>
                         <Stack gap={2} sx={{ width: '100%' }} justifyContent='space-between' direction='column'>
                             <Typography variant='h3' color='success.main' margin='auto'>Add New Treatment</Typography>
-                            <Stack direction='row' gap={2}>
-                                <TextField name='treatmentNameEn' type='text' label='Enter Treatment Name in English' value={treatmentData.treatmentNameEn} onChange={handleChange} />
-                                <TextField name='treatmentNameSi' type='text' label='Enter Treatment Name in Sinhala' value={treatmentData.treatmentNameSi} onChange={handleChange} />
+                            <Stack direction={{xs:'column', sm:'row'}} gap={2}>
+                                <TextField name='treatmentNameEn' type='text' sx={{ width: "100%" }}  label='Enter Treatment Name in English' value={treatmentData.treatmentNameEn} onChange={handleChange} />
+                                <TextField name='treatmentNameSi' type='text' sx={{ width: "100%" }}  label='Enter Treatment Name in Sinhala' value={treatmentData.treatmentNameSi} onChange={handleChange} />
                             </Stack>
                           
-                            <Stack direction='row' gap={2}>
-                                <TextField name='descriptionEn' type='text' label='Enter the treatment description in English' value={treatmentData.descriptionEn} onChange={handleChange} />
-                                <TextField name='descriptionSi' type='text' label='Enter the treatment description in Sinhala' value={treatmentData.descriptionSi} onChange={handleChange} />
+                            <Stack direction={{xs:'column', sm:'row'}} gap={2}>
+                                <TextField name='descriptionEn' type='text' sx={{ width: "100%" }}  label='Enter the treatment description in English' value={treatmentData.descriptionEn} onChange={handleChange} />
+                                <TextField name='descriptionSi' type='text' sx={{ width: "100%" }}  label='Enter the treatment description in Sinhala' value={treatmentData.descriptionSi} onChange={handleChange} />
                             </Stack>
-                            <Stack direction='row' gap={2}>
-                                <TextField name='price' type='number' label='Enter the price' value={treatmentData.price} onChange={handleChange} />
-                            </Stack>
+
+                                <TextField name='price' type='number' sx={{ width: "100%" }}  label='Enter the price' value={treatmentData.price} onChange={handleChange} />
+
                             <input 
                                 type="file" 
                                 accept=".png, .jpg, .jpeg"
@@ -211,17 +214,13 @@ export const AdminTreatment = () => {
                     </DialogActions>
                 </Dialog>
                 <Typography variant='h5'>List of Treatments shows here.</Typography>
-                <Box sx={{ backgroundColor: 'white', margin: '0 25px ', height: '100%' }}>
-                    <Stack>
-                        <Stack style={{ height: '100%', width: '100%' }}>   
+                <Box sx={{ backgroundColor: 'white', margin: '0 25px ', height: '100%' }}> 
                             <DataGrid
                                 rows={rows}
                                 getRowHeight={() => 'auto'}
                                 columns={columns}
                                 pageSize={10} 
                             />
-                        </Stack>
-                    </Stack>
                 </Box>
             </Stack>
         </Stack>

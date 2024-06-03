@@ -4,17 +4,9 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import logo from '../Images/logo.png'
 import MenuIcon from "@mui/icons-material/Menu";
 
-
-
-
 export const AdminHome = () => {
 
     const [openDrawer, setOpenDrawer] = useState(false);
-
-
-
-
-
 
     const navigate = useNavigate()
 
@@ -43,15 +35,15 @@ return (
                 <img src={logo} alt='Swargadhi logo' />
                 <Typography variant='h5' textAlign='center' >Admin Panel</Typography>
                 <Stack width='70%' gap={2} margin='auto'>
-                    <Button variant='contained' color='success' onClick={()=>navigate('')}>Dashboard</Button>
-                    <Button variant='contained' color='success' onClick={()=>navigate('orders')}>Orders</Button>
-                    <Button variant='contained' color='success' onClick={()=>{navigate('products')}}>products</Button>
-                    <Button variant='contained' color='success' onClick={()=>navigate('salesreport')}  >Sales Report</Button>
-                    <Button variant='contained' color='success' onClick={()=>navigate('doctor')}  >Doctor</Button>
-                    <Button variant='contained' color='success' onClick={()=>navigate('treatment')}  >Treatment</Button>
-                    <Button variant='contained' color='success' onClick={()=>navigate('users')}  >User</Button>
-                    <Button variant='contained' color='success' onClick={()=>navigate('messages')}  >Msg</Button>
-                    <Button variant='contained' color='success' onClick={()=>alert('You have signed out!')}  >SignOut</Button>
+                    <Button variant='contained' color='success' onClick={()=>{navigate('');setOpenDrawer(false);}}>Dashboard</Button>
+                    <Button variant='contained' color='success' onClick={()=>{navigate('orders');setOpenDrawer(false);}}>Orders</Button>
+                    <Button variant='contained' color='success' onClick={()=>{navigate('products');setOpenDrawer(false);}}>products</Button>
+                    <Button variant='contained' color='success' onClick={()=>{navigate('salesreport');setOpenDrawer(false);}}  >Sales Report</Button>
+                    <Button variant='contained' color='success' onClick={()=>{navigate('doctor');setOpenDrawer(false);}}  >Doctor</Button>
+                    <Button variant='contained' color='success' onClick={()=>{navigate('treatment');setOpenDrawer(false);}}  >Treatment</Button>
+                    <Button variant='contained' color='success' onClick={()=>{navigate('users');setOpenDrawer(false);}}  >User</Button>
+                    <Button variant='contained' color='success' onClick={()=>{navigate('messages');setOpenDrawer(false);}}  >Msg</Button>
+                    <Button variant='contained' color='success' onClick={()=>{alert('You have signed out!');setOpenDrawer(false);}}  >SignOut</Button>
                 </Stack>
 </Stack >
                     </Drawer>
@@ -68,9 +60,6 @@ return (
 <Button variant='contained' color='success' onClick={()=>navigate('messages')}  >Msg</Button>
 <Button variant='contained' color='success' onClick={()=>alert('You have signed out!')}  >SignOut</Button>
 </Stack >
-            
-
-
 
             </Stack>
             </Box>
