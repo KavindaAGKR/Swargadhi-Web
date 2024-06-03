@@ -1,10 +1,17 @@
-// AdminOrders.jsx
 import React, { useEffect, useState } from 'react';
+import { DataGrid } from '@mui/x-data-grid';
+import { Box, Stack, Tab, Typography } from '@mui/material';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
 
 export const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [value, setValue] = useState('Not Processed');
+
+  const handleTabChange = (event, newValue) => {
+    setValue(newValue);
+};
 
   const fetchOrders = async () => {
     try {
@@ -50,62 +57,114 @@ export const AdminOrders = () => {
   };
 
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+
+
+
+  const filterOrdersByStatus = (status) => {
+    return orders.filter(order => order.orderStatus === status).map(order => ({
+      id: order._id,
+      orderedBy: `${order.orderedby.firstName} ${order.orderedby.lastName}`,
+      products: order.products.map((product, index) => (
+        `${product.itemName} x ${product.buyingCount}`
+      )).join(", "),
+      totalAmount: order.totalAmount,
+      paymentMethod: order.paymentMethod,
+      orderStatus: order.orderStatus,
+      deliveryAddress: `${order.deliveryAddress.addressL1}, ${order.deliveryAddress.addressL2}, ${order.deliveryAddress.addressL3}`,
+      mobileNumber: order.mobileNumber,
+      dateOrdered: new Date(order.createdAt).toLocaleString(),
+    }));
+  };
+
+  const columns = [
+    { field: 'orderedBy', headerName: 'Ordered By', width: 150 },
+    {
+      field: 'products',
+      headerName: 'Products',
+      width: 300,
+      renderCell: (params) => (
+        <ul>
+          {params.value.split(", ").map((product, index) => (
+            <li key={index}>{product}</li>
+          ))}
+        </ul>
+      )
+    },
+    { field: 'totalAmount', headerName: 'Total Amount', width: 130 },
+    { field: 'paymentMethod', headerName: 'Payment Method', width: 150 },
+    {
+      field: 'orderStatus',
+      headerName: 'Order Status',
+      width: 180,
+      renderCell: (params) => (
+        <select
+          value={params.value}
+          onChange={(e) => handleStatusChange(params.row.id, e.target.value)}
+        >
+          <option value="Not Processed">Not Processed</option>
+          
+          <option value="Processing">Processing</option>
+          <option value="Dispatched">Dispatched</option>
+          <option value="Cancelled">Cancelled</option>
+          <option value="Delivered">Delivered</option>
+          <option value="Paid">Paid</option>
+        </select>
+      )
+    },
+    { field: 'deliveryAddress', headerName: 'Delivery Address', width: 300 },
+    { field: 'mobileNumber', headerName: 'Mobile Number', width: 150 },
+    { field: 'dateOrdered', headerName: 'Ordered Time', width: 200 },
+  ];
+
+  const orderStatuses = ["Not Processed", "Processing", "Dispatched", "Delivered", "Paid", "Cancelled"];
+
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
-    <div>
-      <h1>Orders</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Ordered By</th>
-            <th>Products</th>
-            <th>Total Amount</th>
-            <th>Payment Method</th>
-            <th>Order Status</th>
-            <th>Delivery Address</th>
-            <th>Mobile Number</th>
-            <th>Created At</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map(order => (
-            <tr key={order._id}>
-              <td>{order.orderedby.firstName} {order.orderedby.lastName}</td>
-              <td>
-                <ul>
-                  {order.products.map((product, index) => (
-                    <li key={index}>
-                      {product.itemName} - ${product.price} x {product.buyingCount}
-                    </li>
-                  ))}
-                </ul>
-              </td>
-              <td>${order.totalAmount}</td>
-              <td>{order.paymentMethod}</td>
-              <td>
-                <select
-                  value={order.orderStatus}
-                  onChange={(e) => handleStatusChange(order._id, e.target.value)}
-                >
-                  <option value="Not Processed">Not Processed</option>
-                  <option value="Paid">Paid</option>
-                  <option value="Processing">Processing</option>
-                  <option value="Dispatched">Dispatched</option>
-                  <option value="Cancelled">Cancelled</option>
-                  <option value="Delivered">Delivered</option>
-                </select>
-              </td>
-              <td>
-                {order.deliveryAddress.addressL1}, {order.deliveryAddress.addressL2}, {order.deliveryAddress.addressL3}
-              </td>
-              <td>{order.mobileNumber}</td>
-              <td>{new Date(order.createdAt).toLocaleString()}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <Stack spacing={3}>
+      <Typography variant='h3' align='center'>Orders</Typography>
+
+      <TabContext value={value} sx={{width:'100%',}}>
+                    <Box >
+                        <TabList
+                            onChange={handleTabChange}
+                            variant="scrollable"
+                            scrollButtons
+                            allowScrollButtonsMobile
+                            
+                        >
+                          {orderStatuses.map(status =>
+                            (<Tab label={status} value={status} key={status}/>)
+                          )}
+
+
+                        </TabList>
+                    </Box>
+
+
+{
+  orderStatuses.map(status =>(
+    <TabPanel value={status} key={status} sx={{width:'100%', padding:'0px'}}>
+      {filterOrdersByStatus(status).length>0 ? (<DataGrid
+              rows={filterOrdersByStatus(status)}
+              columns={columns}
+              pageSize={5}
+            />): (<Typography>No any '{status}' orders</Typography>)}
+                    
+                    </TabPanel>
+  ))
+}
+                    
+                    
+                
+                </TabContext>
+
+    </Stack>
   );
 };
