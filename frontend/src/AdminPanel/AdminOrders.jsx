@@ -72,7 +72,7 @@ export const AdminOrders = () => {
         <tbody>
           {orders.map(order => (
             <tr key={order._id}>
-              {/* <td>{order.orderedby.firstName} {order.orderedby.lastName}</td> */}
+              <td>{order.orderedby.firstName} {order.orderedby.lastName}</td>
               <td>
                 <ul>
                   {order.products.map((product, index) => (
