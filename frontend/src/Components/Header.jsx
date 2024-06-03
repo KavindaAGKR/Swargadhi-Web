@@ -71,7 +71,7 @@ export const ResponsiveNav = (props) =>{
             <Drawer
             PaperProps={{
                 sx: { width: {xs:'50%', md:'40%'} },
-              }}
+            }}
                 
                 anchor="left"
                 open={openDrawer}

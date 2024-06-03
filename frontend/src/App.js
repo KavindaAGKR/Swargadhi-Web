@@ -22,7 +22,6 @@ import { AdminTreatment } from './AdminPanel/AdminTreatment';
 import {EditProduct} from './AdminPanel/EditProduct';
 import { EditDoctor } from './AdminPanel/EditDoctor';
 import {EditTreatment} from './AdminPanel/EditTrearment'
-import { Cart } from './Pages/Cart/Cart';
 import { PageNotFound } from './Pages/PageNotFound/PageNotFound';
 
 
@@ -30,16 +29,21 @@ import { PageNotFound } from './Pages/PageNotFound/PageNotFound';
 
 
 import { useSelector } from 'react-redux';
-import { selectIsLoggedIn } from './redux/slices/userSlice';
+import { selectIsLoggedIn, selectUser } from './redux/slices/userSlice';
 import { selectIsSinhalaTrue } from './redux/slices/languageSlice'; 
-import { CheckOut } from './Pages/Checkout/Checkout';
+import { CheckOut, CheckOutEn } from './Pages/Checkout/CheckoutEn';
 import { DispensarySi } from './Pages/Dispensary/DispensarySi';
 import { DispensaryEn } from './Pages/Dispensary/DispensaryEn';
 import { AboutSi } from './Pages/About/AboutSi';
+import { CartEn } from './Pages/Cart/CartEn';
+import { CartSi } from './Pages/Cart/CartSi';
+import { PageNotFoundSi } from './Pages/PageNotFound/PageNotFoundSi';
+import { CheckOutSi } from './Pages/Checkout/CheckoutSi';
 
 
 function App() {
   const isUserLoggedIn = useSelector(selectIsLoggedIn);
+  const user = useSelector(selectUser);
   const isSinhalaTrue = useSelector(selectIsSinhalaTrue);
   // const navigate= useNavigate();
 
@@ -52,40 +56,58 @@ function App() {
 
         {/* Admin Dashboard Routes */}
         {/* Nested Route for admin Dashboard */}
-        <Route path='/admin/home' element={<AdminHome/>}>
-            <Route index element={<AdminDashboard/>}/>
-            <Route path='profile' element={<AdminProfile/>}/>
-            <Route path='orders' element={<AdminOrders/>}/>
-            <Route path='salesreport' element={<AdminSaleReport/>}/>
-            <Route path='users' element={<AdminUsers/>}/>
-            <Route path='messages' element={<AdminMessages/>}/> 
 
-            <Route path='settings' element={<AdminSettings/>}/>
-            <Route path='doctor' element={<AdminDoctor/>}/>
-            <Route path='treatment' element={<AdminTreatment/>}/>
-            <Route path='products/:id/edit' element={<EditProduct/>}/>
-            <Route path='doctor/:id/edit' element={<EditDoctor/>}/>
-            <Route path='treatment/:id/edit' element={<EditTreatment/>}/>
-            {/* Productss */}
-            <Route path='products' element={<Products/>}/>
-        </Route>
+
+        {isUserLoggedIn && user.isAdmin===true ?
+        (<Route path='/admin/home' element={<AdminHome/>}>
+        <Route index element={<AdminDashboard/>}/>
+        <Route path='profile' element={<AdminProfile/>}/>
+        <Route path='orders' element={<AdminOrders/>}/>
+        <Route path='salesreport' element={<AdminSaleReport/>}/>
+        <Route path='users' element={<AdminUsers/>}/>
+        <Route path='messages' element={<AdminMessages/>}/> 
+
+        <Route path='settings' element={<AdminSettings/>}/>
+        <Route path='doctor' element={<AdminDoctor/>}/>
+        <Route path='treatment' element={<AdminTreatment/>}/>
+        <Route path='products/:id/edit' element={<EditProduct/>}/>
+        <Route path='doctor/:id/edit' element={<EditDoctor/>}/>
+        <Route path='treatment/:id/edit' element={<EditTreatment/>}/>
+        {/* Productss */}
+        <Route path='products' element={<Products/>}/>
+    </Route>
+    ):(<Route path='*' element={<PageNotFound/>}/>)
+        }
+        
 
         <Route path='/admin' element={<AdminLogin/>}/>
-        
         <Route path='/adminsignup' element={<AdminSignup/>}/>
-
-        
 
         <Route path='*' element={<PageNotFound/>}/>
 
         {isSinhalaTrue? (
           <>
           <Route path='/dispensary' element={<DispensarySi/>}/>
-          <Route path='/about' element={<AboutSi/>}/></>
+          <Route path='/about' element={<AboutSi/>}/>
+          {isUserLoggedIn ? (
+                    <>
+                    <Route path='/cart' element={<CartSi/>}/>
+                    <Route path='/checkout' element={<CheckOutSi/>}/>
+                    </>
+                    ) : (<Route path='*' element={<PageNotFoundSi/>}/>)}
+          
+          </>
         ):(
           <>
           <Route path='/dispensary' element={<DispensaryEn/>}/>
-          <Route path='/about' element={<AboutEn/>}/></>
+          <Route path='/about' element={<AboutEn/>}/>
+          {isUserLoggedIn ? (
+                    <>
+                    <Route path='/cart' element={<CartEn/>}/>
+                    <Route path='/checkout' element={<CheckOutEn/>}/>
+                    </>
+                    ) : (<Route path='*' element={<PageNotFound/>}/>)}
+          </>
         )}
 
 
@@ -101,12 +123,7 @@ function App() {
         <Route path='/signup' element={<Signup/>} />
         
 
-        {isUserLoggedIn ? (
-        <>
-        <Route path='/cart' element={<Cart/>}/>
-        <Route path='/checkout' element={<CheckOut/>}/>
-        </>
-        ) : (<Route path='*' element={<PageNotFound/>}/>)}
+
 
 
 

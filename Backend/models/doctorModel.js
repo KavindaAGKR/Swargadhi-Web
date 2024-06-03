@@ -12,15 +12,12 @@ const ayurvedicDoctorSchema = new mongoose.Schema(
   {
     doctorID: {
       type: String,
-     
     },
     name: {
       type: multilingualSchema,
-     
     },
     description: {
       type: multilingualSchema,
-     
     },
     time: {
       type: Number,

@@ -1,3 +1,4 @@
+import { Button, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
 export const AdminUsers = () => {
@@ -9,8 +10,8 @@ export const AdminUsers = () => {
         const response = await fetch('http://localhost:5000/api/user/users');
         if (response.ok) {
           const data = await response.json();
-          console.log('Fetched users:', data.data); // Debugging line
-          setUsers(data.data); // Ensure data is set correctly
+          console.log('Fetched users:', data.data); 
+          setUsers(data.data); 
         } else {
           console.error('Error fetching users:', response.statusText);
         }
@@ -23,7 +24,7 @@ export const AdminUsers = () => {
   }, []);
 
   const handleDeleteUser = async (id) => {
-    console.log('Attempting to delete user with id:', id); // Debugging line
+    console.log('Attempting to delete user with id:', id);
     if (!id) {
       console.error('Invalid user id:', id);
       return;
@@ -50,30 +51,37 @@ export const AdminUsers = () => {
   };
 
   return (
-    <div>
-      <h2>User Management</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map(user => (
-            <tr key={user._id}>
-              <td>{user.firstName}</td>
-              <td>{user.lastName}</td>
-              <td>{user.email}</td>
-              <td>
-                <button onClick={() => handleDeleteUser(user._id)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <>
+
+      <Typography variant='h4' textAlign='center' sx={{p:'25px'}}>User Management</Typography>
+
+
+    <TableContainer style={{width:'80%', margin:'auto'}}>
+      <Table >
+        <TableHead >
+            <TableRow  > 
+              <TableCell sx={{fontWeight:'bold' }}>Fist Name</TableCell>
+              <TableCell sx={{fontWeight:'bold' }}>Last Name</TableCell>
+              <TableCell sx={{fontWeight:'bold' }}>Email</TableCell>
+              <TableCell sx={{fontWeight:'bold' }}>Action</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {users.map(
+              (user) => (
+                <TableRow key={user._id}>
+                    <TableCell>{user.firstName}</TableCell>
+                    <TableCell>{user.lastName}</TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell><Button onClick={() => handleDeleteUser(user._id)}>Delete</Button></TableCell>
+                  </TableRow>
+              )
+            )}
+              
+          </TableBody>
+      </Table>
+      </TableContainer>
+
+    </>
   );
 };
