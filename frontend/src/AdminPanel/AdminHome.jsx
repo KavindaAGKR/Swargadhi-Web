@@ -3,12 +3,21 @@ import { Box, Button, Drawer, Grid, IconButton, Stack, Typography } from '@mui/m
 import { Outlet, useNavigate } from 'react-router-dom'
 import logo from '../Images/logo.png'
 import MenuIcon from "@mui/icons-material/Menu";
+import { useDispatch } from 'react-redux';
+import { logout } from '../redux/slices/userSlice';
 
 export const AdminHome = () => {
 
     const [openDrawer, setOpenDrawer] = useState(false);
 
     const navigate = useNavigate()
+    const dispatch = useDispatch();
+
+    const handlSignout = () => {
+        dispatch(logout());
+        alert('You have signed out!');
+        navigate('/admin')
+    };
 
 return (
 
@@ -43,7 +52,7 @@ return (
                     <Button variant='contained' color='success' onClick={()=>{navigate('treatment');setOpenDrawer(false);}}  >Treatment</Button>
                     <Button variant='contained' color='success' onClick={()=>{navigate('users');setOpenDrawer(false);}}  >User</Button>
                     <Button variant='contained' color='success' onClick={()=>{navigate('messages');setOpenDrawer(false);}}  >Msg</Button>
-                    <Button variant='contained' color='success' onClick={()=>{alert('You have signed out!');setOpenDrawer(false);}}  >SignOut</Button>
+                    <Button variant='contained' color='success' onClick={()=>{handlSignout();setOpenDrawer(false);}}  >SignOut</Button>
                 </Stack>
 </Stack >
                     </Drawer>
@@ -58,14 +67,11 @@ return (
 <Button variant='contained' color='success' onClick={()=>navigate('treatment')}  >Treatment</Button>
 <Button variant='contained' color='success' onClick={()=>navigate('users')}  >User</Button>
 <Button variant='contained' color='success' onClick={()=>navigate('messages')}  >Msg</Button>
-<Button variant='contained' color='success' onClick={()=>alert('You have signed out!')}  >SignOut</Button>
+<Button variant='contained' color='success' onClick={handlSignout}  >SignOut</Button>
 </Stack >
 
             </Stack>
             </Box>
-        
-        
-            
         </Grid>
         <Grid item xs={12 } md={9}>
             <Box sx={{backgroundColor:'#C8FFDB',borderRadius:'15px' , margin:{xs:'10px' , md:'20px'},height:'100%', minHeight:'500px' }}>

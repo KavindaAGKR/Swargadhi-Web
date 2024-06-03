@@ -11,6 +11,12 @@ import Snackbar from '@mui/material/Snackbar';
 import Cookies from 'js-cookie'; 
 
 
+import {  useDispatch } from 'react-redux';
+import { setToken, setUser } from '../redux/slices/userSlice';
+
+
+
+
 const theme = createTheme();
 
 const useStyles = makeStyles((theme) => ({
@@ -37,6 +43,8 @@ export const AdminLogin = () => {
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
 
+    const dispatch = useDispatch();
+
     const handleLogin = async () => {
         if (!email || !password) {
             setSnackMessage('Both email and password are required');
@@ -58,19 +66,21 @@ export const AdminLogin = () => {
             });
 
             if (response.data.alert) {
-                setSnackMessage("Successfully logged in")
+                dispatch(setUser(response.data.Admin));
+                dispatch(setToken(response.data.token)); // Save token in Redux store
+    
+                localStorage.setItem('user', JSON.stringify(response.data.Admin));
+                localStorage.setItem('token', response.data.token);
+    
+                setSnackMessage("Successfully logged in");
                 setSnackbarOpen(true);
-                setIsLogin(true)
+                setIsLogin(true);
+    
                 
-                localStorage.setItem('userDetails', JSON.stringify(response.data.Admin));
-                Cookies.set('jwt', response.data.token); 
-                console.log('Successfully authenticated as admin');
-                console.log('Token:', response.data.token); 
-
-                setTimeout(() => {
-                    localStorage.removeItem('userDetails');
-                    
-                }, 3600000);
+                // Cookies.set('jwt', response.data.token);
+                console.log('Successfully authenticated as user');
+                console.log('Token:', response.data.token);
+                
             } else {
                 setSnackMessage(response.data.message)
                 setSnackbarOpen(true);

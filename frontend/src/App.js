@@ -29,7 +29,7 @@ import { PageNotFound } from './Pages/PageNotFound/PageNotFound';
 
 
 import { useSelector } from 'react-redux';
-import { selectIsLoggedIn } from './redux/slices/userSlice';
+import { selectIsLoggedIn, selectUser } from './redux/slices/userSlice';
 import { selectIsSinhalaTrue } from './redux/slices/languageSlice'; 
 import { CheckOut, CheckOutEn } from './Pages/Checkout/CheckoutEn';
 import { DispensarySi } from './Pages/Dispensary/DispensarySi';
@@ -43,6 +43,7 @@ import { CheckOutSi } from './Pages/Checkout/CheckoutSi';
 
 function App() {
   const isUserLoggedIn = useSelector(selectIsLoggedIn);
+  const user = useSelector(selectUser);
   const isSinhalaTrue = useSelector(selectIsSinhalaTrue);
   // const navigate= useNavigate();
 
@@ -55,29 +56,32 @@ function App() {
 
         {/* Admin Dashboard Routes */}
         {/* Nested Route for admin Dashboard */}
-        <Route path='/admin/home' element={<AdminHome/>}>
-            <Route index element={<AdminDashboard/>}/>
-            <Route path='profile' element={<AdminProfile/>}/>
-            <Route path='orders' element={<AdminOrders/>}/>
-            <Route path='salesreport' element={<AdminSaleReport/>}/>
-            <Route path='users' element={<AdminUsers/>}/>
-            <Route path='messages' element={<AdminMessages/>}/> 
 
-            <Route path='settings' element={<AdminSettings/>}/>
-            <Route path='doctor' element={<AdminDoctor/>}/>
-            <Route path='treatment' element={<AdminTreatment/>}/>
-            <Route path='products/:id/edit' element={<EditProduct/>}/>
-            <Route path='doctor/:id/edit' element={<EditDoctor/>}/>
-            <Route path='treatment/:id/edit' element={<EditTreatment/>}/>
-            {/* Productss */}
-            <Route path='products' element={<Products/>}/>
-        </Route>
+
+        {isUserLoggedIn && user.isAdmin===true ?
+        (<Route path='/admin/home' element={<AdminHome/>}>
+        <Route index element={<AdminDashboard/>}/>
+        <Route path='profile' element={<AdminProfile/>}/>
+        <Route path='orders' element={<AdminOrders/>}/>
+        <Route path='salesreport' element={<AdminSaleReport/>}/>
+        <Route path='users' element={<AdminUsers/>}/>
+        <Route path='messages' element={<AdminMessages/>}/> 
+
+        <Route path='settings' element={<AdminSettings/>}/>
+        <Route path='doctor' element={<AdminDoctor/>}/>
+        <Route path='treatment' element={<AdminTreatment/>}/>
+        <Route path='products/:id/edit' element={<EditProduct/>}/>
+        <Route path='doctor/:id/edit' element={<EditDoctor/>}/>
+        <Route path='treatment/:id/edit' element={<EditTreatment/>}/>
+        {/* Productss */}
+        <Route path='products' element={<Products/>}/>
+    </Route>
+    ):(<Route path='*' element={<PageNotFound/>}/>)
+        }
+        
 
         <Route path='/admin' element={<AdminLogin/>}/>
-        
         <Route path='/adminsignup' element={<AdminSignup/>}/>
-
-
 
         <Route path='*' element={<PageNotFound/>}/>
 
