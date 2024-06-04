@@ -66,7 +66,7 @@ return (
 <Button variant='contained' color='success' onClick={()=>navigate('doctor')}  >Doctor</Button>
 <Button variant='contained' color='success' onClick={()=>navigate('treatment')}  >Treatment</Button>
 <Button variant='contained' color='success' onClick={()=>navigate('users')}  >User</Button>
-<Button variant='contained' color='success' onClick={()=>navigate('messages')}  >Msg</Button>
+<Button variant='contained' color='success' onClick={()=>navigate('messages')}  >User Feedbacks</Button>
 <Button variant='contained' color='success' onClick={handlSignout}  >SignOut</Button>
 </Stack >
 

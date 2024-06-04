@@ -34,7 +34,6 @@ const ProductCard = ({ product }) => {
     const handleAddToCart = () => {
 
         const isProductInCart = cartItems.some(item => item.productItemID === product.productItemID);
-        const { productId, quantity, price } = product;
         if(isLoggedIn){
 
             if(isProductInCart){
@@ -60,7 +59,7 @@ const ProductCard = ({ product }) => {
 
     const handleBuyNow = () =>{
         const isProductInCart = cartItems.some(item => item.productItemID === product.productItemID);
-        const { productId, quantity, price } = product;
+
         if(isLoggedIn){
 
             if(isProductInCart){
@@ -117,7 +116,7 @@ const ProductCard = ({ product }) => {
                 <Stack height='50%' sx={{ padding: '0 10px' , overflowY:'unset'}} justifyContent='space-evenly'>
                     
                     <Typography variant='h5' noWrap={false} sx={{fontWeight:'semiBold'}}>{itemName}</Typography>
-                    <Typography  noWrap={false} >සිංහල නම මෙහි දැක්වේ</Typography>
+                    <Typography  noWrap={false} >Sinhala Name is Here</Typography>
                     <Typography variant='h6' color='success.main'>Rs. {price}</Typography>
                     <Stack direction='row' justifyContent='center' spacing={2} padding='0px 0px 5px 0px '>
                         <Button variant='contained' color='success' size='small' sx={{padding:'10px 5px', width:'200px'}} onClick={handleAddToCart}>

@@ -5,10 +5,14 @@ import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
+import { FetchAdminProducts } from './AdminApis/FetchAdminProducts';
+
 
 
 
 export const Products = () => {
+
+    const {products} = FetchAdminProducts();
     const [open, setOpen] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
     const [productData, setProductData] = useState({
@@ -76,27 +80,27 @@ export const Products = () => {
     };
     
 
-    const [products, setProducts] = useState([]);
+    // const [products, setProducts] = useState([]);
 
-    useEffect(() => {
-        fetchAllProducts();
-    }, []);
+    // useEffect(() => {
+    //     fetchAllProducts();
+    // }, []);
 
 
-    const fetchAllProducts = async () => {
-        try {
-            const response = await fetch('http://localhost:5000/api/product/all');
-            const data = await response.json();
-            if (response.ok) {
-                console.log(data.data)
-                setProducts(data.data);
-            } else {
-                console.error('Error fetching Ayurvedic products:', data.message);
-            }
-        } catch (error) {
-            console.error('Error fetching Ayurvedic products:', error.message);
-        }
-    };
+    // const fetchAllProducts = async () => {
+    //     try {
+    //         const response = await fetch('http://localhost:5000/api/product/all');
+    //         const data = await response.json();
+    //         if (response.ok) {
+    //             console.log(data.data)
+    //             setProducts(data.data);
+    //         } else {
+    //             console.error('Error fetching Ayurvedic products:', data.message);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error fetching Ayurvedic products:', error.message);
+    //     }
+    // };
 
     const handleDelete = async (id) => {
         try {
