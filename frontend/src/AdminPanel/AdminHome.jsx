@@ -74,7 +74,7 @@ return (
             </Box>
         </Grid>
         <Grid item xs={12 } md={9}>
-            <Box sx={{backgroundColor:'#C8FFDB',borderRadius:'15px' , margin:{xs:'10px' , md:'20px'},height:'100%', minHeight:'500px' }}>
+            <Box sx={{backgroundColor:'#C8FFDB',borderRadius:'15px' , margin:{xs:'10px' , md:'20px 0px'},height:'100%', minHeight:'500px' }}>
                 <Outlet/>
             </Box>
 

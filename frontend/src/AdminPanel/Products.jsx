@@ -141,7 +141,7 @@ export const Products = () => {
                     <IconButton onClick={() => handleEdit(params.row.id)}> 
                         <EditIcon color="primary" />
                     </IconButton>
-                    <Dialog open={openDelete}  >
+                    <Dialog open={openDelete} sx={{backgroundColor:'white'}} >
                         <DialogTitle width={{xs:'250px', sm:'400px'}}> Do you want to delete the product? </DialogTitle>
                         <DialogActions>
                             <Button  onClick={()=>setOpenDelete(false)}>Cancel</Button>

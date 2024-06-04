@@ -1,5 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Button, Dialog, DialogActions, DialogContent, Stack, TextField, Typography } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import { Box } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const AdminTreatment = () => {
     const [open, setOpen] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
     const [treatmentData, setTreatmentData] = useState({
         treatmentNameEn: '',
         treatmentNameSi: '',
@@ -159,13 +160,20 @@ export const AdminTreatment = () => {
             width: 150, 
             renderCell: (params) => (
                 <div>
-                    <IconButton onClick={() => handleDelete(params.row.id)}>
+                    <IconButton onClick={() => setOpenDelete(true)}>
                         <DeleteIcon color="error" />
                     </IconButton>
                     {console.log("Row ID:", params.row.id)}
                     <IconButton onClick={() => handleEdit(params.row.id)}> 
                         <EditIcon color="primary" />
                     </IconButton>
+                    <Dialog open={openDelete} sx={{backgroundColor:'white'}} >
+                        <DialogTitle width={{xs:'250px', sm:'400px'}}> Do you want to delete the treatment method? </DialogTitle>
+                        <DialogActions>
+                            <Button  onClick={()=>setOpenDelete(false)}>Cancel</Button>
+                            <Button onClick={() => {handleDelete(params.row.id);setOpenDelete(false);}}>Yes</Button>
+                        </DialogActions>
+                    </Dialog>
                 </div>
             ),
         },

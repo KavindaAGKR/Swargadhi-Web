@@ -1,3 +1,4 @@
+import { Button, Container, Input, MenuItem, Stack, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -97,16 +98,13 @@ export const EditProduct = () => {
 
 
   return (
-    <>
-    <div>
-      {product ? (
-        <div>
-          <h2>Edit Product: {product.itemName.en}</h2>
 
-          {/* Display current images */}
-          <div>
-            <h3>Current Images:</h3>
-            {currentImages.map((imageUrl, index) => (
+<Stack p='25px' gap={3}>
+  
+  <Typography variant='h4' textAlign='center'>Edit product details</Typography>
+<Typography variant='h6'>Current images:</Typography>
+<Container>
+{currentImages.map((imageUrl, index) => (
               <img
                 key={index}
                 src={`http://localhost:5000${imageUrl}`}
@@ -114,16 +112,64 @@ export const EditProduct = () => {
                 style={{ width: '150px', height: '150px', marginRight: '10px' }}
               />
             ))}
-          </div>
+</Container>
 
-          {/* Upload new images */}
-          <label>Upload New Image:</label>
-          <input type="file" multiple onChange={handleImageUpload} />
+<Stack gap={5} sx={{ width: '100%' }} justifyContent='space-between' direction='column'>
+                            
+                            <TextField name='productItemID' type='text' label='Enter Product ID' value={product.productItemID} onChange={(e) => handleInputChange('productItemID', e.target.value)} />
+                            
+                            <Stack direction={{xs:'column', sm:'row'}} gap={2}>
+                                <TextField  variant="filled" name='itemNameEn' type='text' label='Enter Name in English'  sx={{ width: "100%", }}  value={product.itemName.en}
+            onChange={(e) => handleInputChange('itemName', { ...product.itemName, en: e.target.value })} />
+                                <TextField name='itemNameSi' type='text' label='Enter Name in Sinhala' sx={{ width: "100%" }}  value={product.itemName.si}
+            onChange={(e) => handleInputChange('itemName', { ...product.itemName, si: e.target.value })} />
+                            </Stack>
+                            
+                            <Stack direction={{xs:'column', sm:'row'}} gap={2}>
+                                <TextField multiline maxRows={5} name='descriptionEn' type='text' label='Product description in English' sx={{ width: "100%" }}  value={product.description.en}
+            onChange={(e) => handleInputChange('description', { ...product.description, en: e.target.value })}/>
+                                <TextField multiline maxRows={5} name='descriptionSi' type='text' label='Product description in Sinhala'  sx={{ width: "100%" }}  value={product.description.si}
+            onChange={(e) => handleInputChange('description', { ...product.description, si: e.target.value })} />
+                            </Stack>
+                            <Stack direction={{xs:'column', sm:'row'}} gap={2}>
+                                
+                                <TextField name='categoryEn' label='Select Category in English' select sx={{ width: "100%" }} 
+                                value={product.category.en} onChange={(e) => handleInputChange('category', { ...product.category, en: e.target.value })}>
+                                    <MenuItem value='kalka'>Kalka</MenuItem>
+                                    <MenuItem value='Paththu'>Paththu</MenuItem>
+                                    <MenuItem value='Guli'>Guli</MenuItem>
+                                    <MenuItem value='Thel'>Thel</MenuItem>
+                                    <MenuItem value='Chuurna'>Chuurna</MenuItem>
+                                    <MenuItem value='Kashay'>Kashay</MenuItem>
+                                </TextField>
+                                <TextField name='categorySi' label='Select Category in Sinhala' select sx={{ width: "100%" }} 
+                                value={product.category.si} onChange={(e) => handleInputChange('category', { ...product.category, si: e.target.value })}>
+                                    <MenuItem value='කල්ක'>කල්ක</MenuItem>
+                                    <MenuItem value='පත්තු'>පත්තු</MenuItem>
+                                    <MenuItem value='ගුලි'>ගුලි</MenuItem>
+                                    <MenuItem value='තෙල්'>තෙල්</MenuItem>
+                                    <MenuItem value='චූර්න'>චූර්න</MenuItem>
+                                    <MenuItem value='කසාය'>කසාය</MenuItem>
+                                </TextField>
+                            </Stack>
+                            <Stack direction={{xs:'column', sm:'row'}} gap={2}>
+                                <TextField name='quantity' type='number' label='Enter the available quantity'  sx={{ width: "100%" }}  value={product.quantity}
+            onChange={(e) => handleInputChange('quantity', e.target.value)} />
+                                <TextField name='price' type='number' label='Price (LKR)'  sx={{ width: "100%" }}  value={product.price}
+            onChange={(e) => handleInputChange('price', e.target.value)} />
+                            </Stack>
 
-          {/* Display new image previews */}
+                        </Stack>
+{/* Upload new images */}
+<Typography>Upload New Image: <input type="file" multiple  onChange={handleImageUpload} /></Typography>
+          
+          
+          <Typography >New Image Preview:</Typography>
+          {/* New image previews */}
           {imageFiles.length > 0 && (
-            <div>
-              <h3>New Image Preview:</h3>
+            
+            <Container>
+              
               {imageFiles.map((file, index) => (
                 <img
                   key={index}
@@ -132,84 +178,17 @@ export const EditProduct = () => {
                   style={{ width: '150px', height: '150px', marginRight: '10px' }}
                 />
               ))}
-            </div>
+            </Container>
           )}
+          <Stack direction='row' sx={{width:'300px',margin:'auto'}} gap={5}>
+            <Button variant='contained' onClick={()=>navigate(-1)}>Cancel</Button>
+          <Button variant='contained'  onClick={handleSaveChanges} >Save Changes</Button>
+          </Stack>
 
-          {/* Edit product fields */}
-          <label>Product Item ID:</label>
-          <input
-            type="text"
-            value={product.productItemID}
-            onChange={(e) => handleInputChange('productItemID', e.target.value)}
-          />
 
-          <label>Product Name (English):</label>
-          <input
-            type="text"
-            value={product.itemName.en}
-            onChange={(e) => handleInputChange('itemName', { ...product.itemName, en: e.target.value })}
-          />
+                        </Stack>
 
-          <label>Product Name (Sinhala):</label>
-          <input
-            type="text"
-            value={product.itemName.si}
-            onChange={(e) => handleInputChange('itemName', { ...product.itemName, si: e.target.value })}
-          />
+    
 
-          <label>Price:</label>
-          <input
-            type="number"
-            value={product.price}
-            onChange={(e) => handleInputChange('price', e.target.value)}
-          />
-
-          <label>Description (English):</label>
-          <textarea
-            value={product.description.en}
-            onChange={(e) => handleInputChange('description', { ...product.description, en: e.target.value })}
-          />
-
-          <label>Description (Sinhala):</label>
-          <textarea
-            value={product.description.si}
-            onChange={(e) => handleInputChange('description', { ...product.description, si: e.target.value })}
-          />
-
-          <label>Quantity:</label>
-          <input
-            type="number"
-            value={product.quantity}
-            onChange={(e) => handleInputChange('quantity', e.target.value)}
-          />
-
-<label>Category (English):</label>
-          <select value={product.category.en} onChange={(e) => handleInputChange('category', { ...product.category, en: e.target.value })}>
-            <option value="kalka">Kalka</option>
-            <option value="Paththu">Paththu</option>
-            <option value="Guli">Guli</option>
-            <option value="Thel">Thel</option>
-            <option value="Chuurna">Chuurna</option>
-            <option value="Kashay">Kashay</option>
-          </select>
-
-          {/* Dropdown for Category (Sinhala) */}
-          <label>Category (Sinhala):</label>
-          <select value={product.category.si} onChange={(e) => handleInputChange('category', { ...product.category, si: e.target.value })}>
-            <option value="කල්ක<">කල්ක</option>
-            <option value="පත්තු">පත්තු</option>
-            <option value="ගුලි">ගුලි</option>
-            <option value="තෙල්">තෙල්</option>
-            <option value="චූර්න">චූර්න</option>
-            <option value="කසාය">කසාය</option>
-          </select>
-          {/* Save changes button */}
-          <button onClick={handleSaveChanges}>Save Changes</button>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
-    </>
   );
 };

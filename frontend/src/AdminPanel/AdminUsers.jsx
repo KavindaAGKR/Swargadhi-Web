@@ -77,7 +77,7 @@ export const AdminUsers = () => {
                     <TableCell>{user.email}</TableCell>
                     <TableCell><Button onClick={() => setOpenDelete(true)}>Delete</Button></TableCell>
                   </TableRow>
-                  <Dialog open={openDelete}  >
+                  <Dialog open={openDelete}  sx={{backgroundColor:'white'}}>
                   <DialogTitle width={{xs:'250px', sm:'400px'}}> Do you want to delete user? </DialogTitle>
                   <DialogActions>
                       <Button  onClick={()=>setOpenDelete(false)}>Cancel</Button>
