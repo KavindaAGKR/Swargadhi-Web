@@ -159,8 +159,9 @@ const ProductCard = ({ product }) => {
 
 
 
-            <Dialog open={openMore} onClose={() => setOpenMore(false)} sx={{ width:{xs:'300px',sm:'500px', lg:'700px' },
-                                height:'1000px', margin:'auto'
+            {/* <Dialog open={openMore} onClose={() => setOpenMore(false)} sx={{ width:{xs:'300px',sm:'500px', lg:'700px' }, */}
+            <Dialog open={openMore} onClose={() => setOpenMore(false)} sx={{ width:'100%' ,
+                                height:'auto', margin:'auto'
                             }} overflow={false}>
                     <DialogContent  >
                                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -181,16 +182,16 @@ const ProductCard = ({ product }) => {
                             <Typography variant='h4' mt={2} noWrap={false}>{itemName}</Typography>
 
                             
-                            <Stack direction='row' justifyContent='space-between' margin='30px 0'>
+                            <Stack direction={{xs:'column', sm:'row'}} gap={{xs:3, md:0}} justifyContent='space-between' margin='30px 0'>
                             <Typography variant='h6'> Avilable Quantity: {quantity}</Typography>
                             <Typography variant='h5' color='success.main'> Unit Price: {price}</Typography>
                             </Stack>
-                            <Stack direction='row' justifyContent='space-between' mt={2} gap={10}>
+                            <Stack direction={{xs:'column', sm:'row'}} justifyContent='space-between' mt={2} gap={10}>
                             <Stack>
                             <Typography variant='h6'>Description:</Typography>
                             <Typography variant='body1'>{description}</Typography>
                             </Stack>
-                                <Stack gap={5} >
+                                <Stack gap={5} margin={{xs:'auto', sm:'0'}} >
                                 <Button variant='contained'  color='success' sx={{padding:'5px 10px', width:'140px'}} onClick={handleAddToCart}>
                                     Add to Cart
                                 </Button>

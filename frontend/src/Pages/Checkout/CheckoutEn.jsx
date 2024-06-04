@@ -1,5 +1,5 @@
 
-import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, Snackbar, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+import { Alert, Button, Dialog, DialogActions, DialogContent,  DialogTitle,Snackbar, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Footer } from '../../Components/Footer';
@@ -7,16 +7,17 @@ import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import AddCardIcon from '@mui/icons-material/AddCard';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { Header } from '../../Components/Header';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectUser } from '../../redux/slices/userSlice';
 import { MotionButton } from '../../Components/FramerMotion/MotionButton';
+import { removeCart } from '../../redux/slices/cartSlice';
 
 export const CheckOutEn = () => {
 
 
     const location = useLocation();
     const { cartItems, totalAmount } = location.state;
-
+    const dispatch = useDispatch();
     const user = useSelector(selectUser);
     const [openDialog, setOpen] = useState(false);
     const [open, setOpenOrder] = useState(false);
@@ -65,6 +66,7 @@ export const CheckOutEn = () => {
                 setSnackbarOpen(true)
                 setSnackMessage("Order placed successfully")
                 
+                dispatch(removeCart());
                 
                 
                 

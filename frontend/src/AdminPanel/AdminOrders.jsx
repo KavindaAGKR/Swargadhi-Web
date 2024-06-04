@@ -17,7 +17,7 @@ export const AdminOrders = () => {
 
 
   const filterOrdersByStatus = (status) => {
-    return orders.filter(order => order.orderStatus === status).map(order => ({
+    return orders.reverse().filter(order => order.orderStatus === status).map(order => ({
       id: order._id,
       orderedBy: order.orderedby ? `${order.orderedby.firstName || ''} ${order.orderedby.lastName || ''}`.trim() || "N/A" : "N/A",
       products: order.products.map((product, index) => (
