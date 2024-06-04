@@ -29,15 +29,13 @@ return(
 <Swiper
                 
                 spaceBetween={50}
-                slidesPerView={4}
-
                 autoplay={false}
                 
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
                 className="mySwiper"
                 speed={1200}
-                loop={true}
+                // loop='auto'
                 style={{
                     width: '100%',
                     '--swiper-navigation-color': '#0DFE0D',
@@ -52,7 +50,7 @@ return(
                 
                 }}
                 >
-                            {products.map((product,i) => (
+                            {products.slice(0,9).map((product,i) => (
                                 <SwiperSlide key={i} style={{padding:'25px 0px'}}>
                                 
                                     <ProductCard product={product} />

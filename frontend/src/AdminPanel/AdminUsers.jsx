@@ -1,8 +1,9 @@
-import { Button, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogTitle, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
 export const AdminUsers = () => {
   const [users, setUsers] = useState([]);
+  const [openDelete, setOpenDelete] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -69,19 +70,29 @@ export const AdminUsers = () => {
           <TableBody>
             {users.map(
               (user) => (
+               <>
                 <TableRow key={user._id}>
                     <TableCell>{user.firstName}</TableCell>
                     <TableCell>{user.lastName}</TableCell>
                     <TableCell>{user.email}</TableCell>
-                    <TableCell><Button onClick={() => handleDeleteUser(user._id)}>Delete</Button></TableCell>
+                    <TableCell><Button onClick={() => setOpenDelete(true)}>Delete</Button></TableCell>
                   </TableRow>
+                  <Dialog open={openDelete}  >
+                  <DialogTitle width={{xs:'250px', sm:'400px'}}> Do you want to delete user? </DialogTitle>
+                  <DialogActions>
+                      <Button  onClick={()=>setOpenDelete(false)}>Cancel</Button>
+                      <Button onClick={() => {handleDeleteUser(user._id);setOpenDelete(false);}}>Yes</Button>
+                  </DialogActions>
+              </Dialog>
+                  
+              </>
               )
             )}
               
           </TableBody>
       </Table>
       </TableContainer>
-
+      
     </>
   );
 };

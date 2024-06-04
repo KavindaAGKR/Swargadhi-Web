@@ -97,6 +97,7 @@ export const EditProduct = () => {
 
 
   return (
+    <>
     <div>
       {product ? (
         <div>
@@ -209,5 +210,6 @@ export const EditProduct = () => {
         <p>Loading...</p>
       )}
     </div>
+    </>
   );
 };

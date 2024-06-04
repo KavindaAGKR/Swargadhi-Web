@@ -85,7 +85,7 @@ export const DispensaryEn = () => {
               <Stack width={{xs:'70%', md:'40%'}}>
   
               <SwiperSlider
-  imageArray={treatments.flatMap(treatment =>
+      imageArray={treatments.flatMap(treatment =>
     treatment.images.map((image, i) => ({
       src: `http://localhost:5000${image}`,
       alt: treatment.treatmentName,

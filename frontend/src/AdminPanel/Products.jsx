@@ -1,5 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete'; 
-import { Button, Dialog, DialogActions, DialogContent, MenuItem, Stack, TextField, Typography } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Stack, TextField, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const Products = () => {
     const [open, setOpen] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
     const [productData, setProductData] = useState({
         productItemID: '',
         itemNameEn: '',
@@ -119,7 +120,7 @@ export const Products = () => {
     
     
     const columns = [
-        { field: 'id', headerName: 'Product ID', width: 100 },
+        { field: 'productid', headerName: 'Product ID', width: 100 },
         { field: 'name_en', headerName: 'Name (English)', width: 200 },
         { field: 'name_si', headerName: 'Name (Sinhala)', width: 200 },
         { field: 'description_en', headerName: 'Description (English)', width: 300 },
@@ -133,14 +134,21 @@ export const Products = () => {
             headerName: 'Edit/Delete',
             width: 150,
             renderCell: (params) => (
-                <div>
-                    <IconButton onClick={() => handleDelete(params.row.id)}>
+                <>
+                    <IconButton onClick={()=> setOpenDelete(true)}>
                         <DeleteIcon color="error" />
                     </IconButton>
                     <IconButton onClick={() => handleEdit(params.row.id)}> 
                         <EditIcon color="primary" />
                     </IconButton>
-                </div>
+                    <Dialog open={openDelete}  >
+                        <DialogTitle width={{xs:'250px', sm:'400px'}}> Do you want to delete the product? </DialogTitle>
+                        <DialogActions>
+                            <Button  onClick={()=>setOpenDelete(false)}>Cancel</Button>
+                            <Button onClick={() => {handleDelete(params.row.id);setOpenDelete(false);}}>Yes</Button>
+                        </DialogActions>
+                    </Dialog>
+                </>
             ),
         },
         {
@@ -173,7 +181,8 @@ export const Products = () => {
     
     
     const rows = products.map(product => ({
-        id: product.productItemID,
+        productid: product.productItemID,
+        id: product._id,
         name_en: product.itemName.en,
         name_si: product.itemName.si,
         description_en: product.description.en,
@@ -198,6 +207,7 @@ export const Products = () => {
                     aria-describedby='Dialog-description'
                     fullWidth
                     maxWidth='md'
+                    
                 >
                     <DialogContent>
                         <Stack gap={2} sx={{ width: '100%' }} justifyContent='space-between' direction='column'>
@@ -222,17 +232,17 @@ export const Products = () => {
                                     <MenuItem value='කසාය'>කසාය</MenuItem>
                                 </TextField>
                             </Stack>
-                            <Stack direction={{xs:'column', sm:'row'}}gap={2}>
-                                <TextField name='itemNameEn' type='text' label='Enter Name in English' select sx={{ width: "100%" }}  value={productData.itemNameEn} onChange={handleChange} />
-                                <TextField name='itemNameSi' type='text' label='Enter Name in Sinhala' select sx={{ width: "100%" }}  value={productData.itemNameSi} onChange={handleChange} />
+                            <Stack direction={{xs:'column', sm:'row'}} gap={2}>
+                                <TextField name='itemNameEn' type='text' label='Enter Name in English'  sx={{ width: "100%" }}  value={productData.itemNameEn} onChange={handleChange} />
+                                <TextField name='itemNameSi' type='text' label='Enter Name in Sinhala' sx={{ width: "100%" }}  value={productData.itemNameSi} onChange={handleChange} />
                             </Stack>
                             <Stack direction={{xs:'column', sm:'row'}} gap={2}>
-                                <TextField name='quantity' type='number' label='Enter the available quantity' select sx={{ width: "100%" }}  value={productData.quantity} onChange={handleChange} />
-                                <TextField name='price' type='number' label='Price' select sx={{ width: "100%" }}  value={productData.price} onChange={handleChange} />
+                                <TextField name='quantity' type='number' label='Enter the available quantity'  sx={{ width: "100%" }}  value={productData.quantity} onChange={handleChange} />
+                                <TextField name='price' type='number' label='Price'  sx={{ width: "100%" }}  value={productData.price} onChange={handleChange} />
                             </Stack>
                             <Stack direction={{xs:'column', sm:'row'}} gap={2}>
-                                <TextField name='descriptionEn' type='text' label='Product description in English' select sx={{ width: "100%" }}  value={productData.descriptionEn} onChange={handleChange} />
-                                <TextField name='descriptionSi' type='text' label='Product description in Sinhala' select sx={{ width: "100%" }}  value={productData.descriptionSi} onChange={handleChange} />
+                                <TextField name='descriptionEn' type='text' label='Product description in English' sx={{ width: "100%" }}  value={productData.descriptionEn} onChange={handleChange} />
+                                <TextField name='descriptionSi' type='text' label='Product description in Sinhala'  sx={{ width: "100%" }}  value={productData.descriptionSi} onChange={handleChange} />
                             </Stack>
                             <input 
                                     type="file" 
