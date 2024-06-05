@@ -37,7 +37,7 @@ export const ProductSwiper = ({imageUrl}) => {
                     <img
                         
                         src={`http://localhost:5000${image}`} 
-                        alt={`Slide ${index + 1}`}
+                        alt={`Slide ${image}`}
                         style={{ maxWidth: '100%',borderRadius: '20px',  height:'100%', margin:'auto' }}
                         
                         onError={(e) => {

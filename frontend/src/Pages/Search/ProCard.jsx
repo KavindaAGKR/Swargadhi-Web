@@ -10,8 +10,9 @@ import { addToCart, } from '../../redux/slices/cartSlice';
 import {selectIsLoggedIn} from '../../redux/slices/userSlice'
 import { selectCartItems } from '../../redux/slices/cartSlice';
 import {  motion } from "framer-motion"
-// import { ProductSwiper } from './ProductSwiper';
+
 import { useNavigate } from 'react-router-dom';
+import { ProductSwiper } from '../Shop/ProductSwiper';
 
 
 const ProCard = ({ product }) => {
@@ -81,7 +82,7 @@ const ProCard = ({ product }) => {
 
 
 
-    const { itemName, description, price, quantity } = product; 
+    const { itemName, description, price,images, quantity } = product; 
     const [openMore, setOpenMore] = useState(false);
     const [selectedQuantity, setSelectedQuantity] = useState(0);
 
@@ -110,9 +111,9 @@ const ProCard = ({ product }) => {
             
             
             <Stack sx={{ margin: '10px', height: '100%' }} >
-                {/* <Stack sx={{ height: '50%', margin: '10px 0px' }}>
-                    <ProductSwiper imageUrl={imageUrl}/>
-                </Stack> */}
+                <Stack sx={{ height: '50%', margin: '10px 0px' }}>
+                    <ProductSwiper imageUrl={images}/>
+                </Stack>
                 <Stack height='50%' sx={{ padding: '0 10px' , overflowY:'unset'}} justifyContent='space-evenly'>
                     
                     <Typography variant='h5' noWrap={false} sx={{fontWeight:'semiBold'}}>{itemName.en}</Typography>
@@ -169,14 +170,14 @@ const ProCard = ({ product }) => {
                                 </Box>
                         <Stack direction='column' alignItems='center' justifyContent='center'>
                                 
-                                {/* <Stack sx={{  margin: '0 20px', height:'200px', width:'80%' }} height='50%' style={{
+                                <Stack sx={{  margin: '0 20px', height:'200px', width:'80%' }} height='50%' style={{
                     
                     '--swiper-navigation-color': 'white',
                     '--swiper-pagination-color': '#0DFE0D',
                 }} >
                         
-                            <ProductSwiper imageUrl={imageUrl}/>
-                            </Stack> */}
+                            <ProductSwiper imageUrl={images}/>
+                            </Stack>
                             </Stack>
                             <Stack sx={{ margin: '20px', textAlign: 'left' }}>
                             <Typography variant='h4' mt={2} noWrap={false}>{itemName.en}</Typography>

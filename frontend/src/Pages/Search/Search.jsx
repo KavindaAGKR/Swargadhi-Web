@@ -29,7 +29,7 @@ export const Search = () => {
 
   useEffect(() => {
     const filterProducts = (search) => {
-      if (!Array.isArray(products)) return []; // Ensure products is an array
+      // Ensure products is an array
 
       return products.filter(product => (
         product.itemName.en.toLowerCase().includes(search.toLowerCase()) ||
