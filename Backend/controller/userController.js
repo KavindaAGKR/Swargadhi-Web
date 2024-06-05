@@ -25,7 +25,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
     storage: storage,
     fileFilter: fileFilter
-}).array('images');
+}).single('profilePicture');
 
 
 const createToken = (userId) => {
@@ -156,42 +156,62 @@ export const deleteUser = async (req, res) => {
     res.status(500).json({ message: 'Internal server error', alert: false });
   }
 };
-export const uploadProfilePictures =  async (req, res) => {
+
+
+export const uploadProfilePicture = async (req, res) => {
   upload(req, res, async (err) => {
       if (err instanceof multer.MulterError) {
-          // A Multer error occurred when uploading.
           console.error('Multer error:', err);
-          return res.status(500).json({ message: 'Error uploading files', error: err });
+          return res.status(500).json({ message: 'Multer error', error: err });
       } else if (err) {
-          // An unknown error occurred when uploading.
           console.error('Unknown error:', err);
-          return res.status(500).json({ message: 'Unknown error occurred', error: err });
+          return res.status(500).json({ message: 'Unknown error', error: err });
       }
 
-      // Files uploaded successfully
-      const imagePaths = req.files.map(file => '/public/item/' + file.filename); // Adjust path as necessary
+      if (!req.file) {
+          console.error('No file uploaded');
+          return res.status(400).json({ message: 'No file uploaded' });
+      }
+
+      const filePath = 'public/item/' + req.file.filename;
       const userId = req.body.userId;
 
       try {
           const user = await User.findById(userId);
           if (!user) {
+              console.error('User not found');
               return res.status(404).json({ message: 'User not found' });
           }
 
-          // Update user's profile pictures
-          user.profilePictures = imagePaths;
+          user.profilePicture = filePath;
           await user.save();
 
-          res.status(200).json({ message: 'Profile pictures uploaded successfully', user });
+          res.status(200).json({ message: 'Profile picture uploaded successfully', user });
       } catch (error) {
-          console.error('Error updating user profile pictures:', error);
+          console.error('Error updating user profile picture:', error);
           res.status(500).json({ message: 'Internal server error', error: error.message });
       }
   });
 };
 
 
+// controllers/userController.js
 
+export const getUserProfile = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id).select('profilePicture');
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    // Append the base URL to the profile picture path
+    user.profilePicture = `http://localhost:5000/${user.profilePicture}`;
+    return res.status(200).json(user);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: 'Internal server error', error: error.message });
+  }
+};
 
 
 

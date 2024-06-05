@@ -7,6 +7,7 @@ router.post("/register", userController.createUser);
 router.post("/login", userController.userLogin);
 router.get('/users', userController.getAllUsers);
 router.delete('/users/:id', userController.deleteUser);
-router.post('/picture', userController.uploadProfilePictures);
+router.post('/picture', userController.uploadProfilePicture);
+router.get('/profile/:id',userController.getUserProfile);
 
 export default router;
