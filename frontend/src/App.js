@@ -1,9 +1,9 @@
 
-import { Route , Routes} from 'react-router-dom';
+import { Route , Routes, useNavigate} from 'react-router-dom';
 import { Login } from './Pages/UserLogin/Login';
 import { Home } from './Pages/Home/Home';
 import { Signup } from './Pages/UserSignup/Signup';
-import { About } from './Pages/About/About';
+import { AboutEn } from './Pages/About/AboutEn';
 import { AdminLogin } from './AdminPanel/AdminLogin';
 import { AdminHome } from './AdminPanel/AdminHome';
 import { Products } from './AdminPanel/Products';
@@ -15,7 +15,6 @@ import { AdminUsers } from './AdminPanel/AdminUsers';
 import { AdminMessages } from './AdminPanel/AdminMessages';
 import { AdminSettings } from './AdminPanel/AdminSettings';
 import { UserProfile } from './Pages/UserProfile/Userprofile';
-import { Dispensary } from './Pages/Dispensary/Dispensary';
 import { AdminSignup } from './AdminPanel/AdminSignup';
 import Shop  from './Pages/Shop/Shop';
 import {AdminDoctor}from './AdminPanel/AdminDoctor'
@@ -23,12 +22,30 @@ import { AdminTreatment } from './AdminPanel/AdminTreatment';
 import {EditProduct} from './AdminPanel/EditProduct';
 import { EditDoctor } from './AdminPanel/EditDoctor';
 import {EditTreatment} from './AdminPanel/EditTrearment'
-import { Cart } from './Pages/Cart/Cart';
+import { PageNotFound } from './Pages/PageNotFound/PageNotFound';
 
+
+
+
+
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn, selectUser } from './redux/slices/userSlice';
+import { selectIsSinhalaTrue } from './redux/slices/languageSlice'; 
+import { CheckOut, CheckOutEn } from './Pages/Checkout/CheckoutEn';
+import { DispensarySi } from './Pages/Dispensary/DispensarySi';
+import { DispensaryEn } from './Pages/Dispensary/DispensaryEn';
+import { AboutSi } from './Pages/About/AboutSi';
+import { CartEn } from './Pages/Cart/CartEn';
+import { CartSi } from './Pages/Cart/CartSi';
+import { PageNotFoundSi } from './Pages/PageNotFound/PageNotFoundSi';
+import { CheckOutSi } from './Pages/Checkout/CheckoutSi';
 
 
 function App() {
-
+  const isUserLoggedIn = useSelector(selectIsLoggedIn);
+  const user = useSelector(selectUser);
+  const isSinhalaTrue = useSelector(selectIsSinhalaTrue);
+  // const navigate= useNavigate();
 
 
 
@@ -39,41 +56,75 @@ function App() {
 
         {/* Admin Dashboard Routes */}
         {/* Nested Route for admin Dashboard */}
-        <Route path='/admin/home' element={<AdminHome/>}>
-            <Route index element={<AdminDashboard/>}/>
-            <Route path='profile' element={<AdminProfile/>}/>
-            <Route path='orders' element={<AdminOrders/>}/>
-            <Route path='salesreport' element={<AdminSaleReport/>}/>
-            <Route path='users' element={<AdminUsers/>}/>
-            <Route path='messages' element={<AdminMessages/>}/> 
 
-            <Route path='settings' element={<AdminSettings/>}/>
-            <Route path='doctor' element={<AdminDoctor/>}/>
-            <Route path='treatment' element={<AdminTreatment/>}/>
-            <Route path='products/:id/edit' element={<EditProduct/>}/>
-            <Route path='doctor/:id/edit' element={<EditDoctor/>}/>
-            <Route path='treatment/:id/edit' element={<EditTreatment/>}/>
-            {/* Productssssssssssssssss */}
-            <Route path='products' element={<Products/>}/>
-        </Route>
+
+        {isUserLoggedIn && user.isAdmin===true ?
+        (<Route path='/admin/home' element={<AdminHome/>}>
+        <Route index element={<AdminDashboard/>}/>
+        <Route path='profile' element={<AdminProfile/>}/>
+        <Route path='orders' element={<AdminOrders/>}/>
+        <Route path='salesreport' element={<AdminSaleReport/>}/>
+        <Route path='users' element={<AdminUsers/>}/>
+        <Route path='messages' element={<AdminMessages/>}/> 
+
+        <Route path='settings' element={<AdminSettings/>}/>
+        <Route path='doctor' element={<AdminDoctor/>}/>
+        <Route path='treatment' element={<AdminTreatment/>}/>
+        <Route path='products/:id/edit' element={<EditProduct/>}/>
+        <Route path='doctor/:id/edit' element={<EditDoctor/>}/>
+        <Route path='treatment/:id/edit' element={<EditTreatment/>}/>
+        {/* Productss */}
+        <Route path='products' element={<Products/>}/>
+    </Route>
+    ):(<Route path='*' element={<PageNotFound/>}/>)
+        }
+        
 
         <Route path='/admin' element={<AdminLogin/>}/>
-        
         <Route path='/adminsignup' element={<AdminSignup/>}/>
 
-        
+        <Route path='*' element={<PageNotFound/>}/>
 
-        
+        {isSinhalaTrue? (
+          <>
+          <Route path='/dispensary' element={<DispensarySi/>}/>
+          <Route path='/about' element={<AboutSi/>}/>
+          {isUserLoggedIn ? (
+                    <>
+                    <Route path='/cart' element={<CartSi/>}/>
+                    <Route path='/checkout' element={<CheckOutSi/>}/>
+                    </>
+                    ) : (<Route path='*' element={<PageNotFoundSi/>}/>)}
+          
+          </>
+        ):(
+          <>
+          <Route path='/dispensary' element={<DispensaryEn/>}/>
+          <Route path='/about' element={<AboutEn/>}/>
+          {isUserLoggedIn ? (
+                    <>
+                    <Route path='/cart' element={<CartEn/>}/>
+                    <Route path='/checkout' element={<CheckOutEn/>}/>
+                    </>
+                    ) : (<Route path='*' element={<PageNotFound/>}/>)}
+          </>
+        )}
+
+
 
         {/* User part Routes */}
         <Route path='/' element={<Home/>}/>
         <Route path='/shop' element={<Shop/>}/>
-        <Route path='/about' element={<About/>}/>
-        <Route path='/dispensary' element={<Dispensary/>}/>
+        
+
+        
         <Route path='/user' element={<UserProfile/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>} />
-        <Route path='/cart' element={<Cart/>}/>
+        
+
+
+
 
 
     </Routes>

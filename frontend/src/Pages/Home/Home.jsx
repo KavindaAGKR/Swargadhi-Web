@@ -1,6 +1,6 @@
 import React from 'react'
-import {  Button, Container, Stack } from '@mui/material'
-//import { useNavigate } from 'react-router-dom'
+import {  Container, Stack } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 import { HomeText } from '../../Components/Home/HomeText'
 
@@ -11,12 +11,16 @@ import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
 import { BestSales, HomeSwiper } from './BestSales'
 import { MotionButton } from '../../Components/FramerMotion/MotionButton'
+import { motion } from "framer-motion"
+import { SwiperSlider } from '../../Components/Swiper'
+import { Navigate } from 'react-router-dom'
+
 
 
 
 
 export const Home = () => {
-    //const navigate = useNavigate()
+    const navigate = useNavigate()
 
 
     //Images For Image Slider
@@ -34,27 +38,37 @@ export const Home = () => {
   return (
     <React.Fragment>
         <Header/>
-        <Stack >
-        <Stack width='50%' margin='50px auto '>
-          <HomeSwiper imageArray={images}  />
 
+        <Stack >
+        <Stack width={{xs:'90%', sm:'80%', md:'70%', lg:'60%'}} height={{xs:'300px', sm:'400px', lg:'500px'}} margin='50px auto '
+              component={motion.div}
+              initial={{ opacity: 0 , y:40}}
+              animate={{ opacity: 1,y:0,  }}
+              transition={{ duration: 2 }} >
+        <HomeSwiper imageArray={images} />
+        
         </Stack>
+
         <HomeText/>
 
-        <MotionButton style={{
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    width:'150px',
-    borderRadius: '3px',
-    height: '48px',
-    margin:'auto',
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    color: 'white', // Set text color to white
-  }}> 
+        <MotionButton 
+        style={{background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+                width:'150px',
+                borderRadius: '3px',
+                height: '48px',
+                margin:'auto',
+                boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+                color: 'white'
+        }}
+        onClick={()=>navigate('/shop')}
+        > 
           Shop Now
         </MotionButton>
-        <Container >
-          <BestSales fetchData={true}  />
-        </Container>
+
+        
+          <BestSales/>
+        
+
         </Stack>
         <Footer/>
     </React.Fragment>

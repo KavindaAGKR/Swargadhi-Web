@@ -1,16 +1,20 @@
 import DeleteIcon from '@mui/icons-material/Delete'; 
-import { Button, Dialog, DialogActions, DialogContent, MenuItem, Stack, TextField, Typography } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Stack, TextField, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import { Box } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
+import { FetchAdminProducts } from './AdminApis/FetchAdminProducts';
+
 
 
 
 export const Products = () => {
+
+    const {products} = FetchAdminProducts();
     const [open, setOpen] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
     const [productData, setProductData] = useState({
         productItemID: '',
         itemNameEn: '',
@@ -52,7 +56,7 @@ export const Products = () => {
             formData.append('quantity', productData.quantity);
             formData.append('categoryEn', productData.categoryEn);
             formData.append('categorySi', productData.categorySi);
-    
+
 
             productData.images.forEach(file => {
                 formData.append('images', file);
@@ -76,27 +80,27 @@ export const Products = () => {
     };
     
 
-    const [products, setProducts] = useState([]);
+    // const [products, setProducts] = useState([]);
 
-    useEffect(() => {
-        fetchAllProducts();
-    }, []);
+    // useEffect(() => {
+    //     fetchAllProducts();
+    // }, []);
 
 
-    const fetchAllProducts = async () => {
-        try {
-            const response = await fetch('http://localhost:5000/api/product/all');
-            const data = await response.json();
-            if (response.ok) {
-                console.log(data.data)
-                setProducts(data.data);
-            } else {
-                console.error('Error fetching Ayurvedic products:', data.message);
-            }
-        } catch (error) {
-            console.error('Error fetching Ayurvedic products:', error.message);
-        }
-    };
+    // const fetchAllProducts = async () => {
+    //     try {
+    //         const response = await fetch('http://localhost:5000/api/product/all');
+    //         const data = await response.json();
+    //         if (response.ok) {
+    //             console.log(data.data)
+    //             setProducts(data.data);
+    //         } else {
+    //             console.error('Error fetching Ayurvedic products:', data.message);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error fetching Ayurvedic products:', error.message);
+    //     }
+    // };
 
     const handleDelete = async (id) => {
         try {
@@ -120,7 +124,7 @@ export const Products = () => {
     
     
     const columns = [
-        { field: 'id', headerName: 'Product ID', width: 100 },
+        { field: 'productid', headerName: 'Product ID', width: 100 },
         { field: 'name_en', headerName: 'Name (English)', width: 200 },
         { field: 'name_si', headerName: 'Name (Sinhala)', width: 200 },
         { field: 'description_en', headerName: 'Description (English)', width: 300 },
@@ -130,49 +134,58 @@ export const Products = () => {
         { field: 'category_en', headerName: 'Category (English)', width: 150 },
         { field: 'category_si', headerName: 'Category (Sinhala)', width: 150 },
         {
+            field: 'actions',
+            headerName: 'Edit/Delete',
+            width: 150,
+            renderCell: (params) => (
+                <>
+                    <IconButton onClick={()=> setOpenDelete(true)}>
+                        <DeleteIcon color="error" />
+                    </IconButton>
+                    <IconButton onClick={() => handleEdit(params.row.id)}> 
+                        <EditIcon color="primary" />
+                    </IconButton>
+                    <Dialog open={openDelete} sx={{backgroundColor:'white'}} >
+                        <DialogTitle width={{xs:'250px', sm:'400px'}}> Do you want to delete the product? </DialogTitle>
+                        <DialogActions>
+                            <Button  onClick={()=>setOpenDelete(false)}>Cancel</Button>
+                            <Button onClick={() => {handleDelete(params.row.id);setOpenDelete(false);}}>Yes</Button>
+                        </DialogActions>
+                    </Dialog>
+                </>
+            ),
+        },
+        {
             field: 'images',
             headerName: 'Images',
             width: 200,
             renderCell: (params) => {
                 const product = params.row;
                 return (
-                    <div>
+                    <Stack direction='row'>
                         {product.images.map((image, index) => (
                             <img
                                 key={index}
                                 src={`http://localhost:5000/${image}`}
                                 alt={`Product Image ${index + 1}`}
-                                style={{ width: 100, height: 100, marginRight: 10 }}
+                                style={{ width: '100', height: 100, marginRight: 10 }}
                                 onError={(e) => {
                                     console.error(`Failed to load image ${index}: ${e.target.src}`);
                                     e.target.onerror = null;
                                 }}
                             />
                         ))}
-                    </div>
+                    </Stack>
                 );
             },
         },
-        {
-            field: 'actions',
-            headerName: 'Edit/Delete',
-            width: 150,
-            renderCell: (params) => (
-                <div>
-                    <IconButton onClick={() => handleDelete(params.row.id)}>
-                        <DeleteIcon color="error" />
-                    </IconButton>
-                    <IconButton onClick={() => handleEdit(params.row.id)}> 
-                        <EditIcon color="primary" />
-                    </IconButton>
-                </div>
-            ),
-        },
+        
     ];
     
     
     
     const rows = products.map(product => ({
+        productid: product.productItemID,
         id: product._id,
         name_en: product.itemName.en,
         name_si: product.itemName.si,
@@ -193,15 +206,20 @@ export const Products = () => {
                 <Button variant='contained' sx={{width:'30%', margin:'auto'}} onClick={() => setOpen(true)}>Add New Product</Button>
                 <Dialog
                     open={open}
+                    onClose={() => setOpen(false)}
                     aria-labelledby='Dialog-title'
                     aria-describedby='Dialog-description'
+                    fullWidth
+                    maxWidth='md'
+                    
                 >
                     <DialogContent>
                         <Stack gap={2} sx={{ width: '100%' }} justifyContent='space-between' direction='column'>
                             <Typography variant='h3' color='success.main' margin='auto'>Add New Product</Typography>
-                            <Stack direction='row' gap={2}>
-                                <TextField name='productItemID' type='text' label='Enter Product ID' value={productData.productItemID} onChange={handleChange} />
-                                <TextField name='categoryEn' label='Select Category' select sx={{ width: "50%" }} value={productData.categoryEn} onChange={handleChange}>
+                            <TextField name='productItemID' type='text' label='Enter Product ID' value={productData.productItemID} onChange={handleChange} />
+                            <Stack direction={{xs:'column', sm:'row'}} gap={2}>
+                                
+                                <TextField name='categoryEn' label='Select Category in English' select sx={{ width: "100%" }} value={productData.categoryEn} onChange={handleChange}>
                                     <MenuItem value='kalka'>Kalka</MenuItem>
                                     <MenuItem value='Paththu'>Paththu</MenuItem>
                                     <MenuItem value='Guli'>Guli</MenuItem>
@@ -209,7 +227,7 @@ export const Products = () => {
                                     <MenuItem value='Chuurna'>Chuurna</MenuItem>
                                     <MenuItem value='Kashay'>Kashay</MenuItem>
                                 </TextField>
-                                <TextField name='categorySi' label='Select Category' select sx={{ width: "50%" }} value={productData.categorySi} onChange={handleChange}>
+                                <TextField name='categorySi' label='Select Category in Sinhala' select sx={{ width: "100%" }} value={productData.categorySi} onChange={handleChange}>
                                     <MenuItem value='කල්ක'>කල්ක</MenuItem>
                                     <MenuItem value='පත්තු'>පත්තු</MenuItem>
                                     <MenuItem value='ගුලි'>ගුලි</MenuItem>
@@ -218,17 +236,17 @@ export const Products = () => {
                                     <MenuItem value='කසාය'>කසාය</MenuItem>
                                 </TextField>
                             </Stack>
-                            <Stack direction='row' gap={2}>
-                                <TextField name='itemNameEn' type='text' label='Enter Name in English' value={productData.itemNameEn} onChange={handleChange} />
-                                <TextField name='itemNameSi' type='text' label='Enter Name in Sinhala' value={productData.itemNameSi} onChange={handleChange} />
+                            <Stack direction={{xs:'column', sm:'row'}} gap={2}>
+                                <TextField name='itemNameEn' type='text' label='Enter Name in English'  sx={{ width: "100%" }}  value={productData.itemNameEn} onChange={handleChange} />
+                                <TextField name='itemNameSi' type='text' label='Enter Name in Sinhala' sx={{ width: "100%" }}  value={productData.itemNameSi} onChange={handleChange} />
                             </Stack>
-                            <Stack direction='row' gap={2}>
-                                <TextField name='quantity' type='number' label='Enter the available quantity' value={productData.quantity} onChange={handleChange} />
-                                <TextField name='price' type='number' label='Price' value={productData.price} onChange={handleChange} />
+                            <Stack direction={{xs:'column', sm:'row'}} gap={2}>
+                                <TextField name='quantity' type='number' label='Enter the available quantity'  sx={{ width: "100%" }}  value={productData.quantity} onChange={handleChange} />
+                                <TextField name='price' type='number' label='Price'  sx={{ width: "100%" }}  value={productData.price} onChange={handleChange} />
                             </Stack>
-                            <Stack direction='row' gap={2}>
-                                <TextField name='descriptionEn' type='text' label='Enter the product description in English' value={productData.descriptionEn} onChange={handleChange} />
-                                <TextField name='descriptionSi' type='text' label='Enter the product description in Sinhala' value={productData.descriptionSi} onChange={handleChange} />
+                            <Stack direction={{xs:'column', sm:'row'}} gap={2}>
+                                <TextField name='descriptionEn' type='text' label='Product description in English' sx={{ width: "100%" }}  value={productData.descriptionEn} onChange={handleChange} />
+                                <TextField name='descriptionSi' type='text' label='Product description in Sinhala'  sx={{ width: "100%" }}  value={productData.descriptionSi} onChange={handleChange} />
                             </Stack>
                             <input 
                                     type="file" 
@@ -246,17 +264,13 @@ export const Products = () => {
                     </DialogActions>
                 </Dialog>
                 <Typography variant='h5'>List of Products shows here.</Typography>
-                <Box sx={{ backgroundColor: 'white', margin: '0 25px ', height: '100%' }}>
-                    <Stack>
-                        <Stack style={{ height: '100%', width: '100%' }}>   
                         <DataGrid
                                 rows={rows}
+                                getRowHeight={() => 'auto'}
                                 columns={columns}
                                 pageSize={10} 
+                                sx={{ backgroundColor: 'white', margin: '0 25px '}}
                             />
-                        </Stack>
-                    </Stack>
-                </Box>
             </Stack>
         </Stack>
     );

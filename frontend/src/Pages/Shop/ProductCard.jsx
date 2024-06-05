@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Paper, Typography, Stack, Button, Dialog, DialogContent, TextField, InputAdornment, IconButton, Snackbar, Alert, Box, Container } from '@mui/material';
+import { Paper, Typography, Stack, Button, Dialog, DialogContent, IconButton, Snackbar, Alert, Box } from '@mui/material';
 
 import CancelIcon from '@mui/icons-material/Cancel';
 
@@ -10,14 +10,13 @@ import { addToCart, } from '../../redux/slices/cartSlice';
 import {selectIsLoggedIn} from '../../redux/slices/userSlice'
 import { selectCartItems } from '../../redux/slices/cartSlice';
 import {  motion } from "framer-motion"
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay,Navigation   } from 'swiper/modules';
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
+import { ProductSwiper } from './ProductSwiper';
+import { useNavigate } from 'react-router-dom';
 
 
 const ProductCard = ({ product }) => {
+
+    const navigate = useNavigate();
 
 
     const [snackbarOpen, setSnackbarOpen] = useState(false); 
@@ -35,7 +34,6 @@ const ProductCard = ({ product }) => {
     const handleAddToCart = () => {
 
         const isProductInCart = cartItems.some(item => item.productItemID === product.productItemID);
-const { productId, quantity, price } = product;
         if(isLoggedIn){
 
             if(isProductInCart){
@@ -59,6 +57,27 @@ const { productId, quantity, price } = product;
         setSnackbarOpen(true)
     };
 
+    const handleBuyNow = () =>{
+        const isProductInCart = cartItems.some(item => item.productItemID === product.productItemID);
+
+        if(isLoggedIn){
+
+            if(isProductInCart){
+                
+                navigate('/cart')
+                
+            }
+            else{
+                dispatch(addToCart(product));
+                navigate('/cart')
+                
+            }
+            
+        }
+        
+
+    }
+
 
 
 
@@ -67,88 +86,40 @@ const { productId, quantity, price } = product;
     const [selectedQuantity, setSelectedQuantity] = useState(0);
 
 
-    //
-
-
-    // const handleAddToCart = () => {
-    //     console.log(`Added ${selectedQuantity} ${itemName} to cart`);
-    // };
-
-    // Render images using Carousel component
-    const renderImages = () => {
-
-        if (imageUrl && imageUrl.length > 0) {
-            return (
-                
-
-                <Swiper
-                style={{width:'100%', color:'green'}}
-                spaceBetween={15}
-                slidesPerView={1}
-                autoplay={{ delay: 4000000,}}
-                navigation={true}
-                modules={[Autoplay,Navigation]}
-                className="mySwiper"
-                speed={1200}
-                loop={true}
-                >
-                
-                {imageUrl.map((image, index) => (
-                    <SwiperSlide key={index} style={{display:'flex' ,alignItems:'center', justifyContent:'center', margin:'auto'}} >
-                        <img
-                            
-                            src={`http://localhost:5000${image}`} 
-                            alt={`Slide ${index + 1}`}
-                            style={{ maxWidth: '100%', borderRadius: '20px', height:'100%', margin:'auto' }}
-                            
-                            onError={(e) => {
-                                console.error(`Failed to load image ${index}: ${e.target.src}`);
-                                e.target.onerror = null; 
-                            }}
-                        />
-                        </SwiperSlide>
-                    ))}
-            </Swiper>
-            );
-        } else {
-            return <Typography variant="body1">No images available</Typography>;
-        }
-        
-        
-    };
-
-
-
 
     return (
-        <Paper sx={{ height: '350px', borderRadius: '20px' }} elevation={5} 
+        <Paper sx={{ height: '400px', borderRadius: '20px', margin:'5px',  }} 
+        elevation={5}
+        
         component={motion.div} 
             whileHover={{
                 scale: 1.06,
-                transition: { duration: 0.3 },
-                color:'Black'
+                transition: { duration: 0.1 },
+                color:'Black',
+                
+                
             }}
-            initial={{ opacity: 0 , y:50}}
-            whileInView={{ opacity: 1,y:0,  }}
-            viewport={{ amount:0.4}}
-            transition={{ duration: 2 }}
+            initial={{ opacity: 0,transition: { duration: 0.1 },}}
+            whileInView={{ opacity: 1 , transition: { duration: 1 },  }}
+            viewport={{ amount:0.3 , once: true}}
+            
             
 
 
         >
-                        
             
-            <Stack sx={{ margin: '10px', height: '100%' }}>
+            
+            <Stack sx={{ margin: '10px', height: '100%' }} >
                 <Stack sx={{ height: '50%', margin: '10px 0px' }}>
-                    {renderImages()}
+                    <ProductSwiper imageUrl={imageUrl}/>
                 </Stack>
-                <Stack height='50%' sx={{ padding: '0 10px' }}>
+                <Stack height='50%' sx={{ padding: '0 10px' , overflowY:'unset'}} justifyContent='space-evenly'>
                     
-                    <Typography variant='h5' sx={{fontWeight:'bold'}}>{itemName}</Typography>
-                    
+                    <Typography variant='h5' noWrap={false} sx={{fontWeight:'semiBold'}}>{itemName}</Typography>
+                    <Typography  noWrap={false} >Sinhala Name is Here</Typography>
                     <Typography variant='h6' color='success.main'>Rs. {price}</Typography>
-                    <Stack direction='row' justifyContent='center' spacing={2}>
-                        <Button variant='contained' color='success' size='small' onClick={handleAddToCart}>
+                    <Stack direction='row' justifyContent='center' spacing={2} padding='0px 0px 5px 0px '>
+                        <Button variant='contained' color='success' size='small' sx={{padding:'10px 5px', width:'200px'}} onClick={handleAddToCart}>
                             Add to Cart
                         </Button>
                         <Button
@@ -156,6 +127,7 @@ const { productId, quantity, price } = product;
                             color='success'
                             size='small'
                             onClick={() => setOpenMore(true)}
+                            sx={{padding:'0px', width:'200px'}}
                         >
                             View More
                         </Button>
@@ -176,10 +148,22 @@ const { productId, quantity, price } = product;
                     </Alert>
             </Snackbar>
                 </Stack>
-                <Dialog open={openMore} onClose={() => setOpenMore(false)} >
-                    <DialogContent sx={{ width:{xs:'300px',sm:'500px', lg:'550px' },
-                                height:'500px', padding:'0px'
-                            }}>
+
+
+                
+
+
+                
+            </Stack>
+
+
+
+
+            {/* <Dialog open={openMore} onClose={() => setOpenMore(false)} sx={{ width:{xs:'300px',sm:'500px', lg:'700px' }, */}
+            <Dialog open={openMore} onClose={() => setOpenMore(false)} sx={{ width:'100%' ,
+                                height:'auto', margin:'auto'
+                            }} overflow={false}>
+                    <DialogContent  >
                                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                                 <IconButton onClick={()=>setOpenMore(false)} color='success' ><CancelIcon sx={{ fontSize: 25 , }}/></IconButton>
                                 </Box>
@@ -191,18 +175,30 @@ const { productId, quantity, price } = product;
                     '--swiper-pagination-color': '#0DFE0D',
                 }} >
                         
-                            {renderImages()}
+                            <ProductSwiper imageUrl={imageUrl}/>
                             </Stack>
                             </Stack>
                             <Stack sx={{ margin: '20px', textAlign: 'left' }}>
-                            <Typography variant='h3' mt={2}>{itemName}</Typography>
-                            <Typography variant='body1'>{description}</Typography>
-                            <Typography variant='body1'> Avilable Quantity: {quantity}</Typography>
+                            <Typography variant='h4' mt={2} noWrap={false}>{itemName}</Typography>
+
+                            
+                            <Stack direction={{xs:'column', sm:'row'}} gap={{xs:3, md:0}} justifyContent='space-between' margin='30px 0'>
+                            <Typography variant='h6'> Avilable Quantity: {quantity}</Typography>
                             <Typography variant='h5' color='success.main'> Unit Price: {price}</Typography>
-                            <Stack direction='row' justifyContent='center' mt={2}>
-                                <Button variant='contained' color='success' onClick={handleAddToCart}>
+                            </Stack>
+                            <Stack direction={{xs:'column', sm:'row'}} justifyContent='space-between' mt={2} gap={10}>
+                            <Stack>
+                            <Typography variant='h6'>Description:</Typography>
+                            <Typography variant='body1'>{description}</Typography>
+                            </Stack>
+                                <Stack gap={5} margin={{xs:'auto', sm:'0'}} >
+                                <Button variant='contained'  color='success' sx={{padding:'5px 10px', width:'140px'}} onClick={handleAddToCart}>
                                     Add to Cart
                                 </Button>
+                                <Button variant='contained' color='success' sx={{padding:'5px', width:'140px'}} onClick={handleBuyNow}>
+                                    Buy Now
+                                </Button>
+                                </Stack>
 
 
                             </Stack>
@@ -224,11 +220,6 @@ const { productId, quantity, price } = product;
             </Snackbar>
                     </DialogContent>
                 </Dialog>
-
-
-                
-            </Stack>
-
 
         </Paper>
     );

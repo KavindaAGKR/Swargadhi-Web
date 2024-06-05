@@ -1,4 +1,4 @@
-import { AppBar, Avatar, IconButton, Stack, Toolbar, Drawer, useMediaQuery, useTheme,Button } from '@mui/material'
+import { AppBar, Avatar, IconButton, Stack, Toolbar, Drawer, useMediaQuery, useTheme,Button, Divider } from '@mui/material'
 import React, { useState } from 'react'
 import logo from '../Images/logo.png'
 import { useNavigate } from 'react-router-dom'
@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {selectUser, selectIsLoggedIn} from '../redux/slices/userSlice'
 import { selectIsSinhalaTrue, setSinhalaTrue, setSinhalaFalse} from '../redux/slices/languageSlice';
 import { MotionButton } from './FramerMotion/MotionButton';
+
 
 
 
@@ -55,20 +56,35 @@ export const MultilingualHeader = () => {
 
 
 
+
+
 //Responsive Navigation Bar Component
 export const ResponsiveNav = (props) =>{
     
     const [openDrawer, setOpenDrawer] = useState(false);
+    const dispatch = useDispatch();
+    const isSinhalaTrue = useSelector(selectIsSinhalaTrue);
 
     if(props.isMatch===true){
         return (
             <React.Fragment>
             <Drawer
+            PaperProps={{
+                sx: { width: {xs:'50%', md:'40%'} },
+            }}
+                
                 anchor="left"
                 open={openDrawer}
                 onClose={() => setOpenDrawer(false)}>
-            <Stack direction='column' >
-                <MultilingualHeader/>
+            <Stack direction='column'  >
+                <MultilingualHeader />
+                <Divider />
+                {isSinhalaTrue ? (
+                                <MotionButton variant='contained' style={{height:'30px' , width:'100px'}} onClick={()=>dispatch(setSinhalaFalse(false))}>English</MotionButton>
+                            ):(
+                            <MotionButton variant='contained' style={{height:'30px', width:'100px'}} onClick={()=>dispatch(setSinhalaTrue(true))}>සිංහල</MotionButton>
+                            )
+                            }
             </Stack>
             </Drawer>
 
@@ -83,13 +99,21 @@ export const ResponsiveNav = (props) =>{
         }
     else{
         return(
-            <Stack direction='row'  >
+            <Stack direction='row' alignItems='center'  >
                 <MultilingualHeader/>
+                {isSinhalaTrue ? (
+                                <MotionButton variant='contained' style={{height:'30px', marginLeft:'20px'}} onClick={()=>dispatch(setSinhalaFalse(false))}>English</MotionButton>
+                            ):(
+                            <MotionButton variant='contained' style={{height:'30px', marginLeft:'20px'}} onClick={()=>dispatch(setSinhalaTrue(true))}>සිංහල</MotionButton>
+                            )
+                            }
             </Stack>
         );
     }
 
 }
+
+
 
 
 
@@ -100,7 +124,6 @@ export const Header = () => {
     const navigate = useNavigate();
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const user = useSelector(selectUser);
-    const dispatch = useDispatch();
     const isSinhalaTrue = useSelector(selectIsSinhalaTrue);
     
     
@@ -110,17 +133,12 @@ export const Header = () => {
     
     return (
         <React.Fragment >
-            <AppBar position='static' style={{boxShadow:'none'}} >
-                <Toolbar sx={{backgroundColor:'white', justifyContent:'space-between' , }}>
+            <AppBar position='static' style={{boxShadow:'none', backgroundColor:'white',}} >
+                <Toolbar sx={{ justifyContent:'space-between' , alignItems:'center'}}>
                     <img src={logo} alt="Swargadhi logo" width="30%"/>
                         <Stack direction='row' spacing={1} alignItems='center' >
                             <ResponsiveNav isMatch={isMatch}/>
-                            {isSinhalaTrue ? (
-                                <MotionButton variant='contained' style={{height:'30px', marginLeft:'20px'}} onClick={()=>dispatch(setSinhalaFalse(false))}>English</MotionButton>
-                            ):(
-                            <MotionButton variant='contained' style={{height:'30px', marginLeft:'20px'}} onClick={()=>dispatch(setSinhalaTrue(true))}>සිංහල</MotionButton>
-                            )
-                            }
+                            
                             
                             
                             { isLoggedIn ? (
@@ -128,8 +146,8 @@ export const Header = () => {
                                 <MotionButton>
                                 <Avatar sx={{ bgcolor: 'success.light', marginLeft:'0px' }}>{user.firstName.charAt(0)}{user.lastName.charAt(0)}</Avatar>
                                 </MotionButton>
-                                <MotionButton>
-                                <IconButton onClick={()=>{navigate('/cart')}} sx={{padding:'0px'}}><ShoppingCartIcon/></IconButton>
+                                <MotionButton onClick={()=>{navigate('/cart')}} >
+                                <IconButton sx={{padding:'0px'}}><ShoppingCartIcon/></IconButton>
                                 </MotionButton>
                                 </>
                             ): (

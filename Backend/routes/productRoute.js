@@ -29,7 +29,7 @@ router.put("/:id", ayurvedicProductController.updateAyurvedicProduct);
 
 // Delete Ayurvedic Product
 router.delete("/:id", ayurvedicProductController.deleteAyurvedicProduct);
-
+router.get('/search', ayurvedicProductController.searchAyurvedicProducts); 
 
 // Get Ayurvedic Products for the authenticated user
 //router.get('/user/items', verifyToken, ayurvedicProductController.getUserAyurvedicProducts);

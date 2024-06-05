@@ -10,13 +10,14 @@ export const MotionButton = ({ children, onClick,variant, color,style }) => {
             component={motion.div} 
             whileHover={{
                 scale: 1.15,
-                transition: { duration: 0.3 },
-                color:'Black'
+                transition: { duration: 0.2 },
+                color:'black'
             }}
             variant={variant}
             color={color}
             onClick={onClick} 
             style={style}
+            sx={{fontWeight:'550',  fontSize:'15px'}}
 
         >
             {children} 

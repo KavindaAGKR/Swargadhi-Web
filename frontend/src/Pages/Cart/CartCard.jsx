@@ -1,67 +1,89 @@
 import React, {useState, useEffect} from 'react';
-import { Box, IconButton, TextField, Typography } from '@mui/material';
+import { Box, Grid, IconButton, TextField, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { useDispatch } from 'react-redux';
+import { updateItemBuyingCount, removeItemFromCart } from '../../redux/slices/cartSlice';
 
 
 
+export const CartCard = ({ item}) => {
 
-export const CartCard = ({ item, onRemoveItem,  updateProductTotalPrice }) => {
+    const { itemName,  price, imageUrl, quantity , productItemID,buyingCount} = item;
+    const dispatch = useDispatch();
 
-    const { itemName, description, price, imageUrl, quantity , productItemID} = item;
 
-
-    const [buyingCount, setBuyingCount] = useState(1)
+     const [buyingCountt, setBuyingCount] = useState(buyingCount)
+    const [error, setError] = useState(false)
     const productTotPrice = buyingCount*price;
 
 
-useEffect(() => {
-    updateProductTotalPrice(productItemID, productTotPrice);
-}, [productItemID, productTotPrice, updateProductTotalPrice]);
+    const handleBuyingCountChange = (value) => {
+        setBuyingCount(value);
+        dispatch(updateItemBuyingCount({ productItemID, buyingCount: value }));
+        if (value>quantity || value<1) {
+            setError(true);
+          } 
+          else{setError(false)}
+    };
+
 
 const handleRemoveClick = () => {
-        onRemoveItem(productItemID);
-        updateProductTotalPrice(productItemID, 0); 
+    dispatch(removeItemFromCart(productItemID));
+        
+
         
     };
 
 
 
+
+
+
+
     // const firstImageUrl = Object.values(imageUrl)[0];
     return (
-        <Stack justifyContent='space-between' direction='row' sx={{ borderRadius: '20px', border: 'solid 1px #B1FDC5', boxShadow: ' 5px 10px 13px -6px rgba(0,0,0,0.2)', width: '80%', padding: '10px' }}>
-            
-            
-            
-            <Box sx={{width:'20%'}}>
-            {Object.values(imageUrl).slice(0, 1).map((image, index) => (
+         <Stack justifyContent='space-between' direction='row' sx={{ borderRadius: '20px', border: 'solid 1px #B1FDC5', boxShadow: ' 5px 10px 13px -6px rgba(0,0,0,0.2)', width:{xs:'90%',md:'80%'}, padding: '20px', height:{xs:'150px', sm:'120px'} }}>
+
+
+
+<Grid container gap={2}>
+    <Grid item xs={3.5} sm={2.5} margin='auto'>
+    {Object.values(imageUrl).slice(0, 1).map((image, index) => (
     <img
         key={index}
         src={`http://localhost:5000${image}`} 
         alt={`Slide ${index + 1}`}
-        style={{ width:'100%', borderRadius: '20px' }}
+        style={{ width:'100%',height:'120px', borderRadius: '5px' }}
         onError={(e) => {
             console.error(`Failed to load image ${index}: ${e.target.src}`);
             e.target.onerror = null; 
         }}
     />
 ))}
-            </Box>
+    </Grid>
+    <Grid container xs={6.5} sm={8.0}>
 
-
-            <Stack direction='column' width='40%'>
-                <Typography>{itemName}</Typography>
-                <Typography>{itemName.si}</Typography>
-                <Typography>Unit price: Rs. {price}</Typography>
+    <Grid item xs={12} sm={6}>
+    <Stack direction='column' width='100%'>
+                <Typography noWrap fontWeight='bold' variant='h6'>{itemName}</Typography>
+                <Typography noWrap>{itemName}</Typography>
+                <Typography noWrap>Unit price: Rs. {price}</Typography>
             </Stack>
-            <Stack direction='column' width='20%'>
+    </Grid>
+    <Grid item xs={12} sm={3.5}>
+    <Stack direction='column' minWidth='55%'>
                 <Stack direction='row'>
-                    <Typography>Quantity : </Typography>
+                    <Typography>Quantity </Typography>
                     <TextField
                         type='number'
+                        onChange={(e) => {handleBuyingCountChange(parseInt(e.target.value));
                         
-                        onChange={(e)=>setBuyingCount(e.target.value)}
-                        defaultValue={1}
+                        }}
+                        
+                        error={error}
+                        helperText={error? 'Invalid quentity': ''}
+                        defaultValue={buyingCount || 1}
                         inputProps={{ min: 1, max: quantity, style: { padding: '0px 0px 0 10px', display: 'all', width:'40px' } }}
                     />
                 </Stack>
@@ -71,8 +93,93 @@ const handleRemoveClick = () => {
                     <Typography variant='h7' color='error'>(Out of Stock)</Typography>
                 )}
             </Stack>
-            <Typography variant='h6' color='success.main' width='10%'>Rs.{productTotPrice}</Typography>
+    </Grid>
+    <Grid item xs={12} sm={2}>
+    <Typography variant='h6' color='success.main' width='40%'>Rs.{productTotPrice}</Typography>
+    </Grid>
+    
+
+
+    </Grid>
+    <Grid item xs={0.1} sm={0.2}>
+    <IconButton color='error' sx={{ width: '1px', height: '1px' }} onClick={handleRemoveClick}><CancelIcon sx={{ fontSize: 25 }} /></IconButton>
+        
+    </Grid>
+</Grid>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* 
+            
+            <Stack direction='row' gap={2} justifyContent='space-evenly'>
+            
+            
+            <Stack sx={{width:'25%' }} margin='auto' >
+            {Object.values(imageUrl).slice(0, 1).map((image, index) => (
+    <img
+        key={index}
+        src={`http://localhost:5000${image}`} 
+        alt={`Slide ${index + 1}`}
+        style={{ width:'100%',height:'100px', borderRadius: '5px' }}
+        onError={(e) => {
+            console.error(`Failed to load image ${index}: ${e.target.src}`);
+            e.target.onerror = null; 
+        }}
+    />
+))}
+            </Stack>
+
+
+            <Stack direction={{xs:'column',sm:'row'}} width='auto' justifyContent='space-between' alignItems='center'>
+            <Stack direction='column' minWidth='50%'>
+                <Typography noWrap>{itemName}</Typography>
+                <Typography noWrap>{itemName}</Typography>
+                <Typography noWrap>Unit price: Rs. {price}</Typography>
+            </Stack>
+            
+            <Stack direction='row'  gap={2} width='50%'>
+            <Stack direction='column' minWidth='55%'>
+                <Stack direction='row'>
+                    <Typography>Quantity </Typography>
+                    <TextField
+                        type='number'
+                        onChange={(e) => {handleBuyingCountChange(parseInt(e.target.value));
+                        
+                        }}
+                        
+                        error={error}
+                        helperText={error? 'Invalid quentity': ''}
+                        defaultValue={buyingCount || 1}
+                        inputProps={{ min: 1, max: quantity, style: { padding: '0px 0px 0 10px', display: 'all', width:'40px' } }}
+                    />
+                </Stack>
+                {quantity > 0 ? (
+                    <Typography variant='h7' color='success.main' >(In stock: {quantity})</Typography>
+                ) : (
+                    <Typography variant='h7' color='error'>(Out of Stock)</Typography>
+                )}
+            </Stack>
+            <Typography variant='h6' color='success.main' width='40%'>Rs.{productTotPrice}</Typography>
+            </Stack>
+            </Stack>
+            </Stack>
             <IconButton color='error' sx={{ width: '1px', height: '1px' }} onClick={handleRemoveClick}><CancelIcon sx={{ fontSize: 25 }} /></IconButton>
+         */}
+        
+        
         </Stack>
+
+
+
     );
 };

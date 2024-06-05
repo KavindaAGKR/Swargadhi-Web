@@ -1,7 +1,10 @@
+import { Button, Container, Stack, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const EditTreatment = () => {
+
+  const navigate = useNavigate();
   const { id } = useParams();
   const [treatment, setTreatment] = useState({
     treatmentName: { en: '', si: '' },
@@ -74,15 +77,13 @@ export const EditTreatment = () => {
   };
 
   return (
-    <div>
-      {treatment ? (
-        <div>
-          <h2>Edit Treatment: {treatment.treatmentName.en}</h2>
 
-          {/* Display current images */}
-          <div>
-            <h3>Current Images:</h3>
-            {currentImages.map((imageUrl, index) => (
+<Stack p='25px' gap={3}>
+  
+  <Typography variant='h4' textAlign='center'>Edit treatment details</Typography>
+  <Typography variant='h6'>Current images:</Typography>
+          <Container>
+          {currentImages.map((imageUrl, index) => (
               <img
                 key={index}
                 src={`http://localhost:5000${imageUrl}`}
@@ -90,16 +91,38 @@ export const EditTreatment = () => {
                 style={{ width: '150px', height: '150px', marginRight: '10px' }}
               />
             ))}
-          </div>
+          </Container>
 
+            <Stack gap={5} sx={{ width: '100%' }} justifyContent='space-between' direction='column'>
+                            
+                            {/* <TextField name='productItemID' type='text' label='Enter Product ID' value={product.productItemID} onChange={(e) => handleInputChange('productItemID', e.target.value)} />
+                             */}
+                            <Stack direction={{xs:'column', sm:'row'}} gap={2}>
+                                <TextField  variant="filled" name='treatmentNameEn' type='text' label='Enter treatment name in English'  sx={{ width: "100%", }}  value={treatment.treatmentName.en}
+            onChange={(e) => handleInputChange('treatmentName', { ...treatment.treatmentName, en: e.target.value })}/>
+                                <TextField name='treatmentNameSi' type='text' label='Enter treatment name in Sinhala' sx={{ width: "100%" }}  value={treatment.treatmentName.si}
+            onChange={(e) => handleInputChange('treatmentName', { ...treatment.treatmentName, si: e.target.value })}/>
+                            </Stack>
+                            
+                            <Stack direction={{xs:'column', sm:'row'}} gap={2}>
+                                <TextField multiline maxRows={5} name='descriptionEn' type='text' label='Treatment description in English' sx={{ width: "100%" }}  value={treatment.description.en}
+            onChange={(e) => handleInputChange('description', { ...treatment.description, en: e.target.value })}/>
+                                <TextField multiline maxRows={5} name='descriptionSi' type='text' label='Treatment description in Sinhala'  sx={{ width: "100%" }}  value={treatment.description.si}
+            onChange={(e) => handleInputChange('description', { ...treatment.description, si: e.target.value })} />
+                            </Stack>
+
+                              <TextField name='price' type='number' label='Price (LKR)'   value={treatment.price}
+            onChange={(e) => handleInputChange('price', e.target.value)}/>
+                        </Stack>
           {/* Upload new images */}
-          <label>Upload New Image:</label>
-          <input type="file" multiple onChange={handleImageUpload} />
+          <Typography>Upload New Image: <input type="file" multiple  onChange={handleImageUpload} /></Typography>
 
-          {/* Display new image previews */}
+          <Typography >New Image Preview:</Typography>
+          {/* New image previews */}
           {imageFiles.length > 0 && (
-            <div>
-              <h3>New Image Preview:</h3>
+            
+            <Container>
+              
               {imageFiles.map((file, index) => (
                 <img
                   key={index}
@@ -108,49 +131,14 @@ export const EditTreatment = () => {
                   style={{ width: '150px', height: '150px', marginRight: '10px' }}
                 />
               ))}
-            </div>
+            </Container>
           )}
+          <Stack direction='row' sx={{width:'300px',margin:'auto'}} gap={5}>
+            <Button variant='contained' onClick={()=>navigate(-1)}>Cancel</Button>
+          <Button variant='contained'  onClick={handleSaveChanges} >Save Changes</Button>
+          </Stack>
 
-          {/* Edit treatment fields */}
-          <label>Treatment Name (English):</label>
-          <input
-            type="text"
-            value={treatment.treatmentName.en}
-            onChange={(e) => handleInputChange('treatmentName', { ...treatment.treatmentName, en: e.target.value })}
-          />
 
-          <label>Treatment Name (Sinhala):</label>
-          <input
-            type="text"
-            value={treatment.treatmentName.si}
-            onChange={(e) => handleInputChange('treatmentName', { ...treatment.treatmentName, si: e.target.value })}
-          />
-
-          <label>Price:</label>
-          <input
-            type="number"
-            value={treatment.price}
-            onChange={(e) => handleInputChange('price', e.target.value)}
-          />
-
-          <label>Description (English):</label>
-          <textarea
-            value={treatment.description.en}
-            onChange={(e) => handleInputChange('description', { ...treatment.description, en: e.target.value })}
-          />
-
-          <label>Description (Sinhala):</label>
-          <textarea
-            value={treatment.description.si}
-            onChange={(e) => handleInputChange('description', { ...treatment.description, si: e.target.value })}
-          />
-
-          {/* Save changes button */}
-          <button onClick={handleSaveChanges}>Save Changes</button>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
+    </Stack>
   );
 };

@@ -1,5 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete'; // Imported DeleteIcon only, EditIcon is not used
-import { Button, Dialog, DialogActions, DialogContent, MenuItem, Stack, TextField, Typography } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Stack, TextField, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import { Box } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const AdminDoctor = () => {
     const [open, setOpen] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
     const [doctorData, setDoctorData] = useState({
         doctorID: '',
         nameEn: '',
@@ -149,12 +150,19 @@ export const AdminDoctor = () => {
                     {/* <IconButton onClick={() => handleEdit(params.row.id)}>
                         <EditIcon color="primary" />
                     </IconButton> */}
-                    <IconButton onClick={() => handleDelete(params.row.id)}>
+                    <IconButton onClick={() => setOpenDelete(true)}>
                         <DeleteIcon color="error" />
                     </IconButton>
                     <IconButton onClick={() => handleEdit(params.row.id)}> {/* Call handleEdit function with row id */}
                         <EditIcon color="primary" />
                     </IconButton>
+                    <Dialog open={openDelete} sx={{backgroundColor:'white'}} >
+                        <DialogTitle width={{xs:'250px', sm:'400px'}}> Do you want to delete the doctor? </DialogTitle>
+                        <DialogActions>
+                            <Button  onClick={()=>setOpenDelete(false)}>Cancel</Button>
+                            <Button onClick={() => {handleDelete(params.row.id);setOpenDelete(false);}}>Yes</Button>
+                        </DialogActions>
+                    </Dialog>
          
                     {console.log("Row ID:", params.row.id)}
                 </div>
@@ -164,7 +172,7 @@ export const AdminDoctor = () => {
     
     
     const rows = doctors.map(doctor => ({
-        id: doctor._id,
+        id: doctor.doctorID,
         name_en: doctor.name.en,
         name_si: doctor.name.si,
         description_en: doctor.description.en,
@@ -180,28 +188,29 @@ export const AdminDoctor = () => {
                 <Button variant='contained' sx={{width:'30%', margin:'auto'}} onClick={() => setOpen(true)}>Add New Product</Button>
                 <Dialog
                     open={open}
+                    onClose={() => setOpen(false)}
                     aria-labelledby='Dialog-title'
                     aria-describedby='Dialog-description'
+                    fullWidth
+                    maxWidth='md'
                 >
                     <DialogContent>
                         <Stack gap={2} sx={{ width: '100%' }} justifyContent='space-between' direction='column'>
-                            <Typography variant='h3' color='success.main' margin='auto'>Add New Product</Typography>
-                            <Stack direction='row' gap={2}>
+                            <Typography variant='h3' color='success.main' margin='auto'>Add a New Doctor</Typography>
+
                                 <TextField name='doctorID' type='text' label='Enter  ID' value={doctorData.doctorID} onChange={handleChange} />
-                               
-                            </Stack>
-                            <Stack direction='row' gap={2}>
-                                <TextField name='nameEn' type='text' label='Enter Name in English' value={doctorData.nameEn} onChange={handleChange} />
-                                <TextField name='nameSi' type='text' label='Enter Name in Sinhala' value={doctorData.nameSi} onChange={handleChange} />
+
+                            <Stack direction={{xs:'column', sm:'row'}} gap={2}>
+                                <TextField name='nameEn' type='text' label='Enter Name in English' sx={{ width: "100%" }}  value={doctorData.nameEn} onChange={handleChange} />
+                                <TextField name='nameSi' type='text' label='Enter Name in Sinhala' sx={{ width: "100%" }}  value={doctorData.nameSi} onChange={handleChange} />
                             </Stack>
                           
-                            <Stack direction='row' gap={2}>
-                                <TextField name='descriptionEn' type='text' label='Enter the doctor description in English' value={doctorData.descriptionEn} onChange={handleChange} />
-                                <TextField name='descriptionSi' type='text' label='Enter the doctor description in Sinhala' value={doctorData.descriptionSi} onChange={handleChange} />
+                            <Stack direction={{xs:'column', sm:'row'}} gap={2}>
+                                <TextField name='descriptionEn' type='text' sx={{ width: "100%" }}  label='Enter the doctor description in English' value={doctorData.descriptionEn} onChange={handleChange} />
+                                <TextField name='descriptionSi' type='text' sx={{ width: "100%" }}  label='Enter the doctor description in Sinhala' value={doctorData.descriptionSi} onChange={handleChange} />
                             </Stack>
-                            <Stack direction='row' gap={2}>
-                                <TextField name='time' type='number' label='Enter the available time' value={doctorData.time} onChange={handleChange} />
-                            </Stack>
+                                <TextField name='time' type='number' sx={{ width: "100%" }}  label='Enter the available time' value={doctorData.time} onChange={handleChange} />
+
                             <input 
                                     type="file" 
                                     accept=".png, .jpg, .jpeg"
@@ -219,15 +228,14 @@ export const AdminDoctor = () => {
                 </Dialog>
                 <Typography variant='h5'>List of Doctor shows here.</Typography>
                 <Box sx={{ backgroundColor: 'white', margin: '0 25px ', height: '100%' }}>
-                    <Stack>
-                        <Stack style={{ height: '100%', width: '100%' }}>   
+
                         <DataGrid
                                 rows={rows}
+                                getRowHeight={() => 'auto'}
                                 columns={columns}
                                 pageSize={10} 
                             />
-                        </Stack>
-                    </Stack>
+
                 </Box>
             </Stack>
         </Stack>

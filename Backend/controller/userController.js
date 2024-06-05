@@ -1,8 +1,7 @@
 import bcrypt from "bcrypt";
+import dotenv from 'dotenv';
 import jwt from "jsonwebtoken";
 import { User } from "../models/userModel.js";
-import dotenv from 'dotenv';
-import axios from 'axios'; // Add this line to import axios
 dotenv.config();
 
 
@@ -92,16 +91,50 @@ export const userLogin = async (req, res) => {
 };
 
 
+export const getAllUsers = async (req, res) => {
+  try {
+      const users = await User.find();
+
+      // Modify each user to include only firstName, lastName, and email
+      const usersWithFilteredDetails = users.map(user => ({
+          _id:user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email
+      }));
+
+      // Return the modified users with filtered details
+      return res.status(200).json({
+          count: usersWithFilteredDetails.length,
+          data: usersWithFilteredDetails
+      });
+  } catch (error) {
+      console.error(error.message);
+      res.status(500).json({ message: 'Internal server error', error: error.message });
+  }
+};
 
 
+export const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log('Deleting user with id:', id); // Debugging line
+    if (!id) {
+      return res.status(400).json({ message: 'Invalid user id', alert: false });
+    }
 
+    const deletedUser = await User.findByIdAndDelete(id);
 
+    if (!deletedUser) {
+      return res.status(404).json({ message: 'User not found', alert: false });
+    }
 
-
-
-
-
-
+    return res.status(200).json({ message: 'User deleted successfully', alert: 'success' });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: 'Internal server error', alert: false });
+  }
+};
 
 
 

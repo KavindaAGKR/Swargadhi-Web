@@ -4,8 +4,8 @@ import * as orderController from "../controller/orderController.js";
 
 const router = express.Router();
 
-router.post("/create-order", orderController.createOrder);
+router.post("/create", orderController.createOrder);
 router.get("/orders", orderController.getOrders);
-router.put("/update-order/:id", orderController.updateOrderStatus);
+router.put("/orders/:id/status", orderController.updateOrderStatus); 
 
 export default router;

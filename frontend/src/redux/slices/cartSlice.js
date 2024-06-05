@@ -11,6 +11,7 @@ export const cartSlice = createSlice({
     addToCart: (state, action) => {
       state.items.push(action.payload);
       saveCartItemsToLocalStorage(state.items);
+      action.payload.buyingCount = 1;
     },
     removeItemFromCart: (state, action) => {
       const indexToRemove = state.items.findIndex(
@@ -19,13 +20,29 @@ export const cartSlice = createSlice({
       if (indexToRemove !== -1) {
         state.items.splice(indexToRemove, 1);
         saveCartItemsToLocalStorage(state.items);
+        
       }
     },
+    updateItemBuyingCount: (state, action) => {
+      const { productItemID, buyingCount } = action.payload;
+      const itemToUpdate = state.items.find(
+        item => item.productItemID === productItemID
+      );
+      if (itemToUpdate) {
+        itemToUpdate.buyingCount = buyingCount;
+        saveCartItemsToLocalStorage(state.items);
+      }
+    },
+    removeCart: (state) => {
+      state.items = [];
+      saveCartItemsToLocalStorage(state.items);
+    },
+    
   },
 });
 
 // export const { setCart, addToCart, removeItemFromCart } = cartSlice.actions;
-export const {  addToCart, removeItemFromCart } = cartSlice.actions;
+export const {  addToCart, removeItemFromCart,updateItemBuyingCount, removeCart  } = cartSlice.actions;
 export const selectCartItems = state => state.cart.items;
 
 export default cartSlice.reducer;

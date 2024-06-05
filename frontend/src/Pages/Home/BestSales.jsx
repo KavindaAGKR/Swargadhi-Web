@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { Swiper,SwiperSlide } from 'swiper/react';
 import { Autoplay,Navigation, Pagination   } from 'swiper/modules';
 // Import Swiper styles
@@ -6,8 +6,9 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import {  Box } from '@mui/material';
+import {  Box, Typography } from '@mui/material';
 import ProductCard from '../Shop/ProductCard';
+import { FetchProducts } from '../../API/FetchProducts';
 
 
 
@@ -15,108 +16,48 @@ import ProductCard from '../Shop/ProductCard';
 
 
 
-export const BestSales = (fetchData) => {
-
-
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(false);
-
-    const category = 'all'
+export const BestSales = () => {
 
 
 
-    useEffect(() => {
-        setLoading(true);
-        const fetchData = async () => {
-            try {
-                let response;
-                if (category === 'all') {
-                    response = await fetch('http://localhost:5000/api/product/products/english/all');
-                } else {
-                    response = await fetch(`http://localhost:5000/api/product/category/en/${encodeURIComponent(category)}`);
-                }
-    
-                if (!response.ok) {
-                    throw new Error('Failed to fetch products');
-                }
-    
-                const data = await response.json();
-                console.log(`Fetched ${category} products:`, data);
-    
-    
-                const extractedProducts = extractProducts(data);
-    
-                if (Array.isArray(extractedProducts)) {
-                    setProducts(extractedProducts);
-                } else {
-                    throw new Error('Invalid data format');
-                }
-    
-                setLoading(false);
-            } catch (error) {
-                console.error(`Error fetching ${category} products:`, error);
-                setProducts([]);
-                setLoading(false);
-            }
-        };
-    
-    
-        fetchData();
-    },[fetchData]);
-
-    const extractProducts = (data) => {
-        if (category === 'all') {
-
-            return Array.isArray(data) ? data : [];
-        } else {
-
-            if (data && data.data && Array.isArray(data.data)) {
-                return data.data;
-            }
-            return [];
-        }
-    };
-
+    const {products, loading} = FetchProducts('all')
 
 
 return(
-    <Box margin='50px 0px'>
+    <Box margin='50px auto' width='90%'>
+        <Typography variant='h5'>Best Sales</Typography>
 <Swiper
                 
                 spaceBetween={50}
-                slidesPerView={4}
-
-                autoplay={{ delay: 100}}
+                autoplay={false}
                 
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
                 className="mySwiper"
-                speed={10200}
-                loop={true}
+                speed={1200}
+                // loop='auto'
                 style={{
                     width: '100%',
-                    '--swiper-navigation-color': 'transparent',
+                    '--swiper-navigation-color': '#0DFE0D',
                     '--swiper-pagination-color': '#0DFE0D',
-                  }}
-                  >
-
-                  
-                  {/* imageArray.map( (item, i) => ( key={item.key}><img alt={item.key} src={item.images} width='100%' height='auto' style={{borderRadius:'25px'}}/></SwiperSlide>) )
-                   */}
                     
-                        
-                            {products.map(product => (
-                                <SwiperSlide key={product.productItemID} style={{padding:'25px 0px'}}>
+                }}
+                breakpoints={{
+                    0:{slidesPerView:1},
+                    500:{slidesPerView:2},
+                    900:{slidesPerView:3},
+                    1200:{slidesPerView:4},
+                
+                }}
+                >
+                            {products.slice(0,9).map((product,i) => (
+                                <SwiperSlide key={i} style={{padding:'25px 0px'}}>
                                 
                                     <ProductCard product={product} />
                                     
                                 
                                 </SwiperSlide>
                             ))}
-                        
-                    
-                
-
             </Swiper>
             </Box>
 
@@ -127,12 +68,9 @@ return(
 
 
 
-
-
-
 export const HomeSwiper = ({imageArray}) => {
     return (
-      <Swiper
+        <Swiper
                 
                 spaceBetween={15}
                 slidesPerView={1}
@@ -148,13 +86,15 @@ export const HomeSwiper = ({imageArray}) => {
                     width: '100%',
                     '--swiper-navigation-color': '#0DFE0D',
                     '--swiper-pagination-color': '#0DFE0D',
-                  }}
-                  >
+                    borderRadius:'25px',
+                    minHeight:'100%'
+                }}
+                >
 
-                  {
-                  imageArray.map( (item, i) => (<SwiperSlide key={item.key}><img alt={item.key} src={item.images} width='100%' height='auto' style={{borderRadius:'25px'}}/></SwiperSlide>) )
-                  }
-              </Swiper>
+                {
+                imageArray.map( (item, i) => (<SwiperSlide key={item.key}><img alt={item.key} src={item.images}  width='100%' height='100%'  style={{borderRadius:'25px'}}/></SwiperSlide>) )
+                }
+            </Swiper>
     )
-  }
-  
+}
+
