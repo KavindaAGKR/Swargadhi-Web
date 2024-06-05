@@ -29,7 +29,6 @@ export const userCart = async (req, res) => {
   }
 };
 
-
 // Remove item from cart
 export const removeProductFromCart = async (req, res) => {
   const { _id } = req.user;

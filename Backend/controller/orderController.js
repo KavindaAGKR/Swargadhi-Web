@@ -70,6 +70,28 @@ export const updateOrderStatus = async (req, res) => {
     res.status(500).json({ message: 'Error updating order status', error });
   }
 };
+// Fetch orders for a specific user
+export const getUserOrders = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    if (!userId) {
+      return res.status(400).json({ message: 'User ID is required.' });
+    }
+
+    const orders = await Order.find({ orderedby: userId })
+      .populate('orderedby', 'firstName lastName')
+      .populate('products.product');
+    
+    if (!orders.length) {
+      return res.status(200).json({ message: 'No orders found for this user.' });
+    }
+
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error('Error fetching user orders:', error);
+    res.status(500).json({ message: 'Error fetching user orders', error });
+  }
+};
 
 
 

@@ -24,11 +24,11 @@ export const CartEn = () => {
 
 
 
-    const discount = 10;
-    const subTotal = cartItems.reduce((total, item) => total + (item.buyingCount * item.price), 0);
-    const total = subTotal*(100-discount)/100;
-    const deliveryFee = 450;
-    const totalAmount = total + deliveryFee;
+    // const discount = 10;
+    // const subTotal = cartItems.reduce((total, item) => total + (item.buyingCount * item.price), 0);
+    // const total = subTotal*(100-discount)/100;
+    // const deliveryFee = 450;
+    // const totalAmount = total + deliveryFee;
 
     const HandleCheckout = () => {
         navigate('/checkout', {
