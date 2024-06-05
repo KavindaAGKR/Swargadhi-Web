@@ -21,8 +21,13 @@ const adminSchema = new mongoose.Schema({
     isAdmin:{
         type:Boolean,
         default:true
+    ,
+    images: [
+      
+        { type: String }
+      
+      ]
     }
-
 });
 export const Admin = mongoose.model("admin", adminSchema);
 

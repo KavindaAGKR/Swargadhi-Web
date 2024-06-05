@@ -3,8 +3,29 @@ import dotenv from 'dotenv';
 import jwt from "jsonwebtoken";
 import { User } from "../models/userModel.js";
 dotenv.config();
-
-
+import multer from 'multer';
+import path from 'path';
+import { v4 as uuidv4 } from 'uuid';
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/item'); // Specify the destination folder
+    },
+    filename: function(req, file, cb) {   
+        cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+const fileFilter = (req, file, cb) => {
+    const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    if(allowedFileTypes.includes(file.mimetype)) {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+}
+const upload = multer({
+    storage: storage,
+    fileFilter: fileFilter
+}).array('images');
 
 
 const createToken = (userId) => {
@@ -135,13 +156,39 @@ export const deleteUser = async (req, res) => {
     res.status(500).json({ message: 'Internal server error', alert: false });
   }
 };
+export const uploadProfilePictures =  async (req, res) => {
+  upload(req, res, async (err) => {
+      if (err instanceof multer.MulterError) {
+          // A Multer error occurred when uploading.
+          console.error('Multer error:', err);
+          return res.status(500).json({ message: 'Error uploading files', error: err });
+      } else if (err) {
+          // An unknown error occurred when uploading.
+          console.error('Unknown error:', err);
+          return res.status(500).json({ message: 'Unknown error occurred', error: err });
+      }
 
+      // Files uploaded successfully
+      const imagePaths = req.files.map(file => '/public/item/' + file.filename); // Adjust path as necessary
+      const userId = req.body.userId;
 
+      try {
+          const user = await User.findById(userId);
+          if (!user) {
+              return res.status(404).json({ message: 'User not found' });
+          }
 
+          // Update user's profile pictures
+          user.profilePictures = imagePaths;
+          await user.save();
 
-
-
-
+          res.status(200).json({ message: 'Profile pictures uploaded successfully', user });
+      } catch (error) {
+          console.error('Error updating user profile pictures:', error);
+          res.status(500).json({ message: 'Internal server error', error: error.message });
+      }
+  });
+};
 
 
 
