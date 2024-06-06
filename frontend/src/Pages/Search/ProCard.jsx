@@ -112,7 +112,19 @@ const ProCard = ({ product }) => {
             
             <Stack sx={{ margin: '10px', height: '100%' }} >
                 <Stack sx={{ height: '50%', margin: '10px 0px' }}>
-                    <ProductSwiper imageUrl={images}/>
+                    <ProductSwiper imageUrl={product.images}/>
+                    {/* {product.images.map((image, index) => (
+                            <img
+                                key={index}
+                                src={`http://localhost:5000/${image}`}
+                                alt={`Product Image ${index + 1}`}
+                                style={{ width: '100', height: 100, marginRight: 10 }}
+                                onError={(e) => {
+                                    console.error(`Failed to load image ${index}: ${e.target.src}`);
+                                    e.target.onerror = null;
+                                }}
+                            />
+                        ))} */}
                 </Stack>
                 <Stack height='50%' sx={{ padding: '0 10px' , overflowY:'unset'}} justifyContent='space-evenly'>
                     

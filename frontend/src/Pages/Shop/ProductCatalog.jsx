@@ -1,12 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Paper, Typography, Container, Grid, CircularProgress, Stack } from '@mui/material';
 import ProductCard from './ProductCard';
 import { FetchProducts } from '../../API/FetchProducts';
+import ProCard from '../Search/ProCard';
+import { FetchAdminProducts } from '../../AdminPanel/AdminApis/FetchAdminProducts';
 
 const ProductCatalog = ({ category }) => {
 
 
-    const {products, loading} = FetchProducts(category);
+    const {products, loading} = FetchAdminProducts();
+
+    const [productsByCategory, setProductsByCategory ] = useState([]);
+
+    useEffect(() => {
+        const filterProducts = (category) => {
+    
+        return products.filter(product => (
+            product.category.si.toLowerCase().includes(category.toLowerCase()) ||
+            product.category.en.toLowerCase().includes(category.toLowerCase())
+        ));
+        };
+    
+        const categorised = filterProducts(category);
+        setProductsByCategory(categorised);
+        if(category === 'all') { setProductsByCategory(products);} 
+        console.log("Filtered products:", categorised);
+    }, [products, category]);
+    
 
     return (
         <Paper sx={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', width:'100%', padding:'0px 0px 100px 0px ' , boxShadow:'none'}}>
@@ -15,11 +35,11 @@ const ProductCatalog = ({ category }) => {
                 {loading ? (
                     <Typography variant="body1" sx={{ textAlign: 'center', marginTop: '20px' }}>Loading products...<CircularProgress value={50}/></Typography>
                 ) : (
-                    products.length > 0 ? (
+                    productsByCategory.length > 0 ? (
                         <Grid container spacing={5  } >
-                            {products.map(product => (
+                            {productsByCategory.map(product => (
                                 <Grid item key={product.productItemID} xs={12} sm={6} lg={3}>
-                                    <ProductCard product={product} />
+                                    <ProCard product={product} />
                                     
                                 </Grid>
                             ))}

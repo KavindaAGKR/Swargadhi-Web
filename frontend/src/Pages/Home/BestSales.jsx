@@ -9,6 +9,7 @@ import 'swiper/css/scrollbar';
 import {  Box, Typography } from '@mui/material';
 import ProductCard from '../Shop/ProductCard';
 import { FetchProducts } from '../../API/FetchProducts';
+import ProCard from '../Search/ProCard';
 
 
 
@@ -20,7 +21,7 @@ export const BestSales = () => {
 
 
 
-    const {products, loading} = FetchProducts('all')
+    const {products, loading} = FetchProducts();
 
 
 return(
@@ -53,7 +54,7 @@ return(
                             {products.slice(0,9).map((product,i) => (
                                 <SwiperSlide key={i} style={{padding:'25px 0px'}}>
                                 
-                                    <ProductCard product={product} />
+                                    <ProCard product={product} />
                                     
                                 
                                 </SwiperSlide>

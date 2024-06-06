@@ -9,7 +9,8 @@ import { updateItemBuyingCount, removeItemFromCart } from '../../redux/slices/ca
 
 export const CartCard = ({ item}) => {
 
-    const { itemName,  price, imageUrl, quantity , productItemID,buyingCount} = item;
+    const { itemName,  price, images, quantity , productItemID,buyingCount} = item;
+
     const dispatch = useDispatch();
 
 
@@ -49,25 +50,26 @@ const handleRemoveClick = () => {
 
 <Grid container gap={2}>
     <Grid item xs={3.5} sm={2.5} margin='auto'>
-    {Object.values(imageUrl).slice(0, 1).map((image, index) => (
-    <img
+    {Object.values(images).slice(0, 1).map((image, index) => (
+        <img
         key={index}
-        src={`http://localhost:5000${image}`} 
-        alt={`Slide ${index + 1}`}
-        style={{ width:'100%',height:'120px', borderRadius: '5px' }}
+        src={`http://localhost:5000/${image}`}
+        alt={`Product Image ${index + 1}`}
+        style={{ width: '100%', height: '120px', marginRight: 10 }}
         onError={(e) => {
             console.error(`Failed to load image ${index}: ${e.target.src}`);
-            e.target.onerror = null; 
+            e.target.onerror = null;
         }}
     />
+
 ))}
     </Grid>
     <Grid container xs={6.5} sm={8.0}>
 
     <Grid item xs={12} sm={6}>
     <Stack direction='column' width='100%'>
-                <Typography noWrap fontWeight='bold' variant='h6'>{itemName}</Typography>
-                <Typography noWrap>{itemName}</Typography>
+                <Typography noWrap fontWeight='bold' variant='h6'>{itemName.en}</Typography>
+                <Typography noWrap>{itemName.si}</Typography>
                 <Typography noWrap>Unit price: Rs. {price}</Typography>
             </Stack>
     </Grid>

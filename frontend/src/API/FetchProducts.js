@@ -1,72 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect,useState } from "react";
 
-export const FetchProducts = (category) => {
 
+
+export const FetchProducts = () => {
 
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
 
-
-
-
     useEffect(() => {
-        setLoading(true);
-        const fetchData = async () => {
+
+        const fetchAllProducts = async () => {
+            setLoading(true);
             try {
-                let response;
-                if (category === 'all') {
-                    response = await fetch('http://localhost:5000/api/product/products/english/all');
-                    console.log("fetched from all")
-                } else {
-                    response = await fetch(`http://localhost:5000/api/product/category/en/${encodeURIComponent(category)}`);
-                    console.log(`"fetched from all"${category}`)
-                }
-    
-                if (!response.ok) {
-                    throw new Error('Failed to fetch products');
-                }
-    
+                const response = await fetch('http://localhost:5000/api/product/all');
                 const data = await response.json();
-                console.log(`Fetched ${category} products:`, data);
-    
-    
-                const extractedProducts = extractProducts(data);
-    
-                if (Array.isArray(extractedProducts)) {
-                    setProducts(extractedProducts);
+                if (response.ok) {
+                    console.log(data.data);
+                    
+                    setProducts(data.data);
                     
                 } else {
-                    throw new Error('Invalid data format');
+                    console.error('Error fetching Ayurvedic products:', data.message);
                 }
-    
                 setLoading(false);
             } catch (error) {
-                console.error(`Error fetching ${category} products:`, error);
-                setProducts([]);
+                console.error('Error fetching Ayurvedic products:', error.message);
                 setLoading(false);
             }
+        
+            
         };
+        fetchAllProducts();
+    }, []);
     
     
-        fetchData();
-    },[category]);
+    
+return {products, loading}
 
-
-    const extractProducts = (data) => {
-        if (category === 'all') {
-
-            return Array.isArray(data) ? data : [];
-        } else {
-
-            if (data && data.data && Array.isArray(data.data)) {
-                return data.data;
-            }
-            return [];
-        }
-    };
-
-
-
-
-    return { products, loading };
+  
 }
+
+
