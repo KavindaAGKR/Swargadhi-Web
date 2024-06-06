@@ -3,8 +3,6 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import { Admin } from "../models/adminModel.js";
 dotenv.config();
-
-// Import the service account key JSON file with an import assertion
 const createToken = (adminId) => {
   return jwt.sign({ adminId }, 'jwtSecretKey', { expiresIn: '1h' });
 };

@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
 import Feedback from '../models/feedBackModel.js';
-
-// Create Feedback Controller
 export const createFeedback = async (request, response) => {
     try {
         const { givenBy, feedBack } = request.body;
@@ -31,8 +29,7 @@ export const createFeedback = async (request, response) => {
         response.status(500).json({ message: 'Internal Server Error', alert: 'error' });
     }
 };
-// Get all Feedbacks Controller
-// Add this function to your controller file
+
 export const getAllFeedback = async (request, response) => {
     try {
         const feedbackList = await Feedback.find().populate('givenBy', 'firstName lastName'); 
@@ -42,9 +39,6 @@ export const getAllFeedback = async (request, response) => {
         response.status(500).json({ message: 'Internal Server Error', alert: 'error' });
     }
 };
-
-
-// Get Feedback by ID Controller
 export const getFeedbackById = async (request, response) => {
     try {
         const feedbackId = request.params.id;
@@ -72,7 +66,6 @@ export const getFeedbackById = async (request, response) => {
     }
 };
 
-// Edit Feedback by ID Controller
 export const editFeedback = async (request, response) => {
     try {
         const feedbackId = request.params.id;
@@ -100,7 +93,6 @@ export const editFeedback = async (request, response) => {
     }
 };
 
-// Delete Feedback by ID Controller
 export const deleteFeedback = async (request, response) => {
     try {
         const feedbackId = request.params.id;

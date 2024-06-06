@@ -17,7 +17,7 @@ export const createOrder = async (req, res) => {
             buyingCount: item.buyingCount
         })),
         paymentMethod,
-        orderedby: user._id, // Ensure correct property name
+        orderedby: user._id,
         deliveryAddress: {
             addressL1,
             addressL2,
@@ -38,7 +38,7 @@ export const getOrders = async (req, res) => {
   try {
     const orders = await Order.find()
       .populate('orderedby', 'firstName lastName')
-      .populate('products.product'); // Ensure product population
+      .populate('products.product'); 
     res.status(200).json(orders);
   } catch (error) {
     console.error('Error fetching orders:', error);
@@ -70,7 +70,7 @@ export const updateOrderStatus = async (req, res) => {
     res.status(500).json({ message: 'Error updating order status', error });
   }
 };
-// Fetch orders for a specific user
+
 export const getUserOrders = async (req, res) => {
   try {
     const userId = req.params.userId;

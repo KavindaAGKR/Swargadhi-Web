@@ -414,7 +414,7 @@ export const UserProfile = () => {
         } else {
             return (
                 <Avatar sx={{ width: { xs: '100px', sm: '150px' }, height: { xs: '100px', sm: '150px' }, margin: '100px auto' }}>
-                    {user.firstName.charAt(0)}{user.lastName.charAt(0)}
+                  {`${user.firstName.charAt(0)}${user.lastName.charAt(0)}`} 
                 </Avatar>
             );
         }

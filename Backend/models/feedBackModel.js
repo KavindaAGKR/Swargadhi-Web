@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-
-// Declare the Schema of the Mongo model
 const feedbackSchema = new mongoose.Schema({
     feedBack: {
         type: String,

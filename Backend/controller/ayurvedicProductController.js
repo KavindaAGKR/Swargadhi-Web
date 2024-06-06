@@ -1,57 +1,20 @@
 import multer from 'multer';
-import path from 'path';
-import { v4 as uuidv4 } from 'uuid';
 import AyurvedicProduct from "../models/productModel.js";
-
-// Multer storage configuration
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/item'); // Specify the destination folder
-    },
-    filename: function(req, file, cb) {   
-        cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
-
-const fileFilter = (req, file, cb) => {
-    const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-    if(allowedFileTypes.includes(file.mimetype)) {
-        cb(null, true);
-    } else {
-        cb(null, false);
-    }
-}
-
-
-// Multer upload instance
-const upload = multer({
-    storage: storage,
-    fileFilter: fileFilter
-}).array('images');
-
-// Route handler to create a new Ayurvedic product with image upload
+import upload from '../middleWare/fileUpload.js';
 export const createAyurvedicProduct = async (req, res) => {
     try {
-        // Use `upload.array('images')` middleware to handle file uploads
         upload(req, res, async (err) => {
             if (err instanceof multer.MulterError) {
-                // Multer error handling
                 return res.status(400).json({ message: 'Error uploading files', error: err });
             } else if (err) {
-                // Other errors
+
                 return res.status(500).json({ message: 'Error uploading files', error: err });
             }
-
-            // Extract uploaded file paths
             const imagePaths = req.files.map(file => '/public/item/' + file.filename);
-
-            // Validate request body fields
             const { productItemID, itemNameEn, itemNameSi, price, descriptionEn, descriptionSi, quantity, categoryEn,categorySi } = req.body;
             if (!productItemID || !itemNameEn || !itemNameSi || !price || !descriptionEn || !descriptionSi || !quantity || !categoryEn|| !categorySi) {
                 return res.status(400).json({ message: 'Please send all required fields' });
             }
-
-            // Create new Ayurvedic product
             const newAyurvedicProduct = {
                 productItemID,
                 itemName: { en: itemNameEn, si: itemNameSi },
@@ -59,13 +22,9 @@ export const createAyurvedicProduct = async (req, res) => {
                 description: { en: descriptionEn, si: descriptionSi },
                 quantity,
                 category: { en: categoryEn, si: categorySi },
-                images: imagePaths // Store image paths in the product object
+                images: imagePaths
             };
-
-            // Save product to database
             const ayurvedicProduct = await AyurvedicProduct.create(newAyurvedicProduct);
-
-            // Return success response
             
             return res.status(201).json(ayurvedicProduct);
         });
@@ -77,23 +36,17 @@ export const createAyurvedicProduct = async (req, res) => {
 export const updateAyurvedicProduct = async (req, res) => {
     try {
       const { id } = req.params;
-  
-      // Use `upload` middleware to handle file uploads
       upload(req, res, async (err) => {
         if (err instanceof multer.MulterError) {
           return res.status(400).json({ message: 'Error uploading files', error: err });
         } else if (err) {
           return res.status(500).json({ message: 'Error uploading files', error: err });
         }
-  
-        // Retrieve existing product from database
         const existingProduct = await AyurvedicProduct.findById(id);
   
         if (!existingProduct) {
           return res.status(404).json({ message: 'Ayurvedic product not found' });
         }
-  
-        // Update product fields
         existingProduct.productItemID = req.body.productItemID;
         existingProduct.price = req.body.price;
         existingProduct.quantity = req.body.quantity;
@@ -109,29 +62,19 @@ export const updateAyurvedicProduct = async (req, res) => {
           en: req.body.categoryEn,
           si: req.body.categorySi
         };
-  
-        // Handle updated images
+
         if (req.files && req.files.length > 0) {
-            // Map uploaded files to new image paths
             const newImagePaths = req.files.map((file) => `/public/item/${file.filename}`);
-      
-            // Replace existing images or update specific image based on request
             const updatedImageIndex = req.body.updatedImageIndex;
             if (updatedImageIndex !== undefined && updatedImageIndex !== null && updatedImageIndex >= 0) {
-              // Replace the image at the specified index
               if (updatedImageIndex < existingProduct.images.length) {
                 existingProduct.images[updatedImageIndex] = newImagePaths[0];
               }
             } else {
-              // Append new image paths to existing images
               existingProduct.images = newImagePaths;
             }
           }
-  
-        // Save updated product to database
         const updatedProduct = await existingProduct.save();
-  
-        // Respond with updated product
         res.status(200).json({ message: 'Ayurvedic product updated successfully', updatedProduct });
       });
     } catch (error) {
@@ -140,43 +83,16 @@ export const updateAyurvedicProduct = async (req, res) => {
     }
   };
 
-// Get all Ayurvedic products
-// export const getAllAyurvedicProducts = async (request, response) => {
-//     //let userId = request.params.userId; // Assuming your route has a parameter named 'userId'
-//     try {
-//         //const ayurvedicProducts = await AyurvedicProduct.find({ user: userId });
-//         const ayurvedicProducts = await AyurvedicProduct.find();
-//         return response.status(200).json({
-//             count: ayurvedicProducts.length,
-//             data: ayurvedicProducts
-//         });
-//     } catch (error) {
-//         console.log(error.message);
-//         response.status(500).send({ message: error.message });
-//     }
-// };
-
-// Update an Ayurvedic product by ID
-
-
 export const getAllAyurvedicProducts = async (req, res) => {
     try {
-        // Fetch all Ayurvedic products from the database
         const ayurvedicProducts = await AyurvedicProduct.find();
-
-        // Modify each product to include full image paths
         const productsWithImages = ayurvedicProducts.map(product => {
-            // Map each image filename to its full URL path
             const imagePaths = product.images.map(filename => filename.slice(1));
-            
-            // Return product object with updated image paths
             return {
                 ...product.toObject(),
                 images: imagePaths
             };
         });
-
-        // Return the modified products with image paths
         return res.status(200).json({
             count: productsWithImages.length,
             data: productsWithImages
@@ -186,29 +102,9 @@ export const getAllAyurvedicProducts = async (req, res) => {
         res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 };
-
-
-
-
-
-
-
-
-
-// Get an Ayurvedic product by ID
-// export const getAyurvedicProductById = async (request, response) => {
-//     try {
-//         const { id } = request.params;
-//         const ayurvedicProduct = await AyurvedicProduct.findById(id);
-//         return response.status(200).json(ayurvedicProduct);
-//     } catch (error) {
-//         console.log(error.message);
-//         response.status(500).send({ message: error.message });
-//     }
-// };
 export const getAyurvedicProductById = async (request, response) => {
     try {
-      const { id } = request.params; // Extract the 'id' parameter from request parameters
+      const { id } = request.params; 
       const ayurvedicProduct = await AyurvedicProduct.findById(id);
       if (!ayurvedicProduct) {
         return response.status(404).json({ message: "Ayurvedic product not found" });
@@ -219,8 +115,6 @@ export const getAyurvedicProductById = async (request, response) => {
       response.status(500).send({ message: error.message });
     }
   };
-
-// Get Ayurvedic products by category
 export const getAyurvedicProductsByCategory = async (request, response) => {
     try {
         const { category } = request.params;
@@ -235,9 +129,6 @@ export const getAyurvedicProductsByCategory = async (request, response) => {
     }
 };
 
-// Uncomment and modify the updateAyurvedicProduct function if you plan to use image updates
-
-//Delete an Ayurvedic product by ID
 export const deleteAyurvedicProduct = async (request, response) => {
     try {
         const { id } = request.params;
@@ -253,8 +144,6 @@ export const deleteAyurvedicProduct = async (request, response) => {
         response.status(500).send({ message: error.message });
     }
 };
-
-
 
 export const getSinhalaPart = async (request, response) => {
     try {
@@ -295,8 +184,6 @@ export const getEnglishPart = async (request, response) => {
         if (!ayurvedicProduct) {
             return response.status(404).json({ message: "Ayurvedic product not found" });
         }
-
-        // Extract relevant details
         const productDetails = {
             productItemID: ayurvedicProduct.productItemID,
             itemName: 
@@ -390,10 +277,8 @@ export const getSinhalaAyurvedicProductsByCategory = async (request, response) =
 export const getEnglishAyurvedicProductsByCategory = async (request, response) => {
     try {
         const { category } = request.params;
-
-        // Find all products with the specified category in English
         const ayurvedicProducts = await AyurvedicProduct.find({ "category.en": category })
-            .select({ // Project only specific fields
+            .select({ 
                 "itemName.en": 1,
                 "description.en": 1,
                 "category.en": 1,
@@ -401,20 +286,16 @@ export const getEnglishAyurvedicProductsByCategory = async (request, response) =
                 "quantity": 1,
                 "images": 1
             })
-            .lean(); // Convert Mongoose documents to plain JavaScript objects
-
-        // Map the retrieved products to the desired response format
+            .lean(); 
         const formattedProducts = ayurvedicProducts.map(product => ({
-            productItemID: product._id, // Assuming MongoDB _id is used as productItemID
+            productItemID: product._id, 
             itemName: product.itemName.en,
             price: product.price,
             description: product.description.en,
             quantity: product.quantity,
             category: product.category.en,
-            imageUrl: product.images || [] // Use images array or empty array if undefined
+            imageUrl: product.images || [] 
         }));
-
-        // Return the formatted products array as part of the API response
         return response.status(200).json({
             count: formattedProducts.length,
             data: formattedProducts
@@ -425,7 +306,6 @@ export const getEnglishAyurvedicProductsByCategory = async (request, response) =
     }
 };
 
-// Search Ayurvedic products
 export const searchAyurvedicProducts = async (req, res) => {
     try {
         const { query } = req.query;
@@ -434,7 +314,6 @@ export const searchAyurvedicProducts = async (req, res) => {
             return res.status(400).json({ message: 'Search query is required' });
         }
 
-        // Construct search criteria
         const searchCriteria = {
             $or: [
                 { 'itemName.en': { $regex: query, $options: 'i' } },
@@ -445,12 +324,8 @@ export const searchAyurvedicProducts = async (req, res) => {
                 { 'category.si': { $regex: query, $options: 'i' } }
             ]
         };
-
-        // Fetch products matching the search criteria
         const ayurvedicProducts = await AyurvedicProduct.find(searchCriteria);
-
-        // Return the search results
-        return res.status(200).json({
+            return res.status(200).json({
             count: ayurvedicProducts.length,
             data: ayurvedicProducts
         });

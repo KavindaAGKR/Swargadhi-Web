@@ -17,9 +17,18 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String,
         required:true,
-        //unique:true,
     },
-    profilePicture: { type: String} ,
+    profilePicture: { 
+        type: String
+    } ,
+    mobileNumber:{
+        type:Number
+    },
+    deliveryAddress: {
+        addressL1: String,
+        addressL2: String,
+        addressL3: String
+    },
     isAdmin:{
         type:Boolean,
         default:false
