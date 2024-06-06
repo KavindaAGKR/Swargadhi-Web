@@ -44,6 +44,7 @@ export const UserProfile = () => {
 
     const [profilePicture, setProfilePicture] = useState();
     const [editDialogOpen, setEditDialogOpen] = useState(false);
+    const [userDetails, setUserDetails] = useState(user);
 
     useEffect(() => {
         fetchUserProfile();
@@ -54,7 +55,7 @@ export const UserProfile = () => {
         try {
             const response = await axios.get(`http://localhost:5000/api/user/profile/${user._id}`);
             setProfilePicture(response.data.profilePicture);
-            console.log("image isssssssssssssssss" + response.data.profilePicture)
+            console.log("image " + response.data.profilePicture)
         } catch (error) {
             console.error('Error fetching user profile:', error);
         }
@@ -87,7 +88,7 @@ export const UserProfile = () => {
             });
 
             if (!response.ok) {
-                const errorText = await response.text(); // Get error text from response
+                const errorText = await response.text(); 
                 throw new Error(`Error uploading profile picture: ${errorText}`);
             }
 
@@ -183,21 +184,21 @@ export const UserProfile = () => {
                                 <Stack sx={{ margin: '25px' }}>
                                     <Grid container spacing={1} rowGap={5} columnGap={3} sx={{ fontWeight: 'bold' }}>
                                         <Grid item xs={2.2}>First Name:</Grid>
-                                        <Grid item sm={2.8} xs={8} sx={{ ...detailStyles }}>{user.firstName}</Grid>
+                                        <Grid item sm={2.8} xs={8} sx={{ ...detailStyles }}>{userDetails.firstName}</Grid>
                                         <Grid item xs={2.2}>Last Name:</Grid>
-                                        <Grid item sm={2.8} xs={8} sx={{ ...detailStyles }}>{user.lastName}</Grid>
+                                        <Grid item sm={2.8} xs={8} sx={{ ...detailStyles }}>{userDetails.lastName}</Grid>
                                         <Grid item xs={2.2}>Email:</Grid>
-                                        <Grid item xs={8} sx={{ ...detailStyles }}>{user.email}</Grid>
+                                        <Grid item xs={8} sx={{ ...detailStyles }}>{userDetails.email}</Grid>
                                         <Grid item xs={2.2}>Mobile Number:</Grid>
-                                        <Grid item sm={3} xs={7} sx={{ ...detailStyles }}>{user.mobileNumber}</Grid>
+                                        <Grid item sm={3} xs={7} sx={{ ...detailStyles }}>{userDetails.mobileNumber}</Grid>
                                         <Grid item container gap={2}>Address:
                                             <Grid item xs={10} />
                                             <Grid item sm={2.2}>Address Line 01:</Grid>
-                                            <Grid item sm={8} xs={12} sx={{ ...detailStyles }}>{user.addressL1}</Grid>
+                                            <Grid item sm={8} xs={12} sx={{ ...detailStyles }}>{userDetails.deliveryAddress?.addressL1}</Grid>
                                             <Grid item sm={2.2}>Address Line 02:</Grid>
-                                            <Grid item sm={8} xs={12} sx={{ ...detailStyles }}>{user.addressL2}</Grid>
+                                            <Grid item sm={8} xs={12} sx={{ ...detailStyles }}>{user.deliveryAddress?.addressL2}</Grid>
                                             <Grid item sm={2.2}>Address Line 03:</Grid>
-                                            <Grid item sm={8} xs={12} sx={{ ...detailStyles }}>{user.addressL3}</Grid>
+                                            <Grid item sm={8} xs={12} sx={{ ...detailStyles }}>{user.deliveryAddress?.addressL3}</Grid>
                                         </Grid>
                                     </Grid>
                                 </Stack>

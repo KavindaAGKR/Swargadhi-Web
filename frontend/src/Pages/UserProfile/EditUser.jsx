@@ -1,17 +1,56 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Grid } from '@mui/material';
 
-const EditProfileDialog = ({ open, handleClose, userDetails, handleUpdate }) => {
+const EditProfileDialog = 
+({ open, handleClose, userDetails, handleUpdate }) =>
+     {
 
   const [user, setUser] =  useState(userDetails);
 
-
+  useEffect(() => {
+    if (userDetails) {
+      setUser({ ...userDetails });
+    }
+  }, [userDetails]);
   const handleChange = (event) => {
     const { name, value } = event.target;
     
     setUser({ ...user, [name]: value });
   };
+
+  const handleSave = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/user/update', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userId: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          mobileNumber: user.mobileNumber,
+          addressL1: user.addressL1,
+          addressL2: user.addressL2,
+          addressL3: user.addressL3
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.message);
+        handleUpdate(data.updatedUser); 
+        handleClose();
+      } else {
+        console.error('Error updating user:', await response.text());
+      }
+    } catch (error) {
+      console.error('Error updating user:', error);
+    }
+  };
+
 
     return (
         <Dialog open={open} onClose={handleClose}>
@@ -93,7 +132,7 @@ const EditProfileDialog = ({ open, handleClose, userDetails, handleUpdate }) => 
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose}>Cancel</Button>
-                <Button color="primary" variant="contained">Save</Button>
+                <Button color="primary" variant="contained" onClick={handleSave}>Save</Button>
             </DialogActions>
         </Dialog>
     );
