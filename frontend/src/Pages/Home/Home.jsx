@@ -96,6 +96,12 @@ export const Home = () => {
         > 
           Kashaya
         </MotionButton>
+        <MotionButton 
+        
+        onClick={()=> navigate('/shop', { state: { category: 'Kashaya' } })}
+        > 
+          Kashaya
+        </MotionButton>
 
         </Stack>
         
