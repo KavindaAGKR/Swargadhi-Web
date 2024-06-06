@@ -10,6 +10,7 @@ import { logout } from '../../redux/slices/userSlice';
 import { selectUser, selectIsLoggedIn } from '../../redux/slices/userSlice';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import EditProfileDialog from './EditUser';
+import { UserOrders } from './UserOrders';
 
 const detailStyles = {
     boxShadow: '2px 2px 5px 1px #D6D3D2',
@@ -229,32 +230,10 @@ export const UserProfile = () => {
                         <EditProfileDialog 
                             open={editDialogOpen} 
                             handleClose={handleCloseEditDialog} 
-                            user={user} 
+                            userDetails={user} 
                             
                         />
-                        <Stack width='80%'>
-                            <Typography variant="h5" gutterBottom>Orders</Typography>
-                            {orders.length ? (
-                                orders.map((order) => (
-                                    <div key={order._id}>
-                                        <Typography variant="body1">Status: {order.orderStatus}</Typography>
-                                        <Typography variant="body1">Total Amount: ${order.totalAmount}</Typography>
-                                        <Typography variant="body1">Products:</Typography>
-                                        <ul>
-                                            {order.products.map((product, index) => (
-                                                <li key={index}>
-                                                    <Typography variant="body2">
-                                                        {product.itemName} - {product.buyingCount} x ${product.price}
-                                                    </Typography>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                ))
-                            ) : (
-                                <Typography variant="body1">No order is placed.</Typography>
-                            )}
-                        </Stack>
+                        <UserOrders user={user}/>
                         <Stack width='80%'>
                             <Typography variant="h5" gutterBottom>Feedback</Typography>
                             <Typography variant="body1" gutterBottom>Tell us about your experience with our products!</Typography>
@@ -297,5 +276,3 @@ export const UserProfile = () => {
         </React.Fragment>
     );
 };
-
-                                   

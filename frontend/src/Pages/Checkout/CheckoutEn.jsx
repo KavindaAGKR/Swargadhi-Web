@@ -208,7 +208,7 @@ export const CheckOutEn = () => {
                     sx={{ marginTop: "100px", width:'100%' }}
                     >
                     <Alert
-                        autoHideDuration={3000}
+                        
                         onClose={() => { setSnackbarOpen(false); if(snackMessage === "Order placed successfully"){navigate('/user')} }}
                         severity={(snackMessage === "Order placed successfully") ? ('success'): ('error') }
                         variant="filled"

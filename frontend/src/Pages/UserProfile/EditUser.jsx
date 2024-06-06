@@ -2,12 +2,16 @@
 import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Grid } from '@mui/material';
 
-const EditProfileDialog = ({ open, handleClose, user, handleUpdate }) => {
+const EditProfileDialog = ({ open, handleClose, userDetails, handleUpdate }) => {
 
- const handleChange = () =>{
+  const [user, setUser] =  useState(userDetails);
 
- }
 
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    
+    setUser({ ...user, [name]: value });
+  };
 
     return (
         <Dialog open={open} onClose={handleClose}>
@@ -22,6 +26,7 @@ const EditProfileDialog = ({ open, handleClose, user, handleUpdate }) => {
                             fullWidth
                             value={user.firstName}
                             onChange={handleChange}
+                           
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
