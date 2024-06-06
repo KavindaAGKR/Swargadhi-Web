@@ -1,15 +1,12 @@
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Button, Grid, Paper, Stack, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Footer } from '../../Components/Footer';
+import React, { useState, useEffect } from 'react';
 import { Header } from '../../Components/Header';
-import { selectCartItems } from '../../redux/slices/cartSlice';
+import { Footer } from '../../Components/Footer';
+import { useNavigate } from 'react-router-dom';
+import { Grid, Paper, Stack, Typography, Button } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { CartCard } from './CartCard';
-
-import axios from 'axios';
-import { selectToken } from '../../redux/slices/userSlice';
+import { useSelector } from 'react-redux';
+import { selectCartItems   } from '../../redux/slices/cartSlice';
 
 
 
@@ -19,16 +16,14 @@ export const CartEn = () => {
     const cartItems = useSelector(selectCartItems);
     const navigate = useNavigate();
 
-    const token = useSelector(selectToken);
-    const [productTotalPrices, setProductTotalPrices] = useState({});
 
 
 
-    // const discount = 10;
-    // const subTotal = cartItems.reduce((total, item) => total + (item.buyingCount * item.price), 0);
-    // const total = subTotal*(100-discount)/100;
-    // const deliveryFee = 450;
-    // const totalAmount = total + deliveryFee;
+    const discount = 10;
+    const subTotal = cartItems.reduce((total, item) => total + (item.buyingCount * item.price), 0);
+    const total = subTotal*(100-discount)/100;
+    const deliveryFee = 450;
+    const totalAmount = total + deliveryFee;
 
     const HandleCheckout = () => {
         navigate('/checkout', {
@@ -39,60 +34,6 @@ export const CartEn = () => {
         });
     };
 
-
-  // Whenever cartItems changes, send the cart data to backend
-  useEffect(() => {
-    saveCartDataToBackend();
-  }, [cartItems]);
-
-  const saveCartDataToBackend = async () => {
-    try {
-      // Check if user data exists in local storage
-      const userData = localStorage.getItem('user');
-      if (!userData) {
-        console.error('User data not found in local storage');
-        return;
-      }
-  
-      // Extract user ID from local storage
-      const user = JSON.parse(userData);
-      const userID = user._id;
-  
-      // Extract product IDs and prices from cart items
-      const cartData = cartItems.map(item => ({
-        productId: item.productItemID,
-        quantity: item.quantity, // You may need to adjust this if you're not tracking quantity in your frontend
-        price: item.price, // Assuming you have price in your cart item
-      }));
-  
-      // Make API request to save cart data to backend
-      await axios.post('http://localhost:5000/api/cart/user-cart', {
-        userID: userID,
-        cartData: cartData,
-      }, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-    } catch (error) {
-      console.error('Error saving cart data to backend:', error);
-    }
-  };
-  
-
-
-
-
-
-
-
-
-// subTotal
-const subTotal = Object.values(productTotalPrices).reduce((acc, curr) => acc + curr, 0);
-const discount = 10;
-const total = subTotal*(100-discount)/100;
-const deliveryFee = 450;
-const totalAmount = total + deliveryFee;
 
 
 
@@ -168,4 +109,3 @@ const totalAmount = total + deliveryFee;
         </React.Fragment>
     );
 };
-

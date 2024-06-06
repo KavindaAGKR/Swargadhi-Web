@@ -35,16 +35,15 @@ export const ProductSwiper = ({imageUrl}) => {
             {imageUrl.map((image, index) => (
                 <SwiperSlide key={index} style={{display:'flex' ,alignItems:'center', justifyContent:'center', margin:'auto'}} >
                     <img
-                        
-                        src={`http://localhost:5000${image}`} 
-                        alt={`Slide ${image}`}
-                        style={{ maxWidth: '100%',borderRadius: '20px',  height:'100%', margin:'auto' }}
-                        
-                        onError={(e) => {
-                            console.error(`Failed to load image ${index}: ${e.target.src}`);
-                            e.target.onerror = null; 
-                        }}
-                    />
+                                key={index}
+                                src={`http://localhost:5000/${image}`}
+                                alt={`Product Image ${index + 1}`}
+                                style={{ width: '100%', height: '100%', marginRight: 10 }}
+                                onError={(e) => {
+                                    console.error(`Failed to load image ${index}: ${e.target.src}`);
+                                    e.target.onerror = null;
+                                }}
+                            />
                     </SwiperSlide>
                 ))}
         </Swiper>

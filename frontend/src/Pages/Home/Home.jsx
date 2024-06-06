@@ -14,6 +14,7 @@ import { MotionButton } from '../../Components/FramerMotion/MotionButton'
 import { motion } from "framer-motion"
 import { SwiperSlider } from '../../Components/Swiper'
 import { Navigate } from 'react-router-dom'
+import Shop from '../Shop/Shop'
 
 
 
@@ -64,7 +65,39 @@ export const Home = () => {
         > 
           Shop Now
         </MotionButton>
+        <Stack>
+        <MotionButton 
+        
+        onClick={()=> navigate('/shop', { state: { category: 'Guli' } })}
+        > 
+          Guli
+        </MotionButton>
+        <MotionButton 
+        
+        onClick={()=> navigate('/shop', { state: { category: 'Paththu' } })}
+        > 
+          Paththu
+        </MotionButton>
+        <MotionButton 
+        
+        onClick={()=> navigate('/shop', { state: { category: 'Kashaya' } })}
+        > 
+          Kashayaaaaaaaaaaaaaaa
+        </MotionButton>
+        <MotionButton 
+        
+        onClick={()=> navigate('/shop', { state: { category: 'Chuurna' } })}
+        > 
+          Kalka
+        </MotionButton>
+        <MotionButton 
+        
+        onClick={()=> navigate('/shop', { state: { category: 'Kashaya' } })}
+        > 
+          Kashaya
+        </MotionButton>
 
+        </Stack>
         
           <BestSales/>
         

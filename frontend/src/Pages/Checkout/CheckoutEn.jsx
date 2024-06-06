@@ -141,7 +141,7 @@ export const CheckOutEn = () => {
                                 <TableBody>
                                     {cartItems.map((item, index) => (
                                         <TableRow key={index}>
-                                            <TableCell>{item.itemName}</TableCell>
+                                            <TableCell>{item.itemName.en}</TableCell>
                                             <TableCell>{item.price}</TableCell>
                                             <TableCell>{item.buyingCount}</TableCell>
                                             <TableCell>{item.buyingCount * item.price}</TableCell>
