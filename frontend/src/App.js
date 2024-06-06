@@ -39,6 +39,7 @@ import { CartEn } from './Pages/Cart/CartEn';
 import { CartSi } from './Pages/Cart/CartSi';
 import { PageNotFoundSi } from './Pages/PageNotFound/PageNotFoundSi';
 import { CheckOutSi } from './Pages/Checkout/CheckoutSi';
+import { Search } from './Pages/Search/Search';
 
 
 function App() {
@@ -121,7 +122,7 @@ function App() {
         <Route path='/user' element={<UserProfile/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>} />
-        
+        <Route path='/search' element={<Search/>}/>
 
 
 
