@@ -1,17 +1,27 @@
 import { Stack, Typography } from '@mui/material';
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-export const UserOrders = (user) => {
+export const UserOrders = ({userId}) => {
 
     const [orders, setOrders] = useState([]);
 
+    useEffect(() => {
+        fetchUserOrders();
+
+    }, [userId]);
+
+
+
     const fetchUserOrders = async () => {
+
         try {
-            const response = await axios.get(`http://localhost:5000/api/orders/orders/user/${user._id}`);
+            const response = await axios.get(`http://localhost:5000/api/orders/orders/user/${userId}`);
             setOrders(response.data);
+
         } catch (error) {
             console.error('Error fetching user orders:', error);
+            
         }
     };
 
@@ -30,7 +40,7 @@ export const UserOrders = (user) => {
                                             {order.products.map((product, index) => (
                                                 <li key={index}>
                                                     <Typography variant="body2">
-                                                        {product.itemName} - {product.buyingCount} x ${product.price}
+                                                        {product.itemName.en} - {product.buyingCount} x ${product.price}
                                                     </Typography>
                                                 </li>
                                             ))}

@@ -12,7 +12,7 @@ export const createOrder = async (req, res) => {
     const newOrder = new Order({
         products: cartItems.map(item => ({
             product: item.productId, 
-            itemName: item.itemName,
+            itemName: item.itemName.en,
             price: item.price,
             buyingCount: item.buyingCount
         })),
@@ -34,6 +34,7 @@ export const createOrder = async (req, res) => {
     res.status(500).json({ message: 'Error creating order', error });
 }
 };
+
 export const getOrders = async (req, res) => {
   try {
     const orders = await Order.find()

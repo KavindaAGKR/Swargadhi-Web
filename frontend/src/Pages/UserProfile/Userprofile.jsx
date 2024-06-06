@@ -11,6 +11,7 @@ import { selectUser, selectIsLoggedIn } from '../../redux/slices/userSlice';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import EditProfileDialog from './EditUser';
 import { UserOrders } from './UserOrders';
+import {Feedbacks} from './Feedbacks'
 
 const detailStyles = {
     boxShadow: '2px 2px 5px 1px #D6D3D2',
@@ -40,52 +41,26 @@ export const UserProfile = () => {
     const user = useSelector(selectUser);
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const classes = useStyles();
-    const [feedback, setFeedback] = useState('');
-    const [orders, setOrders] = useState([]);
-    const [profilePicture, setProfilePicture] = useState(null);
+
+    const [profilePicture, setProfilePicture] = useState();
     const [editDialogOpen, setEditDialogOpen] = useState(false);
 
     useEffect(() => {
-        fetchUserOrders();
         fetchUserProfile();
-        fetchUserFeedback();
+        
     }, []);
-
-    const fetchUserOrders = async () => {
-        try {
-            const response = await axios.get(`http://localhost:5000/api/orders/orders/user/${user._id}`);
-            setOrders(response.data);
-        } catch (error) {
-            console.error('Error fetching user orders:', error);
-        }
-    };
 
     const fetchUserProfile = async () => {
         try {
             const response = await axios.get(`http://localhost:5000/api/user/profile/${user._id}`);
             setProfilePicture(response.data.profilePicture);
+            console.log("image isssssssssssssssss" + response.data.profilePicture)
         } catch (error) {
             console.error('Error fetching user profile:', error);
         }
     };
 
-    const fetchUserFeedback = async () => {
-        // Implement fetch user feedback logic here
-    };
 
-    const handleSubmitFeedback = async (event) => {
-        event.preventDefault();
-
-        try {
-            const response = await axios.post('http://localhost:5000/api/feedback/', { givenBy: user._id, feedBack: feedback });
-            console.log(response.data.message);
-            fetchUserFeedback();
-            setFeedback('');
-
-        } catch (error) {
-            console.error('Error submitting feedback:', error);
-        }
-    };
 
     const handleSignOut = () => {
         dispatch(logout());
@@ -123,26 +98,27 @@ export const UserProfile = () => {
         }
     };
 
-    const getAvatarContent = () => {
-        if (profilePicture) {
-            return (
-                <img
-                    src={profilePicture}
-                    style={{ width: '100%', height: '120px', borderRadius: '5px' }}
-                    onError={(e) => {
-                        console.error(`Failed to load image`);
-                        e.target.onerror = null;
-                    }}
-                />
-            );
-        } else {
-            return (
-                <Avatar sx={{ width: { xs: '100px', sm: '150px' }, height: { xs: '100px', sm: '150px' }, margin: '100px auto' }}>
-                  {`${user.firstName.charAt(0)}${user.lastName.charAt(0)}`} 
-                </Avatar>
-            );
-        }
-    };
+    // const getAvatarContent = () => {
+    //     if (profilePicture) {
+    //         return (
+    //             <img
+    //                 src={profilePicture}
+                    
+    //                 style={{ width: '100%', height: '120px', borderRadius: '5px' }}
+    //                 onError={(e) => {
+    //                     console.error(`Failed to load image`);
+    //                     e.target.onerror = null;
+    //                 }}
+    //             />
+    //         );
+    //     } else {
+    //         return (
+    //             <Avatar sx={{ width: { xs: '100px', sm: '150px' }, height: { xs: '100px', sm: '150px' }, margin: '100px auto' }}>
+    //               {`${user.firstName.charAt(0)}${user.lastName.charAt(0)}`} 
+    //             </Avatar>
+    //         );
+    //     }
+    // };
 
 
     const handleEditProfile = () => {
@@ -168,24 +144,30 @@ export const UserProfile = () => {
                     <React.Fragment>
                         <Stack direction={{ xs: 'column', md: 'row' }} sx={{ width: '90%' }} justifyContent='center' alignItems='center'>
                             <Stack sx={{ width: '40%', backgroundColor: '#F5F9FC', boxShadow: '2px 2px 5px 1px #D6D3D2', margin: '20px' }}>
-                                {getAvatarContent()}
+                                {/* {getAvatarContent()} */}
+                                
+                                {profilePicture? (
+                                    <img
+                src={profilePicture}
+                
+                style={{ width: '100%', height: '120px', borderRadius: '5px' }}
+                onError={(e) => {
+                    console.error(`Failed to load image`);
+                    e.target.onerror = null;
+                }}
+            />
+                                ):(<Avatar sx={{ width: { xs: '100px', sm: '150px' }, height: { xs: '100px', sm: '150px' }, margin: '100px auto' }}>
+                {`${user.firstName.charAt(0)}${user.lastName.charAt(0)}`} 
+            </Avatar>)}
+
                                 <input
                                     accept="image/*"
-                                    style={{ display: 'none' }}
-                                    id="raised-button-file"
+                                    
+   
                                     type="file"
                                     onChange={handleProfilePictureChange}
                                 />
-                                <label htmlFor="raised-button-file">
-                                    <Button
-                                        className={classes.button}
-                                        variant="contained"
-                                        color="primary"
-                                        component="span"
-                                    >
-                                        Edit Profile Photo
-                                    </Button>
-                                </label>
+                                
                                 <Button
                                     className={classes.button}
                                     variant="contained"
@@ -194,6 +176,8 @@ export const UserProfile = () => {
                                 >
                                     Upload
                                 </Button>
+
+
                             </Stack>
                             <Stack sx={{ width: { xs: '80%', md: '60%' }, backgroundColor: '#F5F9FC', boxShadow: '2px 2px 5px 1px #D6D3D2', margin: '20px' }}>
                                 <Stack sx={{ margin: '25px' }}>
@@ -233,30 +217,8 @@ export const UserProfile = () => {
                             userDetails={user} 
                             
                         />
-                        <UserOrders user={user}/>
-                        <Stack width='80%'>
-                            <Typography variant="h5" gutterBottom>Feedback</Typography>
-                            <Typography variant="body1" gutterBottom>Tell us about your experience with our products!</Typography>
-                            <form className={classes.form} onSubmit={handleSubmitFeedback}>
-                                <TextField
-                                    label="Feedback"
-                                    variant="outlined"
-                                    multiline
-                                    rows={4}
-                                    value={feedback}
-                                    onChange={(event) => setFeedback(event.target.value)}
-                                />
-                                <Button
-                                    className={classes.button}
-                                    variant="contained"
-                                    color="primary"
-                                    type="submit"
-                                    sx={{ width: '250px' }}
-                                >
-                                    Submit Feedback
-                                </Button>
-                            </form>
-                        </Stack>
+                        <UserOrders userId={user._id}/>
+                        <Feedbacks user={user}/>
                         <Button
                             className={classes.button}
                             variant="contained"
