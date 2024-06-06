@@ -39,7 +39,7 @@ const ProductCatalog = ({ category }) => {
                         <Grid container spacing={5  } >
                             {productsByCategory.map(product => (
                                 <Grid item key={product.productItemID} xs={12} sm={6} lg={3}>
-                                    <ProCard product={product} />
+                                    <ProductCard product={product} />
                                     
                                 </Grid>
                             ))}

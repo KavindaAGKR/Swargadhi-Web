@@ -10,8 +10,9 @@ import { addToCart, } from '../../redux/slices/cartSlice';
 import {selectIsLoggedIn} from '../../redux/slices/userSlice'
 import { selectCartItems } from '../../redux/slices/cartSlice';
 import {  motion } from "framer-motion"
-import { ProductSwiper } from './ProductSwiper';
+
 import { useNavigate } from 'react-router-dom';
+import { ProductSwiper } from '../Shop/ProductSwiper';
 
 
 const ProductCard = ({ product }) => {
@@ -81,7 +82,7 @@ const ProductCard = ({ product }) => {
 
 
 
-    const { itemName, description, price, imageUrl, quantity } = product; 
+    const { itemName, description, price,images, quantity } = product; 
     const [openMore, setOpenMore] = useState(false);
     const [selectedQuantity, setSelectedQuantity] = useState(0);
 
@@ -111,12 +112,24 @@ const ProductCard = ({ product }) => {
             
             <Stack sx={{ margin: '10px', height: '100%' }} >
                 <Stack sx={{ height: '50%', margin: '10px 0px' }}>
-                    <ProductSwiper imageUrl={imageUrl}/>
+                    <ProductSwiper imageUrl={product.images}/>
+                    {/* {product.images.map((image, index) => (
+                            <img
+                                key={index}
+                                src={`http://localhost:5000/${image}`}
+                                alt={`Product Image ${index + 1}`}
+                                style={{ width: '100', height: 100, marginRight: 10 }}
+                                onError={(e) => {
+                                    console.error(`Failed to load image ${index}: ${e.target.src}`);
+                                    e.target.onerror = null;
+                                }}
+                            />
+                        ))} */}
                 </Stack>
                 <Stack height='50%' sx={{ padding: '0 10px' , overflowY:'unset'}} justifyContent='space-evenly'>
                     
-                    <Typography variant='h5' noWrap={false} sx={{fontWeight:'semiBold'}}>{itemName}</Typography>
-                    <Typography  noWrap={false} >Sinhala Name is Here</Typography>
+                    <Typography variant='h5' noWrap={false} sx={{fontWeight:'semiBold'}}>{itemName.en}</Typography>
+                    <Typography  noWrap={false} >{itemName.si}</Typography>
                     <Typography variant='h6' color='success.main'>Rs. {price}</Typography>
                     <Stack direction='row' justifyContent='center' spacing={2} padding='0px 0px 5px 0px '>
                         <Button variant='contained' color='success' size='small' sx={{padding:'10px 5px', width:'200px'}} onClick={handleAddToCart}>
@@ -175,11 +188,11 @@ const ProductCard = ({ product }) => {
                     '--swiper-pagination-color': '#0DFE0D',
                 }} >
                         
-                            <ProductSwiper imageUrl={imageUrl}/>
+                            <ProductSwiper imageUrl={images}/>
                             </Stack>
                             </Stack>
                             <Stack sx={{ margin: '20px', textAlign: 'left' }}>
-                            <Typography variant='h4' mt={2} noWrap={false}>{itemName}</Typography>
+                            <Typography variant='h4' mt={2} noWrap={false}>{itemName.en}</Typography>
 
                             
                             <Stack direction={{xs:'column', sm:'row'}} gap={{xs:3, md:0}} justifyContent='space-between' margin='30px 0'>
@@ -189,7 +202,7 @@ const ProductCard = ({ product }) => {
                             <Stack direction={{xs:'column', sm:'row'}} justifyContent='space-between' mt={2} gap={10}>
                             <Stack>
                             <Typography variant='h6'>Description:</Typography>
-                            <Typography variant='body1'>{description}</Typography>
+                            <Typography variant='body1'>{description.en}</Typography>
                             </Stack>
                                 <Stack gap={5} margin={{xs:'auto', sm:'0'}} >
                                 <Button variant='contained'  color='success' sx={{padding:'5px 10px', width:'140px'}} onClick={handleAddToCart}>

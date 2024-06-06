@@ -4,19 +4,22 @@ import { Footer } from '../../Components/Footer';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Tab, Box, Stack } from '@mui/material';
 import ProductCatalog from './ProductCatalog';
+import { useLocation } from 'react-router-dom';
 
 
 
- const Shop = () => {
+export const Shop = (valuee) => {
 
-   
 
-    const [value, setValue] = useState('all');
+    const location = useLocation();
+    const categoryFromState = location.state?.category || 'all';
 
+    const [value, setValue] = useState(categoryFromState);
+    
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
+    
     return (
         <React.Fragment>
             <Header />
@@ -71,4 +74,3 @@ import ProductCatalog from './ProductCatalog';
         </React.Fragment>
     );
 };
-export default Shop;

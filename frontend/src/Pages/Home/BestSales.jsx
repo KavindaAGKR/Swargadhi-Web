@@ -54,7 +54,7 @@ return(
                             {products.slice(0,9).map((product,i) => (
                                 <SwiperSlide key={i} style={{padding:'25px 0px'}}>
                                 
-                                    <ProCard product={product} />
+                                    <ProductCard product={product} />
                                     
                                 
                                 </SwiperSlide>

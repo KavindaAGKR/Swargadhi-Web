@@ -16,7 +16,7 @@ import { AdminMessages } from './AdminPanel/AdminMessages';
 import { AdminSettings } from './AdminPanel/AdminSettings';
 import { UserProfile } from './Pages/UserProfile/Userprofile';
 import { AdminSignup } from './AdminPanel/AdminSignup';
-import Shop  from './Pages/Shop/Shop';
+import {Shop}  from './Pages/Shop/Shop';
 import {AdminDoctor}from './AdminPanel/AdminDoctor'
 import { AdminTreatment } from './AdminPanel/AdminTreatment';
 import {EditProduct} from './AdminPanel/EditProduct';
@@ -31,7 +31,7 @@ import { PageNotFound } from './Pages/PageNotFound/PageNotFound';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn, selectUser } from './redux/slices/userSlice';
 import { selectIsSinhalaTrue } from './redux/slices/languageSlice'; 
-import { CheckOut, CheckOutEn } from './Pages/Checkout/CheckoutEn';
+import { CheckOutEn } from './Pages/Checkout/CheckoutEn';
 import { DispensarySi } from './Pages/Dispensary/DispensarySi';
 import { DispensaryEn } from './Pages/Dispensary/DispensaryEn';
 import { AboutSi } from './Pages/About/AboutSi';
@@ -83,6 +83,7 @@ function App() {
 
         <Route path='/admin' element={<AdminLogin/>}/>
         <Route path='/adminsignup' element={<AdminSignup/>}/>
+
 
         <Route path='*' element={<PageNotFound/>}/>
 

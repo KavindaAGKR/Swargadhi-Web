@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FetchAdminProducts } from '../../AdminPanel/AdminApis/FetchAdminProducts';
 import { Paper, Typography, Container, Grid, CircularProgress, Stack, TextField } from '@mui/material';
 import ProductCard from '../Shop/ProductCard';
-import ProCard from './ProCard';
+
 
 export const Search = () => {
  //const [products, setProducts] = useState([]); // Initialize as an empty array
@@ -71,7 +71,7 @@ export const Search = () => {
             <Grid container spacing={5}>
               {filteredProducts.map(product => (
                 <Grid item key={product.productItemID} xs={12} sm={6} lg={3}>
-                  <ProCard product={product} />
+                  <ProductCard product={product} />
                 </Grid>
               ))}
             </Grid>
