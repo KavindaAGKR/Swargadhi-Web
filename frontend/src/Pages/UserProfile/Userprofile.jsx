@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../redux/slices/userSlice';
 import { selectUser, selectIsLoggedIn } from '../../redux/slices/userSlice';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import EditProfileDialog from './EditUser';
 
 const detailStyles = {
     boxShadow: '2px 2px 5px 1px #D6D3D2',
@@ -41,6 +42,7 @@ export const UserProfile = () => {
     const [feedback, setFeedback] = useState('');
     const [orders, setOrders] = useState([]);
     const [profilePicture, setProfilePicture] = useState(null);
+    const [editDialogOpen, setEditDialogOpen] = useState(false);
 
     useEffect(() => {
         fetchUserOrders();
@@ -141,6 +143,16 @@ export const UserProfile = () => {
         }
     };
 
+
+    const handleEditProfile = () => {
+        setEditDialogOpen(true);
+    };
+
+    const handleCloseEditDialog = () => {
+        setEditDialogOpen(false);
+    };
+
+
     return (
         <React.Fragment>
             <Header />
@@ -210,9 +222,16 @@ export const UserProfile = () => {
                             className={classes.button}
                             variant="contained"
                             color="primary"
+                            onClick={handleEditProfile}
                         >
                             Edit Profile
                         </Button>
+                        <EditProfileDialog 
+                            open={editDialogOpen} 
+                            handleClose={handleCloseEditDialog} 
+                            user={user} 
+                            
+                        />
                         <Stack width='80%'>
                             <Typography variant="h5" gutterBottom>Orders</Typography>
                             {orders.length ? (
