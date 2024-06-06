@@ -1,4 +1,4 @@
-import { AppBar, Avatar, IconButton, Stack, Toolbar, Drawer, useMediaQuery, useTheme,Button, Divider } from '@mui/material'
+import { AppBar, Avatar, IconButton, Stack, Toolbar, Drawer, useMediaQuery, useTheme,Button, Divider, TextField, InputAdornment, Box } from '@mui/material'
 import React, { useState } from 'react'
 import logo from '../Images/logo.png'
 import { useNavigate } from 'react-router-dom'
@@ -10,9 +10,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {selectUser, selectIsLoggedIn} from '../redux/slices/userSlice'
 import { selectIsSinhalaTrue, setSinhalaTrue, setSinhalaFalse} from '../redux/slices/languageSlice';
 import { MotionButton } from './FramerMotion/MotionButton';
-
-
-
+import SearchIcon from '@mui/icons-material/Search';
+import { Search } from '../Pages/Search/Search';
 
 
 
@@ -125,8 +124,17 @@ export const Header = () => {
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const user = useSelector(selectUser);
     const isSinhalaTrue = useSelector(selectIsSinhalaTrue);
-    
-    
+    const [searchValue, setSearchValue] = useState('');
+
+    const handleSearch = (e) => {
+        
+        navigate(`/search?query=${searchValue}`);
+    };
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            handleSearch();
+        }
+    };
 
     const theme = useTheme();
     const isMatch = useMediaQuery(theme.breakpoints.down('md'));
@@ -134,9 +142,13 @@ export const Header = () => {
     return (
         <React.Fragment >
             <AppBar position='static' style={{boxShadow:'none', backgroundColor:'white',}} >
-                <Toolbar sx={{ justifyContent:'space-between' , alignItems:'center'}}>
-                    <img src={logo} alt="Swargadhi logo" width="30%"/>
-                        <Stack direction='row' spacing={1} alignItems='center' >
+                <Toolbar  sx={{ m:'10px 0 0 0'}}>
+                    <Stack direction='row' sx={{ justifyContent:'space-between' , alignItems:'center', m:'10px 0 0 0'}}>
+                    <Box width={{xs:'50%', sm:'40%', md:'30%'}}>
+                    <img src={logo} alt="Swargadhi logo" width='100%'/>
+                        </Box>
+                        <Stack alignItems='end' >
+                        <Stack direction='row' spacing={1}  >
                             <ResponsiveNav isMatch={isMatch}/>
                             
                             
@@ -155,7 +167,35 @@ export const Header = () => {
                                 )
                             }
                         </Stack> 
-                    </Toolbar>
+                        <TextField
+                        sx={{width:'250px', m:'10px' , display:{xs:'none', sm:'block'}}}
+                        
+          id="standard-search"
+          placeholder='Search'
+          type="search"
+          variant="standard"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          InputProps={{endAdornment:<InputAdornment p='0px' position='start'><Button m='0px' p='0px'
+            onClick={() => handleSearch(searchValue)}><SearchIcon/></Button></InputAdornment>}}
+        />
+                        </Stack>
+
+                    </Stack>
+</Toolbar>
+                    <TextField
+                        sx={{width:'60%', m:' 10px auto ' , display:{xs:'block', sm:'none'}}}
+                        
+          id="standard-search"
+          placeholder='Search'
+          type="search"
+          variant="standard"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          InputProps={{endAdornment:<InputAdornment p='0px' position='start'><Button m='0px' p='0px'
+            onClick={() => handleSearch(searchValue)}><SearchIcon/></Button></InputAdornment>}}
+        />
+                    
                 </AppBar>
             </React.Fragment>
         )

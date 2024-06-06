@@ -4,21 +4,21 @@ import { Button } from "@mui/material";
 
 
 
-export const MotionButton = ({ children, onClick,variant, color,style }) => {
+export const MotionButton = ({ children, onClick,variant, color,stylee }) => {
     return (
         <Button
             component={motion.div} 
             whileHover={{
-                scale: 1.15,
+                scale: 1.1,
                 transition: { duration: 0.2 },
-                color:'black'
+                color:'hsl(0, 0, 0)'
             }}
             variant={variant}
             color={color}
             onClick={onClick} 
-            style={style}
-            sx={{fontWeight:'550',  fontSize:'15px'}}
-
+            sx={stylee}
+            style={{fontWeight:'bold', fontSize:'15'}}
+            
         >
             {children} 
         </Button>

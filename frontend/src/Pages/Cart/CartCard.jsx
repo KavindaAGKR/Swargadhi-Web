@@ -14,7 +14,7 @@ export const CartCard = ({ item}) => {
     const dispatch = useDispatch();
 
 
-     const [buyingCountt, setBuyingCount] = useState(buyingCount)
+    const [buyingCountt, setBuyingCount] = useState(buyingCount)
     const [error, setError] = useState(false)
     const productTotPrice = buyingCount*price;
 
@@ -64,7 +64,7 @@ const handleRemoveClick = () => {
 
 ))}
     </Grid>
-    <Grid container xs={6.5} sm={8.0}>
+    <Grid container item xs={6.5} sm={8.0}>
 
     <Grid item xs={12} sm={6}>
     <Stack direction='column' width='100%'>

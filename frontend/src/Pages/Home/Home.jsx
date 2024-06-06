@@ -11,10 +11,10 @@ import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
 import { BestSales, HomeSwiper } from './BestSales'
 import { MotionButton } from '../../Components/FramerMotion/MotionButton'
-import { motion } from "framer-motion"
-import { SwiperSlider } from '../../Components/Swiper'
-import { Navigate } from 'react-router-dom'
-import Shop from '../Shop/Shop'
+import {  motion } from "framer-motion"
+// import { SwiperSlider } from '../../Components/Swiper'
+// import { Navigate } from 'react-router-dom'
+// import Shop from '../Shop/Shop'
 
 
 
@@ -53,15 +53,18 @@ export const Home = () => {
         <HomeText/>
 
         <MotionButton 
-        style={{background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+        
+        stylee={{background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
                 width:'150px',
                 borderRadius: '3px',
                 height: '48px',
                 margin:'auto',
                 boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-                color: 'white'
+                color:'white'
+                
         }}
         onClick={()=>navigate('/shop')}
+        
         > 
           Shop Now
         </MotionButton>

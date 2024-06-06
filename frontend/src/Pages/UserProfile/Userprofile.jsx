@@ -11,7 +11,7 @@ import { selectUser, selectIsLoggedIn } from '../../redux/slices/userSlice';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import EditProfileDialog from './EditUser';
 import { UserOrders } from './UserOrders';
-import {Feedbacks} from './Feedbacks'
+import {Feedbacks} from './Feedbacks';
 
 const detailStyles = {
     boxShadow: '2px 2px 5px 1px #D6D3D2',
