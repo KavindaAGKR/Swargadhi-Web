@@ -34,6 +34,7 @@ export const FetchProducts = (category) => {
     
                 if (Array.isArray(extractedProducts)) {
                     setProducts(extractedProducts);
+                    
                 } else {
                     throw new Error('Invalid data format');
                 }

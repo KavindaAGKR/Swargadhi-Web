@@ -3,15 +3,16 @@ import { FetchAdminProducts } from '../../AdminPanel/AdminApis/FetchAdminProduct
 import { Paper, Typography, Container, Grid, CircularProgress, Stack, TextField } from '@mui/material';
 import ProductCard from '../Shop/ProductCard';
 import ProCard from './ProCard';
+import { FetchProducts } from '../../API/FetchProducts';
 
 export const Search = () => {
  //const [products, setProducts] = useState([]); // Initialize as an empty array
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
 
 
-  const {products} = FetchAdminProducts();
+  const {products, loading} = FetchProducts('all');
   // useEffect(() => {
   //   const fetchProducts = async () => {
   //     try {
@@ -26,23 +27,24 @@ export const Search = () => {
   //   };
   //   fetchProducts();
   // }, []);
-
+  console.log("aaaaaaaaaaaaaaaa" + products)
   useEffect(() => {
     const filterProducts = (search) => {
       // Ensure products is an array
 
       return products.filter(product => (
-        product.itemName.en.toLowerCase().includes(search.toLowerCase()) ||
-        product.itemName.si.toLowerCase().includes(search.toLowerCase()) ||
-        product.description.en.toLowerCase().includes(search.toLowerCase()) ||
-        product.description.si.toLowerCase().includes(search.toLowerCase()) ||
-        product.category.si.toLowerCase().includes(search.toLowerCase()) ||
-        product.category.en.toLowerCase().includes(search.toLowerCase())
+        product.itemName.toLowerCase().includes(search.toLowerCase()) ||
+        product.itemName.toLowerCase().includes(search.toLowerCase()) ||
+        product.description.toLowerCase().includes(search.toLowerCase()) ||
+        product.description.toLowerCase().includes(search.toLowerCase()) ||
+        product.category.toLowerCase().includes(search.toLowerCase()) ||
+        product.category.toLowerCase().includes(search.toLowerCase())
       ));
     };
 
     const filtered = filterProducts(searchTerm);
     setFilteredProducts(filtered);
+    
     console.log("Filtered products:", filtered);
   }, [products, searchTerm]);
 
@@ -71,7 +73,7 @@ export const Search = () => {
             <Grid container spacing={5}>
               {filteredProducts.map(product => (
                 <Grid item key={product.productItemID} xs={12} sm={6} lg={3}>
-                  <ProCard product={product} />
+                  <ProductCard product={product} />
                 </Grid>
               ))}
             </Grid>
