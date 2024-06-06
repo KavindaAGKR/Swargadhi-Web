@@ -128,6 +128,9 @@ export const getEnglishPart = async (request, response) => {
 export const editDoctor = async (req, res) => {
     try {
       const { id } = req.params;
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ message: 'Invalid doctor ID' });
+    }
 
       upload(req, res, async (err) => {
         if (err instanceof multer.MulterError) {
