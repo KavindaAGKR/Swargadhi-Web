@@ -1,12 +1,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Grid } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../redux/slices/userSlice';
 
 const EditProfileDialog = 
-({ open, handleClose, userDetails, handleUpdate }) =>
+({ open, handleClose, userDetails }) =>
      {
 
   const [user, setUser] =  useState(userDetails);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (userDetails) {
@@ -18,6 +21,14 @@ const EditProfileDialog =
     
     setUser({ ...user, [name]: value });
   };
+  const handleUpdate = (updatedUser) => {
+    
+    // dispatch(setUser(updatedUser));
+    console.log(updatedUser)
+    // localStorage.setItem('user', JSON.stringify(updatedUser));
+};
+
+
 
   const handleSave = async () => {
     try {
@@ -41,6 +52,8 @@ const EditProfileDialog =
       if (response.ok) {
         const data = await response.json();
         console.log(data.message);
+        console.log("edited user details:" + data.updatedUser);
+
         handleUpdate(data.updatedUser); 
         handleClose();
       } else {
