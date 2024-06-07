@@ -17,7 +17,7 @@ export const MotionButton = ({ children, onClick,variant, color,stylee }) => {
             color={color}
             onClick={onClick} 
             sx={stylee}
-            style={{fontWeight:'bold', fontSize:'15'}}
+            style={{fontWeight:'bold', fontSize:'15', textAlign:'center'}}
             
         >
             {children} 
