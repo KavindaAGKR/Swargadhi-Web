@@ -5,6 +5,11 @@ import { User } from "../models/userModel.js";
 dotenv.config();
 import multer from 'multer';
 import upload from "../middleWare/singleFileUpload.js";
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const createToken = (userId) => {
   return jwt.sign({ userId }, "jwtSecretKey", { expiresIn: "5s" });
@@ -89,6 +94,42 @@ export const userLogin = async (req, res) => {
   }
 };
 
+export const updateUser = async (req, res) => {
+  try {
+    const { userId, firstName, lastName, email, mobileNumber, addressL1, addressL2, addressL3 } = req.body;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        firstName,
+        lastName,
+        email,
+        mobileNumber,
+        deliveryAddress: { addressL1, addressL2, addressL3 },
+      },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ message: "User updated successfully", user: updatedUser });
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+
+
+
+
+
+
+
+
+
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -170,25 +211,46 @@ export const uploadProfilePicture = async (req, res) => {
 
 export const getUserProfile = async (req, res) => {
   try {
-    const { id } = req.params;
-    const user = await User.findById(id).select('profilePicture');
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    user.profilePicture = `http://localhost:5000/${user.profilePicture}`;
-    return res.status(200).json(user);
+      const { id } = req.params;
+      const user = await User.findById(id).select('profilePicture firstName lastName');
+      if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+      }
+      const profilePictureUrl = user.profilePicture ? `http://localhost:5000/${user.profilePicture}` : null;
+      return res.status(200).json({ profilePicture: profilePictureUrl, firstName: user.firstName, lastName: user.lastName });
   } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ message: 'Internal server error', error: error.message });
+      console.error(error.message);
+      res.status(500).json({ message: 'Internal server error', error: error.message });
   }
 };
 
+export const deleteProfilePicture = async (req, res) => {
+  try {
+    const { userId } = req.params;
 
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
 
+    if (user.profilePicture) {
+      const filePath = path.join(__dirname, '../', user.profilePicture);
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error('Error deleting file:', err);
+        }
+      });
+    }
 
+    user.profilePicture = null;
+    await user.save();
 
-
-
+    res.status(200).json({ message: 'Profile picture deleted successfully', user });
+  } catch (error) {
+    console.error('Error deleting profile picture:', error);
+    res.status(500).json({ message: 'Internal server error', error: error.message });
+  }
+};
 
 
 
