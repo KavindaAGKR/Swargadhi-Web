@@ -44,10 +44,10 @@ export const UserProfile = () => {
     return (
         <React.Fragment>
             <Header />
-            <Stack justifyContent='center' alignItems='center'>
-                <Stack direction='row' margin="40px 0 25px 0" color='green'>
-                    <PersonOutlineIcon sx={{ fontSize: '60px' }} />
-                    <Typography variant='h3' margin='auto'>
+            <Stack  alignItems='center' sx={{minHeight:'500px'}}>
+                <Stack direction='row' margin="0px 0 25px 0" color='green'>
+                    <PersonOutlineIcon sx={{ fontSize: '40px' }} />
+                    <Typography variant='h4' margin='auto'>
                         My Account
                     </Typography>
                 </Stack>
@@ -64,12 +64,12 @@ export const UserProfile = () => {
                             variant="scrollable"
                             scrollButtons
                             allowScrollButtonsMobile
-                            sx={{  width:'200px', m:'auto', justifyContent:'left', alignItems:'left' }}
+                            sx={{  width:'200px', m:'auto', justifyContent:'left', alignItems:'left'}}
                             // sx={{ width: { xs: '300px', sm: '500px', md: 'auto' } , padding:'0px'}}
                         >
-                            <Tab label='My Details' value='userDetails' sx={{textAlign:'left'}} />
-                            <Tab label='My Orders' value='userOrders' />
-                            <Tab label='Send Feedback' value='feedback' />
+                            <Tab  label='My Details' value='userDetails' sx={{alignSelf:'start', padding:'0px'}} />
+                            <Tab sx={{alignSelf:'start', padding:'0px'}} label='My Orders' value='userOrders' />
+                            <Tab label='Send Feedback' value='feedback' sx={{alignSelf:'start', padding:'0px'}}/>
                             
                             <Button
                             sx={{width:'100px'}}
@@ -85,7 +85,7 @@ export const UserProfile = () => {
 
 
                     
-                    <TabPanel value='userDetails' sx={{width:'75%', padding:'0px'}}>
+                    <TabPanel value='userDetails' sx={{width:'75%', padding:'0px'}}  >
                     <ViewDetails userId={user._id} user={user}/>
                     </TabPanel>
                     <TabPanel value='userOrders' sx={{width:'75%'}}>
