@@ -242,11 +242,6 @@
 
 
 
-
-
-
-
-
 import React, { useState, useEffect } from 'react';
 import { Button, Typography, Avatar, Stack, Grid } from '@mui/material';
 import { makeStyles } from '@mui/styles';
@@ -348,7 +343,29 @@ export const UserProfile = () => {
             console.error('Error uploading profile picture:', error);
         }
     };
-
+    const handleDeleteProfilePicture = async () => {
+        try {
+            const response = await fetch(`http://localhost:5000/api/user/profile/picture/${user._id}`, {
+                method: 'DELETE',
+            });
+    
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Error deleting profile picture: ${errorText}`);
+            }
+    
+            const data = await response.json();
+    
+            if (!data.user.profilePicture) {
+                setProfilePicture(null); // Remove the profile picture from the state
+            }
+    
+            console.log(data.message);
+        } catch (error) {
+            console.error('Error deleting profile picture:', error);
+        }
+    };
+    
     const handleEditProfile = () => {
         setEditDialogOpen(true);
     };
@@ -403,6 +420,17 @@ export const UserProfile = () => {
                                 >
                                     Upload
                                 </Button>
+                                {profilePicture && (
+                                    <Button
+                                        className={classes.button}
+                                        variant='contained'
+                                        color='error'
+                                        onClick={handleDeleteProfilePicture}
+                                    >
+                                        Delete Profile Picture
+                                    </Button>
+                                )}
+
                             </Stack>
                             <Stack sx={{ width: { xs: '80%', md: '60%' }, backgroundColor: '#F5F9FC', boxShadow: '2px 2px 5px 1px #D6D3D2', margin: '20px' }}>
                                 <Stack sx={{ margin: '25px' }}>
