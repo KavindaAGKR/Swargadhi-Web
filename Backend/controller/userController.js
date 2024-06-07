@@ -206,20 +206,18 @@ export const uploadProfilePicture = async (req, res) => {
 
 export const getUserProfile = async (req, res) => {
   try {
-    const { id } = req.params;
-    const user = await User.findById(id).select('profilePicture');
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    user.profilePicture = `http://localhost:5000/${user.profilePicture}`;
-    return res.status(200).json(user);
+      const { id } = req.params;
+      const user = await User.findById(id).select('profilePicture firstName lastName');
+      if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+      }
+      const profilePictureUrl = user.profilePicture ? `http://localhost:5000/${user.profilePicture}` : null;
+      return res.status(200).json({ profilePicture: profilePictureUrl, firstName: user.firstName, lastName: user.lastName });
   } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ message: 'Internal server error', error: error.message });
+      console.error(error.message);
+      res.status(500).json({ message: 'Internal server error', error: error.message });
   }
 };
-
-
 
 
 
