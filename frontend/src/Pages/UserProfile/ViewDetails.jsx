@@ -30,11 +30,11 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const ViewDetails = ({userId}) => {
+export const ViewDetails = ({userId, user}) => {
 
     const [profilePicture, setProfilePicture] = useState(null);
     const [editDialogOpen, setEditDialogOpen] = useState(false);
-    const [userDetails, setUserDetails] = useState([]);
+    const [userDetails, setUserDetails] = useState(user);
 
 
     const classes = useStyles();
@@ -49,7 +49,7 @@ export const ViewDetails = ({userId}) => {
             const response = await axios.get(`http://localhost:5000/api/user/profile/${userId}`);
             setProfilePicture(response.data.profilePicture);
             setUserDetails({
-                
+                ...user,
                 firstName: response.data.firstName,
                 lastName: response.data.lastName,
             });
@@ -135,15 +135,12 @@ export const ViewDetails = ({userId}) => {
                     }}
                 />
             );
-        } else if (userDetails.firstName && userDetails.lastName) {
+        } else {
             return (
                 <Avatar sx={{ width: { xs: '100px', sm: '150px' }, height: { xs: '100px', sm: '150px' }, margin: '100px auto' }}>
                     {`${userDetails.firstName.charAt(0)}${userDetails.lastName.charAt(0)}`}
                 </Avatar>
             );
-        } else {
-            // Handle the case where userDetails.firstName or userDetails.lastName is undefined
-            return <Avatar />;
         }
     };
 
@@ -152,7 +149,7 @@ export const ViewDetails = ({userId}) => {
 
   return (
     <>
-    <Stack direction={{ xs: 'column', md: 'row' }} sx={{ width: '90%' }} justifyContent='center' alignItems='center'>
+    <Stack  sx={{ width: '100%' }} justifyContent='center' alignItems='center'>
                             <Stack sx={{ width: '40%', backgroundColor: '#F5F9FC', boxShadow: '2px 2px 5px 1px #D6D3D2', margin: '20px' }}>
                                 {renderAvatar()}
                                 <input accept="image/*" type="file" onChange={handleProfilePictureChange} />
@@ -176,7 +173,7 @@ export const ViewDetails = ({userId}) => {
                                 )}
 
                             </Stack>
-                            <Stack sx={{ width: { xs: '80%', md: '60%' }, backgroundColor: '#F5F9FC', boxShadow: '2px 2px 5px 1px #D6D3D2', margin: '20px' }}>
+                            <Stack sx={{ width:'100%', backgroundColor: '#F5F9FC', boxShadow: '2px 2px 5px 1px #D6D3D2', margin: '20px' }}>
                                 <Stack sx={{ margin: '25px' }}>
                                     <Grid container spacing={1} rowGap={5} columnGap={3} sx={{ fontWeight: 'bold' }}>
                                         <Grid item xs={2.2}>First Name:</Grid>

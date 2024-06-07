@@ -1,7 +1,7 @@
 
-import React from 'react';
-import { Button, Typography, Avatar, Stack, Grid } from '@mui/material';
-
+import React, { useState } from 'react';
+import { Button, Typography, Avatar, Stack, Grid, Tab, Box } from '@mui/material';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
 
 import { Header } from '../../Components/Header';
 import { Footer } from '../../Components/Footer';
@@ -13,6 +13,7 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { UserOrders } from './UserOrders';
 import { Feedbacks } from './Feedbacks';
 import { ViewDetails } from './ViewDetails';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -22,13 +23,19 @@ export const UserProfile = () => {
     const isLoggedIn = useSelector(selectIsLoggedIn);
     
 
-
     const handleSignOut = () => {
         dispatch(logout());
     };
 
 
+    const location = useLocation();
+    const selectFromState = location.state?.select || 'userDetails';
 
+    const [value, setValue] = useState(selectFromState);
+    
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
 
 
@@ -45,19 +52,60 @@ export const UserProfile = () => {
                     </Typography>
                 </Stack>
                 {isLoggedIn ? (
-                    <React.Fragment>
-                        <ViewDetails userId={user._id}/>
-                        <UserOrders userId={user._id}/>
-                        <Feedbacks user={user}/>
-                        <Button
+                    <>
+
+
+<Stack direction='row' sx={{   display: 'flex',  width:'100%'}}>
+                <TabContext value={value} >
+                    <Box sx={{  width:'25%' }}>
+                        <TabList
+                            onChange={handleChange}
+                            orientation="vertical"
+                            variant="scrollable"
+                            scrollButtons
+                            allowScrollButtonsMobile
+                            sx={{  width:'200px', m:'auto', justifyContent:'left', alignItems:'left' }}
+                            // sx={{ width: { xs: '300px', sm: '500px', md: 'auto' } , padding:'0px'}}
+                        >
+                            <Tab label='My Details' value='userDetails' sx={{textAlign:'left'}} />
+                            <Tab label='My Orders' value='userOrders' />
+                            <Tab label='Send Feedback' value='feedback' />
                             
+                            <Button
+                            sx={{width:'100px'}}
                             variant="contained"
                             color="error"
                             onClick={handleSignOut}
                         >
                             Sign Out
                         </Button>
-                    </React.Fragment>
+                            
+                        </TabList>
+                    </Box>
+
+
+                    
+                    <TabPanel value='userDetails' sx={{width:'75%', padding:'0px'}}>
+                    <ViewDetails userId={user._id} user={user}/>
+                    </TabPanel>
+                    <TabPanel value='userOrders' sx={{width:'75%'}}>
+                    <UserOrders userId={user._id}/>
+                    </TabPanel>
+                    <TabPanel value='feedback' sx={{width:'75%'}}>
+                    <Feedbacks user={user}/>
+                    </TabPanel>
+                    
+                    
+                
+                </TabContext>
+            </Stack>
+
+
+                        
+                        
+                        
+                        
+                    </>
                 ) : (
                     <Typography variant="body1" sx={{ minHeight: '400px' }}>
                         Please <a href="/login">login</a> to view your details.
