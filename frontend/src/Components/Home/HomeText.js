@@ -11,7 +11,7 @@ export const HomeText = () =>{
 
 
         animate={{
-            scale: 1.2,
+            scale: 1.1,
             
         }}
 
@@ -21,10 +21,10 @@ export const HomeText = () =>{
             repeat: Infinity,
             repeatType: 'reverse',
             repeatDelay: 0,
-            duration: 2,
+            duration: 1,
             
           }}
-          style={{margin:'50px auto',textAlign:'center'}}
+          style={{margin:'0px auto',textAlign:'center'}}
 
  >
             <Typography variant="h4">WE PROVIDE BEST</Typography>

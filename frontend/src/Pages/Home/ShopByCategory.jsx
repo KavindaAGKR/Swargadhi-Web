@@ -37,7 +37,7 @@ export const ShopByCategory = () => {
 
 
   return (
-    <List   m='auto'>
+    <List   sx={{alignSelf:'center'}}>
       {categories.map((cat, index) => (
         <MotionButton key={index} onClick={()=> navigate('/shop', { state: { category: cat.name } })}>
           

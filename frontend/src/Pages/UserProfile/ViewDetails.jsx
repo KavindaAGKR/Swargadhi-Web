@@ -138,7 +138,7 @@ export const ViewDetails = ({userId}) => {
 
   return (
     <Stack >
-        <Typography variant='h5'>My Details</Typography>
+        <Typography variant='h5' >My Details</Typography>
     <Stack  sx={{ width: '90%' }} justifyContent='center' alignItems='center' alignSelf='center'>
             <Stack sx={{ width: '40%',   margin: '20px' }}>
                 {renderAvatar()}

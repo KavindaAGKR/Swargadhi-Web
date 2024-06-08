@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Button, Typography, Avatar, Stack, Grid, Tab, Box, Popover } from '@mui/material';
+import { Button, Typography, Avatar, Stack, Grid, Tab, Box, Popover, IconButton } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 
 import { Header } from '../../Components/Header';
@@ -15,7 +15,7 @@ import { Feedbacks } from './Feedbacks';
 import { ViewDetails } from './ViewDetails';
 import { useLocation } from 'react-router-dom';
 import { SupplyMaterial } from './SupplyMaterial';
-
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 
 
 export const UserProfile = () => {
@@ -61,27 +61,62 @@ export const UserProfile = () => {
     const id = open ? 'simple-popover' : undefined;
 
 
+    const ResponsiveTab = () =>{
+        return(
+            <TabList
+                            onChange={handleChange}
+                            orientation="vertical"
+                            
+                            scrollButtons
+                            allowScrollButtonsMobile
+                            sx={{width:'200px',m:'auto'}}
+                            variant="fullWidth"
+                            
+                        >
+                            <Tab  label='My Details' value='userDetails' sx={{alignSelf:'start'}} />
+                            <Tab  label='My Orders' value='userOrders' sx={{alignSelf:'start'}}/>
+                            <Tab label='Supply Material ' value='supply' sx={{alignSelf:'start'}}/>
+                            <Tab label='Send Feedback' value='feedback' sx={{alignSelf:'start'}}/>
+                            
+                            <Button
+                            sx={{width:'100px', m:'16px'}}
+                            variant="contained"
+                            color="error"
+                            onClick={handleSignOut}
+                        >
+                            Sign Out
+                        </Button>
+                            
+                        </TabList>
+        )
+    }
+
+
+
+
     return (
         <React.Fragment>
             <Header />
-            <Stack  alignItems='center' sx={{minHeight:'500px', mt:'50px'}}>
-                {/* <Stack direction='row' margin="0px 0 25px 0" color='green'>
+            <Stack direction='row'  color='green' sx={{display:{ md:'none'}, justifyContent:'center',alignItems:'center',  margin:'20px'}}>
                     <PersonOutlineIcon sx={{ fontSize: '40px' }} />
-                    <Typography variant='h4' margin='auto'>
+                    <Typography variant='h4'>
                         My Account
                     </Typography>
-                </Stack> */}
+                    
+                </Stack> 
+            <Stack  alignItems='center' sx={{minHeight:'500px', mt:'50px'}}>
+                
                 {isLoggedIn ? (
                     
 
 
-<Stack direction='row' sx={{   display: 'flex',  width:'100%'}}>
+<Stack direction={{xs:'column',md:'row'}} sx={{   display: 'flex',  width:'100%'}}>
 
 
 
-<Button sx={{height:' 40px'}}  aria-describedby={id} variant="contained" onClick={handleClick}>
-        Open Popover
-      </Button>
+<IconButton sx={{display:{xs:'block', md:'none', width:'100px'}}}  aria-describedby={id} variant="contained" onClick={handleClick}>
+        <KeyboardDoubleArrowRightIcon/>
+      </IconButton>
                 <TabContext value={value} >
                     
 
@@ -99,47 +134,27 @@ export const UserProfile = () => {
             horizontal: 'left',
           }}
       >
-                        <TabList
-                            onChange={handleChange}
-                            orientation="vertical"
-                            
-                            scrollButtons
-                            allowScrollButtonsMobile
-                            
-                            variant="fullWidth"
-                            
-                        >
-                            <Tab  label='My Details' value='userDetails'  />
-                            <Tab  label='My Orders' value='userOrders' />
-                            <Tab label='Supply Material ' value='supply' />
-                            <Tab label='Send Feedback' value='feedback' />
-                            
-                            <Button
-                            sx={{width:'100px'}}
-                            variant="contained"
-                            color="error"
-                            onClick={handleSignOut}
-                        >
-                            Sign Out
-                        </Button>
-                            
-                        </TabList>
-</Popover>
-
+                        <ResponsiveTab/>
+                </Popover>
+                    <Box sx={{display:{xs:'none', md:'block'}, width:'25%', }}>
+                    <ResponsiveTab />
+                    </Box>
 
                     
-                    <TabPanel value='userDetails' sx={{width:'75%', padding:'0px'}}  >
+                    <Box margin='10px' sx={{width:{xs:'95%',md:'75%'}}}>
+                    <TabPanel value='userDetails' sx={{width:'100%', padding:'0px'}}  >
                     <ViewDetails userId={user._id} user={user}/>
                     </TabPanel>
-                    <TabPanel value='userOrders' sx={{width:'75%',padding:'0px'}}>
+                    <TabPanel value='userOrders' sx={{width:'100%',padding:'0px'}}>
                     <UserOrders userId={user._id}/>
                     </TabPanel>
-                    <TabPanel value='supply' sx={{width:'75%',padding:'0px'}}>
+                    <TabPanel value='supply' sx={{width:'100%',padding:'0px'}}>
                     <SupplyMaterial userId={user._id}/>
                     </TabPanel>
-                    <TabPanel value='feedback' sx={{width:'75%',padding:'0px'}}>
+                    <TabPanel value='feedback' sx={{width:'100%',padding:'0px'}}>
                     <Feedbacks user={user}/>
                     </TabPanel>
+                    </Box>
                     
                     
                 
@@ -153,9 +168,12 @@ export const UserProfile = () => {
                         
                     
                 ) : (
-                    <Typography variant="body1" sx={{ minHeight: '400px' }}>
-                        Please <a href="/login">login</a> to view your details.
-                    </Typography>
+                    <>
+                    
+                <Typography variant="body1" sx={{ minHeight: '400px' }}>
+                Please <a href="/login">login</a> to view your details.
+            </Typography></>
+                    
                 )}
             </Stack>
             <Footer />
