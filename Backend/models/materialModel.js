@@ -2,11 +2,12 @@ import mongoose from "mongoose";
 
 // Declare the Schema of the Mongo model
 const materialSchema = new mongoose.Schema({
-    UserName: {
-        type: String,
+    givenBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
         required: true,
     },
-    MaterialName: {
+    materialName: {
         type: String,
         required: true,
     },
@@ -14,12 +15,24 @@ const materialSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    userContactNumber: {
-        type: String,
+    price: {
+        type: Number,
         required: true,
     },
+    description:{
+        type : String
+    },
+    images: [
+      
+        { type: String }
+      
+      ]
+    },
+    {
+      timestamps: true,
+    }
    
-});
+);
 
 const Material = mongoose.model("Material", materialSchema);
 

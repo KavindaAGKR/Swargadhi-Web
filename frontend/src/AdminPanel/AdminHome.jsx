@@ -51,6 +51,7 @@ return (
                     <Button variant='contained' color='success' onClick={()=>{navigate('doctor');setOpenDrawer(false);}}  >Doctor</Button>
                     <Button variant='contained' color='success' onClick={()=>{navigate('treatment');setOpenDrawer(false);}}  >Treatment</Button>
                     <Button variant='contained' color='success' onClick={()=>{navigate('users');setOpenDrawer(false);}}  >User</Button>
+                    <Button variant='contained' color='success' onClick={()=>{navigate('material');setOpenDrawer(false);}}>Material</Button>
                     <Button variant='contained' color='success' onClick={()=>{navigate('messages');setOpenDrawer(false);}}  >Msg</Button>
                     <Button variant='contained' color='success' onClick={()=>{handlSignout();setOpenDrawer(false);}}  >SignOut</Button>
                 </Stack>
@@ -67,6 +68,7 @@ return (
 <Button variant='contained' color='success' onClick={()=>navigate('treatment')}  >Treatment</Button>
 <Button variant='contained' color='success' onClick={()=>navigate('users')}  >User</Button>
 <Button variant='contained' color='success' onClick={()=>navigate('messages')}  >User Feedbacks</Button>
+<Button variant='contained' color='success' onClick={()=>navigate('material')}>Material</Button>
 <Button variant='contained' color='success' onClick={handlSignout}  >SignOut</Button>
 </Stack >
 
