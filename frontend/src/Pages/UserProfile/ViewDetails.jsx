@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Button, Typography, Avatar, Stack, Grid, Box, Dialog, DialogContent, DialogActions } from '@mui/material';
 import EditProfileDialog from './EditUser';
 import axios from 'axios';
-
-
+import { makeStyles } from '@mui/styles';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../redux/slices/userSlice';
 
 const detailStyles = {
     boxShadow: '2px 2px 5px 1px #D6D3D2',
@@ -16,30 +17,29 @@ const detailStyles = {
 
 
 
-export const ViewDetails = ({user}) => {
+export const ViewDetails = ({userId}) => {
+
+    const user = useSelector(selectUser)
 
     const [profilePicture, setProfilePicture] = useState(null);
     const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [userDetails, setUserDetails] = useState(user);
     const [open, setOpen] = useState(false);
-    const userId = user._id;
-
 
 
 
     useEffect(() => {
         fetchUserProfile();
     }, []);
+    useEffect(() => {
+        setUserDetails(user);
+    }, [user]);
 
     const fetchUserProfile = async () => {
         try {
             const response = await axios.get(`http://localhost:5000/api/user/profile/${userId}`);
             setProfilePicture(response.data.profilePicture);
-            setUserDetails({
-                ...user,
-                firstName: response.data.firstName,
-                lastName: response.data.lastName,
-            });
+            
         } catch (error) {
             console.error('Error fetching user profile:', error);
         }
@@ -126,7 +126,7 @@ export const ViewDetails = ({user}) => {
             );
         } else {
             return (
-                <Avatar sx={{ width: { xs: '100px', sm: '150px' }, height: { xs: '100px', sm: '150px' }, margin: '100px auto' }}>
+                <Avatar sx={{ width: { xs: '100px', sm: '150px' }, height: { xs: '100px', sm: '150px' }, margin: '20px auto' }}>
                     {`${userDetails.firstName.charAt(0)}${userDetails.lastName.charAt(0)}`}
                 </Avatar>
             );
@@ -147,10 +147,7 @@ export const ViewDetails = ({user}) => {
                     open={open}
                     onClose={() => setOpen(false)}
                     fullWidth
-                    maxWidth='md'
-                    
-                    
-                >
+                    maxWidth='sm'>
                     
                     {renderAvatar()}
                     
@@ -159,7 +156,6 @@ export const ViewDetails = ({user}) => {
                         <Stack direction='row'>
                         <input accept="image/*" type="file" style={{width:'180px'}} onChange={handleProfilePictureChange} />
                 <Button
-                    
                     variant="text"
                     color="primary"
                     onClick={handleUploadProfilePicture}
@@ -169,7 +165,6 @@ export const ViewDetails = ({user}) => {
                         </Stack>
                 {profilePicture && (
                     <Button
-                        
                         variant='contained'
                         color='error'
                         onClick={handleDeleteProfilePicture}
@@ -209,7 +204,6 @@ export const ViewDetails = ({user}) => {
             </Stack>
         </Stack>
         <Button
-            
             variant="contained"
             sx={{m:'25px auto'}}
             onClick={handleEditProfile}

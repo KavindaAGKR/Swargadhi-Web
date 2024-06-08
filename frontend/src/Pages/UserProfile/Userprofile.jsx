@@ -22,7 +22,7 @@ export const UserProfile = () => {
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
     const isLoggedIn = useSelector(selectIsLoggedIn);
-
+    
 
     const handleSignOut = () => {
         dispatch(logout());
@@ -46,12 +46,17 @@ export const UserProfile = () => {
         <React.Fragment>
             <Header />
             <Stack  alignItems='center' sx={{minHeight:'500px', mt:'50px'}}>
-                
+                {/* <Stack direction='row' margin="0px 0 25px 0" color='green'>
+                    <PersonOutlineIcon sx={{ fontSize: '40px' }} />
+                    <Typography variant='h4' margin='auto'>
+                        My Account
+                    </Typography>
+                </Stack> */}
                 {isLoggedIn ? (
                     
 
 
-<Stack direction='row' sx={{    width:'100%'}}>
+<Stack direction='row' sx={{   display: 'flex',  width:'100%'}}>
                 <TabContext value={value} >
                     <Box sx={{  width:'25%' }}>
                         <TabList
@@ -106,7 +111,7 @@ export const UserProfile = () => {
                         
                         
                         
-                
+                    
                 ) : (
                     <Typography variant="body1" sx={{ minHeight: '400px' }}>
                         Please <a href="/login">login</a> to view your details.
