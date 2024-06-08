@@ -48,7 +48,7 @@ setLoading(true);
 
   return (
     <Stack width='100%'>
-                            {/* <Typography variant="h5" mb='30px' alignSelf='center'>My Orders</Typography> */}
+                            <Typography variant="h5" mb='30px' >My Orders</Typography>
 
 {loading?(<Stack  height='100%'><Typography variant='h5' margin='auto'><CircularProgress color="success" /></Typography></Stack>):
 (

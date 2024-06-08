@@ -33,7 +33,7 @@ export const Products = () => {
         console.log(`Edit button clicked for row with id ${id}`);
         navigate(`/admin/home/products/${id}/edit`);
     };
-      
+
     const handleChange = (e) => {
         setProductData({...productData, [e.target.name]: e.target.value});
     }
@@ -42,7 +42,7 @@ export const Products = () => {
         const imagesArray = Array.from(e.target.files);
         setProductData({...productData, images: imagesArray});
     }
-  
+
     
     const handleSubmit = async () => {
         try {

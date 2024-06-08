@@ -14,6 +14,7 @@ import { UserOrders } from './UserOrders';
 import { Feedbacks } from './Feedbacks';
 import { ViewDetails } from './ViewDetails';
 import { useLocation } from 'react-router-dom';
+import { SupplyMaterial } from './SupplyMaterial';
 
 
 
@@ -44,13 +45,13 @@ export const UserProfile = () => {
     return (
         <React.Fragment>
             <Header />
-            <Stack  alignItems='center' sx={{minHeight:'500px'}}>
-                <Stack direction='row' margin="0px 0 25px 0" color='green'>
+            <Stack  alignItems='center' sx={{minHeight:'500px', mt:'50px'}}>
+                {/* <Stack direction='row' margin="0px 0 25px 0" color='green'>
                     <PersonOutlineIcon sx={{ fontSize: '40px' }} />
                     <Typography variant='h4' margin='auto'>
                         My Account
                     </Typography>
-                </Stack>
+                </Stack> */}
                 {isLoggedIn ? (
                     <>
 
@@ -61,14 +62,16 @@ export const UserProfile = () => {
                         <TabList
                             onChange={handleChange}
                             orientation="vertical"
-                            variant="scrollable"
+                            
                             scrollButtons
                             allowScrollButtonsMobile
-                            sx={{  width:'200px', m:'auto', justifyContent:'left', alignItems:'left'}}
-                            // sx={{ width: { xs: '300px', sm: '500px', md: 'auto' } , padding:'0px'}}
+                            sx={{  width:'200px', m:'auto', }}
+                            variant="fullWidth"
+                            
                         >
                             <Tab  label='My Details' value='userDetails' sx={{alignSelf:'start', padding:'0px'}} />
-                            <Tab sx={{alignSelf:'start', padding:'0px'}} label='My Orders' value='userOrders' />
+                            <Tab sx={{alignSelf:'start', padding:'0px', }} label='My Orders' value='userOrders' />
+                            <Tab label='Supply Material ' value='supply' sx={{alignSelf:'start', padding:'0' }}/>
                             <Tab label='Send Feedback' value='feedback' sx={{alignSelf:'start', padding:'0px'}}/>
                             
                             <Button
@@ -88,10 +91,13 @@ export const UserProfile = () => {
                     <TabPanel value='userDetails' sx={{width:'75%', padding:'0px'}}  >
                     <ViewDetails userId={user._id} user={user}/>
                     </TabPanel>
-                    <TabPanel value='userOrders' sx={{width:'75%'}}>
+                    <TabPanel value='userOrders' sx={{width:'75%',padding:'0px'}}>
                     <UserOrders userId={user._id}/>
                     </TabPanel>
-                    <TabPanel value='feedback' sx={{width:'75%'}}>
+                    <TabPanel value='supply' sx={{width:'75%',padding:'0px'}}>
+                    <SupplyMaterial userId={user._id}/>
+                    </TabPanel>
+                    <TabPanel value='feedback' sx={{width:'75%',padding:'0px'}}>
                     <Feedbacks user={user}/>
                     </TabPanel>
                     

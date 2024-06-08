@@ -24,29 +24,29 @@ export const Feedbacks = ({user}) => {
 
   return (
     <Stack width='80%'>
-                            {/* <Typography variant="h5" gutterBottom>Feedback</Typography> */}
-                            <Typography variant="body1" mb='20px'>Tell us about your experience with our products!</Typography>
-                            <form  onSubmit={handleSubmitFeedback}>
-                                <TextField
-                                    label="Feedback"
-                                    variant="outlined"
-                                    multiline
-                                    rows={4}
-                                    fullWidth
-                                    value={feedback}
-                                    onChange={(event) => setFeedback(event.target.value)}
-                                />
-                                <Button
-                                    
-                                    variant="contained"
-                                    color="primary"
-                                    type="submit"
-                                    sx={{ width: '200px' , m:'25px 0px'}}
-                                    
-                                >
-                                    Submit Feedback
-                                </Button>
-                            </form>
-                        </Stack>
+        <Typography variant="h5" mb='30px' >Feedback</Typography>
+        <Typography variant="body1" mb='20px'>Tell us about your experience with our products!</Typography>
+        <form  onSubmit={handleSubmitFeedback}>
+            <TextField
+                label="Write your feedback here"
+                variant="outlined"
+                multiline
+                rows={4}
+                fullWidth
+                value={feedback}
+                onChange={(event) => setFeedback(event.target.value)}
+            />
+            <Button
+                
+                variant="contained"
+                color="primary"
+                type="submit"
+                sx={{ width: '200px' , m:'25px 0px'}}
+                
+            >
+                Submit Feedback
+            </Button>
+        </form>
+    </Stack>
   )
 }

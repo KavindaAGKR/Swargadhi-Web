@@ -171,7 +171,7 @@ export const Header = () => {
                         sx={{width:'250px', m:'10px' , display:{xs:'none', sm:'block'}}}
                         
           id="standard-search"
-          placeholder='Search'
+          placeholder='Search Products'
           type="search"
           variant="standard"
           value={searchValue}
