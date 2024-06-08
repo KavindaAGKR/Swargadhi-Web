@@ -16,7 +16,7 @@ const detailStyles = {
 
 
 
-export const ViewDetails = ({userId, user}) => {
+export const ViewDetails = ({user}) => {
 
     const [profilePicture, setProfilePicture] = useState(null);
     const [editDialogOpen, setEditDialogOpen] = useState(false);
