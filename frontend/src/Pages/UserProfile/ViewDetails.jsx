@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Typography, Avatar, Stack, Grid, Box, Dialog, DialogContent, DialogActions } from '@mui/material';
 import EditProfileDialog from './EditUser';
 import axios from 'axios';
-import { makeStyles } from '@mui/styles';
+
 
 
 const detailStyles = {
@@ -12,20 +12,6 @@ const detailStyles = {
     padding: '5px',
     fontWeight: '10px',
 };
-const useStyles = makeStyles((theme) => ({
-    root: {
-        padding: '20px',
-    },
-    button: {
-        marginTop: '20px',
-    },
-    form: {
-        marginTop: '20px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '10px',
-    },
-}));
 
 
 
@@ -36,8 +22,9 @@ export const ViewDetails = ({userId, user}) => {
     const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [userDetails, setUserDetails] = useState(user);
     const [open, setOpen] = useState(false);
+    const userId = user._id;
 
-    const classes = useStyles();
+
 
 
     useEffect(() => {
@@ -172,7 +159,7 @@ export const ViewDetails = ({userId, user}) => {
                         <Stack direction='row'>
                         <input accept="image/*" type="file" style={{width:'180px'}} onChange={handleProfilePictureChange} />
                 <Button
-                    className={classes.button}
+                    
                     variant="text"
                     color="primary"
                     onClick={handleUploadProfilePicture}
@@ -182,7 +169,7 @@ export const ViewDetails = ({userId, user}) => {
                         </Stack>
                 {profilePicture && (
                     <Button
-                        className={classes.button}
+                        
                         variant='contained'
                         color='error'
                         onClick={handleDeleteProfilePicture}
@@ -222,7 +209,7 @@ export const ViewDetails = ({userId, user}) => {
             </Stack>
         </Stack>
         <Button
-            className={classes.button}
+            
             variant="contained"
             sx={{m:'25px auto'}}
             onClick={handleEditProfile}
