@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Button, Typography, Avatar, Stack, Grid, Tab, Box } from '@mui/material';
+import { Button, Typography, Avatar, Stack, Grid, Tab, Box, Popover } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 
 import { Header } from '../../Components/Header';
@@ -22,6 +22,9 @@ export const UserProfile = () => {
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
     const isLoggedIn = useSelector(selectIsLoggedIn);
+
+
+    const [openPop, setOpenPop] = useState(false);
     
 
     const handleSignOut = () => {
@@ -36,10 +39,26 @@ export const UserProfile = () => {
     
     const handleChange = (event, newValue) => {
         setValue(newValue);
+        setAnchorEl(null);
     };
 
 
+    const handleClosePop = () =>{
+        setOpenPop(false)
+    }
 
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+  
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+  
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
 
 
     return (
@@ -57,22 +76,43 @@ export const UserProfile = () => {
 
 
 <Stack direction='row' sx={{   display: 'flex',  width:'100%'}}>
+
+
+
+<Button sx={{height:' 40px'}}  aria-describedby={id} variant="contained" onClick={handleClick}>
+        Open Popover
+      </Button>
                 <TabContext value={value} >
-                    <Box sx={{  width:'25%' }}>
+                    
+
+                <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+      >
                         <TabList
                             onChange={handleChange}
                             orientation="vertical"
                             
                             scrollButtons
                             allowScrollButtonsMobile
-                            sx={{  width:'200px', m:'auto', }}
+                            
                             variant="fullWidth"
                             
                         >
-                            <Tab  label='My Details' value='userDetails' sx={{alignSelf:'start', padding:'0px'}} />
-                            <Tab sx={{alignSelf:'start', padding:'0px', }} label='My Orders' value='userOrders' />
-                            <Tab label='Supply Material ' value='supply' sx={{alignSelf:'start', padding:'0' }}/>
-                            <Tab label='Send Feedback' value='feedback' sx={{alignSelf:'start', padding:'0px'}}/>
+                            <Tab  label='My Details' value='userDetails'  />
+                            <Tab  label='My Orders' value='userOrders' />
+                            <Tab label='Supply Material ' value='supply' />
+                            <Tab label='Send Feedback' value='feedback' />
                             
                             <Button
                             sx={{width:'100px'}}
@@ -84,7 +124,7 @@ export const UserProfile = () => {
                         </Button>
                             
                         </TabList>
-                    </Box>
+</Popover>
 
 
                     
