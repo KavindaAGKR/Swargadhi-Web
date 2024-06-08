@@ -53,7 +53,7 @@ export const UserProfile = () => {
                     </Typography>
                 </Stack> */}
                 {isLoggedIn ? (
-                    <>
+                    
 
 
 <Stack direction='row' sx={{   display: 'flex',  width:'100%'}}>
@@ -111,7 +111,7 @@ export const UserProfile = () => {
                         
                         
                         
-                    </>
+                    
                 ) : (
                     <Typography variant="body1" sx={{ minHeight: '400px' }}>
                         Please <a href="/login">login</a> to view your details.
