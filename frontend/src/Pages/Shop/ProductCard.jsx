@@ -193,7 +193,7 @@ const ProductCard = ({ product }) => {
                             </Stack>
                             <Stack sx={{ margin: '20px', textAlign: 'left' }}>
                             <Typography variant='h4' mt={2} noWrap={false}>{itemName.en}</Typography>
-
+                            <Typography variant='h6' noWrap={false}>{itemName.si}</Typography>
                             
                             <Stack direction={{xs:'column', sm:'row'}} gap={{xs:3, md:0}} justifyContent='space-between' margin='30px 0'>
                             <Typography variant='h6'> Avilable Quantity: {quantity}</Typography>

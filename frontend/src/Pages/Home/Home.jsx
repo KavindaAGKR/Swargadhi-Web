@@ -12,6 +12,7 @@ import { Footer } from '../../Components/Footer'
 import { BestSales, HomeSwiper } from './BestSales'
 import { MotionButton } from '../../Components/FramerMotion/MotionButton'
 import {  motion } from "framer-motion"
+import { ShopByCategory } from './ShopByCategory'
 // import { SwiperSlider } from '../../Components/Swiper'
 // import { Navigate } from 'react-router-dom'
 // import Shop from '../Shop/Shop'
@@ -58,7 +59,7 @@ export const Home = () => {
                 width:'150px',
                 borderRadius: '3px',
                 height: '48px',
-                margin:'auto',
+                margin:'50px auto',
                 boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
                 color:'white'
                 
@@ -68,47 +69,9 @@ export const Home = () => {
         > 
           Shop Now
         </MotionButton>
-        <Stack>
-        <MotionButton 
-        
-        onClick={()=> navigate('/shop', { state: { category: 'Guli' } })}
-        > 
-          Guli
-        </MotionButton>
-        <MotionButton 
-        
-        onClick={()=> navigate('/shop', { state: { category: 'Paththu' } })}
-        > 
-          Paththu
-        </MotionButton>
-        <MotionButton 
-        
-        onClick={()=> navigate('/shop', { state: { category: 'Kashaya' } })}
-        > 
-          Kashayaaaaaaaaaaaaaaa
-        </MotionButton>
-        <MotionButton 
-        
-        onClick={()=> navigate('/shop', { state: { category: 'Chuurna' } })}
-        > 
-          Kalka
-        </MotionButton>
-        <MotionButton 
-        
-        onClick={()=> navigate('/shop', { state: { category: 'Kashaya' } })}
-        > 
-          Kashaya
-        </MotionButton>
-        <MotionButton 
-        
-        onClick={()=> navigate('/shop', { state: { category: 'Kashaya' } })}
-        > 
-          Kashaya
-        </MotionButton>
 
-        </Stack>
-        
-          <BestSales/>
+        <ShopByCategory/>
+        <BestSales/>
         
 
         </Stack>
