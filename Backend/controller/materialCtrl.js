@@ -1,34 +1,42 @@
-import Material from "../models/materialModel.js";
+import multer from 'multer';
+import upload from '../middleWare/fileUpload.js';
+import Material from '../models/materialModel.js';
 
-// Create a new material
-export const createMaterial = async (request, response) => {
+export const createMaterial = async (req, res) => {
     try {
-        const { UserName, MaterialName, quantity, userContactNumber } = request.body;
-
-        if (!UserName || !MaterialName || !quantity || !userContactNumber) {
-            return response.status(400).json({
-                message: 'Please provide all required fields'
-            });
-        }
-
-        const newMaterial = await Material.create({
-            UserName,
-            MaterialName,
-            quantity,
-            userContactNumber,
+        upload(req, res, async (err) => {
+            if (err instanceof multer.MulterError) {
+                return res.status(400).json({ message: 'Error uploading files', error: err });
+            } else if (err) {
+                return res.status(500).json({ message: 'Error uploading files', error: err });
+            }
+            const imagePaths = req.files.map(file => '/public/item/' + file.filename);
+            const { materialName, price, description, quantity, givenBy } = req.body;
+            if (!materialName || !price || !quantity || !givenBy) { // No need to check for description as it's optional
+                return res.status(400).json({ message: 'Please send all required fields' });
+            }
+            const newMaterial = {
+                materialName,
+                price,
+                description,
+                quantity,
+                givenBy,
+                images: imagePaths 
+            };
+            const material = await Material.create(newMaterial);
+            return res.status(201).json(material);
         });
-
-        return response.status(201).json(newMaterial);
     } catch (error) {
-        console.error(error);
-        response.status(500).json({ message: 'Internal Server Error' });
+        console.error(error.message);
+        res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 };
+
 
 // Get all materials
 export const getAllMaterials = async (request, response) => {
     try {
-        const materials = await Material.find();
+        const materials = await Material.find().populate('givenBy', 'firstName lastName mobileNumber deliveryAddress');
         return response.status(200).json({
             count: materials.length,
             data: materials

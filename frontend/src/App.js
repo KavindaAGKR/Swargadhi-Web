@@ -23,6 +23,7 @@ import {EditProduct} from './AdminPanel/EditProduct';
 import { EditDoctor } from './AdminPanel/EditDoctor';
 import {EditTreatment} from './AdminPanel/EditTrearment'
 import { PageNotFound } from './Pages/PageNotFound/PageNotFound';
+import {AdminMaterial} from './AdminPanel/AdminMaterial'
 
 
 
@@ -74,6 +75,7 @@ function App() {
         <Route path='products/:id/edit' element={<EditProduct/>}/>
         <Route path='doctor/:id/edit' element={<EditDoctor/>}/>
         <Route path='treatment/:id/edit' element={<EditTreatment/>}/>
+        <Route path='material' element={<AdminMaterial/>}/>
         {/* Productss */}
         <Route path='products' element={<Products/>}/>
     </Route>
