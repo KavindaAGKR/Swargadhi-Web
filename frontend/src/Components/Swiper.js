@@ -13,8 +13,8 @@ import 'swiper/css/scrollbar';
 export const SwiperSlider = ({imageArray, altName,styles}) => {
   return (
     <Swiper
-
-                spaceBetween={15}
+                
+                spaceBetween={25}
                 slidesPerView={1}
                 centeredSlides={true}
                 autoplay={{ delay: 4000,}}
@@ -28,7 +28,7 @@ export const SwiperSlider = ({imageArray, altName,styles}) => {
                 >
 
                 {
-                imageArray.map( (item, i) => (<SwiperSlide key={i}><img alt={altName}  src={item.src} width='100%' height='auto' style={{borderRadius:'25px'}}/></SwiperSlide>) )
+                imageArray.map( (item, i) => (<SwiperSlide key={i}><img alt={altName}  src={item.src} width='100%' height='100%' style={{borderRadius:'15px'}}/></SwiperSlide>) )
                 }
             </Swiper>
   )

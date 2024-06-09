@@ -16,7 +16,7 @@ import { ViewDetails } from './ViewDetails';
 import { useLocation } from 'react-router-dom';
 import { SupplyMaterial } from './SupplyMaterial';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
-
+import MenuIcon from '@mui/icons-material/Menu';
 
 export const UserProfile = () => {
     const dispatch = useDispatch();
@@ -33,7 +33,7 @@ export const UserProfile = () => {
 
 
     const location = useLocation();
-    const selectFromState = location.state?.select || 'userDetails';
+    const selectFromState = location.state?.select || 'MyDetails';
 
     const [value, setValue] = useState(selectFromState);
     
@@ -73,10 +73,10 @@ export const UserProfile = () => {
                             variant="fullWidth"
                             
                         >
-                            <Tab  label='My Details' value='userDetails' sx={{alignSelf:'start'}} />
-                            <Tab  label='My Orders' value='userOrders' sx={{alignSelf:'start'}}/>
-                            <Tab label='Supply Material ' value='supply' sx={{alignSelf:'start'}}/>
-                            <Tab label='Send Feedback' value='feedback' sx={{alignSelf:'start'}}/>
+                            <Tab  label='My Details' value='MyDetails' sx={{alignSelf:'start'}} />
+                            <Tab  label='My Orders' value='MyOrders' sx={{alignSelf:'start'}}/>
+                            <Tab label='Supply Material ' value='Supply' sx={{alignSelf:'start'}}/>
+                            <Tab label='Send Feedback' value='Feedback' sx={{alignSelf:'start'}}/>
                             
                             <Button
                             sx={{width:'100px', m:'16px'}}
@@ -115,7 +115,7 @@ export const UserProfile = () => {
 
 
 <IconButton sx={{display:{xs:'block', md:'none', width:'100px'}}}  aria-describedby={id} variant="contained" onClick={handleClick}>
-        <KeyboardDoubleArrowRightIcon/>
+        <Stack direction='row' gap={1}><MenuIcon/><Typography>{value}</Typography></Stack>
       </IconButton>
                 <TabContext value={value} >
                     
@@ -142,16 +142,16 @@ export const UserProfile = () => {
 
                     
                     <Box margin='10px' sx={{width:{xs:'95%',md:'75%'}}}>
-                    <TabPanel value='userDetails' sx={{width:'100%', padding:'0px'}}  >
+                    <TabPanel value='MyDetails' sx={{width:'100%', padding:'0px'}}  >
                     <ViewDetails userId={user._id} user={user}/>
                     </TabPanel>
-                    <TabPanel value='userOrders' sx={{width:'100%',padding:'0px'}}>
+                    <TabPanel value='MyOrders' sx={{width:'100%',padding:'0px'}}>
                     <UserOrders userId={user._id}/>
                     </TabPanel>
-                    <TabPanel value='supply' sx={{width:'100%',padding:'0px'}}>
+                    <TabPanel value='Supply' sx={{width:'100%',padding:'0px'}}>
                     <SupplyMaterial userId={user._id}/>
                     </TabPanel>
-                    <TabPanel value='feedback' sx={{width:'100%',padding:'0px'}}>
+                    <TabPanel value='Feedback' sx={{width:'100%',padding:'0px'}}>
                     <Feedbacks user={user}/>
                     </TabPanel>
                     </Box>

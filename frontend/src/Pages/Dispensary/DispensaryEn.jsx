@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Header } from '../../Components/Header';
 import { Footer } from '../../Components/Footer';
-import { Button, CircularProgress, Container, List, Stack, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Container, List, Stack, Typography } from '@mui/material';
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import ScrollToTop from 'react-scroll-to-top';
 import { SwiperSlider } from '../../Components/Swiper';
@@ -50,7 +50,7 @@ export const DispensaryEn = () => {
   );
   // Function to scroll to a specific section
   const scrollToSection = (index) => {
-    sectionRefs.current[index].current.scrollIntoView({ behavior: 'smooth' });
+    sectionRefs.current[index].current.scrollIntoView({ behavior: 'smooth', block:'center' });
   };
 
 
@@ -63,17 +63,17 @@ export const DispensaryEn = () => {
 
 <Stack minHeight='1000px'>
         <Stack  color='green'  direction='row' margin='25px' justifyContent='center' gap={2}>
-                <MedicalInformationIcon sx={{fontSize:'60px'}} />
-                <Typography variant='h3'  >
+                <MedicalInformationIcon sx={{fontSize:'40px'}} />
+                <Typography variant='h4'  >
                 Dispensary
                 </Typography>
         </Stack>
 
 
         {
-          loading ? (<Stack margin='auto'><Typography variant='body'>Loading Treatments... <CircularProgress color='success'/></Typography></Stack>):
+          loading ? (<Stack margin='auto'><Typography variant='body'><CircularProgress color='success'/></Typography></Stack>):
           (
-            <Stack direction={{xs:'column', md:'row'}} width='90%'  margin='auto' 
+            <Stack direction={{xs:'column', md:'row'}} width='90%' minHeight='450px'  margin='auto'  gap={2}
             component={motion.div}
               initial={{ opacity: 0 ,}}
     whileInView={{ opacity: 1  }}
@@ -82,7 +82,7 @@ export const DispensaryEn = () => {
             
             >
 
-              <Stack width={{xs:'70%', md:'40%'}}>
+    <Stack m='auto' width={{xs:'90%',sm:'60%', md:'450px'}} height={{xs:'200px',sm:'250px', md:'300px'}} >
   
               <SwiperSlider
       imageArray={treatments.flatMap(treatment =>
@@ -91,10 +91,11 @@ export const DispensaryEn = () => {
       alt: treatment.treatmentName,
     }))
   )}
+
   altName="Dispensary Treatments"
   styles={{
-    margin: 'auto',
-    width: '100%',
+    width:'100%',
+    borderRadius:'15px',
     '--swiper-navigation-color': '#0DFE0D',
     '--swiper-pagination-color': '#0DFE0D',
   }}
@@ -104,9 +105,9 @@ export const DispensaryEn = () => {
               </Stack>
   
               
-            <Stack sx={{backgroundColor:'#F9E8E8', margin:'10px 20px' , borderRadius:'15px' ,padding:'20px', width:{xs:'80%', md:'60%'}}} 
+            <Stack sx={{backgroundColor:'#F9E8E8', margin:'0px auto' , borderRadius:'15px' ,padding:'20px', width:{xs:'80%', md:'60%'}}} 
               >
-                <Typography variant='h4' textAlign='center' margin='25px'>Available Treatments</Typography>
+                <Typography variant='h5' textAlign='center' mb='30px' fontWeight='bold'>Available Treatments</Typography>
                 <Stack gap={3}>
   
                   {
@@ -117,16 +118,16 @@ export const DispensaryEn = () => {
                         justifyContent='space-between' direction='row' 
                         sx={{backgroundColor:'white',
                         borderRadius:'15px',
-                        fontWeight:'bold',
+                        
                         padding:'0 15px',}}
                         component={motion.div}
                         whileHover={{
-                          scale: 1.05,
-                          transition: { duration: 0.3 }
+                          scale: 1.02,
+                          transition: { duration: 0.1 }
                         }}
                         >
-                          <Typography variant='h6' >{item.treatmentName} </Typography>
-                          <Button onClick={() => scrollToSection(i)}>See More</Button>
+                          <Typography variant='body'  m='auto 0px'>{item.treatmentName} </Typography>
+                          <Button sx={{fontSize:'10px'}} onClick={() => scrollToSection(i)}>See More</Button>
                         </Stack>
                         
                       )
@@ -162,43 +163,46 @@ export const DispensaryEn = () => {
               key={i} 
               ref={sectionRefs.current[i]}
              
-              style={{width:'90%', justifyContent:'center', margin:'auto'}}
+              style={{width:'98%', justifyContent:'center', margin:'auto'}}
               initial={{ opacity: 0 , }}
   whileInView={{ opacity: 1,  }}
-  viewport={{ amount:0.3}}
+  viewport={{ amount:0.1}}
   transition={{ duration: 2 }}
 
               >
               <Stack 
-              backgroundColor='#C6F6D4' sx={{borderRadius:'20px',margin:'25px auto ', padding:'20px',  height:'500px'}} >
-              <Typography variant='h4'  textAlign='center' margin='20px 0px' noWrap>{item.treatmentName}</Typography>
+              backgroundColor='#C6F6D4' sx={{borderRadius:'15px',margin:'25px auto ', padding:'20px',  height:'500px'}} >
+              <Typography variant='h5'  textAlign='center' fontWeight='bold'  noWrap>{item.treatmentName}</Typography>
               
-              <Stack direction={{xs:'column', md:'row'}}  width='auto' height='auto' gap={2}>
-              <Stack sx={{ width:{xs:'60%', md:'60%'}, height:{xs:'60%', md:'auto'}, margin:'auto'    }}>
+              <Stack direction={{xs:'column', md:'row'}}  width='100%' height='90%' margin='auto' gap={2}>
+              <Stack sx={{ width:{xs:'100%', md:'40%'}, height:{xs:'180px', md:'auto'}, margin:'10px auto'    }}>
+              <Box sx={{width:{xs:'270Px', md:'100%'}, height:{xs:'180Px', md:'300px'}, margin:'0px auto'}}>
               <img
                   src={`http://localhost:5000${item.images[0]}`}
-                  style={{width:'100%', height:'100%'}}
+                  style={{width:'100%', height:'100%', margin:'0px auto', borderRadius:'15px'}}
                   alt={item.treatmentNameSi}
                   onError={(e) => {
                     console.error(`Failed to load image: ${e.target.src}`);
                     e.target.onerror = null; 
                   }}
                 />
+              </Box>
               </Stack>
-            <Stack sx={{height:'80%'}}>
+            <Stack sx={{height:{xs:'250px', md:'450px'}, width:{xs:'100%', md:'60%'}}}>
             
             <List
             sx={{
-              width: '100%',
-              height:'100%',
+              width: 'auto',
+              height:'95%',
               bgcolor: 'background.paper',
               position: 'relative',
               overflow:'auto',
-              backgroundColor:'transparent'
+              backgroundColor:'transparent',
+              textAlign:'justify',
               
             }}
+            
             >
-            {/* <Typography variant='body' textAlign='justify' >{item.description}</Typography> */}
             {item.description}
             </List>
             

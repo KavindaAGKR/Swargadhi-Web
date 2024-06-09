@@ -1,18 +1,17 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import { Header } from '../../Components/Header';
 import { Footer } from '../../Components/Footer';
-import { Button, CircularProgress, Container, Stack, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Container, List, Stack, Typography } from '@mui/material';
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import ScrollToTop from 'react-scroll-to-top';
 import { SwiperSlider } from '../../Components/Swiper';
 import { motion } from 'framer-motion';
 
-const initialTreatments = [];
+
 
 export const DispensarySi = () => {
-  const [treatments, setTreatments] = useState(initialTreatments);
-  const sectionRefs = useRef([]);
+  const [treatments, setTreatments] = useState([]);
+  const [errorLoading, setErrorLoading] = useState('')
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -27,12 +26,15 @@ export const DispensarySi = () => {
         const data = await response.json();
         if (Array.isArray(data)) {
           setTreatments(data);
-          sectionRefs.current = data.map(() => React.createRef());
+          
+          
         } else {
           console.error('Expected data to be an array');
+          
         }
         setLoading(false);
       } catch (error) {
+        
         console.error('Error fetching treatments:', error);
         setLoading(false);
       }
@@ -40,150 +42,185 @@ export const DispensarySi = () => {
 
     fetchTreatments();
   }, []);
-
-  const scrollToSection = (index) => {
-    if (sectionRefs.current[index] && sectionRefs.current[index].current) {
-      sectionRefs.current[index].current.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      console.error('Section reference is null');
-    }
-  };
-  useEffect(() => {
-    // Ensure that sectionRefs is correctly populated
-    if (treatments.length > 0 && sectionRefs.current.length !== treatments.length) {
-      sectionRefs.current = treatments.map(() => React.createRef());
-    }
-  }, [treatments]);
   
 
+  const sectionRefs = useRef([]);
+  sectionRefs.current = treatments.map(
+    (item, i) => sectionRefs.current[i] ?? React.createRef()
+  );
+  // Function to scroll to a specific section
+  const scrollToSection = (index) => {
+    sectionRefs.current[index].current.scrollIntoView({ behavior: 'smooth', block:'center' });
+  };
+
+
+
+
   return (
-    <React.Fragment>
-      <ScrollToTop smooth={true} />
-      <Header />
-      <Stack color="green" direction="row" margin="25px" justifyContent="center" gap={2}>
-        <MedicalInformationIcon sx={{ fontSize: '60px' }} />
-        <Typography variant="h3">වෛද්‍ය මධ්‍යස්ථානය</Typography>
-      </Stack>
+    <React.Fragment >
+<ScrollToTop smooth={true}/>
+        <Header/>
 
-
-
-      {
-          loading ? (<Stack margin='auto'><Typography variant='body'>Loading Treatments... <CircularProgress color='success'/></Typography></Stack>):
-          (
-      <Stack direction="row" height="500px" margin="50px">
-        <Stack
-          width="40%"
-          component={motion.div}
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ amount: 0.3 }}
-          transition={{ duration: 2 }}
-        >
-         <SwiperSlider
-            imageArray={treatments.flatMap(treatment =>
-                treatment.images.map(image => ({ src: `http://localhost:5000${image}`, alt: treatment.treatmentName }))
-            )}
-            altName="Dispensary Treatments"
-            styles={{
-                width: '100%',
-                '--swiper-navigation-color': '#0DFE0D',
-                '--swiper-pagination-color': '#0DFE0D',
-            }}
-            />
-
+<Stack minHeight='1000px'>
+        <Stack  color='green'  direction='row' margin='25px' justifyContent='center' gap={2}>
+                <MedicalInformationIcon sx={{fontSize:'40px'}} />
+                <Typography variant='h4'  >
+                වෛද්‍ය මධ්‍යස්ථානය
+                </Typography>
         </Stack>
 
-        <Container
-          sx={{ backgroundColor: '#F9E8E8', margin: '0px 20px', borderRadius: '15px' }}
-          component={motion.div}
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ amount: 0.3 }}
-          transition={{ duration: 1 }}
-        >
-          <Typography variant="h4" textAlign="center" margin="25px">
-          ප්‍රතිකාර ක්‍රම
-          </Typography>
-          <Stack gap={3}>
-            {treatments.map((item, i) => (
-              <Stack
-                key={item.treatmentName}
-                justifyContent="space-between"
-                direction="row"
-                sx={{
-                  backgroundColor: 'white',
-                  borderRadius: '15px',
-                  fontWeight: 'bold',
-                  padding: '0 15px',
-                }}
-                component={motion.div}
-                whileHover={{
-                  scale: 1.05,
-                  transition: { duration: 0.3 },
-                }}
-              >
-                <Typography variant="h6">{item.treatmentNameSi}</Typography>
-                <motion.button
-                  onClick={() => scrollToSection(i)}
-                  whileTap={{ scale: 0.9 }}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: 'inherit',
-                    cursor: 'pointer',
-                    padding: '0',
-                  }}
-                >
-                  See More
-                </motion.button>
-              </Stack>
-            ))}
-          </Stack>
-        </Container>
-      </Stack>)}
 
-      <Stack margin="auto" alignItems="center">
-        {treatments.map((item, i) => (
-          <motion.div
-            key={item.treatmentName}
-            ref={sectionRefs.current[i]}
-            style={{ width: '70%', justifyContent: 'center' }}
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ amount: 0.3 }}
-            transition={{ duration: 2 }}
-          >
-            <Stack backgroundColor="#C6F6D4" style={{ borderRadius: '20px', margin: '25px auto', padding: '20px' }}>
-              <Typography variant="h4" textAlign="center">
-                {item.treatmentName}
-              </Typography>
-              <Typography variant="h4" textAlign="center">
-                {item.treatmentNameSi}
-              </Typography>
-              <Typography variant="h6" textAlign="center" color="textSecondary">
-                Price: {item.price} LKR
-              </Typography>
-              <Stack direction="row" margin="20px" height="500px">
-                <img
-                  src={`http://localhost:5000${item.images[0]}`}
-                  style={{ width: '35%', height: 'auto' }}
-                  alt={item.treatmentName}
-                  onError={(e) => {
-                    console.error(`Failed to load image: ${e.target.src}`);
-                    e.target.onerror = null; // Prevent infinite loop
-                    e.target.src = 'path_to_placeholder_image'; // Optional: provide a placeholder image
-                  }}
-                />
-                <Container sx={{ textAlign: 'justify' }}>
-                  <Typography variant="body1">{item.description}</Typography>
-                </Container>
+        {
+          loading ? (<Stack margin='auto'><Typography variant='body'><CircularProgress color='success'/></Typography></Stack>):
+          (
+            <Stack direction={{xs:'column', md:'row'}} width='90%' minHeight='450px'  margin='auto'  gap={2}
+            component={motion.div}
+              initial={{ opacity: 0 ,}}
+    whileInView={{ opacity: 1  }}
+    viewport={{ amount:0.3}}
+    transition={{ duration: 2 }}
+            
+            >
+
+    <Stack m='auto' width={{xs:'90%',sm:'60%', md:'450px'}} height={{xs:'200px',sm:'250px', md:'300px'}} >
+  
+              <SwiperSlider
+      imageArray={treatments.flatMap(treatment =>
+    treatment.images.map((image, i) => ({
+      src: `http://localhost:5000${image}`,
+      alt: treatment.treatmentNameSi,
+    }))
+  )}
+
+  altName="Dispensary Treatments"
+  styles={{
+    width:'100%',
+    borderRadius:'15px',
+    '--swiper-navigation-color': '#0DFE0D',
+    '--swiper-pagination-color': '#0DFE0D',
+  }}
+/>
+
+  
+              </Stack>
+  
+              
+            <Stack sx={{backgroundColor:'#F9E8E8', margin:'0px auto' , borderRadius:'15px' ,padding:'20px', width:{xs:'80%', md:'60%'}}} 
+              >
+                <Typography variant='h5' textAlign='center' mb='30px' fontWeight='bold'>අපගේ ප්‍රතිකාර ක්‍රම</Typography>
+                <Stack gap={3}>
+  
+                  {
+                    treatments.map(
+                      (item, i) => 
+                        (
+                        <Stack key={i}
+                        justifyContent='space-between' direction='row' 
+                        sx={{backgroundColor:'white',
+                        borderRadius:'15px',
+                        
+                        padding:'0 15px',}}
+                        component={motion.div}
+                        whileHover={{
+                          scale: 1.02,
+                          transition: { duration: 0.1 }
+                        }}
+                        >
+                          <Typography variant='body'  m='auto 0px'>{item.treatmentNameSi} </Typography>
+                          <Button sx={{fontSize:'10px'}} onClick={() => scrollToSection(i)}>වැඩි විස්තර</Button>
+                        </Stack>
+                        
+                      )
+                    )
+                  }
+  
+                </Stack>
+  
+                
               </Stack>
             </Stack>
-          </motion.div>
-        ))}
-      </Stack>
+  )
+        }
 
-      <Footer />
+
+
+
+
+
+
+
+
+
+          <Stack margin='auto' alignItems='center' width='95%'>
+          
+
+
+{
+  treatments.map((item, i) => 
+
+            (
+              <motion.div 
+              key={i} 
+              ref={sectionRefs.current[i]}
+             
+              style={{width:'98%', justifyContent:'center', margin:'auto'}}
+              initial={{ opacity: 0 , }}
+  whileInView={{ opacity: 1,  }}
+  viewport={{ amount:0.1}}
+  transition={{ duration: 2 }}
+
+              >
+              <Stack 
+              backgroundColor='#C6F6D4' sx={{borderRadius:'15px',margin:'25px auto ', padding:'20px',  height:'500px'}} >
+              <Typography variant='h5'  textAlign='center' fontWeight='bold'  noWrap>{item.treatmentNameSi}</Typography>
+              
+              <Stack direction={{xs:'column', md:'row'}}  width='100%' height='90%' margin='auto' gap={2}>
+              <Stack sx={{ width:{xs:'100%', md:'40%'}, height:{xs:'180px', md:'auto'}, margin:'10px auto'    }}>
+              <Box sx={{width:{xs:'270Px', md:'100%'}, height:{xs:'180Px', md:'300px'}, margin:'0px auto'}}>
+              <img
+                  src={`http://localhost:5000${item.images[0]}`}
+                  style={{width:'100%', height:'100%', margin:'0px auto', borderRadius:'15px'}}
+                  alt={item.treatmentNameSi}
+                  onError={(e) => {
+                    console.error(`Failed to load image: ${e.target.src}`);
+                    e.target.onerror = null; 
+                  }}
+                />
+              </Box>
+              </Stack>
+            <Stack sx={{height:{xs:'250px', md:'450px'}, width:{xs:'100%', md:'60%'}}}>
+            
+            <List
+            sx={{
+              width: 'auto',
+              height:'95%',
+              bgcolor: 'background.paper',
+              position: 'relative',
+              overflow:'auto',
+              backgroundColor:'transparent',
+              textAlign:'justify',
+              
+            }}
+            
+            >
+            {item.description}
+            </List>
+            
+            </Stack>
+              </Stack>
+              </Stack>
+              </motion.div>
+            )
+
+  )
+}
+
+            
+          </Stack>
+          </Stack>
+
+
+        <Footer/>
     </React.Fragment>
-  );
-};
+  )
+}

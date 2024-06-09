@@ -71,6 +71,7 @@ export const EditTreatment = () => {
       }
 
       console.log('Treatment updated successfully');
+      navigate(-1)
     } catch (error) {
       console.error('Error updating treatment:', error.message);
     }

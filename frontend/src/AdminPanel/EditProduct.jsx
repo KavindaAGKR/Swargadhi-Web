@@ -90,10 +90,11 @@ export const EditProduct = () => {
       
 
       console.log('Product updated successfully');
+      navigate(-1);
     } catch (error) {
       console.error('Error updating product:', error.message);
     }
-    navigate(-1)
+    
   };
 
 
