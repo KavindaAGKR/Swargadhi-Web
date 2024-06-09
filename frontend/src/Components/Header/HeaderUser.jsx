@@ -74,7 +74,7 @@ export const HeaderUser = ({user}) => {
         <Stack  aria-describedby={id}>
             <Button  sx={{ width: '100%', color:'black' }} variant="text" onClick={handleClick}>
             {renderAvatar()}
-                <Stack direction='row' ><Typography fontSize="12px">Account & Orders</Typography><ExpandMoreRoundedIcon/></Stack>
+                <Stack direction='row' ><Typography fontSize="12px" width="70px" m='0px 5px'>Account & Orders</Typography><ExpandMoreRoundedIcon/></Stack>
             </Button>
             <Popover
                 id={id}

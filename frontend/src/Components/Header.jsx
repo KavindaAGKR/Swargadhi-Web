@@ -25,18 +25,18 @@ export const MultilingualHeader = () => {
 
     
 
-   
+
     return(
     <React.Fragment >
         {isSinhalaTrue ? (
-            <Stack direction='row' sx={{maxWidth:'600px'}} gap={1}>
+            <Stack direction={{md:'row'}}   gap={3}>
             <MotionButton variant='text'  onClick={()=>{navigate('/')}}>මුල් පිටුව</MotionButton>
         <MotionButton variant='text'  onClick={()=>navigate('/shop')}>මිල දී ගන්න</MotionButton>
         <MotionButton variant='text'  onClick={()=>navigate('/dispensary')}>වෛද්‍ය මධ්‍යස්ථානය ගැන</MotionButton>
         <MotionButton variant='text'  onClick={()=>navigate('/about')}>ස්වර්ගධී ගැන</MotionButton>
             </Stack>
         ):(
-            <Stack direction='row' sx={{maxWidth:'600px', margin:'15px'}} gap={3}>
+            <Stack direction={{md:'row'}}   gap={3}>
         <MotionButton variant='text' onClick={()=>{navigate('/')}}>Home</MotionButton>
         <MotionButton variant='text' onClick={()=>navigate('/shop')}>Shop</MotionButton>
         <MotionButton variant='text' onClick={()=>navigate('/dispensary')}>Dispensary</MotionButton>
@@ -61,6 +61,7 @@ export const ResponsiveNav = (props) =>{
     
     const [openDrawer, setOpenDrawer] = useState(false);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const isSinhalaTrue = useSelector(selectIsSinhalaTrue);
 
     if(props.isMatch===true){
@@ -74,13 +75,16 @@ export const ResponsiveNav = (props) =>{
                 anchor="left"
                 open={openDrawer}
                 onClose={() => setOpenDrawer(false)}>
-            <Stack direction='column'  >
+            <Stack direction='column'  gap={5}>
+            <Button onClick={()=>navigate('/')} sx={{width:'80%', padding:'0px', margin:'20px auto'}}>
+                    <img src={logo} alt="Swargadhi logo" width='100%'/>
+                        </Button>
                 <MultilingualHeader />
                 <Divider />
                 {isSinhalaTrue ? (
-                                <MotionButton variant='contained' style={{height:'30px' , width:'100px'}} onClick={()=>dispatch(setSinhalaFalse(false))}>English</MotionButton>
+                                <MotionButton variant='contained' stylee={{height:'50px' , width:'150px', m:'auto'}} onClick={()=>dispatch(setSinhalaFalse(false))}>English</MotionButton>
                             ):(
-                            <MotionButton variant='contained' style={{height:'30px', width:'100px'}} onClick={()=>dispatch(setSinhalaTrue(true))}>සිංහල</MotionButton>
+                            <MotionButton variant='contained' stylee={{height:'50px', width:'150px', m:'auto'}} onClick={()=>dispatch(setSinhalaTrue(true))}>සිංහල</MotionButton>
                             )
                             }
             </Stack>
@@ -97,12 +101,12 @@ export const ResponsiveNav = (props) =>{
         }
     else{
         return(
-            <Stack direction='row' alignItems='center'  >
+            <Stack direction='row' alignItems='center'   >
                 <MultilingualHeader/>
                 {isSinhalaTrue ? (
-                                <MotionButton variant='contained' style={{height:'30px', marginLeft:'20px'}} onClick={()=>dispatch(setSinhalaFalse(false))}>English</MotionButton>
+                                <MotionButton variant='contained' stylee={{height:'35px',width:'70px', marginLeft:'20px', padding:'100px'}} onClick={()=>dispatch(setSinhalaFalse(false))}>English</MotionButton>
                             ):(
-                            <MotionButton variant='contained' style={{height:'30px', marginLeft:'20px'}} onClick={()=>dispatch(setSinhalaTrue(true))}>සිංහල</MotionButton>
+                            <MotionButton variant='contained' stylee={{height:'35px',width:'70px', marginLeft:'20px', padding:'10px'}} onClick={()=>dispatch(setSinhalaTrue(true))}>සිංහල</MotionButton>
                             )
                             }
             </Stack>
@@ -140,63 +144,104 @@ export const Header = () => {
     
     return (
         <React.Fragment >
-            <AppBar position='static' style={{boxShadow:'none', backgroundColor:'white',}} >
-                <Toolbar  sx={{ m:'10px 0 0 0'}}>
-                    <Stack direction='row' sx={{ justifyContent:'space-between' , alignItems:'center', m:'10px 0 0 0'}}>
-                    <Box width={{xs:'50%', sm:'40%', md:'40%', lg:'30%'}}>
+            <Stack position='static' sx={{ backgroundColor:'white', margin:'5px'}} >
+                <Stack  >
+                    <Stack direction='row' sx={{ justifyContent:'space-between' , alignItems:'start', m:'10px 0 0 0'}}>
+                    <Button onClick={()=>navigate('/')} sx={{width:{xs:'150px', sm:'250px', md:'250px', lg:'300px'}, padding:'0px', margin:'0px'}}>
                     <img src={logo} alt="Swargadhi logo" width='100%'/>
-                        </Box>
+                        </Button>
                         <Stack alignItems='end' >
                         <Stack direction='row' spacing={1}  >
-                            <ResponsiveNav isMatch={isMatch}/>
+                            
                             
                             
                             
                             { isLoggedIn ? (
-                                <>
-                                
-                                
-                                <HeaderUser user={user}/>
-                                
-                                <MotionButton onClick={()=>{navigate('/cart')}} >
-                                <IconButton sx={{padding:'0px'}}><ShoppingCartIcon/></IconButton>
-                                </MotionButton>
-                                </>
-                            ): (
-                                <MotionButton variant='contained' color="success" onClick={()=>navigate('/login')} >{isSinhalaTrue ? ("ලොග් වන්න"): ("Sign In")}</MotionButton>
-                                )
-                            }
-                        </Stack> 
-                        <TextField
-                        sx={{width:'250px', m:'10px' , display:{xs:'none', sm:'block'}}}
+                                <Stack direction={{xs:'column', md:'column-reverse'}} alignItems='end'>
+                                    <Stack>
+                                    <Stack direction='row' justifyContent='space-between'>
+                                <TextField
+                        sx={{width:'auto', m:'10px',p:'0px 0px' , display:{xs:'none', sm:'block'}}}
                         
           id="standard-search"
           placeholder='Search Products'
           type="search"
-          variant="standard"
+          variant="outlined"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
-          InputProps={{endAdornment:<InputAdornment p='0px' position='start'><Button m='0px' p='0px'
-            onClick={() => handleSearch(searchValue)}><SearchIcon/></Button></InputAdornment>}}
+          InputProps={{endAdornment:<InputAdornment sx={{padding:'0px 0px'}} position='end'><Button m='0px' sx={{padding:'0px 0px'}}
+            onClick={() => handleSearch(searchValue)}></Button></InputAdornment>}}
         />
+                                <Stack>
+                                <HeaderUser user={user}/>
+                                
+                                <MotionButton onClick={()=>{navigate('/cart')}} >
+                                <ShoppingCartIcon  sx={{padding:'0px 10px',color:'#838383'  }} fontSize="large"/>
+                                </MotionButton>
+                                </Stack>
+                                </Stack>
+                                
+                                <ResponsiveNav isMatch={isMatch}/>
+                                
+                                
+                                </Stack>
+                                
+                                </Stack>
+                            ): (
+                                <Stack alignItems='end' justifyContent='center'>
+                                <Stack direction='row' gap={3} alignItems='center' justifyContent='end' >
+                                    
+                                    <ResponsiveNav isMatch={isMatch}/>
+                                    <MotionButton stylee={{height:'auto', width:'100px', margin:'0px 10px', padding:'10px'}} variant='contained' color="success" onClick={()=>navigate('/login')} >{isSinhalaTrue ? ("ලොග් වන්න"): ("Sign In")}</MotionButton>
+                                
+                                    </Stack>
+                                    <TextField
+                        sx={{width:'350px', m:'10px',p:'0px 0px' , display:{xs:'none', sm:'block'}}}
+                        
+          id="standard-search"
+          placeholder='Search Products'
+          type="search"
+          variant="outlined"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          InputProps={{endAdornment:<InputAdornment position="end" sx={{padding:'0px'}}><Button sx={{padding:'0px'}}
+            onClick={() => handleSearch(searchValue)}><SearchIcon edge="end" sx={{padding:'0px'}}/></Button></InputAdornment>}}
+        />
+                                    </Stack>
+                                )
+                            }
+                        </Stack> 
+                        
                         </Stack>
 
                     </Stack>
-</Toolbar>
                     <TextField
+                        sx={{width:'300px',height:'30px', m:'auto', padding:'0px' , display:{xs:'flex',sm:'none' }}}
+                        
+          id="standard-search"
+          placeholder='Search Products'
+          type="search"
+          variant="outlined"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          InputProps={{endAdornment:<InputAdornment position="end" sx={{padding:'0px'}}><Button sx={{padding:'0px'}}
+            onClick={() => handleSearch(searchValue)}><SearchIcon edge="end" sx={{padding:'0px'}}/></Button></InputAdornment>}}
+        />
+</Stack>
+                    {/* <TextField
                         sx={{width:'60%', m:' 10px auto ' , display:{xs:'block', sm:'none'}}}
                         
           id="standard-search"
           placeholder='Search'
           type="search"
-          variant="standard"
+          variant="outlined"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
-          InputProps={{endAdornment:<InputAdornment p='0px' position='start'><Button m='0px' p='0px'
-            onClick={() => handleSearch(searchValue)}><SearchIcon/></Button></InputAdornment>}}
-        />
+          InputProps={{endAdornment:<InputAdornment position="end" sx={{padding:'0px'}}><Button sx={{padding:'0px'}}
+            onClick={() => handleSearch(searchValue)}><SearchIcon edge="end" sx={{padding:'0px'}}/></Button></InputAdornment>}}
+        /> */}
                     
-                </AppBar>
+                </Stack>
             </React.Fragment>
         )
 }

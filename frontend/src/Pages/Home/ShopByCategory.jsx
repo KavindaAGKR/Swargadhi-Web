@@ -46,7 +46,7 @@ export const ShopByCategory = ({isSinhalaTrue}) => {
           {categories.map((cat, index) => (
             <MotionButton key={index} onClick={()=> navigate('/shop', { state: { category: cat.nameSi } })}>
               
-              <Stack>
+              <Stack margin='10px'>
               <img style={{width:'150px', height:'150px'}} src={cat.image} alt={cat.nameSi} />
               <Typography variant='h6' textAlign='center' color='black'>{cat.nameSi}</Typography>
               </Stack>
