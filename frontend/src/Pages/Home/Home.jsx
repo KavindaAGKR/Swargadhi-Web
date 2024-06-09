@@ -13,17 +13,15 @@ import { BestSales, HomeSwiper } from './BestSales'
 import { MotionButton } from '../../Components/FramerMotion/MotionButton'
 import {  motion } from "framer-motion"
 import { ShopByCategory } from './ShopByCategory'
-// import { SwiperSlider } from '../../Components/Swiper'
-// import { Navigate } from 'react-router-dom'
-// import Shop from '../Shop/Shop'
-
+import { useSelector } from 'react-redux';
+import { selectIsSinhalaTrue } from '../../redux/slices/languageSlice';
 
 
 
 
 export const Home = () => {
     const navigate = useNavigate()
-
+    const isSinhalaTrue = useSelector(selectIsSinhalaTrue);
 
     //Images For Image Slider
     const images = [
@@ -51,7 +49,7 @@ export const Home = () => {
         
         </Stack>
 
-        <HomeText/>
+        <HomeText isSinhalaTrue={isSinhalaTrue}/>
 
         <MotionButton 
         
@@ -67,11 +65,14 @@ export const Home = () => {
         onClick={()=>navigate('/shop')}
         
         > 
-          Shop Now
+        {
+          isSinhalaTrue? ("මිලදී ගන්න"):("Shop Now")
+        }
+          
         </MotionButton>
 
-        <ShopByCategory/>
-        <BestSales/>
+        <ShopByCategory isSinhalaTrue={isSinhalaTrue}/>
+        <BestSales isSinhalaTrue={isSinhalaTrue}/>
         
 
         </Stack>

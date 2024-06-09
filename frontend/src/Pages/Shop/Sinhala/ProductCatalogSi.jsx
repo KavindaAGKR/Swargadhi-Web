@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Paper, Typography, Container, Grid, CircularProgress, Stack } from '@mui/material';
-import ProductCard from './ProductCard';
 
 
-import { FetchAdminProducts } from '../../AdminPanel/AdminApis/FetchAdminProducts';
+
+import { FetchAdminProducts } from '../../../AdminPanel/AdminApis/FetchAdminProducts';
+import ProductCardSi from './ProductCardSi';
 
 
-const ProductCatalog = ({ category }) => {
+const ProductCatalogSi = ({ category }) => {
 
 
     const {products, loading} = FetchAdminProducts();
@@ -31,7 +32,7 @@ const ProductCatalog = ({ category }) => {
 
     return (
         <Paper sx={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', width:'100%', padding:'0px 0px 100px 0px ' , boxShadow:'none'}}>
-            <Typography variant="h3" sx={{ textAlign: 'center', margin:'5px' , color:'green' }}>{category === 'all' ? 'All Products' : category}</Typography>
+            {/* <Typography variant="h4" sx={{ textAlign: 'center', margin:'5px' , color:'green' }}>{category === 'all' ? 'සියලු නිෂ්පාදන ' : category}</Typography> */}
             <Stack margin='40px'>
                 {loading ? (
                     <Typography variant="body1" sx={{ textAlign: 'center', marginTop: '20px' }}>Loading products...<CircularProgress value={50}/></Typography>
@@ -40,7 +41,7 @@ const ProductCatalog = ({ category }) => {
                         <Grid container spacing={5  } >
                             {productsByCategory.map(product => (
                                 <Grid item key={product.productItemID} xs={12} sm={6} lg={3}>
-                                    <ProductCard product={product} />
+                                    <ProductCardSi product={product} />
                                     
                                 </Grid>
                             ))}
@@ -54,4 +55,4 @@ const ProductCatalog = ({ category }) => {
     );
 };
 
-export default ProductCatalog;
+export default ProductCatalogSi;

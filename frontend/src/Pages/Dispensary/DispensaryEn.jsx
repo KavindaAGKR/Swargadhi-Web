@@ -62,7 +62,7 @@ export const DispensaryEn = () => {
         <Header/>
 
 <Stack minHeight='1000px'>
-        <Stack  color='green'  direction='row' margin='25px' justifyContent='center' gap={2}>
+        <Stack  color='green'  direction='row' margin='25px' justifyContent='center' alignItems='center' gap={2}>
                 <MedicalInformationIcon sx={{fontSize:'40px'}} />
                 <Typography variant='h4'  >
                 Dispensary
@@ -126,7 +126,7 @@ export const DispensaryEn = () => {
                           transition: { duration: 0.1 }
                         }}
                         >
-                          <Typography variant='body'  m='auto 0px'>{item.treatmentName} </Typography>
+                          <Typography variant='body2'  m='auto 0px'>{item.treatmentName} </Typography>
                           <Button sx={{fontSize:'10px'}} onClick={() => scrollToSection(i)}>See More</Button>
                         </Stack>
                         
@@ -175,7 +175,7 @@ export const DispensaryEn = () => {
               <Typography variant='h5'  textAlign='center' fontWeight='bold'  noWrap>{item.treatmentName}</Typography>
               
               <Stack direction={{xs:'column', md:'row'}}  width='100%' height='90%' margin='auto' gap={2}>
-              <Stack sx={{ width:{xs:'100%', md:'40%'}, height:{xs:'180px', md:'auto'}, margin:'10px auto'    }}>
+              <Stack sx={{ width:{xs:'100%', md:'35%'}, height:{xs:'180px', md:'auto'}, margin:'10px auto'    }}>
               <Box sx={{width:{xs:'270Px', md:'100%'}, height:{xs:'180Px', md:'300px'}, margin:'0px auto'}}>
               <img
                   src={`http://localhost:5000${item.images[0]}`}
@@ -188,7 +188,7 @@ export const DispensaryEn = () => {
                 />
               </Box>
               </Stack>
-            <Stack sx={{height:{xs:'250px', md:'450px'}, width:{xs:'100%', md:'60%'}}}>
+            <Stack sx={{height:{xs:'250px', md:'450px'}, width:{xs:'100%', md:'65%'}}}>
             
             <List
             sx={{

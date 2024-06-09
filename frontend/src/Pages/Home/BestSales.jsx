@@ -9,15 +9,14 @@ import 'swiper/css/scrollbar';
 import {  Box, Typography } from '@mui/material';
 import ProductCard from '../Shop/ProductCard';
 import { FetchProducts } from '../../API/FetchProducts';
-import ProCard from '../Search/ProCard';
+import ProductCardSi from '../Shop/Sinhala/ProductCardSi';
 
 
 
 
 
 
-
-export const BestSales = () => {
+export const BestSales = ({isSinhalaTrue}) => {
 
 
 
@@ -26,7 +25,10 @@ export const BestSales = () => {
 
 return(
     <Box margin='50px auto' width='90%'>
-        <Typography variant='h5'>Best Sales</Typography>
+        
+        {
+            isSinhalaTrue? (<Typography variant='h5'>හොඳම විකුණුම් නිෂ්පාදන</Typography>):(<Typography variant='h5'>Best Sales</Typography>)
+        }
 <Swiper
                 
                 spaceBetween={50}
@@ -53,8 +55,11 @@ return(
                 >
                             {products.slice(0,9).map((product,i) => (
                                 <SwiperSlide key={i} style={{padding:'25px 0px'}}>
-                                
-                                    <ProductCard product={product} />
+                                    
+                                    {
+                                        isSinhalaTrue? (<ProductCardSi product={product}/>):(<ProductCard product={product} />)
+                                    }
+                                    
                                     
                                 
                                 </SwiperSlide>

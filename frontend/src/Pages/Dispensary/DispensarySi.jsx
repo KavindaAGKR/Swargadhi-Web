@@ -61,10 +61,10 @@ export const DispensarySi = () => {
 <ScrollToTop smooth={true}/>
         <Header/>
 
-<Stack minHeight='1000px'>
-        <Stack  color='green'  direction='row' margin='25px' justifyContent='center' gap={2}>
+<Stack minHeight='1000px' >
+        <Stack  color='green'  direction='row' margin='25px auto' justifyContent='center' alignItems='center'  gap={0}>
                 <MedicalInformationIcon sx={{fontSize:'40px'}} />
-                <Typography variant='h4'  >
+                <Typography variant='h5' fontWeight='bold' >
                 වෛද්‍ය මධ්‍යස්ථානය
                 </Typography>
         </Stack>
@@ -199,6 +199,7 @@ export const DispensarySi = () => {
               overflow:'auto',
               backgroundColor:'transparent',
               textAlign:'justify',
+              fontSize:'15px'
               
             }}
             

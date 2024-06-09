@@ -41,6 +41,7 @@ import { CartSi } from './Pages/Cart/CartSi';
 import { PageNotFoundSi } from './Pages/PageNotFound/PageNotFoundSi';
 import { CheckOutSi } from './Pages/Checkout/CheckoutSi';
 import { Search } from './Pages/Search/Search';
+import { ShopSi } from './Pages/Shop/Sinhala/ShopSi';
 
 
 function App() {
@@ -93,6 +94,7 @@ function App() {
           <>
           <Route path='/dispensary' element={<DispensarySi/>}/>
           <Route path='/about' element={<AboutSi/>}/>
+          <Route path='/shop' element={<ShopSi/>}/>
           {isUserLoggedIn ? (
                     <>
                     <Route path='/cart' element={<CartSi/>}/>
@@ -104,6 +106,7 @@ function App() {
         ):(
           <>
           <Route path='/dispensary' element={<DispensaryEn/>}/>
+          <Route path='/shop' element={<Shop/>}/>
           <Route path='/about' element={<AboutEn/>}/>
           {isUserLoggedIn ? (
                     <>
@@ -118,7 +121,7 @@ function App() {
 
         {/* User part Routes */}
         <Route path='/' element={<Home/>}/>
-        <Route path='/shop' element={<Shop/>}/>
+        
         
 
         

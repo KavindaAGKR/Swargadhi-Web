@@ -17,7 +17,7 @@ export const ProductSwiper = ({imageUrl}) => {
 
             <Swiper
             style={{width:'100%', color:'green', '--swiper-navigation-color': ' #B2BEB5',
-            '--swiper-navigation-size': '25px',borderRadius: '20px',
+            '--swiper-navigation-size': '25px',borderRadius: '10px',
             '--swiper-pagination-color': '#0DFE0D',
             }}
             spaceBetween={15}
@@ -38,7 +38,7 @@ export const ProductSwiper = ({imageUrl}) => {
                                 key={index}
                                 src={`http://localhost:5000/${image}`}
                                 alt={`Product Image ${index + 1}`}
-                                style={{ width: '100%', height: '100%', marginRight: 10 }}
+                                style={{ width: '100%', height: '100%',borderRadius: '10px'}}
                                 onError={(e) => {
                                     console.error(`Failed to load image ${index}: ${e.target.src}`);
                                     e.target.onerror = null;

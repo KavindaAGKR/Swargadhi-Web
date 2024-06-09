@@ -6,47 +6,69 @@ import { useNavigate } from 'react-router-dom';
 
 const categories = [
   {
-    name: "Kalka",
+    nameEn: "kalka",
+    nameSi:'කල්ක',
     image: slide,
   },
   {
-    name: "Thel",
+    nameEn: "Thel",
+    nameSi:'තෙල්',
     image: slide,
   },
   {
-    name: "Paththu",
+    nameEn: "Paththu",
+    nameSi:'පත්තු',
     image: slide,
   },
   {
-    name: "Guli",
+    nameEn: "Guli",
+    nameSi:'ගුලි',
     image: slide,
   },
   {
-    name: "Chuurna",
+    nameEn: "Chuurna",
+    nameSi:'චූර්න',
     image: slide,
   },
   {
-    name: "Kashaya",
+    nameEn: "Kashay",
+    nameSi:'කසාය',
     image: slide,
   },
 ];
 
-export const ShopByCategory = () => {
+export const ShopByCategory = ({isSinhalaTrue}) => {
     const navigate = useNavigate();
+    
+    if(isSinhalaTrue){
+      return (
+        <List   sx={{alignSelf:'center'}}>
+          {categories.map((cat, index) => (
+            <MotionButton key={index} onClick={()=> navigate('/shop', { state: { category: cat.nameSi } })}>
+              
+              <Stack>
+              <img style={{width:'150px', height:'150px'}} src={cat.image} alt={cat.nameSi} />
+              <Typography variant='h6' textAlign='center' color='black'>{cat.nameSi}</Typography>
+              </Stack>
+            </MotionButton>
+          ))}
+        </List>
+      );
+    }else {
+      return (
+        <List   sx={{alignSelf:'center'}}>
+          {categories.map((cat, index) => (
+            <MotionButton key={index} onClick={()=> navigate('/shop', { state: { category: cat.nameEn } })}>
+              
+              <Stack>
+              <img style={{width:'150px', height:'150px'}} src={cat.image} alt={cat.nameEn} />
+              <Typography variant='h6' textAlign='center' color='black'>{cat.nameEn}</Typography>
+              </Stack>
+            </MotionButton>
+          ))}
+        </List>
+      );
+    }
 
 
-
-  return (
-    <List   sx={{alignSelf:'center'}}>
-      {categories.map((cat, index) => (
-        <MotionButton key={index} onClick={()=> navigate('/shop', { state: { category: cat.name } })}>
-          
-          <Stack>
-          <img style={{width:'150px', height:'150px'}} src={cat.image} alt={cat.name} />
-          <Typography variant='h6' textAlign='center' color='black'>{cat.name}</Typography>
-          </Stack>
-        </MotionButton>
-      ))}
-    </List>
-  );
 };
