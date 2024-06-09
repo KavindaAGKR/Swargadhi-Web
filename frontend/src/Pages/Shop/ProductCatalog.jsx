@@ -34,7 +34,7 @@ const ProductCatalog = ({ category }) => {
             <Typography variant="h3" sx={{ textAlign: 'center', margin:'5px' , color:'green' }}>{category === 'all' ? 'All Products' : category}</Typography>
             <Stack margin='40px'>
                 {loading ? (
-                    <Typography variant="body1" sx={{ textAlign: 'center', marginTop: '20px' }}>Loading products...<CircularProgress value={50}/></Typography>
+                    <Typography variant="body1" sx={{ textAlign: 'center', marginTop: '20px' }}><CircularProgress color='success' value={50}/></Typography>
                 ) : (
                     productsByCategory.length > 0 ? (
                         <Grid container spacing={5  } >

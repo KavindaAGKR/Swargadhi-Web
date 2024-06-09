@@ -12,6 +12,7 @@ import { selectIsSinhalaTrue, setSinhalaTrue, setSinhalaFalse} from '../redux/sl
 import { MotionButton } from './FramerMotion/MotionButton';
 import SearchIcon from '@mui/icons-material/Search';
 import { Search } from '../Pages/Search/Search';
+import { HeaderUser } from './Header/HeaderUser';
 
 
 
@@ -28,21 +29,19 @@ export const MultilingualHeader = () => {
     return(
     <React.Fragment >
         {isSinhalaTrue ? (
-            <>
-            <MotionButton variant='text' onClick={()=>{navigate('/')}}>මුල් පිටුව</MotionButton>
-        <MotionButton variant='text' onClick={()=>navigate('/shop')}>මිල දී ගන්න</MotionButton>
+            <Stack direction='row' sx={{maxWidth:'600px'}} gap={1}>
+            <MotionButton variant='text'  onClick={()=>{navigate('/')}}>මුල් පිටුව</MotionButton>
+        <MotionButton variant='text'  onClick={()=>navigate('/shop')}>මිල දී ගන්න</MotionButton>
         <MotionButton variant='text'  onClick={()=>navigate('/dispensary')}>වෛද්‍ය මධ්‍යස්ථානය ගැන</MotionButton>
         <MotionButton variant='text'  onClick={()=>navigate('/about')}>ස්වර්ගධී ගැන</MotionButton>
-        <MotionButton variant='text' onClick={()=>navigate('/user')}>මාගේ ගිණුම</MotionButton>
-            </>
+            </Stack>
         ):(
-            <>
+            <Stack direction='row' sx={{maxWidth:'600px', margin:'15px'}} gap={3}>
         <MotionButton variant='text' onClick={()=>{navigate('/')}}>Home</MotionButton>
         <MotionButton variant='text' onClick={()=>navigate('/shop')}>Shop</MotionButton>
         <MotionButton variant='text' onClick={()=>navigate('/dispensary')}>Dispensary</MotionButton>
         <MotionButton variant='text' onClick={()=>navigate('/about')}>About Us</MotionButton>
-        <MotionButton variant='text' onClick={()=>navigate('/user')}>My Account</MotionButton>
-        </>
+        </Stack>
     )}
 
 
@@ -144,7 +143,7 @@ export const Header = () => {
             <AppBar position='static' style={{boxShadow:'none', backgroundColor:'white',}} >
                 <Toolbar  sx={{ m:'10px 0 0 0'}}>
                     <Stack direction='row' sx={{ justifyContent:'space-between' , alignItems:'center', m:'10px 0 0 0'}}>
-                    <Box width={{xs:'50%', sm:'40%', md:'30%'}}>
+                    <Box width={{xs:'50%', sm:'40%', md:'40%', lg:'30%'}}>
                     <img src={logo} alt="Swargadhi logo" width='100%'/>
                         </Box>
                         <Stack alignItems='end' >
@@ -155,9 +154,10 @@ export const Header = () => {
                             
                             { isLoggedIn ? (
                                 <>
-                                <MotionButton>
-                                <Avatar sx={{ bgcolor: 'success.light', marginLeft:'0px' }}>{user.firstName.charAt(0)}{user.lastName.charAt(0)}</Avatar>
-                                </MotionButton>
+                                
+                                
+                                <HeaderUser user={user}/>
+                                
                                 <MotionButton onClick={()=>{navigate('/cart')}} >
                                 <IconButton sx={{padding:'0px'}}><ShoppingCartIcon/></IconButton>
                                 </MotionButton>

@@ -73,7 +73,9 @@ export const DispensaryEn = () => {
         {
           loading ? (<Stack margin='auto'><Typography variant='body'><CircularProgress color='success'/></Typography></Stack>):
           (
-            <Stack direction={{xs:'column', md:'row'}} width='90%' minHeight='450px'  margin='auto'  gap={2}
+            
+              treatments.length >0 ? (
+                <Stack direction={{xs:'column', md:'row'}} width='90%' minHeight='450px'  margin='auto'  gap={2}
             component={motion.div}
               initial={{ opacity: 0 ,}}
     whileInView={{ opacity: 1  }}
@@ -139,6 +141,10 @@ export const DispensaryEn = () => {
                 
               </Stack>
             </Stack>
+              ):(<Typography variant="body1" sx={{ textAlign: 'center', marginTop: '20px' }}>Treatment Methods Unavailable</Typography>
+              )
+            
+            
   )
         }
 

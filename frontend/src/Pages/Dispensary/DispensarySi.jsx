@@ -73,6 +73,11 @@ export const DispensarySi = () => {
         {
           loading ? (<Stack margin='auto'><Typography variant='body'><CircularProgress color='success'/></Typography></Stack>):
           (
+
+
+            
+              treatments.length >0 ? (
+                
             <Stack direction={{xs:'column', md:'row'}} width='90%' minHeight='450px'  margin='auto'  gap={2}
             component={motion.div}
               initial={{ opacity: 0 ,}}
@@ -139,6 +144,12 @@ export const DispensarySi = () => {
                 
               </Stack>
             </Stack>
+              ):(<Typography variant="body1" sx={{ textAlign: 'center', marginTop: '20px' }}>පෙන්වීමට වෛද්‍ය ප්‍රතිකාර ක්‍රම කිසිවක් නොමැත</Typography>
+              )
+            
+
+
+            
   )
         }
 
