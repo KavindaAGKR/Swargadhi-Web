@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Grid, Paper,  Stack,  Typography } from '@mui/material'
+import { Breadcrumbs, Button, Grid, Paper,  Stack,  Typography } from '@mui/material'
 import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
 import { Call, Email, Facebook, WhatsApp } from '@mui/icons-material'
@@ -10,6 +10,10 @@ export const AboutSi = () => {
 return (
     <React.Fragment>
         <Header/>
+        <Breadcrumbs aria-label="breadcrumb" sx={{marginLeft:'15px'}}>
+            <Typography color="#9A9A9A">මුල් පිටුව</Typography>
+  <Typography color="#9A9A9A">ස්වර්ගධී ගැන</Typography>
+</Breadcrumbs>
     
         <Stack sx={{ margin:'50px', textAlign: 'center', }} >
         

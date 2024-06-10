@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Header } from '../../../Components/Header';
 import { Footer } from '../../../Components/Footer';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Tab, Box, Stack } from '@mui/material';
+import { Tab, Box, Stack, Breadcrumbs, Typography } from '@mui/material';
 import ProductCatalogSi from './ProductCatalogSi';
 import { useLocation } from 'react-router-dom';
 
@@ -24,6 +24,11 @@ export const ShopSi = (valuee) => {
     return (
         <React.Fragment>
             <Header />
+            <Breadcrumbs aria-label="breadcrumb" sx={{marginLeft:'15px'}}>
+            <Typography color="#9A9A9A">මුල් පිටුව</Typography>
+  <Typography color="#9A9A9A">මිල දී ගන්න</Typography>
+  <Typography color="#9A9A9A">{value==='all'? "සියලු නිෂ්පාදන" : value}</Typography>
+</Breadcrumbs>
             
             <Stack sx={{ margin: 'auto',  display: 'flex', justifyContent: 'center', alignItems: 'center' , width:'95%'}}>
                 <TabContext value={value} sx={{width:'90%', padding:'0px'}}>

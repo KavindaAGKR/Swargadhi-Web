@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Header } from '../../Components/Header';
 import { Footer } from '../../Components/Footer';
-import { Box, Button, CircularProgress, Container, List, Stack, Typography } from '@mui/material';
+import { Box, Breadcrumbs, Button, CircularProgress, Container, List, Stack, Typography } from '@mui/material';
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import ScrollToTop from 'react-scroll-to-top';
 import { SwiperSlider } from '../../Components/Swiper';
@@ -60,7 +60,10 @@ export const DispensarySi = () => {
     <React.Fragment >
 <ScrollToTop smooth={true}/>
         <Header/>
-
+        <Breadcrumbs aria-label="breadcrumb" sx={{marginLeft:'15px'}}>
+            <Typography color="#9A9A9A">මුල් පිටුව</Typography>
+  <Typography color="#9A9A9A">වෛද්‍ය මධ්‍යස්ථානය</Typography>
+</Breadcrumbs>
 <Stack minHeight='1000px' >
         <Stack  color='green'  direction='row' margin='25px auto' justifyContent='center' alignItems='center'  gap={0}>
                 <MedicalInformationIcon sx={{fontSize:'40px'}} />

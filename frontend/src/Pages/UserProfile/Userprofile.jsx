@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Typography,  Stack, Tab, Box, Popover, IconButton } from '@mui/material';
+import { Button, Typography,  Stack, Tab, Box, Popover, IconButton, Breadcrumbs } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Header } from '../../Components/Header';
 import { Footer } from '../../Components/Footer';
@@ -80,6 +80,11 @@ export const UserProfile = () => {
     return (
         <React.Fragment>
             <Header />
+            <Breadcrumbs aria-label="breadcrumb" sx={{marginLeft:'15px'}}>
+            <Typography color="#9A9A9A">Home</Typography>
+  <Typography color="#9A9A9A">My Account</Typography>
+  <Typography color="#9A9A9A">{value}</Typography>
+</Breadcrumbs>
             <Stack direction='row' color='green' sx={{ display: { md: 'none' }, justifyContent: 'center', alignItems: 'center', margin: '20px' }}>
                 <PersonOutlineIcon sx={{ fontSize: '40px' }} />
                 <Typography variant='h4'>
