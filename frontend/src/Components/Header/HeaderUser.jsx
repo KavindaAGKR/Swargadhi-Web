@@ -7,7 +7,7 @@ import { logout } from '../../redux/slices/userSlice';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import axios from 'axios';
 
-export const HeaderUser = ({user}) => {
+export const HeaderUser = ({user, isSinhalaTrue}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -74,7 +74,7 @@ export const HeaderUser = ({user}) => {
         <Stack  aria-describedby={id}>
             <Button  sx={{ width: '100%', color:'black',padding:'0px' }} variant="text" onClick={handleClick}>
             {renderAvatar()}
-                <Stack direction='row' ><Typography sx={{display:{xs:'none', md:'block'},fontSize:"12px", width:"70px", m:'0px 5px' }} >Account & Orders</Typography><ExpandMoreRoundedIcon/></Stack>
+                <Stack direction='row' ><Typography sx={{display:{xs:'none', md:'block'},fontSize:"12px", width:"70px", m:'0px 5px' }} >{isSinhalaTrue? "මගේ ගිණුම / ඇණවුම්" :"Account & Orders"}</Typography><ExpandMoreRoundedIcon/></Stack>
             </Button>
             <Popover
                 id={id}
@@ -90,13 +90,27 @@ export const HeaderUser = ({user}) => {
                     horizontal: 'center',
                 }}
             >
-                <Stack width='200px'>
+                
+                {
+                    isSinhalaTrue?(
+                    <Stack width='200px'>
+                    <Button variant="text" onClick={() => navigate('/user', { state: { select: "MyDetails" } })}>මගේ විස්තර</Button>
+                    <Button variant="text" onClick={() => navigate('/user', { state: { select: 'MyOrders' } })}>මගේ ඇණවුම්</Button>
+                    <Button variant="text" onClick={() => navigate('/user', { state: { select: 'Supply' } })}>අමුද්‍රව්‍ය සපයන්න</Button>
+                    <Button variant="text" onClick={() => navigate('/user', { state: { select: 'Feedback' } })}>අදහස් දක්වන්න</Button>
+                    <Button sx={{ width: '150px', m: '16px' }} variant="contained" color="error" onClick={handleSignOut}>ඉවත් වන්න</Button>
+                </Stack>
+                    ):(
+                        <Stack width='200px'>
                     <Button variant="text" onClick={() => navigate('/user', { state: { select: "MyDetails" } })}>My Details</Button>
                     <Button variant="text" onClick={() => navigate('/user', { state: { select: 'MyOrders' } })}>My Orders</Button>
                     <Button variant="text" onClick={() => navigate('/user', { state: { select: 'Supply' } })}>Supply Material</Button>
                     <Button variant="text" onClick={() => navigate('/user', { state: { select: 'Feedback' } })}>Send Feedback</Button>
                     <Button sx={{ width: '150px', m: '16px' }} variant="contained" color="error" onClick={handleSignOut}>Sign Out</Button>
                 </Stack>
+                    )
+                
+                }
             </Popover>
         </Stack>
     );

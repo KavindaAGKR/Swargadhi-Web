@@ -1,4 +1,4 @@
-import { AppBar, Avatar, IconButton, Stack, Toolbar, Drawer, useMediaQuery, useTheme,Button, Divider, TextField, InputAdornment, Box } from '@mui/material'
+import { AppBar, Avatar, IconButton, Stack, Toolbar, Drawer, useMediaQuery, useTheme,Button, Divider, TextField, InputAdornment, Box, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import logo from '../Images/logo.png'
 import { useNavigate } from 'react-router-dom'
@@ -138,6 +138,10 @@ export const Header = () => {
 
     const theme = useTheme();
     const isMatch = useMediaQuery(theme.breakpoints.down('md'));
+
+    const getSearchPlaceholder = () => {
+        return isSinhalaTrue ? "නිෂ්පාදන සොයන්න" : "Search Products";
+    }
     
     return (
         <Stack>
@@ -150,7 +154,7 @@ export const Header = () => {
                     size='small'
                     color='success'
                     id="standard-search"
-                    placeholder='Search Products'
+                    placeholder={getSearchPlaceholder()}
                     type="search"
                     variant="outlined"
                     value={searchValue}
@@ -167,7 +171,7 @@ export const Header = () => {
                     }
                     {
                         isLoggedIn? (<Stack direction='row' gap={1}>
-                            <HeaderUser user={user}/>
+                            <HeaderUser user={user} isSinhalaTrue={isSinhalaTrue} />
                             <MotionButton padding='10px' onClick={()=>{navigate('/cart')}} >
                                 <ShoppingCartIcon  sx={{color:'#838383', fontSize:'30px' }} />
                             </MotionButton>

@@ -4,9 +4,9 @@ import { Footer } from '../../Components/Footer';
 import { useNavigate } from 'react-router-dom';
 import { Grid, Paper, Stack, Typography, Button } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { CartCard } from './CartCard';
 import { useSelector } from 'react-redux';
 import { selectCartItems   } from '../../redux/slices/cartSlice';
+import { CartCardSi } from './Sinhala/CartCardSi';
 
 
 
@@ -59,7 +59,7 @@ export const CartSi = () => {
                     <Stack direction={{xs:'column',md:'row'}}   margin='20px' >
                         <Stack sx={{ width: {xs:'95%', md:'65%'} }} justifyContent='center' alignItems='center' gap={5} margin='20px auto' >
                             {cartItems.map((item) => (
-                                <CartCard key={item.productItemID} item={item} />
+                                <CartCardSi key={item.productItemID} item={item} />
                             ))}
                             <Button variant='contained' onClick={() => navigate('/shop')}>
                             තවත් නිෂ්පාදන මිලට ගන්න
