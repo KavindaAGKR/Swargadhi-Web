@@ -44,7 +44,7 @@ export const ShopByCategory = ({isSinhalaTrue}) => {
       return (
         <List   sx={{alignSelf:'center'}}>
           {categories.map((cat, index) => (
-            <MotionButton key={index} onClick={()=> navigate('/shop', { state: { category: cat.nameSi } })}>
+            <MotionButton stylee={{margin:'auto'}} key={index} onClick={()=> navigate('/shop', { state: { category: cat.nameSi } })}>
               
               <Stack margin='10px'>
               <img style={{width:'150px', height:'150px'}} src={cat.image} alt={cat.nameSi} />
@@ -58,7 +58,7 @@ export const ShopByCategory = ({isSinhalaTrue}) => {
       return (
         <List   sx={{alignSelf:'center'}}>
           {categories.map((cat, index) => (
-            <MotionButton key={index} onClick={()=> navigate('/shop', { state: { category: cat.nameEn } })}>
+            <MotionButton key={index} stylee={{margin:'10px'}} onClick={()=> navigate('/shop', { state: { category: cat.nameEn } })}>
               
               <Stack>
               <img style={{width:'150px', height:'150px'}} src={cat.image} alt={cat.nameEn} />
