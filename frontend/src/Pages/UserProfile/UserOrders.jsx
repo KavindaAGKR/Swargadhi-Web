@@ -7,7 +7,6 @@ export const UserOrders = ({userId}) => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const latestOrders = orders.reverse();
 
     const getColorByStatus = (status) => {
       switch (status) {
@@ -70,7 +69,7 @@ setLoading(true);
               </TableRow>
             </TableHead>
             <TableBody>
-              {latestOrders.map(
+              {orders.slice().reverse().map(
                 (order) => (
                 <>
                 

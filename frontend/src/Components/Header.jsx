@@ -13,6 +13,7 @@ import { MotionButton } from './FramerMotion/MotionButton';
 import SearchIcon from '@mui/icons-material/Search';
 import { Search } from '../Pages/Search/Search';
 import { HeaderUser } from './Header/HeaderUser';
+import { color } from 'framer-motion';
 
 
 
@@ -27,26 +28,26 @@ export const MultilingualHeader = () => {
 
 
     return(
-    <React.Fragment >
+    <Stack justifyContent='end' alignItems='end' >
         {isSinhalaTrue ? (
-            <Stack direction={{md:'row'}}   gap={3}>
-            <MotionButton variant='text'  onClick={()=>{navigate('/')}}>මුල් පිටුව</MotionButton>
-        <MotionButton variant='text'  onClick={()=>navigate('/shop')}>මිල දී ගන්න</MotionButton>
-        <MotionButton variant='text'  onClick={()=>navigate('/dispensary')}>වෛද්‍ය මධ්‍යස්ථානය ගැන</MotionButton>
-        <MotionButton variant='text'  onClick={()=>navigate('/about')}>ස්වර්ගධී ගැන</MotionButton>
+            <Stack direction={{md:'row'}}   gap={3} >
+            <MotionButton variant='text' color='success' onClick={()=>{navigate('/')}}>මුල් පිටුව</MotionButton>
+        <MotionButton variant='text' color='success' onClick={()=>navigate('/shop')}>මිල දී ගන්න</MotionButton>
+        <MotionButton variant='text' color='success' onClick={()=>navigate('/dispensary')}>වෛද්‍ය මධ්‍යස්ථානය ගැන</MotionButton>
+        <MotionButton variant='text' color='success' onClick={()=>navigate('/about')}>ස්වර්ගධී ගැන</MotionButton>
             </Stack>
         ):(
-            <Stack direction={{md:'row'}}   gap={3}>
-        <MotionButton variant='text' onClick={()=>{navigate('/')}}>Home</MotionButton>
-        <MotionButton variant='text' onClick={()=>navigate('/shop')}>Shop</MotionButton>
-        <MotionButton variant='text' onClick={()=>navigate('/dispensary')}>Dispensary</MotionButton>
-        <MotionButton variant='text' onClick={()=>navigate('/about')}>About Us</MotionButton>
+            <Stack direction={{md:'row'}}   gap={3} >
+        <MotionButton variant='text' color='success' onClick={()=>{navigate('/')}}>Home</MotionButton>
+        <MotionButton variant='text' color='success' onClick={()=>navigate('/shop')}>Shop</MotionButton>
+        <MotionButton variant='text' color='success' onClick={()=>navigate('/dispensary')}>Dispensary</MotionButton>
+        <MotionButton variant='text' color='success' onClick={()=>navigate('/about')}>About Us</MotionButton>
         </Stack>
     )}
 
 
         
-    </React.Fragment>
+    </Stack>
     )
 }
 
@@ -91,24 +92,19 @@ export const ResponsiveNav = (props) =>{
             </Drawer>
 
                 <IconButton
-                    sx={{ color: "black", marginLeft: "auto" }}
+                    
+                    sx={{ color: "black",margin:'auto 20px' }}
                     onClick={() => setOpenDrawer(!openDrawer)}
                 >
-                <MenuIcon color="white" />
+                <MenuIcon sx={{fontSize:'35px'}} color="white" />
                 </IconButton>
             </React.Fragment>
             );
         }
     else{
         return(
-            <Stack direction='row' alignItems='center'   >
+            <Stack  marginRight='15px' width="100%"  >
                 <MultilingualHeader/>
-                {isSinhalaTrue ? (
-                                <MotionButton variant='contained' stylee={{height:'35px',width:'70px', marginLeft:'20px', padding:'100px'}} onClick={()=>dispatch(setSinhalaFalse(false))}>English</MotionButton>
-                            ):(
-                            <MotionButton variant='contained' stylee={{height:'35px',width:'70px', marginLeft:'20px', padding:'10px'}} onClick={()=>dispatch(setSinhalaTrue(true))}>සිංහල</MotionButton>
-                            )
-                            }
             </Stack>
         );
     }
@@ -128,6 +124,7 @@ export const Header = () => {
     const user = useSelector(selectUser);
     const isSinhalaTrue = useSelector(selectIsSinhalaTrue);
     const [searchValue, setSearchValue] = useState('');
+    const dispatch = useDispatch();
 
     const handleSearch = (e) => {
         
@@ -143,106 +140,61 @@ export const Header = () => {
     const isMatch = useMediaQuery(theme.breakpoints.down('md'));
     
     return (
-        <React.Fragment >
-            <Stack position='static' sx={{ backgroundColor:'white', margin:'5px'}} >
-                <Stack  >
-                    <Stack direction='row' sx={{ justifyContent:'space-between' , alignItems:'start', m:'10px 0 0 0'}}>
-                    <Button onClick={()=>navigate('/')} sx={{width:{xs:'150px', sm:'250px', md:'250px', lg:'300px'}, padding:'0px', margin:'0px'}}>
+        <Stack>
+            <Stack direction='row' justifyContent='space-between' alignItems='center' p='10px'>
+                <Button onClick={()=>navigate('/')} sx={{width:{xs:'150px', sm:'250px', md:'250px', lg:'300px'}, padding:'0px', margin:'0px'}}>
                     <img src={logo} alt="Swargadhi logo" width='100%'/>
-                        </Button>
-                        <Stack alignItems='end' >
-                        <Stack direction='row' spacing={1}  >
-                            
-                            
-                            
-                            
-                            { isLoggedIn ? (
-                                <Stack direction={{xs:'column', md:'column-reverse'}} alignItems='end'>
-                                    <Stack>
-                                    <Stack direction='row' justifyContent='space-between'>
-                                <TextField
-                        sx={{width:'auto', m:'10px',p:'0px 0px' , display:{xs:'none', sm:'block'}}}
-                        
-          id="standard-search"
-          placeholder='Search Products'
-          type="search"
-          variant="outlined"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          InputProps={{endAdornment:<InputAdornment sx={{padding:'0px 0px'}} position='end'><Button m='0px' sx={{padding:'0px 0px'}}
-            onClick={() => handleSearch(searchValue)}></Button></InputAdornment>}}
-        />
-                                <Stack>
-                                <HeaderUser user={user}/>
-                                
-                                <MotionButton onClick={()=>{navigate('/cart')}} >
-                                <ShoppingCartIcon  sx={{padding:'0px 10px',color:'#838383'  }} fontSize="large"/>
-                                </MotionButton>
-                                </Stack>
-                                </Stack>
-                                
-                                <ResponsiveNav isMatch={isMatch}/>
-                                
-                                
-                                </Stack>
-                                
-                                </Stack>
-                            ): (
-                                <Stack alignItems='end' justifyContent='center'>
-                                <Stack direction='row' gap={3} alignItems='center' justifyContent='end' >
-                                    
-                                    <ResponsiveNav isMatch={isMatch}/>
-                                    <MotionButton stylee={{height:'auto', width:'100px', margin:'0px 10px', padding:'10px'}} variant='contained' color="success" onClick={()=>navigate('/login')} >{isSinhalaTrue ? ("ලොග් වන්න"): ("Sign In")}</MotionButton>
-                                
-                                    </Stack>
-                                    <TextField
-                        sx={{width:'350px', m:'10px',p:'0px 0px' , display:{xs:'none', sm:'block'}}}
-                        
-          id="standard-search"
-          placeholder='Search Products'
-          type="search"
-          variant="outlined"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          InputProps={{endAdornment:<InputAdornment position="end" sx={{padding:'0px'}}><Button sx={{padding:'0px'}}
-            onClick={() => handleSearch(searchValue)}><SearchIcon edge="end" sx={{padding:'0px'}}/></Button></InputAdornment>}}
-        />
-                                    </Stack>
-                                )
-                            }
-                        </Stack> 
-                        
-                        </Stack>
-
-                    </Stack>
-                    <TextField
-                        sx={{width:'300px',height:'30px', m:'auto', padding:'0px' , display:{xs:'flex',sm:'none' }}}
-                        
-          id="standard-search"
-          placeholder='Search Products'
-          type="search"
-          variant="outlined"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          InputProps={{endAdornment:<InputAdornment position="end" sx={{padding:'0px'}}><Button sx={{padding:'0px'}}
-            onClick={() => handleSearch(searchValue)}><SearchIcon edge="end" sx={{padding:'0px'}}/></Button></InputAdornment>}}
-        />
-</Stack>
-                    {/* <TextField
-                        sx={{width:'60%', m:' 10px auto ' , display:{xs:'block', sm:'none'}}}
-                        
-          id="standard-search"
-          placeholder='Search'
-          type="search"
-          variant="outlined"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          InputProps={{endAdornment:<InputAdornment position="end" sx={{padding:'0px'}}><Button sx={{padding:'0px'}}
-            onClick={() => handleSearch(searchValue)}><SearchIcon edge="end" sx={{padding:'0px'}}/></Button></InputAdornment>}}
-        /> */}
-                    
+                </Button>
+                <TextField
+                    sx={{ m:'10px' , display:{xs:'none', sm:'block'}}}
+                    size='small'
+                    color='success'
+                    id="standard-search"
+                    placeholder='Search Products'
+                    type="search"
+                    variant="outlined"
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    InputProps={{sx: { borderRadius:"50px",width:{md:'350px'},  },endAdornment:<InputAdornment position="end" sx={{padding:'0px'}}><IconButton sx={{padding:'0px'}}
+                    onClick={() => handleSearch(searchValue)}><SearchIcon edge="end" sx={{ width:'25px', height:'25px'}}/></IconButton></InputAdornment>}}
+                />
+                <Stack direction='row' alignItems='center' gap={2}>
+                    {isSinhalaTrue ? (
+                            <MotionButton variant='outlined' stylee={{height:'35px',width:'70px', padding:'100px'}} color='success' onClick={()=>dispatch(setSinhalaFalse(false))}>English</MotionButton>
+                            ):(
+                            <MotionButton variant='outlined' stylee={{height:'35px',width:'70px',padding:'10px'}} color='success'  onClick={()=>dispatch(setSinhalaTrue(true))}>සිංහල</MotionButton>
+                            )
+                    }
+                    {
+                        isLoggedIn? (<Stack direction='row' gap={1}>
+                            <HeaderUser user={user}/>
+                            <MotionButton padding='10px' onClick={()=>{navigate('/cart')}} >
+                                <ShoppingCartIcon  sx={{color:'#838383', fontSize:'30px' }} />
+                            </MotionButton>
+                        </Stack>):(
+                                <MotionButton stylee={{height:'auto', width:'100px', margin:'0px 10px', padding:'10px'}} variant='contained' color="success" onClick={()=>navigate('/login')} >{isSinhalaTrue ? ("ලොග් වන්න"): ("Sign In")}</MotionButton>
+                            )
+                    }
                 </Stack>
-            </React.Fragment>
+            </Stack>
+            <Stack  justifyContent='space-between'  direction='row' width='100%'>
+                <ResponsiveNav  isMatch={isMatch}/>
+                <TextField
+                    sx={{ m:'10px' , display:{xs:'block', sm:'none'}}}
+                    size='small'
+                    color='success'
+                    id="standard-search"
+                    placeholder='Search Products'
+                    type="search"
+                    variant="outlined"
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    InputProps={{sx: { borderRadius:"50px",width:{md:'350px'},  },endAdornment:<InputAdornment position="end" sx={{padding:'0px'}}><IconButton sx={{padding:'0px'}}
+                    onClick={() => handleSearch(searchValue)}><SearchIcon edge="end" sx={{ width:'25px', height:'25px'}}/></IconButton></InputAdornment>}}
+                />
+            </Stack>
+        </Stack>
+        
         )
 }
 

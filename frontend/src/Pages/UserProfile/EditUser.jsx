@@ -92,6 +92,7 @@ const EditProfileDialog = ({ open, handleClose, userDetails }) => {
               label="Email"
               variant="outlined"
               fullWidth
+              disabled
               value={user.email}
               onChange={handleChange}
             />

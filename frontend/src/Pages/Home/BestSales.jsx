@@ -82,7 +82,7 @@ export const HomeSwiper = ({imageArray}) => {
                 slidesPerView={1}
                 centeredSlides={true}
                 autoplay={{ delay: 4000,}}
-                
+                pagination={{clickable: true,}}
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
                 className="mySwiper"
@@ -90,8 +90,8 @@ export const HomeSwiper = ({imageArray}) => {
                 loop={true}
                 style={{
                     width: '100%',
-                    '--swiper-navigation-color': '#0DFE0D',
-                    '--swiper-pagination-color': '#0DFE0D',
+                    '--swiper-navigation-color': 'white',
+                    '--swiper-pagination-color': 'white',
                     borderRadius:'25px',
                     minHeight:'100%'
                 }}
