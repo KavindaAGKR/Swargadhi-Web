@@ -14,13 +14,13 @@ export const CartCard = ({ item}) => {
     const dispatch = useDispatch();
 
 
-    const [buyingCountt, setBuyingCount] = useState(buyingCount)
+    
     const [error, setError] = useState(false)
     const productTotPrice = buyingCount*price;
 
 
     const handleBuyingCountChange = (value) => {
-        setBuyingCount(value);
+        
         dispatch(updateItemBuyingCount({ productItemID, buyingCount: value }));
         if (value>quantity || value<1) {
             setError(true);

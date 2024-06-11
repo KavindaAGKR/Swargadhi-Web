@@ -39,7 +39,7 @@ export const Home = () => {
     <React.Fragment>
         <Header/>
 
-        <Stack textAlign='center'>
+        <Stack >
         <Stack width={{xs:'90%', sm:'80%', md:'70%', lg:'60%'}} height={{xs:'300px', sm:'400px', lg:'500px'}} margin='50px auto '
               component={motion.div}
               initial={{ opacity: 0 , y:40}}

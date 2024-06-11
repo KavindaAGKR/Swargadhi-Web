@@ -42,12 +42,14 @@ import { PageNotFoundSi } from './Pages/PageNotFound/PageNotFoundSi';
 import { CheckOutSi } from './Pages/Checkout/CheckoutSi';
 import { Search } from './Pages/Search/Search';
 import { ShopSi } from './Pages/Shop/Sinhala/ShopSi';
+import { selectCartItems } from './redux/slices/cartSlice';
 
 
 function App() {
   const isUserLoggedIn = useSelector(selectIsLoggedIn);
   const user = useSelector(selectUser);
   const isSinhalaTrue = useSelector(selectIsSinhalaTrue);
+  const cartItems = useSelector(selectCartItems);
   // const navigate= useNavigate();
 
 
@@ -98,7 +100,10 @@ function App() {
           {isUserLoggedIn ? (
                     <>
                     <Route path='/cart' element={<CartSi/>}/>
-                    <Route path='/checkout' element={<CheckOutSi/>}/>
+                    {
+                      cartItems.length>0 ? <Route path='/checkout' element={<CheckOutSi/>}/> 
+                      : <Route path='*' element={<PageNotFound/>}/>
+                    }
                     </>
                     ) : (<Route path='*' element={<PageNotFoundSi/>}/>)}
           
@@ -111,7 +116,11 @@ function App() {
           {isUserLoggedIn ? (
                     <>
                     <Route path='/cart' element={<CartEn/>}/>
-                    <Route path='/checkout' element={<CheckOutEn/>}/>
+                    
+                    {
+                      cartItems.length>0 ? <Route path='/checkout' element={<CheckOutEn/>}/>
+                       : <Route path='*' element={<PageNotFound/>}/>
+                    }
                     </>
                     ) : (<Route path='*' element={<PageNotFound/>}/>)}
           </>

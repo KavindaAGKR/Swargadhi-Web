@@ -4,13 +4,13 @@ import { Footer } from '../../Components/Footer';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Tab, Box, Stack, Breadcrumbs, Typography } from '@mui/material';
 import ProductCatalog from './ProductCatalog';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 
 
 export const Shop = (valuee) => {
 
-
+    const navigate = useNavigate()
     const location = useLocation();
     const categoryFromState = location.state?.category || 'all';
 
@@ -23,8 +23,8 @@ export const Shop = (valuee) => {
     return (
         <React.Fragment>
             <Header />
-            <Breadcrumbs aria-label="breadcrumb" sx={{marginLeft:'15px'}}>
-            <Typography color="#9A9A9A">Home</Typography>
+            <Breadcrumbs aria-label="breadcrumb" separator="›" margin='0px' sx={{marginLeft:'15px'}}>
+            <Link href='/' color="#9A9A9A" underline="none">Home</Link>
   <Typography color="#9A9A9A">Shop</Typography>
   <Typography color="#9A9A9A">{value}</Typography>
 </Breadcrumbs>

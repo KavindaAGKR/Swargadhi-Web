@@ -5,13 +5,14 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState: {
     items: loadCartItemsFromLocalStorage(),
-    subtotal: 0,
+    
   },
   reducers: {
+    
     addToCart: (state, action) => {
-      state.items.push(action.payload);
+      const newItem = { ...action.payload, buyingCount: 1 }; // Ensure buyingCount is set
+      state.items = [...state.items, newItem]; // Use spread operator for new array
       saveCartItemsToLocalStorage(state.items);
-      action.payload.buyingCount = 1;
     },
     removeItemFromCart: (state, action) => {
       const indexToRemove = state.items.findIndex(
