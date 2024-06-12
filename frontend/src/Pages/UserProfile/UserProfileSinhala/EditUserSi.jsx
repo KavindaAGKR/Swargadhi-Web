@@ -1,0 +1,153 @@
+import React, { useState, useEffect } from 'react';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Grid } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../../redux/slices/userSlice';
+
+const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
+  const [user, setEditedUser] = useState(userDetails);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (userDetails) {
+      setEditedUser({
+        ...userDetails,
+        addressL1: userDetails.deliveryAddress?.addressL1 || '',
+        addressL2: userDetails.deliveryAddress?.addressL2 || '',
+        addressL3: userDetails.deliveryAddress?.addressL3 || ''
+      });
+    }
+  }, [userDetails]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setEditedUser({ ...user, [name]: value });
+  };
+
+  const handleUpdate = (updatedUser) => {
+    console.log("Edited user details:", updatedUser);
+    // You can also dispatch the update to the redux store here
+    dispatch(setUser(updatedUser));
+  };
+
+  const handleSave = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/user/update', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userId: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          mobileNumber: user.mobileNumber,
+          addressL1: user.addressL1,
+          addressL2: user.addressL2,
+          addressL3: user.addressL3
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        handleUpdate(data.user); 
+        
+        handleClose();
+      } else {
+        console.error('Error updating user:', await response.text());
+      }
+    } catch (error) {
+      console.error('Error updating user:', error);
+    }
+  };
+
+  return (
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle >විස්තර වෙනස් කරන්න</DialogTitle>
+      <DialogContent >
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              name="මුල් නම"
+              label="මුල් නම"
+              variant="outlined"
+              fullWidth
+              size='small'
+              sx={{margin:'5px 0 0 0'}}
+              value={user.firstName}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              name="අවසන් නම"
+              label="අවසන් නම" size='small'
+              variant="outlined"
+              sx={{margin:'5px 0 0 0'}}
+              fullWidth
+              value={user.lastName}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              name="විද්යුත් තැපෑල"
+              label="විද්යුත් තැපෑල"
+              variant="outlined" size='small'
+              fullWidth
+              disabled
+              value={user.email}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              name="දුරකථන අංකය"
+              label="දුරකථන අංකය" size='small'
+              variant="outlined"
+              fullWidth
+              value={user.mobileNumber}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              name="addressL1"
+              label="ලිපිනය - පළමු පේලිය" size='small'
+              variant="outlined"
+              fullWidth
+              value={user.addressL1}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              name="ලිපිනය - දෙවන පේලිය"
+              label="ලිපිනය - දෙවන පේලිය" size='small'
+              variant="outlined"
+              fullWidth
+              value={user.addressL2}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              name="ලිපිනය - තෙවන පේලිය"
+              label="ලිපිනය - තෙවන පේලිය" size='small'
+              variant="outlined"
+              fullWidth
+              value={user.addressL3}
+              onChange={handleChange}
+            />
+          </Grid>
+        </Grid>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>ඉවත් වන්න</Button>
+        <Button color="primary" variant="contained" onClick={handleSave}>සුරකින්න</Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
+export default EditProfileDialogSi;

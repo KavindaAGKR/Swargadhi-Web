@@ -43,6 +43,7 @@ import { CheckOutSi } from './Pages/Checkout/CheckoutSi';
 import { Search } from './Pages/Search/Search';
 import { ShopSi } from './Pages/Shop/Sinhala/ShopSi';
 import { selectCartItems } from './redux/slices/cartSlice';
+import { UserProfileSi } from './Pages/UserProfile/UserProfileSinhala/UserprofileSi';
 
 
 function App() {
@@ -97,6 +98,7 @@ function App() {
           <Route path='/dispensary' element={<DispensarySi/>}/>
           <Route path='/about' element={<AboutSi/>}/>
           <Route path='/shop' element={<ShopSi/>}/>
+          <Route path='/user' element={<UserProfileSi/>}/>
           {isUserLoggedIn ? (
                     <>
                     <Route path='/cart' element={<CartSi/>}/>
@@ -113,6 +115,7 @@ function App() {
           <Route path='/dispensary' element={<DispensaryEn/>}/>
           <Route path='/shop' element={<Shop/>}/>
           <Route path='/about' element={<AboutEn/>}/>
+          <Route path='/user' element={<UserProfile/>}/>
           {isUserLoggedIn ? (
                     <>
                     <Route path='/cart' element={<CartEn/>}/>
@@ -134,7 +137,7 @@ function App() {
         
 
         
-        <Route path='/user' element={<UserProfile/>}/>
+        
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>} />
         <Route path='/search' element={<Search/>}/>
