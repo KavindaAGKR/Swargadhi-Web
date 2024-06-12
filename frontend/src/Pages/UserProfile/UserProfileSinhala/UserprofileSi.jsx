@@ -63,7 +63,7 @@ export const UserProfileSi = () => {
             >
                 <Tab label='මගේ විස්තර' value='MyDetails' sx={{ alignSelf: 'start' }} />
                 <Tab label='මගේ ඇණවුම්' value='MyOrders' sx={{ alignSelf: 'start' }} />
-                <Tab label='අමුද්‍රව්‍ය සපයන්න ' value='Supply' sx={{ alignSelf: 'start' }} />
+                <Tab label='අමුද්‍රව්‍ය සපයන්න' value='Supply' sx={{ alignSelf: 'start' }} />
                 <Tab label='අදහස් දක්වන්න' value='Feedback' sx={{ alignSelf: 'start' }} />
 
                 <Button
@@ -78,6 +78,24 @@ export const UserProfileSi = () => {
         )
     }
 
+
+    const sinhalaState = () => {
+        switch(value){
+            case("MyDetails"): 
+                return "මගේ විස්තර" ;
+            case("MyOrders"):
+                return "මගේ ඇණවුම්";
+            case('Supply'):
+                return 'අමුද්‍රව්‍ය සපයන්න';
+                case('Feedback'):
+                return 'අදහස් දක්වන්න';
+
+        }
+    }
+
+
+
+
     return (
         <React.Fragment>
             <Header />
@@ -89,7 +107,7 @@ export const UserProfileSi = () => {
             මගේ ගිණුම
             </Typography>
             <Typography color="#9A9A9A" noWrap sx={{ textDecoration: 'none',fontSize:'14px' }}>
-                {value}
+                {sinhalaState()}
             </Typography>
 
 </Breadcrumbs>

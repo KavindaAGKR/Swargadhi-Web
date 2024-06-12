@@ -92,7 +92,6 @@ setLoading(true);
             
         ))}
         
-  
 </TableCell>
                       
                       <TableCell>{order.totalAmount}</TableCell>

@@ -51,7 +51,7 @@ export const HeaderUser = ({user, isSinhalaTrue}) => {
     const renderAvatar = () => {
         if (profilePicture) {
             return (
-                <Box sx={{borderRadius:'100px', width:{xs:'40px', sm:'50px'},height:{xs:'40px', sm:'50px'}, margin: '10px auto' }}>
+                <Box sx={{borderRadius:'100px', width:{xs:'40px', sm:'40px'},height:{xs:'40px', sm:'40px'}, margin: '10px auto' }}>
                     <img
                     src={profilePicture}
                     alt="Profile"
