@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import { Button, Typography,  Stack, Tab, Box, Popover, IconButton, Breadcrumbs } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Header } from '../../Components/Header';
@@ -57,7 +58,7 @@ export const UserProfile = () => {
                 orientation="vertical"
                 scrollButtons
                 allowScrollButtonsMobile
-                sx={{ width: '200px', m: 'auto' }}
+                sx={{ width: '200px', m: 'auto 10px' }}
                 variant="fullWidth"
             >
                 <Tab label='My Details' value='MyDetails' sx={{ alignSelf: 'start' }} />
@@ -81,9 +82,16 @@ export const UserProfile = () => {
         <React.Fragment>
             <Header />
             <Breadcrumbs aria-label="breadcrumb" sx={{marginLeft:'15px'}}>
-            <Typography color="#9A9A9A">Home</Typography>
-  <Typography color="#9A9A9A">My Account</Typography>
-  <Typography color="#9A9A9A">{value}</Typography>
+            <Typography color="#9A9A9A" noWrap component={Link} to="/" sx={{ textDecoration: 'none',fontSize:'14px' }}>
+                Home
+            </Typography>
+            <Typography color="#9A9A9A" noWrap component={Link} to="/user" sx={{ textDecoration: 'none',fontSize:'14px' }}>
+                MyAccount
+            </Typography>
+            <Typography color="#9A9A9A" noWrap sx={{ textDecoration: 'none',fontSize:'14px' }}>
+                {value}
+            </Typography>
+  
 </Breadcrumbs>
             <Stack direction='row' color='green' sx={{ display: { md: 'none' }, justifyContent: 'center', alignItems: 'center', margin: '20px' }}>
                 <PersonOutlineIcon sx={{ fontSize: '40px' }} />
@@ -91,10 +99,10 @@ export const UserProfile = () => {
                     My Account
                 </Typography>
             </Stack>
-            <Stack alignItems='center' sx={{ minHeight: '500px', mt: '50px' }}>
+            <Stack alignItems='center' sx={{ minHeight: '500px', mt: '30px' }}>
                 {isLoggedIn ? (
                     <Stack direction={{ xs: 'column', md: 'row' }} sx={{ display: 'flex', width: '100%' }}>
-                        <IconButton sx={{ display: { xs: 'block', md: 'none', width: '100px' } }} aria-describedby={id} variant="contained" onClick={handleClick}>
+                        <IconButton sx={{ display: { xs: 'block', md: 'none', width: '150px', padding:'0px', marginLeft:'25px' } }} aria-describedby={id} variant="contained" onClick={handleClick}>
                             <Stack direction='row' gap={1}><MenuIcon /><Typography>{value}</Typography></Stack>
                         </IconButton>
                         <TabContext value={value}>
@@ -114,10 +122,11 @@ export const UserProfile = () => {
                             >
                                 <ResponsiveTab />
                             </Popover>
-                            <Box sx={{ display: { xs: 'none', md: 'block' }, width: '25%' }}>
+                            <Stack direction='row' width='100%' >
+                            <Stack sx={{ display: { xs: 'none', md: 'block' }, width: '200px', margin:'0px 25px' }}>
                                 <ResponsiveTab />
-                            </Box>
-                            <Box margin='10px' sx={{ width: { xs: '95%', md: '75%' } }}>
+                            </Stack>
+                            <Stack margin='10px 10px' sx={{ width: { xs: '100%', md: '100' } }}>
                                 <TabPanel value='MyDetails' sx={{ width: '100%', padding: '0px' }}>
                                     <ViewDetails userId={user._id} user={user} />
                                 </TabPanel>
@@ -130,7 +139,8 @@ export const UserProfile = () => {
                                 <TabPanel value='Feedback' sx={{ width: '100%', padding: '0px' }}>
                                     <Feedbacks user={user} />
                                 </TabPanel>
-                            </Box>
+                            </Stack>
+                            </Stack>
                         </TabContext>
                     </Stack>
                 ) : (

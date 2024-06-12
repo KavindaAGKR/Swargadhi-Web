@@ -46,18 +46,21 @@ export const ViewDetails = ({userId}) => {
     };
 
 
-    const handleProfilePictureChange = (event) => {
-        setProfilePicture(event.target.files[0]);
-    };
+    // const handleProfilePictureChange = (event) => {
+    //     setProfilePicture(event.target.files[0]);
+    // };
 
-    const handleUploadProfilePicture = async () => {
-        if (!profilePicture) {
+    const handleUploadProfilePicture = async (event) => {
+        const file = event.target.files[0];
+        if (!file) {
             console.error('No profile picture selected');
             return;
         }
 
+        setProfilePicture(file); // Set the selected file to state
+
         const formData = new FormData();
-        formData.append('profilePicture', profilePicture);
+        formData.append('profilePicture', file);
         formData.append('userId', userId);
 
         try {
@@ -112,7 +115,7 @@ export const ViewDetails = ({userId}) => {
     const renderAvatar = () => {
         if (profilePicture) {
             return (
-                <Box sx={{borderRadius:'100px', width: { xs: '100px', sm: '150px' }, height: { xs: '100px', sm: '150px' }, margin: '10px auto' }}>
+                <Box sx={{borderRadius:'100px', width: { xs: '100px', sm: '150px' }, height: { xs: '100px', sm: '150px' }, margin: '25px auto' }}>
                     <img
                     src={profilePicture}
                     alt="Profile"
@@ -126,7 +129,7 @@ export const ViewDetails = ({userId}) => {
             );
         } else {
             return (
-                <Avatar sx={{ width: { xs: '100px', sm: '150px' }, height: { xs: '100px', sm: '150px' }, margin: '20px auto' }}>
+                <Avatar sx={{ width: { xs: '100px', sm: '150px' }, height: { xs: '100px', sm: '150px' }, margin: '25px auto' }}>
                     {`${userDetails.firstName.charAt(0)}${userDetails.lastName.charAt(0)}`}
                 </Avatar>
             );
@@ -137,16 +140,40 @@ export const ViewDetails = ({userId}) => {
 
 
   return (
-    <Stack >
-        <Typography variant='h5' >My Details</Typography>
-    <Stack  sx={{ width: '90%' }} justifyContent='center' alignItems='center' alignSelf='center'>
-            <Stack sx={{ width: '40%',   margin: '20px' }}>
+    <Stack sx={{margin:'0 15px'}} alignSelf='center'>
+        <Typography variant='h5'  >My Details</Typography>
+    <Stack  sx={{ width: '100%',margin:'auto' }} justifyContent='center' alignItems='center' alignSelf='center'>
+            <Stack sx={{ width: '90%',    }}>
                 {renderAvatar()}
-                <Button variant='text' onClick={()=>setOpen(true)}>Upload Profile Photo </Button>
-                <Dialog
+                
+                <Stack direction={{xs:'column', md:"row"}} spacing={2} margin='25px auto' textAlign='center'>
+      <Button
+        variant="outlined"
+        component="label"
+      >
+        Upload Profile Picture
+        <input
+          accept="image/*"
+          type="file"
+          style={{ display: 'none' }}
+          onChangeCapture={handleUploadProfilePicture}
+        />
+      </Button>
+      {profilePicture && (
+        <Button
+          variant="contained"
+          color="error"
+          onClick={handleDeleteProfilePicture}
+        >
+          Delete Profile Picture
+        </Button>
+      )}
+    </Stack>
+                {/* <Dialog
                     open={open}
                     onClose={() => setOpen(false)}
                     fullWidth
+                    
                     maxWidth='sm'>
                     
                     {renderAvatar()}
@@ -154,6 +181,21 @@ export const ViewDetails = ({userId}) => {
                         <Stack justifyContent='center' alignItems='center' gap={3} m='10px'>
                         
                         <Stack direction='row'>
+                        <Button
+  variant="contained"
+  component="label"
+>
+  Upload File
+  <input
+  accept="image/*"
+    type="file"
+    style={{width:'180px'}}
+    hidden
+    onChange={handleUploadProfilePicture}
+  />
+</Button>
+
+
                         <input accept="image/*" type="file" style={{width:'180px'}} onChange={handleProfilePictureChange} />
                 <Button
                     variant="text"
@@ -175,11 +217,11 @@ export const ViewDetails = ({userId}) => {
                 <Button onClick={() => setOpen(false)}>Cancel</Button>
                         </Stack>
                     
-                </Dialog>
+                </Dialog> */}
 
                 
             </Stack>
-            <Stack sx={{ width:'100%', backgroundColor: '#F5F9FC', boxShadow: '2px 2px 5px 1px #D6D3D2', margin: '20px' }}>
+            <Stack sx={{ width:{xs:'100%', md:'90%'}, backgroundColor: '#F5F9FC', boxShadow: '2px 2px 5px 1px #D6D3D2', margin: '20px' }}>
                 <Stack sx={{ margin: '25px' }}>
                     <Grid container spacing={1} rowGap={5} columnGap={3} sx={{ fontWeight: 'bold' }}>
                         <Grid item xs={2.2}>First Name:</Grid>

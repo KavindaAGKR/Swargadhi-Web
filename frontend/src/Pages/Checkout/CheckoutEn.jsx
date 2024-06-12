@@ -1,6 +1,6 @@
 
 import { Alert, Button, Dialog, DialogActions, DialogContent,  DialogTitle,Snackbar, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Footer } from '../../Components/Footer';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
@@ -16,6 +16,7 @@ export const CheckOutEn = () => {
 
 
     const location = useLocation();
+    const navigate = useNavigate();
     const { cartItems, totalAmount } = location.state;
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
@@ -30,7 +31,16 @@ export const CheckOutEn = () => {
 
     const [snackbarOpen, setSnackbarOpen] = useState(false); 
     const [snackMessage, setSnackMessage] = useState('')
-    const navigate = useNavigate();
+    
+
+
+
+    useEffect(() => {
+        if (!cartItems || !totalAmount) {
+            navigate('/cart');
+        }
+    }, [cartItems, totalAmount, navigate]);
+
 
     const handlePaymentMethod = (e) => {
         setPaymentMethod(e);

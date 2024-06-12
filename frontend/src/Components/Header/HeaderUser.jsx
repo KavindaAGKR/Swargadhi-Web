@@ -51,7 +51,7 @@ export const HeaderUser = ({user, isSinhalaTrue}) => {
     const renderAvatar = () => {
         if (profilePicture) {
             return (
-                <Box sx={{borderRadius:'100px', width:'50px', height:'50px', margin: '10px auto' }}>
+                <Box sx={{borderRadius:'100px', width:{xs:'40px', sm:'50px'},height:{xs:'40px', sm:'50px'}, margin: '10px auto' }}>
                     <img
                     src={profilePicture}
                     alt="Profile"
@@ -65,16 +65,16 @@ export const HeaderUser = ({user, isSinhalaTrue}) => {
             );
         } else {
             return (
-                <Avatar sx={{ bgcolor: 'success.light', marginLeft:'0px' }}>{user.firstName.charAt(0)}{user.lastName.charAt(0)}</Avatar>
+                <Avatar sx={{ bgcolor: 'success.light', marginLeft:'0px', height:'35px' , width:'35px'}}>{user.firstName.charAt(0)}{user.lastName.charAt(0)}</Avatar>
             );
         }
     };
 
     return (
         <Stack  aria-describedby={id}>
-            <Button  sx={{ width: '100%', color:'black',padding:'0px' }} variant="text" onClick={handleClick}>
+            <Button  sx={{ width: '100%', color:'black',padding:{xs:'0px', lg:'0px 15px'} }} variant="text" onClick={handleClick}>
             {renderAvatar()}
-                <Stack direction='row' ><Typography sx={{display:{xs:'none', md:'block'},fontSize:"12px", width:"70px", m:'0px 5px' }} >{isSinhalaTrue? "මගේ ගිණුම / ඇණවුම්" :"Account & Orders"}</Typography><ExpandMoreRoundedIcon/></Stack>
+                <Stack direction='row' ><Typography sx={{display:{xs:'none', md:'block'},fontSize:"12px", width:"70px", m:'0px' }} >{isSinhalaTrue? "මගේ ගිණුම / ඇණවුම්" :"Account & Orders"}</Typography><ExpandMoreRoundedIcon/></Stack>
             </Button>
             <Popover
                 id={id}

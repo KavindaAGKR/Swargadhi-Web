@@ -63,8 +63,8 @@ const EditProfileDialog = ({ open, handleClose, userDetails }) => {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Edit Profile</DialogTitle>
-      <DialogContent>
+      <DialogTitle >Edit Profile</DialogTitle>
+      <DialogContent >
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -72,6 +72,8 @@ const EditProfileDialog = ({ open, handleClose, userDetails }) => {
               label="First Name"
               variant="outlined"
               fullWidth
+              size='small'
+              sx={{margin:'5px 0 0 0'}}
               value={user.firstName}
               onChange={handleChange}
             />
@@ -79,8 +81,9 @@ const EditProfileDialog = ({ open, handleClose, userDetails }) => {
           <Grid item xs={12} sm={6}>
             <TextField
               name="lastName"
-              label="Last Name"
+              label="Last Name" size='small'
               variant="outlined"
+              sx={{margin:'5px 0 0 0'}}
               fullWidth
               value={user.lastName}
               onChange={handleChange}
@@ -90,7 +93,7 @@ const EditProfileDialog = ({ open, handleClose, userDetails }) => {
             <TextField
               name="email"
               label="Email"
-              variant="outlined"
+              variant="outlined" size='small'
               fullWidth
               disabled
               value={user.email}
@@ -100,7 +103,7 @@ const EditProfileDialog = ({ open, handleClose, userDetails }) => {
           <Grid item xs={12} sm={6}>
             <TextField
               name="mobileNumber"
-              label="Mobile Number"
+              label="Mobile Number" size='small'
               variant="outlined"
               fullWidth
               value={user.mobileNumber}
@@ -110,7 +113,7 @@ const EditProfileDialog = ({ open, handleClose, userDetails }) => {
           <Grid item xs={12}>
             <TextField
               name="addressL1"
-              label="Address Line 01"
+              label="Address Line 01" size='small'
               variant="outlined"
               fullWidth
               value={user.addressL1}
@@ -120,7 +123,7 @@ const EditProfileDialog = ({ open, handleClose, userDetails }) => {
           <Grid item xs={12}>
             <TextField
               name="addressL2"
-              label="Address Line 02"
+              label="Address Line 02" size='small'
               variant="outlined"
               fullWidth
               value={user.addressL2}
@@ -130,7 +133,7 @@ const EditProfileDialog = ({ open, handleClose, userDetails }) => {
           <Grid item xs={12}>
             <TextField
               name="addressL3"
-              label="Address Line 03"
+              label="Address Line 03" size='small'
               variant="outlined"
               fullWidth
               value={user.addressL3}

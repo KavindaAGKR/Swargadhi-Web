@@ -46,26 +46,32 @@ setLoading(true);
 
 
   return (
-    <Stack width='100%'>
-                            <Typography variant="h5" mb='30px' >My Orders</Typography>
+    <Stack  sx={{margin:{xs:'0', sm:'0 15px'},  minHeight:'300px'}}>
+                            <Typography variant="h5" mb='30px' ml={{xs:'15px' , sm:'0'}} >My Orders</Typography>
 
-{loading?(<Stack  height='100%'><Typography variant='h5' margin='auto'><CircularProgress color="success" /></Typography></Stack>):
+{loading?(<CircularProgress alignSelf='center' color="success" sx={{margin:'auto'}}/>):
 (
     orders.length ? (
                                 
-        <Stack alignSelf='center' width='80%'>
+        <Stack alignSelf='center' sx={{width:{xs:'100%', md:'90%'}, mb:'35px'}} >
 
-        <TableContainer style={{width:'100%', margin:'auto', backgroundColor:'white', borderRadius:'15px', alignSelf:'center'}}>
-        <Table >
-          <TableHead>
+        <TableContainer style={{width:'100%', overflowX:'auto', backgroundColor:'white', borderRadius:'15px', alignSelf:'center'}}>
+        <Table stickyHeader size='small' >
+          <TableHead >
 
-              <TableRow  sx={{borderBottom:'solid  transparent', }}> 
-              <TableCell sx={{fontWeight:'bold', }}>Date</TableCell>
-                <TableCell sx={{fontWeight:'bold' }}>Products</TableCell>
-                <TableCell sx={{fontWeight:'bold' }}>Total Amount</TableCell>
+
+              <TableRow  >
+              <TableCell size='small'align='center' rowSpan={2}   sx={{fontWeight:'bold', }}>Date</TableCell>
+                <TableCell size='small' align='center' sx={{fontWeight:'bold', width:'200px' }}  colSpan={2}>Products</TableCell>
+                <TableCell size='small' align='center' rowSpan={2}  sx={{fontWeight:'bold' }}>Total Amount</TableCell>
                 
-                <TableCell sx={{fontWeight:'bold' }}>Order Status</TableCell>
+                <TableCell size='small' align='center' rowSpan={2} sx={{fontWeight:'bold' }}>Order Status</TableCell>
                 
+              </TableRow>
+              <TableRow >
+              
+              <TableCell size='small' align='center' sx={{fontWeight:'bold' }}>Name</TableCell>
+              <TableCell size='small' align='center' sx={{fontWeight:'bold', width:'100px'}}>Quantity</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -73,11 +79,49 @@ setLoading(true);
                 (order) => (
                 <>
                 
-                  <TableRow key={order._id} sx={{borderBottom:'solid  transparent'}}>
-                  <TableCell>{new Date(order.createdAt).toLocaleString()}</TableCell>
-                      <TableCell>{order.products.map((product, index) => (
-          <li>`{product.itemName} x {product.buyingCount}`</li>
-        ))}</TableCell>
+                  <TableRow key={order._id} >
+                  <TableCell sx={{width:'150px'}}>{new Date(order.createdAt).toLocaleString()}</TableCell>
+                      
+<TableCell colSpan={2}>
+  
+  
+        {order.products.map((product, index) => (
+          
+          <TableRow sx={{borderBottom:'solid  transparent'}}> <TableCell  size='small'sx={{ width:'250px',borderBottom:'solid  transparent'}}><li>{product.itemName}</li></TableCell>
+          <TableCell align='center' size='small' sx={{ width:'100px',borderBottom:'solid  transparent'}}>{product.buyingCount}</TableCell></TableRow>
+            
+        ))}
+        
+  
+</TableCell>
+{/* <TableCell>
+  <TableHead>
+  
+        {order.products.map((product, index) => (
+          
+          <TableRow><TableCell>{product.buyingCount}</TableCell></TableRow>
+            
+        ))}
+        
+  </TableHead>
+</TableCell> */}
+
+
+
+
+        {/* <TableCell>
+        {order.products.map((product, index) => (
+          
+            <li>{product.itemName}</li>
+            
+        ))}
+        </TableCell>
+        <TableCell>
+                  {order.products.map((product, index) => (
+            
+            <li>{product.buyingCount}</li>
+        ))}
+        </TableCell> */}
                       
                       <TableCell>{order.totalAmount}</TableCell>
                       <TableCell sx={{padding:'0px'}}

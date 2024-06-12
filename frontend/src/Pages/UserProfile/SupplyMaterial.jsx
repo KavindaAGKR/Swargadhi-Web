@@ -129,10 +129,10 @@ export const SupplyMaterial = ({ userId }) => { // Assuming userId is passed as 
     };
     
     return (
-        <Stack gap={2}>
-            <Typography variant='h5' mb='20px'> Supply Materials</Typography>
+        <Stack gap={2} sx={{margin:'0 15px'}}>
+            <Typography variant='h5' > Supply Materials</Typography>
             <Typography variant='body1'>If you can supply any kind of herbals, connect with us!</Typography>
-            <Typography variant='body1'>Swargadhi is ready to give a valuable offer for your supplies. Contact us if you have
+            <Typography variant='body1' textAlign='justify'>Swargadhi is ready to give a valuable offer for your supplies. Contact us if you have
                 any herbal materials that can produce ayurvedic products. Fill out the form below with your material. We will contact you asap.
             </Typography>
             <Button variant='contained' sx={{ alignSelf: 'start', m: '50px 0px' }} onClick={() => setOpen(true)}>Supply Materials</Button>
@@ -144,10 +144,10 @@ export const SupplyMaterial = ({ userId }) => { // Assuming userId is passed as 
                 fullWidth
                 maxWidth='md'
             >
-                <DialogTitle id="Dialog-title">Supply Material</DialogTitle>
+                
                 <DialogContent>
                     <Stack gap={2} sx={{ width: '100%' }} justifyContent='space-between' direction='column'>
-                        <Typography variant='h5' color='success.main' margin='auto'>Materials</Typography>
+                        <Typography variant='h5' color='success.main' margin='auto'>Supply Materials</Typography>
                         <TextField name='materialName' type='text' label='Enter Material Name' sx={{ width: "100%" }} value={materialData.materialName} onChange={handleChange} />
                         <Stack direction={{ xs: 'column', sm: 'row' }} gap={2}>
                             <TextField name='quantity' type='number' label='Enter the available quantity' sx={{ width: "100%" }} value={materialData.quantity} onChange={handleChange} />

@@ -23,11 +23,13 @@ export const Feedbacks = ({user}) => {
 
 
   return (
-    <Stack width='80%'>
-        <Typography variant="h5" mb='30px' >Feedback</Typography>
+    <Stack width='auto' sx={{margin:'0 15px'}}  justifyContent='center'>
+        <Typography variant="h5"mb='30px'  >Feedback</Typography>
         <Typography variant="body1" mb='20px'>Tell us about your experience with our products!</Typography>
-        <form  onSubmit={handleSubmitFeedback}>
+        
             <TextField
+            sx={{width:{xs:'100%', md:'80%'}}}
+            
                 label="Write your feedback here"
                 variant="outlined"
                 multiline
@@ -42,11 +44,11 @@ export const Feedbacks = ({user}) => {
                 color="primary"
                 type="submit"
                 sx={{ width: '200px' , m:'25px 0px'}}
-                
+                onClick={handleSubmitFeedback}
             >
                 Submit Feedback
             </Button>
-        </form>
+        
     </Stack>
   )
 }

@@ -93,7 +93,7 @@ export const ResponsiveNav = (props) =>{
 
                 <IconButton
                     
-                    sx={{ color: "black",margin:'auto 20px' }}
+                    sx={{ color: "black",margin:'auto 10px' }}
                     onClick={() => setOpenDrawer(!openDrawer)}
                 >
                 <MenuIcon sx={{fontSize:'35px'}} color="white" />
@@ -139,14 +139,11 @@ export const Header = () => {
     const theme = useTheme();
     const isMatch = useMediaQuery(theme.breakpoints.down('md'));
 
-    const getSearchPlaceholder = () => {
-        return isSinhalaTrue ? "නිෂ්පාදන සොයන්න" : "Search Products";
-    }
-    
+
     return (
         <Stack>
-            <Stack direction='row' justifyContent='space-between' alignItems='center' p='10px'>
-                <Button onClick={()=>navigate('/')} sx={{width:{xs:'150px', sm:'250px', md:'250px', lg:'300px'}, padding:'0px', margin:'0px'}}>
+            <Stack direction='row' justifyContent='space-between' alignItems='center' p={{xs:'10px 0px', sm:'10px'}}>
+                <Button onClick={()=>navigate('/')} sx={{width:{xs:'155px', sm:'250px', md:'250px', lg:'300px'}, padding:'0px', margin:'0px'}}>
                     <img src={logo} alt="Swargadhi logo" width='100%'/>
                 </Button>
                 <TextField
@@ -154,7 +151,7 @@ export const Header = () => {
                     size='small'
                     color='success'
                     id="standard-search"
-                    placeholder={getSearchPlaceholder()}
+                    placeholder={isSinhalaTrue ? "නිෂ්පාදන සොයන්න" : "Search Products"}
                     type="search"
                     variant="outlined"
                     value={searchValue}
@@ -164,19 +161,21 @@ export const Header = () => {
                 />
                 <Stack direction='row' alignItems='center' gap={2}>
                     {isSinhalaTrue ? (
-                            <MotionButton variant='outlined' stylee={{height:'35px',width:'70px', padding:'100px'}} color='success' onClick={()=>dispatch(setSinhalaFalse(false))}>English</MotionButton>
+                            <MotionButton variant='outlined'  stylee={{height:'35px',width:'70px', fontSize:'auto' }} color='success' onClick={()=>dispatch(setSinhalaFalse(false))}>English</MotionButton>
                             ):(
-                            <MotionButton variant='outlined' stylee={{height:'35px',width:'70px',padding:'10px'}} color='success'  onClick={()=>dispatch(setSinhalaTrue(true))}>සිංහල</MotionButton>
+                            <MotionButton variant='outlined' stylee={{height:'35px',width:{xs:'60px', sm:'70px'}, fontSize:'auto'}} color='success'  onClick={()=>dispatch(setSinhalaTrue(true))}>සිංහල</MotionButton>
                             )
                     }
                     {
                         isLoggedIn? (<Stack direction='row' gap={1}>
                             <HeaderUser user={user} isSinhalaTrue={isSinhalaTrue} />
-                            <MotionButton padding='10px' onClick={()=>{navigate('/cart')}} >
+                            <MotionButton stylee={{padding:'0px 5px 0px 0px'}} onClick={()=>{navigate('/cart')}} >
                                 <ShoppingCartIcon  sx={{color:'#838383', fontSize:'30px' }} />
                             </MotionButton>
                         </Stack>):(
-                                <MotionButton stylee={{height:'auto', width:'100px', margin:'0px 10px', padding:'10px'}} variant='contained' color="success" onClick={()=>navigate('/login')} >{isSinhalaTrue ? ("ලොග් වන්න"): ("Sign In")}</MotionButton>
+                                <MotionButton stylee={{height:'auto', width:'auto', marginRight:'5px', padding:'5px 5px'}}  variant='contained' color="success" 
+                                onClick={()=>navigate('/login')} >{isSinhalaTrue ? (<Typography sx={{fontSize:{xs:'12px', sm:'15px'}}}>ලොග් වන්න</Typography>):
+                                 (<Typography sx={{fontSize:{xs:'12px', sm:'15px'}}}>Sign In</Typography>)}</MotionButton>
                             )
                     }
                 </Stack>
@@ -188,7 +187,7 @@ export const Header = () => {
                     size='small'
                     color='success'
                     id="standard-search"
-                    placeholder='Search Products'
+                    placeholder={isSinhalaTrue ? "නිෂ්පාදන සොයන්න" : "Search Products"}
                     type="search"
                     variant="outlined"
                     value={searchValue}
