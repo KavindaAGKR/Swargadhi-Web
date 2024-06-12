@@ -111,7 +111,7 @@ export const ResponsiveNav = (props) =>{
                     sx={{ color: "black",margin:'auto 10px' }}
                     onClick={() => setOpenDrawer(!openDrawer)}
                 >
-                <MenuIcon sx={{fontSize:'35px'}} color="white" />
+                <MenuIcon sx={{fontSize:'35px', color:'white'}} color="white" />
                 </IconButton>
             </React.Fragment>
             );
@@ -207,7 +207,7 @@ export const Header = () => {
                     variant="outlined"
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
-                    InputProps={{sx: { borderRadius:"50px",width:{md:'350px'},  },endAdornment:<InputAdornment position="end" sx={{padding:'0px'}}><IconButton sx={{padding:'0px'}}
+                    InputProps={{sx: { borderRadius:"50px",width:{md:'350px'},backgroundColor:'white',  },endAdornment:<InputAdornment position="end" sx={{padding:'0px'}}><IconButton sx={{padding:'0px'}}
                     onClick={() => handleSearch(searchValue)}><SearchIcon edge="end" sx={{ width:'25px', height:'25px'}}/></IconButton></InputAdornment>}}
                 />
             </Stack>
