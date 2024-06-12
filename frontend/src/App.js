@@ -45,6 +45,8 @@ import { ShopSi } from './Pages/Shop/Sinhala/ShopSi';
 import { selectCartItems } from './redux/slices/cartSlice';
 import { UserProfileSi } from './Pages/UserProfile/UserProfileSinhala/UserprofileSi';
 import { SearchSi } from './Pages/Search/SearchSi';
+import { SignupSi } from './Pages/UserSignup/SignupSi';
+import { LoginSi } from './Pages/UserLogin/LoginSi';
 
 
 function App() {
@@ -101,6 +103,8 @@ function App() {
           <Route path='/shop' element={<ShopSi/>}/>
           <Route path='/user' element={<UserProfileSi/>}/>
           <Route path='/search' element={<SearchSi/>}/>
+          <Route path='/login' element={<LoginSi/>}/>
+          <Route path='/signup' element={<SignupSi/>} />
           {isUserLoggedIn ? (
                     <>
                     <Route path='/cart' element={<CartSi/>}/>
@@ -119,13 +123,15 @@ function App() {
           <Route path='/about' element={<AboutEn/>}/>
           <Route path='/user' element={<UserProfile/>}/>
           <Route path='/search' element={<Search/>}/>
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/signup' element={<Signup/>} />
           {isUserLoggedIn ? (
                     <>
                     <Route path='/cart' element={<CartEn/>}/>
                     
                     {
                       cartItems.length>0 ? <Route path='/checkout' element={<CheckOutEn/>}/>
-                       : <Route path='*' element={<PageNotFound/>}/>
+                      : <Route path='*' element={<PageNotFound/>}/>
                     }
                     </>
                     ) : (<Route path='*' element={<PageNotFound/>}/>)}
@@ -141,8 +147,8 @@ function App() {
 
         
         
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/signup' element={<Signup/>} />
+        
+        
         
 
 

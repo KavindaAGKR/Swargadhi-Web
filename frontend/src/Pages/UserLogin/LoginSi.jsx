@@ -16,25 +16,11 @@ import axios from 'axios';
 
 import { setUser, setToken } from '../../redux/slices/userSlice';
 import {  useDispatch } from 'react-redux';
-import zIndex from '@mui/material/styles/zIndex';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 
-//     '@media (max-width: 600px)': {
 
-//         stackContainer: {
-//             width: '100%',
-//             margin: '25px'
-//         },
-//         paperContainer: {
-            
-//             width:'90%'
-            
-//         },
-//     },
-// }));
-
-export const Login = () => {
+export const LoginSi = () => {
     
     const dispatch = useDispatch();
     
@@ -49,7 +35,7 @@ export const Login = () => {
     const [errorEmailMsg, setEmailErrorMsg] = useState('');
     const [errorPW, setErrorPW] = useState(false)
     const [errorPWMsg, setErrorPWMsg] = useState('')
-    const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(true);
     // const [passwordError, setPasswordError] = useState(false);
 
 
@@ -58,14 +44,14 @@ export const Login = () => {
     
     if (!password) {
         setErrorPW(true)
-        setErrorPWMsg('Enter the password!')
+        setErrorPWMsg('මුරපදය ඇතුළත් කරන්න!')
         return;
     }
 
     const emailType = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!emailType.test(email) || !email) {
         setEmailError(true)
-        setEmailErrorMsg('Enter a valid email address!')
+        setEmailErrorMsg('වලංගු විද්යුත්-තැපැල් ලිපිනයක් ඇතුලත් කරන්න!')
         return;
     }
     
@@ -86,7 +72,7 @@ export const Login = () => {
             localStorage.setItem('token', response.data.token);
             
 
-            setSnackMessage("Successfully logged in");
+            setSnackMessage("සාර්ථකව ලොග් විය");
             setSnackbarOpen(true);
             setIsLogin(true);
 
@@ -100,7 +86,7 @@ export const Login = () => {
             
 
             setSnackMessage(response.data.message);
-            
+            setSnackbarOpen(true);
         }
     } catch (error) {
         console.error(error);
@@ -108,9 +94,8 @@ export const Login = () => {
         
 
         setSnackMessage("Incorrect Email or Password");
-        
+        setSnackbarOpen(true);
     }
-    setSnackbarOpen(true);
 };
 
 
@@ -128,13 +113,13 @@ export const Login = () => {
                             <img style={{position:'absolute', zIndex:'1',height:'100%',width:'100%',  maxHeight:'100%',  }} src={signback} alt="The signup"  />
                         </Stack>
                         <Stack sx={{width:{xs:'100%', sm:'50%'}, position:'relative', padding:'25px 0'}}  justifyContent="center" alignItems="center" direction='column' spacing={2} >
-                            <Stack  width='100%' justifyContent='end' alignItems='end' onClick={()=>navigate('/')}>
+                        <Stack  width='100%' justifyContent='end' alignItems='end' onClick={()=>navigate('/')}>
                                 <IconButton><CancelIcon/></IconButton>
                             </Stack>
                             <img src={logo} alt="Swargadhi logo" style={{ width: '80%', margin: '10px 0' }} />
-                            <Typography variant='h4' color='success.main' >Login</Typography>
+                            <Typography variant='h5' color='success.main' >ලොග් වන්න</Typography>
                             <TextField
-                                placeholder='Email'
+                                placeholder='විද්යුත්-තැපැල් ලිපිනය'
                                 variant="standard"
                                 margin="normal"
                                 type='text'
@@ -153,7 +138,7 @@ export const Login = () => {
                                 }}
                             />
                             <TextField
-                                placeholder='Password'
+                                placeholder='මුරපදය'
                                 variant="standard"
                                 margin="normal"
                                 type={showPassword ? 'text' : 'password'}
@@ -184,13 +169,13 @@ export const Login = () => {
                                 
                             />
                             <Box>
-                                <FormControlLabel label='Remember Me'
+                                <FormControlLabel label='මතකයේ තබා ගන්න'
                                     control={<Checkbox checked={rememberMe} onChange={() => setRememberMe(!rememberMe)} color='success' />}
                                 />
                             </Box>
-                            <Button variant="contained" onClick={handleLogin} color='success'>Login</Button>
-                            <Button variant='text' onClick={() => { navigate('/forgotpassword') }}>Forgot password?</Button>
-                            <Typography variant='body'>Don't have an account?<Button variant='text' onClick={() => { navigate('/signup') }}>Sign Up</Button> </Typography>
+                            <Button variant="contained" onClick={handleLogin} color='success'>ලොග් වන්න</Button>
+                            <Button variant='text' onClick={() => { navigate('/forgotpassword') }}>මුරපදය අමතකයි?</Button>
+                            <Typography variant='body'>ගිණුමක් නැතිද?<Button variant='text' onClick={() => { navigate('/signup') }}>නව ගිණුමක් සකසන්න</Button> </Typography>
                             
                             <Snackbar
                                 open={snackbarOpen}

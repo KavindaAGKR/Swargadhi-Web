@@ -14,7 +14,7 @@ import axios from 'axios';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 
-export const Signup = () => {
+export const SignupSi = () => {
     const navigate = useNavigate();
 
 
@@ -38,7 +38,7 @@ export const Signup = () => {
     const handleSignUp = async () => {
 
         if (!firstName || !lastName || !email || !password || !password2) {
-            setSnackMessage('All the fields are required');
+            setSnackMessage('සියලුම කොටස් සම්පූර්ණ කරන්න');
             setSnackBarOpen(true);
             return;
         }
@@ -47,20 +47,20 @@ export const Signup = () => {
 
     if (!emailType.test(email) || !email) {
         setEmailError(true)
-        setEmailErrorMsg('Enter a valid email address!')
+        setEmailErrorMsg('වලංගු විද්යුත්-තැපැල් ලිපිනයක් ඇතුලත් කරන්න!')
         return;
     }
     const passwordType = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
     if (!passwordType.test(password)) {
         setErrorPW(true);
-        setErrorPWMsg('Password must contain atleast one capital letter, lowercase letter, and a number');
+        setErrorPWMsg('මුරපදයේ ඉංග්‍රීසි කැපිටල් අකුරක්, සිම්පල් අකුරක් සහ ඉලක්කමක් අඩංගු විය යුතුය');
         return;
     }
         if (password !== password2) {
           setErrorPW2(true);
           setErrorPW(true);
-            setErrorPW2Msg("Passwords do NOT match")
-            setErrorPWMsg("Passwords do NOT match")
+            setErrorPW2Msg("මුර පද ගැලපෙන්නේ නැත")
+            setErrorPWMsg("මුර පද ගැලපෙන්නේ නැත")
             return;
         }
 
@@ -73,12 +73,12 @@ export const Signup = () => {
                 password2
             });
             console.log(response.data.message);
-            setSnackMessage("Successfully Signed Up");
+            setSnackMessage("සාර්ථකව ලියාපදිංචි විය");
             setisSignedup(true);
             
         } catch (error) {
             console.error(error);
-            setSnackMessage("Invalid Inputs");
+            setSnackMessage("ඇතුලත් කල දත්ත වලංගු නැත");
             
         }
         setSnackBarOpen(true);
@@ -101,10 +101,10 @@ export const Signup = () => {
               <Stack sx={{width:{xs:'100%', sm:'50%'}, position:'relative', padding:'25px 0'}}  justifyContent="center" alignItems="center" direction='column' spacing={2} >
               <Stack  width='100%' justifyContent='end' alignItems='end' onClick={()=>navigate('/')}>
                                 <IconButton><CancelIcon/></IconButton>
-                            </Stack>      
+                            </Stack>
                 <img alt='Swargadhi' src={logo}  style={{width:'80%', marginBottom:'10px'}}/>
-                <Typography variant='h4' color='success.main'>SignUp</Typography>
-                <TextField placeholder='First Name' variant="standard"  margin="normal" required style={{width:'80%', marginTop:'20px'}}
+                <Typography variant='h5' color='success.main'>ලියාපදිංචි වන්න</Typography>
+                <TextField placeholder='මුල් නම' variant="standard"  margin="normal" required style={{width:'80%', marginTop:'20px'}}
                 value={firstName}
                 onChange={(e) => {setFirstName(e.target.value); console.log('name: ' + firstName)}}
                     InputProps={{
@@ -115,7 +115,7 @@ export const Signup = () => {
                         ),
                       }}
                 />
-                <TextField placeholder='Last Name' variant="standard"  margin="normal" required style={{width:'80%'}}
+                <TextField placeholder='අවසන් නම' variant="standard"  margin="normal" required style={{width:'80%'}}
                 value={lastName}
                 onChange={(e) => {setLastName(e.target.value); console.log('name: ' + lastName)}}
                     InputProps={{
@@ -127,7 +127,7 @@ export const Signup = () => {
                       }}
                 />
 
-                <TextField placeholder='Email' variant="standard"  margin="normal" type='text' required style={{width:'80%'}}
+                <TextField placeholder='විද්යුත් තැපෑල' variant="standard"  margin="normal" type='text' required style={{width:'80%'}}
                     value={email}
                     onChange={(email)=>{setEmail(email.target.value); console.log('email: ' + email)}}
                     error={emailError}
@@ -141,7 +141,7 @@ export const Signup = () => {
                       }}
                       
                 />
-                <TextField placeholder='Password' variant="standard"  margin="normal" 
+                <TextField placeholder='මුරපදය' variant="standard"  margin="normal" 
                 type={showPassword ? 'text' : 'password'}
                 required style={{width:'80%'}}
                   value={password}
@@ -168,7 +168,7 @@ export const Signup = () => {
                     }}
                       
                 />
-                <TextField placeholder='Re Enter Password' variant="standard"  margin="normal"
+                <TextField placeholder='මුරපදය යළි ඇතුළු කරන්න' variant="standard"  margin="normal"
                  type={showPassword2 ? 'text' : 'password'}
                  required style={{width:'80%', marginBottom:'25px'}}
                     value={password2}
@@ -196,15 +196,15 @@ export const Signup = () => {
                       
                 />
 
-                <Button variant="contained" onClick={() => { handleSignUp()  }} color='success'>Sign up</Button>
-                <Typography>Already have an account? <Button variant='text' onClick={()=>{navigate('/login')}}>Login</Button></Typography>
+                <Button variant="contained" onClick={() => { handleSignUp()  }} color='success'>ලියාපදිංචි වන්න</Button>
+                <Typography>දැනටමත් ගිණුමක් පවතිනවාද? <Button variant='text' onClick={()=>{navigate('/login')}}>ලොග් වන්න</Button></Typography>
                 <Snackbar
                                 open={snackBarOpen}
                                 autoHideDuration={3000}
                                 onClose={() => { setSnackBarOpen(false); if (issignedup) { navigate('/login') } }}
-                                // message={snackbarMessage}
+                                
                                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                                sx={{marginTop:"150px"}}
+                                sx={{marginTop:"550px"}}
                                 
                             >
                                 <Alert
