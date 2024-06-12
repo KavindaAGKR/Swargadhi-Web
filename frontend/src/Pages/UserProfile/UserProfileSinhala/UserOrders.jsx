@@ -8,6 +8,7 @@ export const UserOrdersSi = ({userId}) => {
     const [loading, setLoading] = useState(false);
 
 
+
     const getColorByStatus = (status) => {
       switch (status) {
         case 'Pending':
@@ -36,6 +37,7 @@ setLoading(true);
         try {
             const response = await axios.get(`http://localhost:5000/api/orders/orders/user/${userId}`);
             setOrders(response.data);
+            console.log("Orders: ", response.data);
             setLoading(false);
         } catch (error) {
             console.error('Error fetching user orders:', error);
@@ -85,7 +87,7 @@ setLoading(true);
 <TableCell colSpan={2}>
         {order.products.map((product, index) => (
           
-          <TableRow sx={{borderBottom:'solid  transparent'}}> <TableCell  size='small'sx={{ width:'250px',borderBottom:'solid  transparent'}}><li>{product.itemNamesi}</li></TableCell>
+          <TableRow sx={{borderBottom:'solid  transparent'}}> <TableCell  size='small'sx={{ width:'250px',borderBottom:'solid  transparent'}}><li>iTEM naME IN SINHALA</li></TableCell>
           <TableCell align='center' size='small' sx={{ width:'100px',borderBottom:'solid  transparent'}}>{product.buyingCount}</TableCell></TableRow>
             
         ))}

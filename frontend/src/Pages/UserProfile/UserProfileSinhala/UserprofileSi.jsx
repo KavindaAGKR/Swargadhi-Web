@@ -91,7 +91,7 @@ export const UserProfileSi = () => {
             <Typography color="#9A9A9A" noWrap sx={{ textDecoration: 'none',fontSize:'14px' }}>
                 {value}
             </Typography>
-  
+
 </Breadcrumbs>
             <Stack direction='row' color='green' sx={{ display: { md: 'none' }, justifyContent: 'center', alignItems: 'center', margin: '20px' }}>
                 <PersonOutlineIcon sx={{ fontSize: '40px' }} />
