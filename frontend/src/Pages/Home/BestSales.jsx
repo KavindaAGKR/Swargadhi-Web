@@ -78,27 +78,27 @@ export const HomeSwiper = ({imageArray}) => {
     return (
         <Swiper
                 
-                spaceBetween={15}
+                spaceBetween={0}
                 slidesPerView={1}
                 centeredSlides={true}
-                autoplay={{ delay: 4000,}}
+                autoplay={{ delay: 5000,}}
                 pagination={{clickable: true,}}
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
                 className="mySwiper"
-                speed={1200}
+                speed={3000}
                 loop={true}
                 style={{
                     width: '100%',
                     '--swiper-navigation-color': 'white',
                     '--swiper-pagination-color': 'white',
-                    borderRadius:'25px',
+                    borderRadius:'0px',
                     minHeight:'100%'
                 }}
                 >
 
                 {
-                imageArray.map( (item, i) => (<SwiperSlide key={item.key}><img alt={item.key} src={item.images}  width='100%' height='100%'  style={{borderRadius:'25px'}}/></SwiperSlide>) )
+                imageArray.map( (item, i) => (<SwiperSlide key={item.key}><img alt={item.key} src={item.images}  width='100%' height='100%'  style={{borderRadius:'0px'}}/></SwiperSlide>) )
                 }
             </Swiper>
     )

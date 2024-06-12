@@ -40,10 +40,11 @@ export const Home = () => {
         <Header/>
 
         <Stack >
-        <Stack width={{xs:'90%', sm:'80%', md:'70%', lg:'60%'}} height={{xs:'300px', sm:'400px', lg:'500px'}} margin='50px auto '
+        {/* <Stack width={{xs:'90%', sm:'80%', md:'70%', lg:'60%'}} height={{xs:'300px', sm:'400px', lg:'500px'}} margin='50px auto ' */}
+        <Stack width='100%' height={{xs:'300px', sm:'500px', lg:'700px'}} margin='auto '
               component={motion.div}
-              initial={{ opacity: 0 , y:40}}
-              animate={{ opacity: 1,y:0,  }}
+              initial={{ opacity: 0 , }}
+              animate={{ opacity: 1,  }}
               transition={{ duration: 2 }} >
         <HomeSwiper imageArray={images} />
         
@@ -57,7 +58,7 @@ export const Home = () => {
                 width:'150px',
                 borderRadius: '3px',
                 height: '48px',
-                margin:'50px auto',
+                margin:'25px auto',
                 boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
                 color:'white'
                 

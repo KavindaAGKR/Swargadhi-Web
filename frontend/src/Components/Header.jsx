@@ -29,7 +29,7 @@ export const MultilingualHeader = () => {
 
     return(
     <Stack justifyContent='end' alignItems='end' >
-        {isSinhalaTrue ? (
+        {/* {isSinhalaTrue ? (
             <Stack direction={{md:'row'}}   gap={3} >
             <MotionButton variant='text' color='success' onClick={()=>{navigate('/')}}>මුල් පිටුව</MotionButton>
         <MotionButton variant='text' color='success' onClick={()=>navigate('/shop')}>මිල දී ගන්න</MotionButton>
@@ -42,6 +42,21 @@ export const MultilingualHeader = () => {
         <MotionButton variant='text' color='success' onClick={()=>navigate('/shop')}>Shop</MotionButton>
         <MotionButton variant='text' color='success' onClick={()=>navigate('/dispensary')}>Dispensary</MotionButton>
         <MotionButton variant='text' color='success' onClick={()=>navigate('/about')}>About Us</MotionButton>
+        </Stack>
+    )} */}
+            {isSinhalaTrue ? (
+            <Stack direction={{md:'row'}}  gap={3} >
+            <MotionButton variant='text' stylee={{color:'white'}} onClick={()=>{navigate('/')}}>මුල් පිටුව</MotionButton>
+        <MotionButton variant='text' stylee={{color:'white'}} onClick={()=>navigate('/shop')}>මිල දී ගන්න</MotionButton>
+        <MotionButton variant='text' stylee={{color:'white'}} onClick={()=>navigate('/dispensary')}>වෛද්‍ය මධ්‍යස්ථානය ගැන</MotionButton>
+        <MotionButton variant='text' stylee={{color:'white'}} onClick={()=>navigate('/about')}>ස්වර්ගධී ගැන</MotionButton>
+            </Stack>
+        ):(
+            <Stack direction={{md:'row'}}   gap={3} >
+        <MotionButton variant='text' stylee={{color:'white'}} onClick={()=>{navigate('/')}}>Home</MotionButton>
+        <MotionButton variant='text' stylee={{color:'white'}} onClick={()=>navigate('/shop')}>Shop</MotionButton>
+        <MotionButton variant='text' stylee={{color:'white'}} onClick={()=>navigate('/dispensary')}>Dispensary</MotionButton>
+        <MotionButton variant='text' stylee={{color:'white'}} onClick={()=>navigate('/about')}>About Us</MotionButton>
         </Stack>
     )}
 
@@ -180,7 +195,7 @@ export const Header = () => {
                     }
                 </Stack>
             </Stack>
-            <Stack  justifyContent='space-between'  direction='row' width='100%'>
+            <Stack sx={{backgroundColor:'GrayText'}} justifyContent='space-between'  direction='row' width='100%'>
                 <ResponsiveNav  isMatch={isMatch}/>
                 <TextField
                     sx={{ m:'10px' , display:{xs:'block', sm:'none'}}}

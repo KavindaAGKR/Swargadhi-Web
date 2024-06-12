@@ -23,11 +23,17 @@ export const Shop = (valuee) => {
     return (
         <React.Fragment>
             <Header />
-            <Breadcrumbs aria-label="breadcrumb" separator="›" margin='0px' sx={{marginLeft:'15px'}}>
-            <Link href='/' color="#9A9A9A" underline="none">Home</Link>
-  <Typography color="#9A9A9A">Shop</Typography>
-  <Typography color="#9A9A9A">{value}</Typography>
-</Breadcrumbs>
+            <Breadcrumbs aria-label="breadcrumb" sx={{marginLeft:'15px'}}>
+            <Typography color="#9A9A9A" component={Link} to="/" sx={{ textDecoration: 'none',fontSize:'14px' }}>
+                Home
+            </Typography>
+            <Typography color="#9A9A9A" component={Link} to="/shop" sx={{ textDecoration: 'none',fontSize:'14px' }}>
+                Shop
+            </Typography>
+            <Typography color="#9A9A9A" sx={{ textDecoration: 'none',fontSize:'14px' }}>
+                {value}
+            </Typography>
+            </Breadcrumbs>
             
             <Stack sx={{ margin: 'auto',  display: 'flex', justifyContent: 'center', alignItems: 'center' , width:'95%'}}>
                 <TabContext value={value} sx={{width:'90%', padding:'0px'}}>

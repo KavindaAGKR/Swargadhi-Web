@@ -4,7 +4,7 @@ import { Footer } from '../../../Components/Footer';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Tab, Box, Stack, Breadcrumbs, Typography } from '@mui/material';
 import ProductCatalogSi from './ProductCatalogSi';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 
 
@@ -20,15 +20,42 @@ export const ShopSi = (valuee) => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    
+
+    const sinhalaState = () => {
+        switch(value){
+            case("all"): 
+                return "සියලු නිෂ්පාදන" ;
+            case("kalka"):
+                return "කල්ක වර්ග";
+            case('Thel'):
+                return 'පත්තු වර්ග';
+            case('Paththu'):
+                return 'පත්තු වර්ග';
+            case('Guli'):
+                return 'ගුලි වර්ග';
+            case('Chuurna'):
+                return 'චූර්ණ වර්ග';
+            case('Kashay'):
+                return 'කෂාය වර්ග';
+
+        }
+    }
+
     return (
         <React.Fragment>
             <Header />
-            <Breadcrumbs aria-label="breadcrumb" sx={{marginLeft:'15px'}}>
-            <Typography color="#9A9A9A">මුල් පිටුව</Typography>
-  <Typography color="#9A9A9A">මිල දී ගන්න</Typography>
-  <Typography color="#9A9A9A">{value==='all'? "සියලු නිෂ්පාදන" : value}</Typography>
-</Breadcrumbs>
+        <Breadcrumbs   Breadcrumbs aria-label="breadcrumb" sx={{marginLeft:'15px'}}>
+            <Typography color="#9A9A9A" component={Link} to="/" sx={{ textDecoration: 'none',fontSize:'13px' }}>
+            මුල් පිටුව
+            </Typography>
+            <Typography color="#9A9A9A" component={Link} to="/user" sx={{ textDecoration: 'none',fontSize:'13px' }}>
+            මිල දී ගන්න
+            </Typography>
+            <Typography color="#9A9A9A"  sx={{ textDecoration: 'none',fontSize:'13px' }}>
+                {sinhalaState()}
+            </Typography>
+
+        </Breadcrumbs>
             
             <Stack sx={{ margin: 'auto',  display: 'flex', justifyContent: 'center', alignItems: 'center' , width:'95%'}}>
                 <TabContext value={value} sx={{width:'90%', padding:'0px'}}>
@@ -41,12 +68,12 @@ export const ShopSi = (valuee) => {
                             sx={{ width: { xs: '300px', sm: '500px', md: 'auto' } , padding:'0px'}}
                         >
                             <Tab label='සියලු නිෂ්පාදන' value='all' />
-                            <Tab label='කල්ක වර්ග' value='කල්ක' />
-                            <Tab label='තෙල් වර්ග' value='තෙල්' />
-                            <Tab label='පත්තු වර්ග' value='පත්තු' />
-                            <Tab label='ගුලි වර්ග' value='ගුලි' />
-                            <Tab label='චූර්ණ වර්ග' value='චූර්න' />
-                            <Tab label='කෂාය වර්ග' value='කසාය' />
+                            <Tab label='කල්ක වර්ග' value='kalka' />
+                            <Tab label='තෙල් වර්ග' value='Thel' />
+                            <Tab label='පත්තු වර්ග' value='Paththu' />
+                            <Tab label='ගුලි වර්ග' value='Guli' />
+                            <Tab label='චූර්ණ වර්ග' value='Chuurna'/>
+                            <Tab label='කෂාය වර්ග' value='Kashay'  />
                         </TabList>
                     </Box>
 
@@ -55,22 +82,22 @@ export const ShopSi = (valuee) => {
                     <TabPanel value='all' sx={{width:'100%', padding:'0px'}}>
                     <ProductCatalogSi category="all" />
                     </TabPanel>
-                    <TabPanel value='කල්ක' sx={{width:'100%'}}>
+                    <TabPanel value='kalka'sx={{width:'100%'}}>
                     <ProductCatalogSi category="කල්ක" />
                     </TabPanel>
-                    <TabPanel value='තෙල්' sx={{width:'100%'}}>
+                    <TabPanel value='Thel' sx={{width:'100%'}}>
                     <ProductCatalogSi category="තෙල්" />
                     </TabPanel>
-                    <TabPanel value='පත්තු' sx={{width:'100%'}}>
+                    <TabPanel value='Paththu' sx={{width:'100%'}}>
                     <ProductCatalogSi category="පත්තු" />
                     </TabPanel>
-                    <TabPanel value='ගුලි' sx={{width:'100%'}}>
+                    <TabPanel value='Guli' sx={{width:'100%'}}>
                     <ProductCatalogSi category="ගුලි" />
                     </TabPanel>
-                    <TabPanel value='චූර්න' sx={{width:'100%'}}>
+                    <TabPanel value='Chuurna' sx={{width:'100%'}}>
                     <ProductCatalogSi category="චූර්න" />
                     </TabPanel>
-                    <TabPanel value='කසාය' sx={{width:'100%'}}>
+                    <TabPanel value='Kashay' sx={{width:'100%'}}>
                     <ProductCatalogSi category="කසාය" />
                     </TabPanel>
                 

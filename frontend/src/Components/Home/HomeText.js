@@ -28,7 +28,7 @@ export const HomeText = ({isSinhalaTrue}) =>{
 //           style={{margin:'0px auto',textAlign:'center'}}
 
 //  >
-    <Stack textAlign='center' width='100%'>
+    <Stack textAlign='center' width='100%' margin='25px auto'>
     {
         isSinhalaTrue? (
             <>

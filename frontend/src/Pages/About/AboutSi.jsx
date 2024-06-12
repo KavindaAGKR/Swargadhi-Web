@@ -4,6 +4,7 @@ import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
 import { Call, Email, Facebook, WhatsApp } from '@mui/icons-material'
 import LocationCityIcon from '@mui/icons-material/LocationCity';
+import { Link } from 'react-router-dom'
 
 
 export const AboutSi = () => {
@@ -11,9 +12,13 @@ return (
     <React.Fragment>
         <Header/>
         <Breadcrumbs aria-label="breadcrumb" sx={{marginLeft:'15px'}}>
-            <Typography color="#9A9A9A">මුල් පිටුව</Typography>
-  <Typography color="#9A9A9A">ස්වර්ගධී ගැන</Typography>
-</Breadcrumbs>
+            <Typography color="#9A9A9A" component={Link} to="/" sx={{ textDecoration: 'none',fontSize:'13px' }}>
+            මුල් පිටුව
+            </Typography>
+            <Typography color="#9A9A9A"  sx={{ textDecoration: 'none',fontSize:'13px' }}>
+            ස්වර්ගධී ගැන
+            </Typography>
+        </Breadcrumbs>
     
         <Stack sx={{ margin:'50px', textAlign: 'center', }} >
         

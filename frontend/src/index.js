@@ -65,7 +65,7 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
     <Provider store = {store}>
-    <BrowserRouter>
+    <BrowserRouter forceRefresh={true}>
     <ScrollToTop/>
     <App />
     </BrowserRouter>

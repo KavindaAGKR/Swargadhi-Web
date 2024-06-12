@@ -100,13 +100,13 @@ export const UserProfileSi = () => {
         <React.Fragment>
             <Header />
             <Breadcrumbs aria-label="breadcrumb" sx={{marginLeft:'15px'}}>
-            <Typography color="#9A9A9A" noWrap component={Link} to="/" sx={{ textDecoration: 'none',fontSize:'14px' }}>
+            <Typography color="#9A9A9A" component={Link} to="/" sx={{ textDecoration: 'none',fontSize:'13px' }}>
             මුල් පිටුව
             </Typography>
-            <Typography color="#9A9A9A" noWrap component={Link} to="/user" sx={{ textDecoration: 'none',fontSize:'14px' }}>
+            <Typography color="#9A9A9A" component={Link} to="/user" sx={{ textDecoration: 'none',fontSize:'13px' }}>
             මගේ ගිණුම
             </Typography>
-            <Typography color="#9A9A9A" noWrap sx={{ textDecoration: 'none',fontSize:'14px' }}>
+            <Typography color="#9A9A9A"  sx={{ textDecoration: 'none',fontSize:'13px' }}>
                 {sinhalaState()}
             </Typography>
 

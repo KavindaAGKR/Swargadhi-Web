@@ -6,6 +6,7 @@ import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import ScrollToTop from 'react-scroll-to-top';
 import { SwiperSlider } from '../../Components/Swiper';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 
 
@@ -60,10 +61,15 @@ export const DispensarySi = () => {
     <React.Fragment >
 <ScrollToTop smooth={true}/>
         <Header/>
-        <Breadcrumbs aria-label="breadcrumb" sx={{marginLeft:'15px'}}>
-            <Typography color="#9A9A9A">මුල් පිටුව</Typography>
-  <Typography color="#9A9A9A">වෛද්‍ය මධ්‍යස්ථානය</Typography>
-</Breadcrumbs>
+      <Breadcrumbs aria-label="breadcrumb" sx={{marginLeft:'15px'}}>
+            <Typography color="#9A9A9A" component={Link} to="/" sx={{ textDecoration: 'none',fontSize:'14px' }}>
+            මුල් පිටුව
+            </Typography>
+            
+            <Typography color="#9A9A9A" sx={{ textDecoration: 'none',fontSize:'14px' }}>
+            වෛද්‍ය මධ්‍යස්ථානය
+            </Typography>
+      </Breadcrumbs>
 <Stack minHeight='1000px' >
         <Stack  color='green'  direction='row' margin='25px auto' justifyContent='center' alignItems='center'  gap={0}>
                 <MedicalInformationIcon sx={{fontSize:'40px'}} />

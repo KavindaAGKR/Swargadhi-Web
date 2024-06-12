@@ -1,7 +1,7 @@
 
-import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, Snackbar, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+import { Alert, Box, Breadcrumbs, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, Snackbar, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Footer } from '../../Components/Footer';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import AddCardIcon from '@mui/icons-material/AddCard';
@@ -84,6 +84,17 @@ export const CheckOutSi = () => {
     return (
         <React.Fragment>
             <Header />
+            <Breadcrumbs aria-label="breadcrumb" sx={{marginLeft:'15px'}}>
+            <Typography color="#9A9A9A" component={Link} to="/" sx={{ textDecoration: 'none',fontSize:'13px' }}>
+                මුල් පිටුව
+            </Typography>
+            <Typography color="#9A9A9A" component={Link} to="/cart" sx={{ textDecoration: 'none',fontSize:'13px' }}>
+            ගැණුම් ලැයිස්තුව
+            </Typography>
+            <Typography color="#9A9A9A" sx={{ textDecoration: 'none',fontSize:'13px' }}>
+            ඇණවුම
+            </Typography>
+            </Breadcrumbs>
             <Stack margin="25px">
                 <Stack direction="row" margin="auto" color="green" gap={1}>
                     <ShoppingBasketIcon sx={{ fontSize: '60px' }} />

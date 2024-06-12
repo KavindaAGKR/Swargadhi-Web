@@ -4,16 +4,22 @@ import { Header } from '../../Components/Header'
 import { Footer } from '../../Components/Footer'
 import { Call, Email, Facebook, WhatsApp } from '@mui/icons-material'
 import LocationCityIcon from '@mui/icons-material/LocationCity';
+import { Link } from 'react-router-dom'
 
 
 export const AboutEn = () => {
 return (
     <React.Fragment>
         <Header/>
+        
         <Breadcrumbs aria-label="breadcrumb" sx={{marginLeft:'15px'}}>
-            <Typography color="#9A9A9A">Home</Typography>
-  <Typography color="#9A9A9A">About</Typography>
-</Breadcrumbs>
+            <Typography color="#9A9A9A"  component={Link} to="/" sx={{ textDecoration: 'none',fontSize:'14px' }}>
+                Home
+            </Typography>
+            <Typography color="#9A9A9A" sx={{ textDecoration: 'none',fontSize:'14px' }}>
+                About
+            </Typography>
+        </Breadcrumbs>
     
         <Stack sx={{ margin:'50px', textAlign: 'center', }} >
         

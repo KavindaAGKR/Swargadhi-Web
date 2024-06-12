@@ -1,8 +1,8 @@
 import React from 'react';
 import { Header } from '../../Components/Header';
 import { Footer } from '../../Components/Footer';
-import { useNavigate } from 'react-router-dom';
-import { Grid, Paper, Stack, Typography, Button } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import { Grid, Paper, Stack, Typography, Button, Breadcrumbs } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useSelector } from 'react-redux';
 import { selectCartItems   } from '../../redux/slices/cartSlice';
@@ -39,6 +39,16 @@ export const CartSi = () => {
     return (
         <React.Fragment>
             <Header />
+            <Breadcrumbs   Breadcrumbs aria-label="breadcrumb" sx={{marginLeft:'15px'}}>
+            <Typography color="#9A9A9A" component={Link} to="/" sx={{ textDecoration: 'none',fontSize:'13px' }}>
+            මුල් පිටුව
+            </Typography>
+            
+            <Typography color="#9A9A9A"  sx={{ textDecoration: 'none',fontSize:'13px' }}>
+            ගැණුම් ලැයිස්තුව
+            </Typography>
+
+        </Breadcrumbs>
             <Stack>
             <Stack direction='row' margin="auto" color='green' gap={1}>
                 <ShoppingCartIcon sx={{fontSize:'50px'}} />

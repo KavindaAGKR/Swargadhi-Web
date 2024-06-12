@@ -82,17 +82,16 @@ export const UserProfile = () => {
         <React.Fragment>
             <Header />
             <Breadcrumbs aria-label="breadcrumb" sx={{marginLeft:'15px'}}>
-            <Typography color="#9A9A9A" noWrap component={Link} to="/" sx={{ textDecoration: 'none',fontSize:'14px' }}>
+            <Typography color="#9A9A9A" component={Link} to="/" sx={{ textDecoration: 'none',fontSize:'14px' }}>
                 Home
             </Typography>
-            <Typography color="#9A9A9A" noWrap component={Link} to="/user" sx={{ textDecoration: 'none',fontSize:'14px' }}>
+            <Typography color="#9A9A9A" component={Link} to="/user" sx={{ textDecoration: 'none',fontSize:'14px' }}>
                 MyAccount
             </Typography>
-            <Typography color="#9A9A9A" noWrap sx={{ textDecoration: 'none',fontSize:'14px' }}>
+            <Typography color="#9A9A9A" sx={{ textDecoration: 'none',fontSize:'14px' }}>
                 {value}
             </Typography>
-  
-</Breadcrumbs>
+            </Breadcrumbs>
             <Stack direction='row' color='green' sx={{ display: { md: 'none' }, justifyContent: 'center', alignItems: 'center', margin: '20px' }}>
                 <PersonOutlineIcon sx={{ fontSize: '40px' }} />
                 <Typography variant='h4'>

@@ -1,5 +1,5 @@
 
-import { Route , Routes, useNavigate} from 'react-router-dom';
+import { Route , Routes} from 'react-router-dom';
 import { Login } from './Pages/UserLogin/Login';
 import { Home } from './Pages/Home/Home';
 import { Signup } from './Pages/UserSignup/Signup';
@@ -51,7 +51,7 @@ function App() {
   const user = useSelector(selectUser);
   const isSinhalaTrue = useSelector(selectIsSinhalaTrue);
   const cartItems = useSelector(selectCartItems);
-  // const navigate= useNavigate();
+
 
 
 
