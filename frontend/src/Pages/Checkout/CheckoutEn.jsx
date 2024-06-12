@@ -19,12 +19,13 @@ export const CheckOutEn = () => {
     const { cartItems, totalAmount } = location.state;
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
+    console.log("asdasdsadsad" + user)
     const [openDialog, setOpen] = useState(false);
     const [open, setOpenOrder] = useState(false);
-    const [mobileNo, setMobileNo] = useState('');
-    const [addressL1, setAddressL1] = useState('');
-    const [addressL2, setAddressL2] = useState('');
-    const [addressL3, setAddressL3] = useState('');
+    const [mobileNo, setMobileNo] = useState(user.mobileNumber);
+    const [addressL1, setAddressL1] = useState(user.deliveryAddress?.addressL1);
+    const [addressL2, setAddressL2] = useState(user.deliveryAddress?.addressL2);
+    const [addressL3, setAddressL3] = useState(user.deliveryAddress?.addressL3);
     const [paymentMethod, setPaymentMethod] = useState('cashOnDelivery');
 
 
@@ -66,7 +67,7 @@ export const CheckOutEn = () => {
                 setSnackbarOpen(true)
                 setSnackMessage("Order placed successfully")
                 
-                dispatch(removeCart());
+                
                 
                 
                 
@@ -163,7 +164,7 @@ export const CheckOutEn = () => {
                             </TableContainer>
                         </Stack>
                     </Stack>
-                    <Stack  gap={1} sx={{ backgroundColor: '#DDF9DD', height: { xs: 'auto', md: '550px' },  width: { xs: '100%', md: '40%' } }} >
+                    <Stack  gap={1} sx={{pb:'25px', backgroundColor: '#DDF9DD', height: { xs: 'auto', md: '550px' },  width: { xs: '100%', md: '40%' } }} >
                         <Typography padding='25px' align="left" variant="h4">Order Summary</Typography>
                         
                         <ToggleButtonGroup onClick={(e) => handlePaymentMethod(e.target.value)} value={paymentMethod} exclusive orientation="vertical" sx={{ width: '70%', margin: '0px auto' }}>
@@ -173,20 +174,20 @@ export const CheckOutEn = () => {
                             <Typography color="error">Card Payment isn't available right now!</Typography>
                         </ToggleButtonGroup>
                         <Typography align="center" variant="h5" margin='15px'>Total Amount: {totalAmount}</Typography>
-                        <MotionButton  onClick={()=>{setOpenOrder(true)} } variant='contained' style={{width:'150px', margin:'25px auto'}} >Place Order</MotionButton>
+                        <MotionButton  onClick={()=>{setOpenOrder(true)} } variant='contained' stylee={{width:'150px', margin:'15px auto'}} >Place Order</MotionButton>
                     </Stack>
                 </Stack>
             </Stack>
             <Footer />
             <Dialog open={openDialog} onClose={() => setOpen(false)}>
-                <DialogTitle>Enter Delivery Details</DialogTitle>
+            <Typography variant='h5' margin='10px 50px'>Enter Delivery Details</Typography>
                 <DialogContent>
                     <Stack gap={2}>
                         <TextField label="Mobile Number" placeholder="Mobile Number" defaultValue={mobileNo} type="number" inputProps={{ maxLength: 2 }} onChange={(e) => setMobileNo(e.target.value)} />
                         <TextField placeholder="Address Line 1" defaultValue={addressL1} onChange={(e) => setAddressL1(e.target.value)} />
                         <TextField placeholder="Address Line 2" defaultValue={addressL2} onChange={(e) => setAddressL2(e.target.value)} />
                         <TextField placeholder="Address Line 3" defaultValue={addressL3} onChange={(e) => setAddressL3(e.target.value)} />
-                        <Button variant="contained" onClick={() => (setOpen(false))}>Save Details</Button>
+                        <Button variant="contained" color='success' sx={{width:'150px', margin:'auto'}} onClick={() => (setOpen(false))}>Save Details</Button>
                     </Stack>
                 </DialogContent>
             </Dialog>
@@ -214,13 +215,16 @@ export const CheckOutEn = () => {
       <Snackbar
                     open={snackbarOpen}
                     autoHideDuration={3000}
-                    onClose={() => { setSnackbarOpen(false); if(snackMessage === "Order placed successfully"){navigate('/user')} }}
+                    onClose={() => { setSnackbarOpen(false); 
+                        if(snackMessage === "Order placed successfully")
+                            {navigate('/user', { state: { select: 'MyOrders' } })};
+                    dispatch(removeCart()); }}
                     anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                     sx={{ marginTop: "100px", width:'100%' }}
                     >
                     <Alert
                         
-                        onClose={() => { setSnackbarOpen(false); if(snackMessage === "Order placed successfully"){navigate('/user')} }}
+                        onClose={() => { setSnackbarOpen(false); if(snackMessage === "Order placed successfully"){navigate('/user', { state: { select: 'MyOrders' } })} }}
                         severity={(snackMessage === "Order placed successfully") ? ('success'): ('error') }
                         variant="filled"
                         >

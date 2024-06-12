@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Typography,  Stack, Tab, Box, Popover, IconButton, Breadcrumbs } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Header } from '../../Components/Header';
@@ -17,12 +17,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 export const UserProfile = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate(); 
     const user = useSelector(selectUser);
     const isLoggedIn = useSelector(selectIsLoggedIn);
 
-    const handleSignOut = () => {
-        dispatch(logout());
-    };
+   
 
     const location = useLocation();
     const selectFromState = location.state?.select || 'MyDetails';
@@ -46,6 +45,11 @@ export const UserProfile = () => {
 
     const handleClose = () => {
         setAnchorEl(null);
+    };
+
+    const handleSignOut = () => {
+        dispatch(logout());
+        navigate('/');
     };
 
     const open = Boolean(anchorEl);

@@ -51,9 +51,6 @@ const ProductCard = ({ product }) => {
         }
         else{
             setSnackMessage("You must Sign In to add products to the cart")
-            
-            
-            
         }
         setSnackbarOpen(true)
     };
@@ -74,7 +71,11 @@ const ProductCard = ({ product }) => {
                 
             }
             
+        }else{
+            setSnackMessage("You must Sign In to buy products")
         }
+        setSnackbarOpen(true)
+        
         
 
     }
@@ -89,12 +90,13 @@ const ProductCard = ({ product }) => {
 
 
     return (
+        <>
         <Paper sx={{ height: '400px', borderRadius: '20px', margin:'5px',  }} 
         elevation={5}
         
         component={motion.div} 
             whileHover={{
-                scale: 1.06,
+                scale: 1.03,
                 transition: { duration: 0.1 },
                 
                 
@@ -102,11 +104,7 @@ const ProductCard = ({ product }) => {
             }}
             initial={{ opacity: 0,transition: { duration: 0.1 },}}
             whileInView={{ opacity: 1 , transition: { duration: 1 },  }}
-            viewport={{ amount:0.3 , once: true}}
-            
-            
-
-
+            viewport={{ amount:0.1 , once: true}}
         >
             
             
@@ -144,32 +142,19 @@ const ProductCard = ({ product }) => {
                         >
                             View More
                         </Button>
+                        
                     </Stack>
-                    <Snackbar
-                    open={snackbarOpen}
-                    autoHideDuration={3000}
-                    onClose={() => { setSnackbarOpen(false);  }}
-                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                    sx={{ marginTop: "100px", width:'100%' }}
-                    >
-                    <Alert
-                        onClose={() => { setSnackbarOpen(false);  }}
-                        severity={(snackMessage === "Product added to the cart") ? ('success'): ('error') }
-                        variant="filled"
-                        >
-                        {snackMessage}
-                    </Alert>
-            </Snackbar>
+                    
                 </Stack>
 
 
-                
+               
 
 
                 
             </Stack>
-
-
+            
+            
 
 
             {/* <Dialog open={openMore} onClose={() => setOpenMore(false)} sx={{ width:{xs:'300px',sm:'500px', lg:'700px' }, */}
@@ -216,25 +201,26 @@ const ProductCard = ({ product }) => {
 
                             </Stack>
                         </Stack>
-                        <Snackbar
-                    open={snackbarOpen}
-                    autoHideDuration={4000}
-                    onClose={() => { setSnackbarOpen(false);  }}
-                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                    sx={{ marginTop: "100px" }}
-                    >
-                    <Alert
-                        onClose={() => { setSnackbarOpen(false);  }}
-                        severity={(snackMessage === "Product added to the cart") ? ('success'): ('error') }
-                        variant="filled"
-                        sx={{ width: '100%' }}>
-                        {snackMessage}
-                    </Alert>
-            </Snackbar>
+                        
                     </DialogContent>
                 </Dialog>
 
         </Paper>
+        <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={() => { setSnackbarOpen(false);  }}
+        
+        >
+        <Alert
+            onClose={() => { setSnackbarOpen(false);  }}
+            severity={(snackMessage === "Product added to the cart") ? ('success'): ('error') }
+            variant='filled'
+            >
+            {snackMessage}
+        </Alert>
+</Snackbar>
+        </>
     );
 };
 

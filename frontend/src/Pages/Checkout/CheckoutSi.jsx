@@ -7,9 +7,10 @@ import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import AddCardIcon from '@mui/icons-material/AddCard';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { Header } from '../../Components/Header';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectUser } from '../../redux/slices/userSlice';
 import { MotionButton } from '../../Components/FramerMotion/MotionButton';
+import { removeCart } from '../../redux/slices/cartSlice';
 
 export const CheckOutSi = () => {
 
@@ -20,15 +21,16 @@ export const CheckOutSi = () => {
     const user = useSelector(selectUser);
     const [openDialog, setOpen] = useState(false);
     const [open, setOpenOrder] = useState(false);
-    const [mobileNo, setMobileNo] = useState('');
-    const [addressL1, setAddressL1] = useState('');
-    const [addressL2, setAddressL2] = useState('');
-    const [addressL3, setAddressL3] = useState('');
+    const [mobileNo, setMobileNo] = useState(user.mobileNumber);
+    const [addressL1, setAddressL1] = useState(user.deliveryAddress?.addressL1);
+    const [addressL2, setAddressL2] = useState(user.deliveryAddress?.addressL2);
+    const [addressL3, setAddressL3] = useState(user.deliveryAddress?.addressL3);
     const [paymentMethod, setPaymentMethod] = useState('cashOnDelivery');
 
 
     const [snackbarOpen, setSnackbarOpen] = useState(false); 
-    const [snackMessage, setSnackMessage] = useState('')
+    const [snackMessage, setSnackMessage] = useState('');
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handlePaymentMethod = (e) => {
@@ -97,8 +99,8 @@ export const CheckOutSi = () => {
             </Breadcrumbs>
             <Stack margin="25px">
                 <Stack direction="row" margin="auto" color="green" gap={1}>
-                    <ShoppingBasketIcon sx={{ fontSize: '60px' }} />
-                    <Typography variant="h3" sx={{ marginBottom: '25px' }}>
+                    <ShoppingBasketIcon sx={{ fontSize: '40px' }} />
+                    <Typography variant="h4" sx={{ marginBottom: '25px' }}>
                     ඇණවුම
                     </Typography>
                 </Stack>
@@ -106,7 +108,7 @@ export const CheckOutSi = () => {
 
                     <Stack width={{ xs: '100%', md: '60%' }}  gap={2} justifyContent="center">
                         <Stack sx={{ backgroundColor: '#DDF9DD', padding: '25px' }}>
-                            <Typography variant="h4">බෙදාහැරීමේ විස්තර</Typography>
+                            <Typography variant="h5">බෙදාහැරීමේ විස්තර</Typography>
                             
                             <Table >
                                 <TableBody >
@@ -134,7 +136,7 @@ export const CheckOutSi = () => {
                             </Stack>
                         </Stack>
                         <Stack sx={{ backgroundColor: '#DDF9DD', padding: '25px', }}>
-                            <Typography variant="h4">ඇණවුම් ලැයිස්තුව</Typography>
+                            <Typography variant="h5">ඇණවුම් ලැයිස්තුව</Typography>
 
                             <TableContainer style={{width:'100%'}}>
 
@@ -161,8 +163,8 @@ export const CheckOutSi = () => {
                             </TableContainer>
                         </Stack>
                     </Stack>
-                    <Stack  gap={1} sx={{ backgroundColor: '#DDF9DD', height: { xs: 'auto', md: '550px' },  width: { xs: '100%', md: '40%' } }} >
-                        <Typography padding='25px' align="left" variant="h4">ඇණවුම් සාරාංශය</Typography>
+                    <Stack  gap={1} sx={{ backgroundColor: '#DDF9DD',pb:'20px', height: { xs: 'auto', md: '550px' },  width: { xs: '100%', md: '40%' } }} >
+                        <Typography padding='25px' align="left" variant="h5">ඇණවුම් සාරාංශය</Typography>
                         
                         <ToggleButtonGroup onClick={(e) => handlePaymentMethod(e.target.value)} value={paymentMethod} exclusive orientation="vertical" sx={{ width: '70%', margin: '0px auto' }}>
                             <Typography margin='5px'>ඔබේ ගෙවීමේ ක්‍රමය තෝරන්න: </Typography>
@@ -170,21 +172,21 @@ export const CheckOutSi = () => {
                             <ToggleButton value="cardpayment" disabled><AddCardIcon sx={{ fontSize: '100px', display: 'flex', flexDirection: 'column' }} />කාඩ්පත් ගෙවීම</ToggleButton>
                             <Typography color="error">කාඩ්පත් ගෙවීම් තාවකාලිකව අත්හිටුවා ඇත!</Typography>
                         </ToggleButtonGroup>
-                        <Typography align="center" variant="h5" margin='15px'>මුලු වටිනාකම: {totalAmount}</Typography>
-                        <MotionButton  onClick={()=>{setOpenOrder(true)} } variant='contained' style={{width:'150px', margin:'25px auto'}} >ඇණවුම් කරන්න</MotionButton>
+                        <Typography align="center" variant="h6" margin='15px'>මුලු වටිනාකම: {totalAmount}</Typography>
+                        <MotionButton  onClick={()=>{setOpenOrder(true)} } variant='contained' stylee={{width:'200px', margin:'0px auto'}} >ඇණවුම් කරන්න</MotionButton>
                     </Stack>
                 </Stack>
             </Stack>
             <Footer />
             <Dialog open={openDialog} onClose={() => setOpen(false)}>
-                <DialogTitle>බෙදා හැරීමේ විස්තර ඇතුළත් කරන්න</DialogTitle>
+                <Typography variant='h5' margin='10px'>බෙදා හැරීමේ විස්තර ඇතුළත් කරන්න</Typography>
                 <DialogContent>
                     <Stack gap={2}>
                         <TextField label="දුරකථන අංකය" placeholder="දුරකථන අංකය" defaultValue={mobileNo} type="number" inputProps={{ maxLength: 2 }} onChange={(e) => setMobileNo(e.target.value)} />
                         <TextField placeholder="ලිපිනය පළමු පේලිය" defaultValue={addressL1} onChange={(e) => setAddressL1(e.target.value)} />
                         <TextField placeholder="ලිපිනය දෙවන පේලිය" defaultValue={addressL2} onChange={(e) => setAddressL2(e.target.value)} />
                         <TextField placeholder="ලිපිනය තෙවන පේලිය" defaultValue={addressL3} onChange={(e) => setAddressL3(e.target.value)} />
-                        <Button variant="contained" onClick={() => (setOpen(false))}>විස්තර සුරකින්න</Button>
+                        <Button variant="contained" color='success' sx={{width:'150px', margin:'auto'}} onClick={() => (setOpen(false))}>විස්තර සුරකින්න</Button>
                     </Stack>
                 </DialogContent>
             </Dialog>
@@ -212,13 +214,14 @@ export const CheckOutSi = () => {
       <Snackbar
                     open={snackbarOpen}
                     autoHideDuration={3000}
-                    onClose={() => { setSnackbarOpen(false); if(snackMessage === "Order placed successfully"){navigate('/user')} }}
+                    onClose={() => { setSnackbarOpen(false); if(snackMessage === "Order placed successfully"){navigate('/user', { state: { select: 'MyOrders' } })};
+                    dispatch(removeCart()); }}
                     anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                     sx={{ marginTop: "100px", width:'100%' }}
                     >
                     <Alert
                         autoHideDuration={3000}
-                        onClose={() => { setSnackbarOpen(false); if(snackMessage === "Order placed successfully"){navigate('/user')} }}
+                        onClose={() => { setSnackbarOpen(false); if(snackMessage === "Order placed successfully"){navigate('/user', { state: { select: 'MyOrders' } })} }}
                         severity={(snackMessage === "Order placed successfully") ? ('success'): ('error') }
                         variant="filled"
                         >

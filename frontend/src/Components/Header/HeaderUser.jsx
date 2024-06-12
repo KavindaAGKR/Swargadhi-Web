@@ -32,6 +32,7 @@ export const HeaderUser = ({user, isSinhalaTrue}) => {
 
     const handleSignOut = () => {
         dispatch(logout());
+        navigate('/');
     };
 
     const handleClick = (event) => {
