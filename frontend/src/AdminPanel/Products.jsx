@@ -220,20 +220,20 @@ export const Products = () => {
                             <Stack direction={{xs:'column', sm:'row'}} gap={2}>
                                 
                                 <TextField name='categoryEn' label='Select Category in English' select sx={{ width: "100%" }} value={productData.categoryEn} onChange={handleChange}>
-                                    <MenuItem value='kalka'>Kalka</MenuItem>
+                                    <MenuItem value='Kalka'>Kalka</MenuItem>
                                     <MenuItem value='Paththu'>Paththu</MenuItem>
                                     <MenuItem value='Guli'>Guli</MenuItem>
                                     <MenuItem value='Thel'>Thel</MenuItem>
                                     <MenuItem value='Chuurna'>Chuurna</MenuItem>
-                                    <MenuItem value='Kashay'>Kashay</MenuItem>
+                                    <MenuItem value='Kashaya'>Kashaya</MenuItem>
                                 </TextField>
                                 <TextField name='categorySi' label='Select Category in Sinhala' select sx={{ width: "100%" }} value={productData.categorySi} onChange={handleChange}>
                                     <MenuItem value='කල්ක'>කල්ක</MenuItem>
                                     <MenuItem value='පත්තු'>පත්තු</MenuItem>
                                     <MenuItem value='ගුලි'>ගුලි</MenuItem>
                                     <MenuItem value='තෙල්'>තෙල්</MenuItem>
-                                    <MenuItem value='චූර්න'>චූර්න</MenuItem>
-                                    <MenuItem value='කසාය'>කසාය</MenuItem>
+                                    <MenuItem value='චූර්ණ'>චූර්ණ</MenuItem>
+                                    <MenuItem value='කෂාය'>කෂාය</MenuItem>
                                 </TextField>
                             </Stack>
                             <Stack direction={{xs:'column', sm:'row'}} gap={2}>

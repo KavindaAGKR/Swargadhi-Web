@@ -1,8 +1,10 @@
 import React from 'react'
-import { AppBar, Button, Stack} from '@mui/material'
+import { AppBar, Button, Stack, Typography} from '@mui/material'
 import logo from '../Images/logo.png'
 import { useNavigate } from 'react-router-dom'
 import { Email, WhatsApp, Facebook, Call } from '@mui/icons-material';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 export const Footer = () => {
 
@@ -12,23 +14,31 @@ export const Footer = () => {
     
     return (
     
-        <AppBar position='static' sx={{ display: 'flex', justifyContent: 'center',backgroundColor:'#F3FFD0', width:'100%',padding:'20px 20px 20px 0px' }} >
+        <AppBar position='static' sx={{ display: 'flex', justifyContent: 'center',alignItems:'center',backgroundColor:'#F3FFD0', width:'100%',padding:'20px 20px 20px 0px', color:'black' }} >
             
             <Stack direction={{sm:'row', xs:'column'}} justifyContent='space-between' >
                 
-                <Button onClick={()=>navigate('/')} sx={{width:{xs:'80%', md:'30%', sm:'50%'}}}><img src={logo} alt="Swargadhi logo"  width='100%' />
-</Button>
+                <Stack sx={{width:{xs:'80%', md:'30%', sm:'50%'}}}>
+                <Button onClick={()=>navigate('/')} ><img src={logo} alt="Swargadhi logo"  width='100%' />
+                </Button>
+                <Stack marginLeft='25px'>
+                <Typography variant='h6' sx={{color:'black'}}><LocationOnIcon/>No: 273/B, Temple Road, Gonulla,Gonawila </Typography>
+                {/* <Typography variant='body' sx={{color:'black'}}>Gonulla,</Typography>
+                <Typography variant='body' sx={{color:'black'}}>Gonawila</Typography> */}
+                </Stack>
+                </Stack>
 
-                    <Stack direction='column'  spacing={0} sx={{padding:'25px', color:'red'}} >
-                    <Button variant='text' onClick={()=>{navigate('/')}}  sx={{justifyContent:'left', color:'black'}}>Home</Button>
-                    <Button variant='text' onClick={()=>navigate('/shop')} sx={{justifyContent:'left'}}>Shop</Button>
-                    <Button variant='text' onClick={()=>navigate('/dispensary')} sx={{justifyContent:'left'}}>Dispensary</Button>
-                    <Button variant='text' onClick={()=>navigate('/about')}  sx={{justifyContent:'left'}}>About Us</Button>
-                    <Button variant='text' onClick={()=>navigate('/myaccount')}   sx={{justifyContent:'left'}}>My Account</Button>
+                    <Stack direction='column'  spacing={0} sx={{padding:'25px'}} >
+                        <Typography variant='h6'>Quick Links</Typography>
+                    <Button variant='text' onClick={()=>{navigate('/')}}  sx={{justifyContent:'left'}}><KeyboardArrowRightIcon/>Home</Button>
+                    <Button variant='text' onClick={()=>navigate('/shop')} sx={{justifyContent:'left'}}><KeyboardArrowRightIcon/>Shop</Button>
+                    <Button variant='text' onClick={()=>navigate('/dispensary')} sx={{justifyContent:'left'}}><KeyboardArrowRightIcon/>Dispensary</Button>
+                    <Button variant='text' onClick={()=>navigate('/about')}  sx={{justifyContent:'left'}}><KeyboardArrowRightIcon/>About Us</Button>
+                    <Button variant='text' onClick={()=>navigate('/myaccount')}   sx={{justifyContent:'left'}}><KeyboardArrowRightIcon/>My Account</Button>
                     </Stack>
                 
                     <Stack direction='column' spacing={1} justifyContent="center" padding="25px">
-                    
+                    <Typography variant='h6'>Connect With Us</Typography>
                     <Button variant='text' startIcon={<Call/>} sx={{justifyContent:'left'}}>081 7822142</Button>
                     <Button variant='text' startIcon={<Email/>} sx={{justifyContent:'left'}}>swargadhi@gmail.com</Button>
                     <Button variant='text' startIcon={<WhatsApp/>} sx={{justifyContent:'left'}}>071 1947550</Button>

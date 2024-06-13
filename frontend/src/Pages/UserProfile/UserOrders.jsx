@@ -70,7 +70,7 @@ setLoading(true);
               </TableRow>
               <TableRow >
               
-              <TableCell size='small' align='center' sx={{fontWeight:'bold' }}>Name</TableCell>
+              <TableCell size='small' sx={{fontWeight:'bold', width:'200px', minWidth:'150px', pl:'50px'  }}>Name</TableCell>
               <TableCell size='small' align='center' sx={{fontWeight:'bold', width:'100px'}}>Quantity</TableCell>
               </TableRow>
             </TableHead>
@@ -87,43 +87,15 @@ setLoading(true);
   
         {order.products.map((product, index) => (
           
-          <TableRow sx={{borderBottom:'solid  transparent'}}> <TableCell  size='small'sx={{ width:'250px',borderBottom:'solid  transparent'}}><li>{product.itemName}</li></TableCell>
+          <TableRow sx={{borderBottom:'solid  transparent'}}> <TableCell  size='small'sx={{ width:'250px',borderBottom:'solid  transparent'}}><li>{product.itemName.en}</li></TableCell>
           <TableCell align='center' size='small' sx={{ width:'100px',borderBottom:'solid  transparent'}}>{product.buyingCount}</TableCell></TableRow>
             
         ))}
         
   
 </TableCell>
-{/* <TableCell>
-  <TableHead>
-  
-        {order.products.map((product, index) => (
-          
-          <TableRow><TableCell>{product.buyingCount}</TableCell></TableRow>
-            
-        ))}
-        
-  </TableHead>
-</TableCell> */}
-
-
-
-
-        {/* <TableCell>
-        {order.products.map((product, index) => (
-          
-            <li>{product.itemName}</li>
-            
-        ))}
-        </TableCell>
-        <TableCell>
-                  {order.products.map((product, index) => (
-            
-            <li>{product.buyingCount}</li>
-        ))}
-        </TableCell> */}
                       
-                      <TableCell>{order.totalAmount}</TableCell>
+                      <TableCell align='center'>{order.totalAmount}</TableCell>
                       <TableCell sx={{padding:'0px'}}
                       ><Container sx={{ backgroundColor: getColorByStatus(order.orderStatus), width:'150px', textAlign:'center', borderRadius:'15px' }}>{order.orderStatus}</Container>
                       </TableCell>

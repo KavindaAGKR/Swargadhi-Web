@@ -1,4 +1,4 @@
-import { CircularProgress, Container, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+import { Box, CircularProgress, Container, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
@@ -72,7 +72,7 @@ setLoading(true);
               </TableRow>
               <TableRow >
               
-              <TableCell size='small' align='center' sx={{fontWeight:'bold' }}>නම</TableCell>
+              <TableCell size='small' sx={{fontWeight:'bold' , width:'200px', minWidth:'150px', pl:'50px' }}>නම</TableCell>
               <TableCell size='small' align='center' sx={{fontWeight:'bold', width:'100px'}}>ප්‍රමාණය</TableCell>
               </TableRow>
             </TableHead>
@@ -87,14 +87,14 @@ setLoading(true);
 <TableCell colSpan={2}>
         {order.products.map((product, index) => (
           
-          <TableRow sx={{borderBottom:'solid  transparent'}}> <TableCell  size='small'sx={{ width:'250px',borderBottom:'solid  transparent'}}><li>iTEM naME IN SINHALA</li></TableCell>
+          <TableRow sx={{borderBottom:'solid  transparent'}}> <TableCell  size='small'sx={{ width:'250px',borderBottom:'solid  transparent',minWidth:'150px'}} align='center'><Box textAlign='start'><li>{product.itemName.si}</li></Box></TableCell>
           <TableCell align='center' size='small' sx={{ width:'100px',borderBottom:'solid  transparent'}}>{product.buyingCount}</TableCell></TableRow>
             
         ))}
         
 </TableCell>
                       
-                      <TableCell>{order.totalAmount}</TableCell>
+                      <TableCell align='center'>{order.totalAmount}</TableCell>
                       <TableCell sx={{padding:'0px'}}
                       ><Container sx={{ backgroundColor: getColorByStatus(order.orderStatus), width:'150px', textAlign:'center', borderRadius:'15px' }}>{order.orderStatus}</Container>
                       </TableCell>

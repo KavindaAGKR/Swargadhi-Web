@@ -21,7 +21,7 @@ export const AdminOrders = () => {
       id: order._id,
       orderedBy: order.orderedby ? `${order.orderedby.firstName || ''} ${order.orderedby.lastName || ''}`.trim() || "N/A" : "N/A",
       products: order.products.map((product, index) => (
-        `${product.itemName} x ${product.buyingCount}`
+        `${product.itemName.en} x ${product.buyingCount}`
       )).join(", "),
       totalAmount: order.totalAmount,
       paymentMethod: order.paymentMethod,

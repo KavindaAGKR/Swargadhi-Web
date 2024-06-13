@@ -1,5 +1,16 @@
 import mongoose from "mongoose";
 
+const multilingualSchema = new mongoose.Schema(
+  {
+    en: { type: String, required: true },
+    si: { type: String, required: true }
+  },
+  { _id: false }
+);
+
+
+
+
 const orderSchema = new mongoose.Schema({
   products: [
     {
@@ -7,7 +18,7 @@ const orderSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "AyurvedicProduct",
       },
-      itemName: String,
+      itemName: multilingualSchema,
       price: Number,
       buyingCount: Number
     },

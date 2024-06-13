@@ -8,12 +8,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../../redux/slices/userSlice';
 import { selectUser, selectIsLoggedIn } from '../../../redux/slices/userSlice';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import {  UserOrdersSi } from './UserOrders';
 import {  FeedbacksSi } from './FeedbacksSi';
 import { ViewDetailsSi } from './ViewDetailsSi';
 import { useLocation } from 'react-router-dom';
 import {  SupplyMaterialSi } from './SupplyMaterialSi';
 import MenuIcon from '@mui/icons-material/Menu';
+import { UserOrdersSi } from './UserOrdersSi';
 
 export const UserProfileSi = () => {
     const dispatch = useDispatch();
