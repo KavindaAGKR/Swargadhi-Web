@@ -5,18 +5,24 @@ import ProductCard from '../Shop/ProductCard';
 import { Header } from '../../Components/Header';
 import { Footer } from '../../Components/Footer';
 import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectIsSinhalaTrue } from '../../redux/slices/languageSlice';
+import ProductCardSi from '../Shop/Sinhala/ProductCardSi';
 
 export const Search = () => {
-    const [loading, setLoading] = useState(false);
+    // const [loadingProducts, setLoading] = useState(false);
     const [filteredProducts, setFilteredProducts] = useState([]);
-    const { products } = FetchAdminProducts();
+    const { products, loading } = FetchAdminProducts();
     const location = useLocation();
-
-    // Extract search query from URL
+    
+    const sinhala =  useSelector(selectIsSinhalaTrue);
+    
     const searchQuery = new URLSearchParams(location.search).get('query');
 
     useEffect(() => {
         const filterProducts = (search) => {
+            
+            
             return products.filter(
                 (product) =>
                     product.itemName.en.toLowerCase().includes(search.toLowerCase()) ||
@@ -48,7 +54,9 @@ export const Search = () => {
                 }}
             >
                 <Typography variant="h5" sx={{ textAlign: 'center', margin: '5px', color: 'green' }}>
-                    Search Results
+                    {
+                        sinhala? ("සෙවුම් ප්‍රතිඵල") : ("Search Results")
+                    }
                 </Typography>
                 {/* <Container>
                     <TextField
@@ -62,19 +70,26 @@ export const Search = () => {
                 </Container> */}
                 <Stack margin="40px">
                     {loading ? (
-                        <CircularProgress />
-                    ) : filteredProducts.length > 0 ? (
-                        <Grid container spacing={5}>
-                            {filteredProducts.map((product) => (
-                                <Grid item key={product.productItemID} xs={12} sm={6} lg={3}>
-                                    <ProductCard product={product} />
-                                </Grid>
-                            ))}
-                        </Grid>
+                        <CircularProgress  color='success' sx={{margin:'auto'}}/>
                     ) : (
-                        <Typography variant="body1" sx={{ textAlign: 'center', marginTop: '20px' }}>
-                            No products available
-                        </Typography>
+                        filteredProducts.length > 0 ? (
+                            <Grid container spacing={5}>
+                                {filteredProducts.map((product) => (
+                                    <Grid item key={product.productItemID} xs={12} sm={6} lg={3}>
+                                        {
+                                            sinhala? (<ProductCardSi product={product} />):
+                                            (<ProductCard product={product} />)
+                                        }
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        ) : (
+                            <Typography variant="body1" sx={{ textAlign: 'center', marginTop: '20px' }}>
+                                {
+                                    sinhala? ("ගැළපෙන නිෂ්පාදන නැත"):("No matching products")
+                                }
+                            </Typography>
+                        )
                     )}
                 </Stack>
             </Paper>
