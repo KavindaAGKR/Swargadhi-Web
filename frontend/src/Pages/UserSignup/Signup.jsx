@@ -90,10 +90,10 @@ export const Signup = () => {
         
       <Container justifyContent='center' sx={{display:'flex' ,margin:'25px auto', alignSelf:'center',}} >
       <Paper sx={{
-                    borderRadius: '35px', height:'650px'
+                    borderRadius: '35px', height:'700px'
                 }} elevation={20} >
             <Stack direction='row' margin='auto' justifyContent='center' >
-            <Stack  sx={{display:{xs:'none', sm:'flex'},position:'relative', width:'50%', height:'650px'}} >
+            <Stack  sx={{display:{xs:'none', sm:'flex'},position:'relative', width:'50%', height:'700px'}} >
                   <img style={{position:'relative',zIndex:'10', height:'100%', width:'95%', maxHeight:'100%'}} src={signpng} alt="The signup"  />
                   <img style={{position:'absolute', zIndex:'1',height:'100%',width:'100%',  maxHeight:'100%',  }} src={signback} alt="The signup"  />
               </Stack>
