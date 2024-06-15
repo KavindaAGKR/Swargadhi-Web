@@ -44,7 +44,7 @@ const handleRemoveClick = () => {
 
     // const firstImageUrl = Object.values(imageUrl)[0];
     return (
-         <Stack justifyContent='space-between' direction='row' sx={{ borderRadius: '20px', border: 'solid 1px #B1FDC5', boxShadow: ' 5px 10px 13px -6px rgba(0,0,0,0.2)', width:{xs:'90%',md:'80%'}, padding: '20px', height:{xs:'150px', sm:'120px'} }}>
+         <Stack justifyContent='space-between' direction='row' sx={{ borderRadius:'15px', border: 'solid 1px #B1FDC5', boxShadow: ' 5px 10px 13px -6px rgba(0,0,0,0.2)', width:{xs:'90%',md:'80%'}, padding: '20px', height:{xs:'150px', sm:'120px'} }}>
 
 
 
@@ -84,7 +84,7 @@ const handleRemoveClick = () => {
                         }}
                         
                         error={error}
-                        helperText={error? 'Invalid quentity': ''}
+                        helperText={error? 'Invalid': ''}
                         defaultValue={buyingCount || 1}
                         inputProps={{ min: 1, max: quantity, style: { padding: '0px 0px 0 10px', display: 'all', width:'40px' } }}
                     />

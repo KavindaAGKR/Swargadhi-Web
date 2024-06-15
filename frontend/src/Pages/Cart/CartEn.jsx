@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Header } from '../../Components/Header';
 import { Footer } from '../../Components/Footer';
 import { Link, useNavigate } from 'react-router-dom';
-import { Grid, Paper, Stack, Typography, Button, Breadcrumbs } from '@mui/material';
+import { Grid, Paper, Stack, Typography, Button, Breadcrumbs, Snackbar, Alert } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { CartCard } from './CartCard';
 import { useSelector } from 'react-redux';
@@ -15,7 +15,7 @@ export const CartEn = () => {
 
     const cartItems = useSelector(selectCartItems);
     const navigate = useNavigate();
-
+    const [error, setError] = useState(false);
 
 
 
@@ -25,13 +25,28 @@ export const CartEn = () => {
     const deliveryFee = 450;
     const totalAmount = total + deliveryFee;
 
+
+
+    const handleClose = () => {
+        setError(false);
+      };
+
+      
     const HandleCheckout = () => {
-        navigate('/checkout', {
-            state: {
-                cartItems: cartItems,
-                totalAmount: totalAmount,
-            },
-        });
+
+        const hasError = cartItems.some(item => item.buyingCount <= 0 || item.quantity < item.buyingCount|| !totalAmount);
+        setError(hasError);
+
+        if(!hasError){
+            navigate('/checkout', {
+                state: {
+                    cartItems: cartItems,
+                    totalAmount: totalAmount,
+                },
+            });
+        }
+
+        
     };
 
 
@@ -77,7 +92,7 @@ export const CartEn = () => {
                         </Button>
                         </Stack>
                         <Stack sx={{ width: {xs:'100%',sm:'80%', md:'35%'}, margin:'20px auto ' }} >
-                            <Paper elevation={5} sx={{ padding: '50px' }}>
+                            <Paper elevation={5} sx={{ borderRadius:'15px',padding: '50px' }}>
                                 <Grid container spacing={2}>
                                 <Grid item xs={8} md={8}>
                                         <Typography variant='h6'>Sub Total</Typography>
@@ -116,6 +131,21 @@ export const CartEn = () => {
                 )}
             </Stack>
             <Footer />
+            
+<Snackbar open={error} onClose={handleClose}
+  autoHideDuration={5000}>
+  <Alert
+    severity="error"
+    variant="filled"
+    onClose={handleClose}
+    sx={{ width: '200px' }}
+  >
+    Invalid Quantity!
+  </Alert>
+</Snackbar>
+
+
+
         </React.Fragment>
     );
 };

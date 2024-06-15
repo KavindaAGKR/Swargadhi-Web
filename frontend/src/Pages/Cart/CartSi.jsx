@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Header } from '../../Components/Header';
 import { Footer } from '../../Components/Footer';
 import { Link, useNavigate } from 'react-router-dom';
-import { Grid, Paper, Stack, Typography, Button, Breadcrumbs } from '@mui/material';
+import { Grid, Paper, Stack, Typography, Button, Breadcrumbs, Alert, Snackbar } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useSelector } from 'react-redux';
 import { selectCartItems   } from '../../redux/slices/cartSlice';
@@ -15,7 +15,7 @@ export const CartSi = () => {
 
     const cartItems = useSelector(selectCartItems);
     const navigate = useNavigate();
-
+    const [error, setError] = useState(false);
 
 
     const discount = 10;
@@ -24,15 +24,29 @@ export const CartSi = () => {
     const deliveryFee = 450;
     const totalAmount = total + deliveryFee;
 
-    const HandleCheckout = () => {
-        navigate('/checkout', {
-            state: {
-                cartItems: cartItems,
-                totalAmount: totalAmount,
-            },
-        });
-    };
 
+
+    const handleClose = () => {
+        setError(false);
+      };
+
+      
+    const HandleCheckout = () => {
+
+        const hasError = cartItems.some(item => item.buyingCount <= 0 || item.quantity < item.buyingCount|| !totalAmount);
+        setError(hasError);
+
+        if(!hasError){
+            navigate('/checkout', {
+                state: {
+                    cartItems: cartItems,
+                    totalAmount: totalAmount,
+                },
+            });
+        }
+
+        
+    };
 
 
 
@@ -76,7 +90,7 @@ export const CartSi = () => {
                         </Button>
                         </Stack>
                         <Stack sx={{ width: {xs:'100%',sm:'80%', md:'35%'}, margin:'20px auto ' }} >
-                            <Paper elevation={5} sx={{ padding: '50px' }}>
+                            <Paper elevation={5} sx={{borderRadius:'15px', padding: '50px' }}>
                                 <Grid container spacing={2}>
                                 <Grid item xs={8} md={8}>
                                         <Typography variant='h6'>උප එකතුව</Typography>
@@ -115,6 +129,18 @@ export const CartSi = () => {
                 )}
             </Stack>
             <Footer />
+
+            <Snackbar open={error} onClose={handleClose}
+  autoHideDuration={5000}>
+  <Alert
+    severity="error"
+    variant="filled"
+    onClose={handleClose}
+    sx={{ width: '260px' }}
+  >
+    වලංගු නොවන ප්‍රමාණයක්!
+  </Alert>
+</Snackbar>
         </React.Fragment>
     );
 };
