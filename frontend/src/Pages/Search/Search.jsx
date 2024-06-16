@@ -51,11 +51,12 @@ export const Search = () => {
                     width: '100%',
                     padding: '0px 0px 100px 0px',
                     boxShadow: 'none',
+                    mt:'25px'
                 }}
             >
                 <Typography variant="h5" sx={{ textAlign: 'center', margin: '5px', color: 'green' }}>
                     {
-                        sinhala? ("සෙවුම් ප්‍රතිඵල") : ("Search Results")
+                        sinhala? ("'" + searchQuery +"' සඳහා සෙවුම් ප්‍රතිඵල") : ("Search Results for '"+ searchQuery+"'")
                     }
                 </Typography>
                 {/* <Container>

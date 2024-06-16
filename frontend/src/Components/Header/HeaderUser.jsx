@@ -55,7 +55,7 @@ export const HeaderUser = ({user, isSinhalaTrue}) => {
                 <Box sx={{borderRadius:'100px', width:{xs:'40px', sm:'40px'},height:{xs:'40px', sm:'40px'}, margin: '10px auto' }}>
                     <img
                     src={profilePicture}
-                    alt="Profile"
+                    alt="DP"
                     style={{ width: '100%', height: '100%', borderRadius: '100px' }}
                     onError={(e) => {
                         console.error('Failed to load image');

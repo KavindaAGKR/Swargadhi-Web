@@ -1,6 +1,6 @@
 import React from 'react';
 import slide from '../../Images/category/Edited-68.jpg';
-import { List, Stack, Typography } from '@mui/material';
+import { Box, Container, Grid, List, Stack, Typography } from '@mui/material';
 import { MotionButton } from '../../Components/FramerMotion/MotionButton';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,6 +9,7 @@ import slide2 from '../../Images/category/Guli.jpg'
 import slide3 from '../../Images/category/pottani.jpg'
 import slide4 from '../../Images/category/thel.jpg'
 import slide5 from '../../Images/category/Edited-141-300x300.jpg'
+import { Padding } from '@mui/icons-material';
 
 
 const categories = [
@@ -34,12 +35,12 @@ const categories = [
   },
   {
     nameEn: "Chuurna",
-    nameSi:'චූර්න',
+    nameSi:'චූර්ණ',
     image: slide1,
   },
   {
     nameEn: "Kashay",
-    nameSi:'කසාය',
+    nameSi:'කෂාය',
     image: slide3,
   },
 ];
@@ -49,31 +50,45 @@ export const ShopByCategory = ({isSinhalaTrue}) => {
     
     if(isSinhalaTrue){
       return (
-        <List   sx={{alignSelf:'center'}}>
+        <>
+        <Typography variant='h5' margin='25px auto' width='90%'>වර්ගය අනුව බෙහෙත් මිල දී ගන්න</Typography>
+        <Grid container gap={3}  sx={{alignSelf:'center', justifyContent:'center', alignItems:'center', margin:'auto'}}>
           {categories.map((cat, index) => (
-            <MotionButton stylee={{margin:'auto',}} key={index} onClick={()=> navigate('/shop', { state: { category: cat.nameSi } })}>
+            
+              <Grid>
+              <MotionButton key={index} stylee={{Padding:'auto', margin:'auto', alignSelf:'center', }} onClick={()=> navigate('/shop', { state: { category: cat.nameEn } })}>
               
-              <Stack margin='10px'>
-              <img style={{width:'150px', height:'150px', border:'solid 2px black'}} src={cat.image} alt={cat.nameSi} />
+              <Stack>
+              <img style={{width:'150px', height:'150px', border:'solid 2px black', borderRadius:'15px'}} src={cat.image} alt={cat.nameSi} />
               <Typography variant='h6' textAlign='center' color='black'>{cat.nameSi}</Typography>
               </Stack>
             </MotionButton>
+            </Grid>
+            
+            
           ))}
-        </List>
+        </Grid>
+        </>
       );
     }else {
       return (
-        <List   sx={{alignSelf:'center'}}>
+        <><Typography variant='h5' margin='25px auto' width='90%'>Shop by Category</Typography>
+        <Grid container gap={{xs:1.5, sm:3}}  sx={{alignSelf:'center', justifyContent:'center', alignItems:'center', margin:'auto'}}>
           {categories.map((cat, index) => (
-            <MotionButton key={index} stylee={{margin:'10px'}} onClick={()=> navigate('/shop', { state: { category: cat.nameEn } })}>
+            
+              <Grid>
+              <MotionButton key={index} stylee={{Padding:'auto', margin:'auto', alignSelf:'center', }} onClick={()=> navigate('/shop', { state: { category: cat.nameEn } })}>
               
               <Stack>
-              <img style={{width:'150px', height:'150px', border:'solid 2px black'}} src={cat.image} alt={cat.nameEn} />
+              <img style={{width:'150px', height:'150px', border:'solid 2px black', borderRadius:'15px'}} src={cat.image} alt={cat.nameEn} />
               <Typography variant='h6' textAlign='center' color='black'>{cat.nameEn}</Typography>
               </Stack>
             </MotionButton>
+            </Grid>
+            
           ))}
-        </List>
+        </Grid>
+        </>
       );
     }
 

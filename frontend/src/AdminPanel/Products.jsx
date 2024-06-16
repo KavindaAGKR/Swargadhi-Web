@@ -132,7 +132,7 @@ export const Products = () => {
         { field: 'price', headerName: 'Price (LKR)', width: 150 },
         { field: 'quantity', headerName: 'Available Quantity', width: 150 },
         { field: 'category_en', headerName: 'Category (English)', width: 150 },
-        { field: 'category_si', headerName: 'Category (Sinhala)', width: 150 },
+        // { field: 'category_si', headerName: 'Category (Sinhala)', width: 150 },
         {
             field: 'actions',
             headerName: 'Edit/Delete',
@@ -194,7 +194,7 @@ export const Products = () => {
         price: product.price,
         quantity: product.quantity,
         category_en: product.category.en,
-        category_si: product.category.si,
+        // category_si: product.category.si,
         images: product.images 
     }));
     
@@ -227,14 +227,14 @@ export const Products = () => {
                                     <MenuItem value='Chuurna'>Chuurna</MenuItem>
                                     <MenuItem value='Kashaya'>Kashaya</MenuItem>
                                 </TextField>
-                                <TextField name='categorySi' label='Select Category in Sinhala' select sx={{ width: "100%" }} value={productData.categorySi} onChange={handleChange}>
+                                {/* <TextField name='categorySi' label='Select Category in Sinhala' select sx={{ width: "100%" }} value={productData.categorySi} onChange={handleChange}>
                                     <MenuItem value='කල්ක'>කල්ක</MenuItem>
                                     <MenuItem value='පත්තු'>පත්තු</MenuItem>
                                     <MenuItem value='ගුලි'>ගුලි</MenuItem>
                                     <MenuItem value='තෙල්'>තෙල්</MenuItem>
                                     <MenuItem value='චූර්ණ'>චූර්ණ</MenuItem>
                                     <MenuItem value='කෂාය'>කෂාය</MenuItem>
-                                </TextField>
+                                </TextField> */}
                             </Stack>
                             <Stack direction={{xs:'column', sm:'row'}} gap={2}>
                                 <TextField name='itemNameEn' type='text' label='Enter Name in English'  sx={{ width: "100%" }}  value={productData.itemNameEn} onChange={handleChange} />
