@@ -13,7 +13,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const createToken = (userId) => {
-  return jwt.sign({ userId }, "jwtSecretKey", { expiresIn: "5s" });
+  return jwt.sign({ userId }, "jwtSecretKey", { expiresIn: "3600s" });
 };
 
 export const createUser = async (req, res) => {
