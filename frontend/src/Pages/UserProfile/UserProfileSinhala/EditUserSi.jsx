@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Grid } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Grid, Snackbar, Alert } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../../redux/slices/userSlice';
 
 const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
   const [user, setEditedUser] = useState(userDetails);
   const dispatch = useDispatch();
+  const [snackbarOpen, setSnackbarOpen] = useState(false); 
+  const [snackMessage, setSnackMessage] = useState('');
 
   useEffect(() => {
     if (userDetails) {
@@ -30,6 +32,7 @@ const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
   };
 
   const handleSave = async () => {
+
     try {
       const response = await fetch('http://localhost:5000/api/user/update', {
         method: 'PUT',
@@ -68,7 +71,7 @@ const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <TextField
-              name="මුල් නම"
+              name="firstName"
               label="මුල් නම"
               variant="outlined"
               fullWidth
@@ -80,7 +83,7 @@ const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              name="අවසන් නම"
+              name="lastName"
               label="අවසන් නම" size='small'
               variant="outlined"
               sx={{margin:'5px 0 0 0'}}
@@ -91,7 +94,7 @@ const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              name="විද්යුත් තැපෑල"
+              name="email"
               label="විද්යුත් තැපෑල"
               variant="outlined" size='small'
               fullWidth
@@ -100,15 +103,18 @@ const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
               onChange={handleChange}
             />
           </Grid>
+          
+                        
           <Grid item xs={12} sm={6}>
-            <TextField
-              name="දුරකථන අංකය"
-              label="දුරකථන අංකය" size='small'
-              variant="outlined"
-              fullWidth
-              value={user.mobileNumber}
-              onChange={handleChange}
-            />
+          <TextField 
+          name="mobileNumber" 
+          label="දුරකථන අංකය" 
+          placeholder="දුරකථන අංකය" 
+          defaultValue={user.mobileNumber} 
+         type='text'
+       
+          onChange={handleChange} />
+        
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -122,7 +128,7 @@ const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
           </Grid>
           <Grid item xs={12}>
             <TextField
-              name="ලිපිනය - දෙවන පේලිය"
+              name="addressL2"
               label="ලිපිනය - දෙවන පේලිය" size='small'
               variant="outlined"
               fullWidth
@@ -132,7 +138,7 @@ const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
           </Grid>
           <Grid item xs={12}>
             <TextField
-              name="ලිපිනය - තෙවන පේලිය"
+              name="addressL3"
               label="ලිපිනය - තෙවන පේලිය" size='small'
               variant="outlined"
               fullWidth
@@ -146,6 +152,22 @@ const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
         <Button onClick={handleClose}>ඉවත් වන්න</Button>
         <Button color="primary" variant="contained" onClick={handleSave}>සුරකින්න</Button>
       </DialogActions>
+      <Snackbar
+                    open={snackbarOpen}
+                    autoHideDuration={3000}
+                    onClose={() => { setSnackbarOpen(false) }}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                    sx={{  width:'auto' }}
+                    >
+                    <Alert
+                        autoHideDuration={3000}
+                        onClose={() => { setSnackbarOpen(false) }}
+                        severity="error"
+                        variant="filled"
+                        >
+                        {snackMessage}
+                    </Alert>
+            </Snackbar>
     </Dialog>
   );
 };

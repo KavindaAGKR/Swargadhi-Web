@@ -98,7 +98,7 @@ export const HomeSwiper = ({imageArray}) => {
                 >
 
                 {
-                imageArray.map( (item, i) => (<SwiperSlide key={item.key}><img alt={item.key} src={item.images}  width='100%' height='100%'  style={{borderRadius:'0px'}}/></SwiperSlide>) )
+                imageArray.map( (item, i) => (<SwiperSlide key={item.key}><img alt={item.key} src={item.images}  width='100%' height='100%'  style={{borderRadius:'0px',objectFit:'cover'}}/></SwiperSlide>) )
                 }
             </Swiper>
     )

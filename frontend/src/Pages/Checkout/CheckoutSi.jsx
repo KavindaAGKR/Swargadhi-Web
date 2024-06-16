@@ -37,6 +37,22 @@ export const CheckOutSi = () => {
         setPaymentMethod(e);
     };
 
+
+
+
+    const handleOpenOrder = () =>{
+        if(mobileNo===undefined || (addressL1===undefined || addressL2===undefined)){
+            setSnackbarOpen(true)
+                setSnackMessage("ජංගම දුරකථන අංකය හෝ ලිපිනය ඇතුලත් කර නොමැත");
+                return;
+        }else if(mobileNo.length !=10){
+            setSnackbarOpen(true)
+                setSnackMessage("වලංගු නොවන ජංගම දුරකථන අංකයකි");
+                return;
+        }
+        setOpenOrder(true)
+    }
+
     const handlePlaceOrder = async () => {
 
         setOpenOrder(false)
@@ -65,18 +81,18 @@ export const CheckOutSi = () => {
                 console.log('Order placed successfully:', data);
                 // Redirect to order confirmation page or show a success message
                 setSnackbarOpen(true)
-                setSnackMessage("Order placed successfully")
+                setSnackMessage("ඇණවුම සාර්ථකව සිදු කරන ලදී")
                 
                 
                 
                 
             } else {
                 console.error('Error while placing order:', response.statusText);
-                setSnackMessage('Error while placing order:', response.statusText)
+                setSnackMessage('ඇණවුම ලබා දීමේදී දෝෂයකි', response.statusText)
             }
         } catch (error) {
             console.error('Error placing order:', error);
-            setSnackMessage('Error placing order:', error)
+            setSnackMessage('ඇණවුම ලබා දීමේදී දෝෂයකි', error)
         }
         setSnackbarOpen(true)
     };
@@ -107,7 +123,7 @@ export const CheckOutSi = () => {
                 <Stack direction={{ xs: 'column', md: 'row' }}   gap={2}>
 
                     <Stack width={{ xs: '100%', md: '60%' }}  gap={2} justifyContent="center">
-                        <Stack sx={{ backgroundColor: '#DDF9DD', padding: '25px' }}>
+                        <Stack sx={{ backgroundColor: '#DDF9DD',borderRadius:'15px', padding: '25px' }}>
                             <Typography variant="h5">බෙදාහැරීමේ විස්තර</Typography>
                             
                             <Table >
@@ -126,7 +142,7 @@ export const CheckOutSi = () => {
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>බෙදා හැරීමේ ලිපිනය</TableCell>
-                                        <TableCell>{addressL1 ? `${addressL1}, ${addressL2}, ${addressL3}` : ''}</TableCell>
+                                        <TableCell>{ [addressL1, addressL2, addressL3].filter(Boolean).join(', ') }</TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
@@ -135,7 +151,7 @@ export const CheckOutSi = () => {
                                 <Button color="success" variant='contained'  onClick={() => setOpen(true)}>විස්තර වෙනස් කරන්න</Button>
                             </Stack>
                         </Stack>
-                        <Stack sx={{ backgroundColor: '#DDF9DD', padding: '25px', }}>
+                        <Stack sx={{ backgroundColor: '#DDF9DD',borderRadius:'15px', padding: '25px', }}>
                             <Typography variant="h5">ඇණවුම් ලැයිස්තුව</Typography>
 
                             <TableContainer style={{width:'100%'}}>
@@ -163,7 +179,7 @@ export const CheckOutSi = () => {
                             </TableContainer>
                         </Stack>
                     </Stack>
-                    <Stack  gap={1} sx={{ backgroundColor: '#DDF9DD',pb:'20px', height: { xs: 'auto', md: '550px' },  width: { xs: '100%', md: '40%' } }} >
+                    <Stack  gap={1} sx={{ backgroundColor: '#DDF9DD',pb:'20px',borderRadius:'15px', height: { xs: 'auto', md: '550px' },  width: { xs: '100%', md: '40%' } }} >
                         <Typography padding='25px' align="left" variant="h5">ඇණවුම් සාරාංශය</Typography>
                         
                         <ToggleButtonGroup onClick={(e) => handlePaymentMethod(e.target.value)} value={paymentMethod} exclusive orientation="vertical" sx={{ width: '70%', margin: '0px auto' }}>
@@ -173,7 +189,7 @@ export const CheckOutSi = () => {
                             <Typography color="error">කාඩ්පත් ගෙවීම් තාවකාලිකව අත්හිටුවා ඇත!</Typography>
                         </ToggleButtonGroup>
                         <Typography align="center" variant="h6" margin='15px'>මුලු වටිනාකම: {totalAmount}</Typography>
-                        <MotionButton  onClick={()=>{setOpenOrder(true)} } variant='contained' stylee={{width:'200px', margin:'0px auto'}} >ඇණවුම් කරන්න</MotionButton>
+                        <MotionButton   onClick={()=>handleOpenOrder() } variant='contained' stylee={{width:'200px', margin:'0px auto'}} >ඇණවුම් කරන්න</MotionButton>
                     </Stack>
                 </Stack>
             </Stack>
@@ -214,15 +230,16 @@ export const CheckOutSi = () => {
       <Snackbar
                     open={snackbarOpen}
                     autoHideDuration={3000}
-                    onClose={() => { setSnackbarOpen(false); if(snackMessage === "Order placed successfully"){navigate('/user', { state: { select: 'MyOrders' } })};
-                    dispatch(removeCart()); }}
-                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                    sx={{ marginTop: "100px", width:'100%' }}
+                    onClose={() => { setSnackbarOpen(false); 
+                        if(snackMessage === "ඇණවුම සාර්ථකව සිදු කරන ලදී")
+                            {{navigate('/user', { state: { select: 'MyOrders' } }); dispatch(removeCart());};} }}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                    sx={{  width:'auto' }}
                     >
                     <Alert
                         autoHideDuration={3000}
-                        onClose={() => { setSnackbarOpen(false); if(snackMessage === "Order placed successfully"){navigate('/user', { state: { select: 'MyOrders' } })} }}
-                        severity={(snackMessage === "Order placed successfully") ? ('success'): ('error') }
+                        onClose={() => { setSnackbarOpen(false); if(snackMessage === "ඇණවුම සාර්ථකව සිදු කරන ලදී"){{navigate('/user', { state: { select: 'MyOrders' } }); dispatch(removeCart());};} }}
+                        severity={(snackMessage === "ඇණවුම සාර්ථකව සිදු කරන ලදී") ? ('success'): ('error') }
                         variant="filled"
                         >
                         {snackMessage}

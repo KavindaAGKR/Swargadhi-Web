@@ -37,8 +37,22 @@ export const CheckOutEn = () => {
         setPaymentMethod(e);
     };
 
-    const handlePlaceOrder = async () => {
 
+
+    const handleOpenOrder = () =>{
+        if(mobileNo===undefined || (addressL1===undefined || addressL2===undefined)){
+            setSnackbarOpen(true)
+                setSnackMessage("Mobile number or Address unavailable");
+                return;
+        }else if(mobileNo.length !=10){
+            setSnackbarOpen(true)
+                setSnackMessage("Invalid mobile number");
+                return;
+        }
+        setOpenOrder(true)
+    }
+
+    const handlePlaceOrder = async () => {
         setOpenOrder(false)
         const orderDetails = {
             cartItems,
@@ -50,6 +64,8 @@ export const CheckOutEn = () => {
             mobileNo,
             totalAmount
         };
+
+
 
         try {
             const response = await fetch('http://localhost:5000/api/orders/create', {
@@ -63,7 +79,6 @@ export const CheckOutEn = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Order placed successfully:', data);
-                // Redirect to order confirmation page or show a success message
                 setSnackbarOpen(true)
                 setSnackMessage("Order placed successfully")
                 
@@ -107,8 +122,8 @@ export const CheckOutEn = () => {
                 </Stack>
                 <Stack direction={{ xs: 'column', md: 'row' }}   gap={2}>
 
-                    <Stack width={{ xs: '100%', md: '60%' }}  gap={2} justifyContent="center">
-                        <Stack sx={{ backgroundColor: '#DDF9DD', padding: '25px' }}>
+                    <Stack width={{ xs: '100%', md: '60%' }}   gap={2} justifyContent="center">
+                        <Stack sx={{ backgroundColor: '#DDF9DD',borderRadius:'15px', padding: '25px' }}>
                             <Typography variant="h4">Delivery Details</Typography>
                             
                             <Table >
@@ -123,11 +138,11 @@ export const CheckOutEn = () => {
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>Mobile Number</TableCell>
-                                        <TableCell>{mobileNo}</TableCell>
+                                        <TableCell>{mobileNo} </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>Delivery Address</TableCell>
-                                        <TableCell>{addressL1 ? `${addressL1}, ${addressL2}, ${addressL3}` : ''}</TableCell>
+                                        <TableCell>{ [addressL1, addressL2, addressL3].filter(Boolean).join(', ') }</TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
@@ -136,7 +151,7 @@ export const CheckOutEn = () => {
                                 <Button color="success" variant='contained'  onClick={() => setOpen(true)}>Edit Details</Button>
                             </Stack>
                         </Stack>
-                        <Stack sx={{ backgroundColor: '#DDF9DD', padding: '25px', }}>
+                        <Stack sx={{ backgroundColor: '#DDF9DD',borderRadius:'15px', padding: '25px', }}>
                             <Typography variant="h4">Order List</Typography>
 
                             <TableContainer style={{width:'100%'}}>
@@ -164,7 +179,7 @@ export const CheckOutEn = () => {
                             </TableContainer>
                         </Stack>
                     </Stack>
-                    <Stack  gap={1} sx={{pb:'25px', backgroundColor: '#DDF9DD', height: { xs: 'auto', md: '550px' },  width: { xs: '100%', md: '40%' } }} >
+                    <Stack  gap={1} sx={{pb:'25px', backgroundColor: '#DDF9DD',borderRadius:'15px', height: { xs: 'auto', md: '550px' },  width: { xs: '100%', md: '40%' } }} >
                         <Typography padding='25px' align="left" variant="h4">Order Summary</Typography>
                         
                         <ToggleButtonGroup onClick={(e) => handlePaymentMethod(e.target.value)} value={paymentMethod} exclusive orientation="vertical" sx={{ width: '70%', margin: '0px auto' }}>
@@ -174,7 +189,7 @@ export const CheckOutEn = () => {
                             <Typography color="error">Card Payment isn't available right now!</Typography>
                         </ToggleButtonGroup>
                         <Typography align="center" variant="h5" margin='15px'>Total Amount: {totalAmount}</Typography>
-                        <MotionButton  onClick={()=>{setOpenOrder(true)} } variant='contained' stylee={{width:'150px', margin:'15px auto'}} >Place Order</MotionButton>
+                        <MotionButton  onClick={()=>handleOpenOrder() } variant='contained' stylee={{width:'150px', margin:'15px auto'}} >Place Order</MotionButton>
                     </Stack>
                 </Stack>
             </Stack>
@@ -183,7 +198,7 @@ export const CheckOutEn = () => {
             <Typography variant='h5' margin='10px 50px'>Enter Delivery Details</Typography>
                 <DialogContent>
                     <Stack gap={2}>
-                        <TextField label="Mobile Number" placeholder="Mobile Number" defaultValue={mobileNo} type="number" inputProps={{ maxLength: 2 }} onChange={(e) => setMobileNo(e.target.value)} />
+                        <TextField label="Mobile Number" helperText="Enter 10 digit mobile number" placeholder="Mobile Number" defaultValue={mobileNo} type="number" inputProps={{ maxLength: 2 }} onChange={(e) => setMobileNo(e.target.value)} />
                         <TextField placeholder="Address Line 1" defaultValue={addressL1} onChange={(e) => setAddressL1(e.target.value)} />
                         <TextField placeholder="Address Line 2" defaultValue={addressL2} onChange={(e) => setAddressL2(e.target.value)} />
                         <TextField placeholder="Address Line 3" defaultValue={addressL3} onChange={(e) => setAddressL3(e.target.value)} />
@@ -214,17 +229,17 @@ export const CheckOutEn = () => {
 
       <Snackbar
                     open={snackbarOpen}
-                    autoHideDuration={3000}
+                    autoHideDuration={5000}
                     onClose={() => { setSnackbarOpen(false); 
                         if(snackMessage === "Order placed successfully")
-                            {navigate('/user', { state: { select: 'MyOrders' } })};
-                    dispatch(removeCart()); }}
-                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                    sx={{ marginTop: "100px", width:'100%' }}
+                            {navigate('/user', { state: { select: 'MyOrders' } }); dispatch(removeCart());};
+                     }}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                    sx={{ marginTop: "50px", width:'100%' }}
                     >
                     <Alert
                         
-                        onClose={() => { setSnackbarOpen(false); if(snackMessage === "Order placed successfully"){navigate('/user', { state: { select: 'MyOrders' } })} }}
+                        onClose={() => { setSnackbarOpen(false); if(snackMessage === "Order placed successfully"){navigate('/user', { state: { select: 'MyOrders' } }); dispatch(removeCart());} }}
                         severity={(snackMessage === "Order placed successfully") ? ('success'): ('error') }
                         variant="filled"
                         >
