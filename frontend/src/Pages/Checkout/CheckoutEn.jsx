@@ -44,6 +44,10 @@ export const CheckOutEn = () => {
             setSnackbarOpen(true)
                 setSnackMessage("Mobile number or Address unavailable");
                 return;
+        }else if(!paymentMethod){
+            setSnackbarOpen(true)
+                setSnackMessage("Select a payment method");
+                return;
         }
         setOpenOrder(true)
     }
@@ -190,7 +194,7 @@ export const CheckOutEn = () => {
                 </Stack>
             </Stack>
             <Footer />
-            <Dialog open={openDialog} onClose={() => setOpen(false)}>
+            <Dialog open={openDialog} >
             <Typography variant='h5' margin='10px 50px'>Enter Delivery Details</Typography>
                 <DialogContent>
                     <Stack gap={2}>
@@ -206,7 +210,7 @@ export const CheckOutEn = () => {
                              else
                                 {setError(false);}}} 
                         error={error}
-                        helperText={error ? 'Invalid mobile number' : 'Enter 10 digit mobile number'}
+                        helperText={error ? 'Invalid mobile number' : ''}
                         sx={{
                             "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {display: "none",},
                            }}
@@ -215,7 +219,8 @@ export const CheckOutEn = () => {
                         <TextField placeholder="Address Line 2" defaultValue={addressL2} onChange={(e) => setAddressL2(e.target.value)} />
                         <TextField placeholder="Address Line 3" defaultValue={addressL3} onChange={(e) => setAddressL3(e.target.value)} />
                         <Button variant="contained" color='success' sx={{width:'150px', margin:'auto'}} 
-                        onClick={() => {if(!error || !addressL1 || !addressL2){setOpen(false)}}}>Save Details</Button>
+                        onClick={() => (
+                            !error ? setOpen(false): ('') )}>Save Details</Button>
                     </Stack>
                 </DialogContent>
             </Dialog>

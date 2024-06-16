@@ -45,6 +45,10 @@ export const CheckOutSi = () => {
             setSnackbarOpen(true)
                 setSnackMessage("ජංගම දුරකථන අංකය හෝ ලිපිනය ඇතුලත් කර නොමැත");
                 return;
+        }else if(!paymentMethod){
+            setSnackbarOpen(true)
+                setSnackMessage("ගෙවීම් ක්‍රමයක් තෝරන්න");
+                return;
         }
         setOpenOrder(true)
     }
@@ -190,7 +194,7 @@ export const CheckOutSi = () => {
                 </Stack>
             </Stack>
             <Footer />
-            <Dialog open={openDialog} onClose={() => setOpen(false)}>
+            <Dialog open={openDialog} >
                 <Typography variant='h5' margin='10px'>බෙදා හැරීමේ විස්තර ඇතුළත් කරන්න</Typography>
                 <DialogContent>
                     <Stack gap={2}>
@@ -206,14 +210,19 @@ export const CheckOutSi = () => {
                              else
                                 {setError(false);}}} 
                         error={error}
-                        helperText={error ? 'වැරදි ජංගම දුරකථන අංකයක්' : 'ඉලක්කම් 10ක ජංගම දුරකථන අංකය ඇතුලත් කරන්න'}
+                        helperText={error ? 'වැරදි ජංගම දුරකථන අංකයක්' : ''}
                         sx={{
                             "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {display: "none",},
                            }} />
                         <TextField placeholder="ලිපිනය පළමු පේලිය" defaultValue={addressL1} onChange={(e) => setAddressL1(e.target.value)} />
                         <TextField placeholder="ලිපිනය දෙවන පේලිය" defaultValue={addressL2} onChange={(e) => setAddressL2(e.target.value)} />
                         <TextField placeholder="ලිපිනය තෙවන පේලිය" defaultValue={addressL3} onChange={(e) => setAddressL3(e.target.value)} />
-                        <Button variant="contained" color='success' sx={{width:'150px', margin:'auto'}} onClick={() => (setOpen(false))}>විස්තර සුරකින්න</Button>
+                        <Button variant="contained" color='success' sx={{width:'150px', margin:'auto'}} 
+                        onClick={() => (
+                            !error ? (setOpen(false)) : ('')
+                        )
+                        
+                        }>විස්තර සුරකින්න</Button>
                     </Stack>
                 </DialogContent>
             </Dialog>
