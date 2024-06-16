@@ -195,7 +195,7 @@ export const DispensaryEn = () => {
               <Box sx={{width:{xs:'270Px', md:'100%'}, height:{xs:'180Px', md:'300px'}, margin:'0px auto'}}>
               <img
                   src={`http://localhost:5000${item.images[0]}`}
-                  style={{width:'100%', height:'100%', margin:'0px auto', borderRadius:'15px'}}
+                  style={{width:'100%', height:'100%', margin:'0px auto', borderRadius:'15px',objectFit:'cover'}}
                   alt={item.treatmentNameSi}
                   onError={(e) => {
                     console.error(`Failed to load image: ${e.target.src}`);

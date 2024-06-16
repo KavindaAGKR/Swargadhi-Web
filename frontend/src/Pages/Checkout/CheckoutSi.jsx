@@ -43,11 +43,11 @@ export const CheckOutSi = () => {
     const handleOpenOrder = () =>{
         if(mobileNo===undefined || (addressL1===undefined || addressL2===undefined)){
             setSnackbarOpen(true)
-                setSnackMessage("ජංගම දුරකථන අංකය හෝ ලිපිනය නොමැත");
+                setSnackMessage("ජංගම දුරකථන අංකය හෝ ලිපිනය ඇතුලත් කර නොමැත");
                 return;
         }else if(mobileNo.length !=10){
             setSnackbarOpen(true)
-                setSnackMessage("වලංගු නොවන ජංගම දුරකථන අංකයක්");
+                setSnackMessage("වලංගු නොවන ජංගම දුරකථන අංකයකි");
                 return;
         }
         setOpenOrder(true)

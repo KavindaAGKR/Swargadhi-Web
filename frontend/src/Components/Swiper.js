@@ -28,7 +28,7 @@ export const SwiperSlider = ({imageArray, altName,styles}) => {
                 >
 
                 {
-                imageArray.map( (item, i) => (<SwiperSlide key={i}><img alt={altName}  src={item.src} width='100%' height='100%' style={{borderRadius:'15px'}}/></SwiperSlide>) )
+                imageArray.map( (item, i) => (<SwiperSlide key={i}><img alt={altName}  src={item.src} width='100%' height='100%' style={{borderRadius:'15px',objectFit:'cover'}}/></SwiperSlide>) )
                 }
             </Swiper>
   )

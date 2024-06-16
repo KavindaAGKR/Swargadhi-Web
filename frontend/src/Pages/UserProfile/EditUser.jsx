@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Grid } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Grid, Snackbar, Alert } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/slices/userSlice';
+
 
 const EditProfileDialog = ({ open, handleClose, userDetails }) => {
   const [user, setEditedUser] = useState(userDetails);
   const dispatch = useDispatch();
+  const [snackbarOpen, setSnackbarOpen] = useState(false); 
+  const [snackMessage, setSnackMessage] = useState('');
 
   useEffect(() => {
     if (userDetails) {
@@ -25,11 +28,13 @@ const EditProfileDialog = ({ open, handleClose, userDetails }) => {
 
   const handleUpdate = (updatedUser) => {
     console.log("Edited user details:", updatedUser);
-    // You can also dispatch the update to the redux store here
+
     dispatch(setUser(updatedUser));
   };
 
   const handleSave = async () => {
+
+
     try {
       const response = await fetch('http://localhost:5000/api/user/update', {
         method: 'PUT',
@@ -101,14 +106,17 @@ const EditProfileDialog = ({ open, handleClose, userDetails }) => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
+          
             <TextField
               name="mobileNumber"
-              label="Mobile Number" size='small'
+              label="Mobile Number" 
+              size='small'
               variant="outlined"
               fullWidth
               value={user.mobileNumber}
               onChange={handleChange}
             />
+            {/* <input type='number' value={user.mobileNumber} onChange={handleChange}/> */}
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -146,6 +154,22 @@ const EditProfileDialog = ({ open, handleClose, userDetails }) => {
         <Button onClick={handleClose}>Cancel</Button>
         <Button color="primary" variant="contained" onClick={handleSave}>Save</Button>
       </DialogActions>
+      <Snackbar
+                    open={snackbarOpen}
+                    autoHideDuration={3000}
+                    onClose={() => { setSnackbarOpen(false) }}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                    sx={{  width:'auto' }}
+                    >
+                    <Alert
+                        autoHideDuration={3000}
+                        onClose={() => { setSnackbarOpen(false) }}
+                        severity="error"
+                        variant="filled"
+                        >
+                        {snackMessage}
+                    </Alert>
+            </Snackbar>
     </Dialog>
   );
 };

@@ -126,7 +126,7 @@ const ProductCard = ({ product }) => {
                 </Stack>
                 <Stack height='50%' sx={{ padding: '0 10px' , overflowY:'unset'}} justifyContent='space-evenly'>
                     
-                    <Typography variant='h5' noWrap={false} sx={{fontWeight:'semiBold'}}>{itemName.en}</Typography>
+                    <Typography variant='h5' noWrap={true} sx={{fontWeight:'semiBold'}}>{itemName.en}</Typography>
                     <Typography  noWrap={false} >{itemName.si}</Typography>
                     <Typography variant='h6' color='success.main'>Rs. {price}</Typography>
                     <Stack direction='row' justifyContent='center' spacing={2} padding='0px 0px 5px 0px '>
@@ -187,7 +187,7 @@ const ProductCard = ({ product }) => {
                             <Stack direction={{xs:'column', sm:'row'}} justifyContent='space-between' mt={2} gap={10}>
                             <Stack>
                             <Typography variant='h6'>Description:</Typography>
-                            <Typography variant='body1'>{description.en}</Typography>
+                            <Typography variant='body1' textAlign='justify'>{description.en}</Typography>
                             </Stack>
                                 <Stack gap={5} margin={{xs:'auto', sm:'0'}} >
                                 <Button variant='contained'  color='success' sx={{padding:'5px 10px', width:'140px'}} onClick={handleAddToCart}>
