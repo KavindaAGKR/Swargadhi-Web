@@ -1,4 +1,3 @@
-
 import { Alert, Box, Breadcrumbs, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, Snackbar, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -41,10 +40,14 @@ export const CheckOutSi = () => {
 
 
     const handleOpenOrder = () =>{
-        if(mobileNo===undefined || (addressL1===undefined || addressL2===undefined || addressL1===''||addressL2==='')){
+        if(mobileNo===undefined ){
             setSnackbarOpen(true)
-                setSnackMessage("ජංගම දුරකථන අංකය හෝ ලිපිනය ඇතුලත් කර නොමැත");
-                return;
+            setSnackMessage("බෙදාහැරීම් විස්තර සදහා දුරකතන අංකය ඇතුලත් කරන්න");
+            return;
+        }else if((addressL1===undefined || addressL2===undefined || addressL1===''||addressL2==='')){
+            setSnackbarOpen(true)
+            setSnackMessage("බෙදාහැරීම් විස්තර සදහා ඔබේ ලිපිනය ඇතුලත් කරන්න");
+            return;
         }else if(!paymentMethod){
             setSnackbarOpen(true)
                 setSnackMessage("ගෙවීම් ක්‍රමයක් තෝරන්න");

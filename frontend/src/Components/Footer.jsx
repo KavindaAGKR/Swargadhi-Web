@@ -14,7 +14,7 @@ export const Footer = () => {
     
     return (
     
-        <AppBar position='static' sx={{ display: 'flex', justifyContent: 'center',alignItems:'center',backgroundColor:'#F3FFD0', width:'100%',padding:'20px 20px 20px 0px', color:'black' }} >
+        <AppBar position='static' sx={{ display: 'flex', justifyContent: 'center',alignItems:'center',backgroundColor:'#CBCBCB', width:'100%',padding:'20px 20px 20px 0px', color:'black' }} >
             
             <Stack direction={{sm:'row', xs:'column'}} justifyContent='space-between' >
                 
@@ -28,21 +28,21 @@ export const Footer = () => {
                 </Stack>
                 </Stack>
 
-                    <Stack direction='column'  spacing={0} sx={{padding:'25px'}} >
-                        <Typography variant='h6'>Quick Links</Typography>
-                    <Button variant='text' onClick={()=>{navigate('/')}}  sx={{justifyContent:'left'}}><KeyboardArrowRightIcon/>Home</Button>
-                    <Button variant='text' onClick={()=>navigate('/shop')} sx={{justifyContent:'left'}}><KeyboardArrowRightIcon/>Shop</Button>
-                    <Button variant='text' onClick={()=>navigate('/dispensary')} sx={{justifyContent:'left'}}><KeyboardArrowRightIcon/>Dispensary</Button>
-                    <Button variant='text' onClick={()=>navigate('/about')}  sx={{justifyContent:'left'}}><KeyboardArrowRightIcon/>About Us</Button>
-                    <Button variant='text' onClick={()=>navigate('/myaccount')}   sx={{justifyContent:'left'}}><KeyboardArrowRightIcon/>My Account</Button>
+                    <Stack direction='column'  spacing={0} sx={{padding:'25px', color:'black'}} >
+                    <Typography variant='h6' fontWeight='bold' pl='10px'>Quick Links</Typography>
+                    <Button variant='text' onClick={()=>{navigate('/')}}  sx={{justifyContent:'left', color:'black'}}><KeyboardArrowRightIcon/>Home</Button>
+                    <Button variant='text' onClick={()=>navigate('/shop')} sx={{justifyContent:'left', color:'black'}}><KeyboardArrowRightIcon/>Shop</Button>
+                    <Button variant='text' onClick={()=>navigate('/dispensary')} sx={{justifyContent:'left', color:'black'}}><KeyboardArrowRightIcon/>Dispensary</Button>
+                    <Button variant='text' onClick={()=>navigate('/about')}  sx={{justifyContent:'left', color:'black'}}><KeyboardArrowRightIcon/>About Us</Button>
+                    <Button variant='text' onClick={()=>navigate('/user')}   sx={{justifyContent:'left', color:'black' }}><KeyboardArrowRightIcon/>My Account</Button>
                     </Stack>
                 
                     <Stack direction='column' spacing={1} justifyContent="center" padding="25px">
-                    <Typography variant='h6'>Connect With Us</Typography>
-                    <Button variant='text' startIcon={<Call/>} sx={{justifyContent:'left'}}>081 7822142</Button>
-                    <Button variant='text' startIcon={<Email/>} sx={{justifyContent:'left'}}>swargadhi@gmail.com</Button>
-                    <Button variant='text' startIcon={<WhatsApp/>} sx={{justifyContent:'left'}}>071 1947550</Button>
-                    <Button variant='text' startIcon={<Facebook/>} sx={{justifyContent:'left'}} href='https://web.facebook.com/profile.php?id=100063950014549'>ස්වර්ගධී ආයුර්වේද නිෂ්පාදන</Button>
+                    <Typography variant='h6' fontWeight='bold'>Connect With Us</Typography>
+                    <Button variant='text' startIcon={<Call/>} sx={{justifyContent:'left', color:'black'}}>081 7822142</Button>
+                    <Button variant='text' startIcon={<Email/>} sx={{justifyContent:'left', color:'black'}}>swargadhi@gmail.com</Button>
+                    <Button variant='text' startIcon={<WhatsApp/>} sx={{justifyContent:'left', color:'black'}}>071 1947550</Button>
+                    <Button variant='text' startIcon={<Facebook/>} sx={{justifyContent:'left', color:'black'}} href='https://web.facebook.com/profile.php?id=100063950014549'>ස්වර්ගධී ආයුර්වේද නිෂ්පාදන</Button>
                     </Stack>
                 
                 </Stack>

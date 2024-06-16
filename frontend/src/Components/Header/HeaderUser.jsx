@@ -94,20 +94,20 @@ export const HeaderUser = ({user, isSinhalaTrue}) => {
                 
                 {
                     isSinhalaTrue?(
-                    <Stack width='200px'>
-                    <Button variant="text" onClick={() => navigate('/user', { state: { select: "MyDetails" } })}>මගේ විස්තර</Button>
-                    <Button variant="text" onClick={() => navigate('/user', { state: { select: 'MyOrders' } })}>මගේ ඇණවුම්</Button>
-                    <Button variant="text" onClick={() => navigate('/user', { state: { select: 'Supply' } })}>අමුද්‍රව්‍ය සපයන්න</Button>
-                    <Button variant="text" onClick={() => navigate('/user', { state: { select: 'Feedback' } })}>අදහස් දක්වන්න</Button>
-                    <Button sx={{ width: '150px', m: '16px' }} variant="contained" color="error" onClick={handleSignOut}>ඉවත් වන්න</Button>
+                    <Stack  alignItems='start' gap={1} sx={{ width: '200px', m: '16px' }}>
+                    <Button variant="text" sx={{color:'black'}} onClick={() => navigate('/user', { state: { select: "MyDetails" } })}>මගේ විස්තර</Button>
+                    <Button variant="text" sx={{color:'black'}} onClick={() => navigate('/user', { state: { select: 'MyOrders' } })}>මගේ ඇණවුම්</Button>
+                    <Button variant="text" sx={{color:'black'}} onClick={() => navigate('/user', { state: { select: 'Supply' } })}>අමුද්‍රව්‍ය සපයන්න</Button>
+                    <Button variant="text" sx={{color:'black'}} onClick={() => navigate('/user', { state: { select: 'Feedback' } })}>අදහස් දක්වන්න</Button>
+                    <Button sx={{ width: '150px' }} variant="contained" color="error" onClick={handleSignOut}>ඉවත් වන්න</Button>
                 </Stack>
                     ):(
-                        <Stack width='200px'>
-                    <Button variant="text" onClick={() => navigate('/user', { state: { select: "MyDetails" } })}>My Details</Button>
-                    <Button variant="text" onClick={() => navigate('/user', { state: { select: 'MyOrders' } })}>My Orders</Button>
-                    <Button variant="text" onClick={() => navigate('/user', { state: { select: 'Supply' } })}>Supply Material</Button>
-                    <Button variant="text" onClick={() => navigate('/user', { state: { select: 'Feedback' } })}>Send Feedback</Button>
-                    <Button sx={{ width: '150px', m: '16px' }} variant="contained" color="error" onClick={handleSignOut}>Sign Out</Button>
+                        <Stack alignItems='start' gap={1} sx={{ width: '200px', m: '16px' }}>
+                    <Button variant="text" sx={{color:'black'}}  onClick={() => navigate('/user', { state: { select: "MyDetails" } })}>My Details</Button>
+                    <Button variant="text" sx={{color:'black'}}  onClick={() => navigate('/user', { state: { select: 'MyOrders' } })}>My Orders</Button>
+                    <Button variant="text" sx={{color:'black'}}  onClick={() => navigate('/user', { state: { select: 'Supply' } })}>Supply Material</Button>
+                    <Button variant="text" sx={{color:'black'}}  onClick={() => navigate('/user', { state: { select: 'Feedback' } })}>Send Feedback</Button>
+                    <Button sx={{ width: '150px' }} variant="contained" color="error" onClick={handleSignOut}>Sign Out</Button>
                 </Stack>
                     )
                 

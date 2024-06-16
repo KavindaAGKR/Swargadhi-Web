@@ -40,10 +40,14 @@ export const CheckOutEn = () => {
 
 
     const handleOpenOrder = () =>{
-        if(mobileNo===undefined || (addressL1===undefined || addressL2===undefined || addressL1===''||addressL2==='')){
+        if(mobileNo===undefined ){
             setSnackbarOpen(true)
-                setSnackMessage("Mobile number or Address unavailable");
-                return;
+            setSnackMessage("Enter the mobile number in the delivery details");
+            return;
+        }else if((addressL1===undefined || addressL2===undefined || addressL1===''||addressL2==='')){
+            setSnackbarOpen(true)
+            setSnackMessage("Enter your address in the delivery details");
+            return;
         }else if(!paymentMethod){
             setSnackbarOpen(true)
                 setSnackMessage("Select a payment method");

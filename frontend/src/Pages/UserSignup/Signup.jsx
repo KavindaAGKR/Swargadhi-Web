@@ -88,21 +88,21 @@ export const Signup = () => {
 
       <div>
         
-      <Container justifyContent='center' sx={{display:'flex' ,margin:'25px auto', alignSelf:'center',}} >
+      <Container justifyContent='center' sx={{display:'flex' ,margin:'20px auto', alignSelf:'center',}} >
       <Paper sx={{
-                    borderRadius: '35px', height:'700px'
+                    borderRadius: '35px', height:'670px'
                 }} elevation={20} >
             <Stack direction='row' margin='auto' justifyContent='center' >
-            <Stack  sx={{display:{xs:'none', sm:'flex'},position:'relative', width:'50%', height:'700px'}} >
+            <Stack  sx={{display:{xs:'none', sm:'flex'},position:'relative', width:'50%', height:'670px'}} >
                   <img style={{position:'relative',zIndex:'10', height:'100%', width:'95%', maxHeight:'100%'}} src={signpng} alt="The signup"  />
                   <img style={{position:'absolute', zIndex:'1',height:'100%',width:'100%',  maxHeight:'100%',  }} src={signback} alt="The signup"  />
               </Stack>
             
-              <Stack sx={{width:{xs:'100%', sm:'50%'}, position:'relative', padding:'25px 0'}}  justifyContent="center" alignItems="center" direction='column' spacing={2} >
-              <Stack  width='100%' justifyContent='end' alignItems='end' onClick={()=>navigate('/')}>
-                                <IconButton><CancelIcon/></IconButton>
+              <Stack sx={{width:{xs:'100%', sm:'50%'}, position:'relative'}}  justifyContent="start" alignItems="center" direction='column' spacing={2} >
+              <Stack  width='100%' justifyContent='end' alignItems='end' sx={{paddingRight:'15px', pt:'15px'}} onClick={()=>navigate('/')}>
+                                <IconButton ><CancelIcon/></IconButton>
                             </Stack>      
-                <img alt='Swargadhi' src={logo}  style={{width:'80%', marginBottom:'10px'}}/>
+                <img alt='Swargadhi' src={logo}  style={{width:'70%', margin:'0 0 0 0'}}/>
                 <Typography variant='h4' color='success.main'>SignUp</Typography>
                 <TextField placeholder='First Name' variant="standard"  margin="normal" required style={{width:'80%', marginTop:'20px'}}
                 value={firstName}

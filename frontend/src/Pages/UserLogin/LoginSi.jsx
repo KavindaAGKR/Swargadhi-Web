@@ -42,11 +42,6 @@ export const LoginSi = () => {
 
     const handleLogin = async () => {
     
-    if (!password) {
-        setErrorPW(true)
-        setErrorPWMsg('මුරපදය ඇතුළත් කරන්න!')
-        return;
-    }
 
     const emailType = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!emailType.test(email) || !email) {
@@ -55,6 +50,11 @@ export const LoginSi = () => {
         return;
     }
     
+    if (!password) {
+        setErrorPW(true)
+        setErrorPWMsg('මුරපදය ඇතුළත් කරන්න!')
+        return;
+    }
 
     try {
         const response = await axios.post('http://localhost:5000/api/user/login', {
@@ -103,12 +103,12 @@ export const LoginSi = () => {
     
     <div>
         
-    <Container justifyContent='center' sx={{display:'flex' ,margin:'50px auto', alignSelf:'center',}} >
+    <Container justifyContent='center' sx={{display:'flex' ,margin:'25px auto', alignSelf:'center',}} >
                 <Paper sx={{
-                    borderRadius: '35px', height:'600px'
+                    borderRadius: '35px', height:'650px'
                 }} elevation={20} >
                     <Stack direction='row' margin='auto' justifyContent='center' alignItems='center'>
-                        <Stack  sx={{display:{xs:'none', sm:'flex'},position:'relative', width:'50%', height:'600px'}} >
+                        <Stack  sx={{display:{xs:'none', sm:'flex'},position:'relative', width:'50%', height:'650px'}} >
                             <img style={{position:'relative',zIndex:'10', height:'100%', width:'95%', maxHeight:'100%'}} src={signpng} alt="The signup"  />
                             <img style={{position:'absolute', zIndex:'1',height:'100%',width:'100%',  maxHeight:'100%',  }} src={signback} alt="The signup"  />
                         </Stack>
