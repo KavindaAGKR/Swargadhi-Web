@@ -26,7 +26,7 @@ export const CheckOutSi = () => {
     const [addressL2, setAddressL2] = useState(user.deliveryAddress?.addressL2);
     const [addressL3, setAddressL3] = useState(user.deliveryAddress?.addressL3);
     const [paymentMethod, setPaymentMethod] = useState('cashOnDelivery');
-
+    const [error, setError] = useState(false);
 
     const [snackbarOpen, setSnackbarOpen] = useState(false); 
     const [snackMessage, setSnackMessage] = useState('');
@@ -41,13 +41,9 @@ export const CheckOutSi = () => {
 
 
     const handleOpenOrder = () =>{
-        if(mobileNo===undefined || (addressL1===undefined || addressL2===undefined)){
+        if(mobileNo===undefined || (addressL1===undefined || addressL2===undefined || addressL1===''||addressL2==='')){
             setSnackbarOpen(true)
                 setSnackMessage("ජංගම දුරකථන අංකය හෝ ලිපිනය ඇතුලත් කර නොමැත");
-                return;
-        }else if(mobileNo.length !=10){
-            setSnackbarOpen(true)
-                setSnackMessage("වලංගු නොවන ජංගම දුරකථන අංකයකි");
                 return;
         }
         setOpenOrder(true)
@@ -138,11 +134,11 @@ export const CheckOutSi = () => {
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>දුරකථන අංකය</TableCell>
-                                        <TableCell>{mobileNo}</TableCell>
+                                        <TableCell>{mobileNo || "___________"}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>බෙදා හැරීමේ ලිපිනය</TableCell>
-                                        <TableCell>{ [addressL1, addressL2, addressL3].filter(Boolean).join(', ') }</TableCell>
+                                        <TableCell>{ [addressL1, addressL2, addressL3].filter(Boolean).join(', ') || "___________"}</TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
@@ -198,7 +194,22 @@ export const CheckOutSi = () => {
                 <Typography variant='h5' margin='10px'>බෙදා හැරීමේ විස්තර ඇතුළත් කරන්න</Typography>
                 <DialogContent>
                     <Stack gap={2}>
-                        <TextField label="දුරකථන අංකය" placeholder="දුරකථන අංකය" defaultValue={mobileNo} type="number" inputProps={{ maxLength: 2 }} onChange={(e) => setMobileNo(e.target.value)} />
+                        <TextField 
+                        label="දුරකථන අංකය" 
+                        placeholder="දුරකථන අංකය" 
+                        defaultValue={mobileNo} 
+                        type="number" 
+                        onChange={(e) => {
+                            setMobileNo(e.target.value);
+                             if(e.target.value.length !==10)
+                                {setError(true);}
+                             else
+                                {setError(false);}}} 
+                        error={error}
+                        helperText={error ? 'වැරදි ජංගම දුරකථන අංකයක්' : 'ඉලක්කම් 10ක ජංගම දුරකථන අංකය ඇතුලත් කරන්න'}
+                        sx={{
+                            "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {display: "none",},
+                           }} />
                         <TextField placeholder="ලිපිනය පළමු පේලිය" defaultValue={addressL1} onChange={(e) => setAddressL1(e.target.value)} />
                         <TextField placeholder="ලිපිනය දෙවන පේලිය" defaultValue={addressL2} onChange={(e) => setAddressL2(e.target.value)} />
                         <TextField placeholder="ලිපිනය තෙවන පේලිය" defaultValue={addressL3} onChange={(e) => setAddressL3(e.target.value)} />
