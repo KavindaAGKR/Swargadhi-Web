@@ -56,7 +56,8 @@ export const Signup = () => {
         setErrorPWMsg('Password must contain atleast one capital letter, lowercase letter, and a number');
         return;
     }
-        if (password !== password2) {
+        
+    if (password !== password2) {
           setErrorPW2(true);
           setErrorPW(true);
             setErrorPW2Msg("Passwords do NOT match")
@@ -129,7 +130,7 @@ export const Signup = () => {
 
                 <TextField placeholder='Email' variant="standard"  margin="normal" type='text' required style={{width:'80%'}}
                     value={email}
-                    onChange={(email)=>{setEmail(email.target.value); console.log('email: ' + email)}}
+                    onChange={(email)=>{setEmail(email.target.value); setEmailError(false)}}
                     error={emailError}
                         helperText={emailError ? errorEmailMsg : ''}
                         InputProps={{
@@ -145,7 +146,7 @@ export const Signup = () => {
                 type={showPassword ? 'text' : 'password'}
                 required style={{width:'80%'}}
                   value={password}
-                  onChange={(pw)=>{setPassword(pw.target.value); console.log('password: '+ password)}}
+                  onChange={(pw)=>{setPassword(pw.target.value); setErrorPW(false)}}
                       error = {errorPW}
                       helperText={errorPW ? errorPWMsg : ''}
                       InputProps={{
@@ -172,7 +173,7 @@ export const Signup = () => {
                  type={showPassword2 ? 'text' : 'password'}
                  required style={{width:'80%', marginBottom:'25px'}}
                     value={password2}
-                    onChange={(pw2)=>{setPw2(pw2.target.value); console.log('Re entered password: ' + password2)}}
+                    onChange={(pw2)=>{setPw2(pw2.target.value); setErrorPW2(false)}}
                     error={errorPW2}
                                 helperText={errorPW2 ? errorPW2Msg : ''}
                     InputProps={{
@@ -204,13 +205,14 @@ export const Signup = () => {
                                 onClose={() => { setSnackBarOpen(false); if (issignedup) { navigate('/login') } }}
                                 // message={snackbarMessage}
                                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                                sx={{marginTop:"150px"}}
+                                
                                 
                             >
                                 <Alert
                                 onClose={() => { setSnackBarOpen(false); if (issignedup) { navigate('/login') } }}
                                 severity={issignedup ? "success" : "error"}
                                 variant="filled"
+                                sx={{marginTop:'50px'}}
                                 >
                                 
                                 {snackbarMessage}

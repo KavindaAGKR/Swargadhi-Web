@@ -127,7 +127,7 @@ export const Login = () => {
                             <img style={{position:'relative',zIndex:'10', height:'100%', width:'95%', maxHeight:'100%'}} src={signpng} alt="The signup"  />
                             <img style={{position:'absolute', zIndex:'1',height:'100%',width:'100%',  maxHeight:'100%',  }} src={signback} alt="The signup"  />
                         </Stack>
-                        <Stack sx={{width:{xs:'100%', sm:'50%'}, height:'100%', position:'relative', padding:'0p'}}  justifyContent='start' alignItems="center" direction='column' spacing={2} >
+                        <Stack sx={{width:{xs:'100%', sm:'50%'}, position:'relative', padding:'0p'}}  alignItems="center" direction='column' spacing={2} >
                             <Stack  width='100%' justifyContent='end' alignItems='end' sx={{paddingRight:'15px', pt:'15px'}} onClick={()=>navigate('/')}>
                                 <IconButton><CancelIcon/></IconButton>
                             </Stack>
@@ -162,7 +162,7 @@ export const Login = () => {
                                 helperText={errorPW ? errorPWMsg : ''}
                                 style={{ width: '80%' }}
                                 value={password}
-                                onChange={(e) => { setPassword(e.target.value) }}
+                                onChange={(e) => { setPassword(e.target.value); setErrorPW(false); }}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position='start'>
@@ -203,7 +203,7 @@ export const Login = () => {
                                     onClose={() => { setSnackbarOpen(false); if (isLogin) { navigate('/') } }}
                                     severity={isLogin ? "success" : "error"}
                                     variant="filled"
-                                    sx={{marginTop:'150px'}}
+                                    sx={{marginTop:'50px'}}
                                     >
                                     {snackMessage}
                                 </Alert>

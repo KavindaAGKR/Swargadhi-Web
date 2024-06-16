@@ -147,7 +147,7 @@ export const LoginSi = () => {
                                 helperText={errorPW ? errorPWMsg : ''}
                                 style={{ width: '80%' }}
                                 value={password}
-                                onChange={(e) => { setPassword(e.target.value) }}
+                                onChange={(e) => { setPassword(e.target.value); setErrorPW(false); }}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position='start'>
@@ -188,7 +188,7 @@ export const LoginSi = () => {
                                     onClose={() => { setSnackbarOpen(false); if (isLogin) { navigate('/') } }}
                                     severity={isLogin ? "success" : "error"}
                                     variant="filled"
-                                    sx={{marginTop:'150px'}}
+                                    sx={{marginTop:'50px'}}
                                     >
                                     {snackMessage}
                                 </Alert>
