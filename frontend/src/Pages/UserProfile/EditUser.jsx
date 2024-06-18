@@ -84,8 +84,8 @@ const EditProfileDialog = ({ open, handleClose, userDetails }) => {
   const maxNumber = 10000000000;
 
   return (
-    <Dialog open={open} onClose={handleClose}>
-      <DialogTitle >Edit Profile</DialogTitle>
+    <Dialog open={open} onClose={handleClose} PaperProps={{ sx: { borderRadius: "25px" } }}>
+      <DialogTitle m='25px 0px'>Edit Profile</DialogTitle>
       <DialogContent >
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
@@ -173,9 +173,9 @@ const EditProfileDialog = ({ open, handleClose, userDetails }) => {
           </Grid>
         </Grid>
       </DialogContent>
-      <DialogActions>
+      <DialogActions sx={{margin:'20px'}}>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button color="primary" variant="contained" onClick={handleSave}>Save</Button>
+        <Button color='success' variant="contained" onClick={handleSave}>Save</Button>
       </DialogActions>
       
     </Dialog>

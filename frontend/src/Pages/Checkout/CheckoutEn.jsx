@@ -142,11 +142,11 @@ export const CheckOutEn = () => {
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>Mobile Number</TableCell>
-                                        <TableCell>{mobileNo || "___________"} </TableCell>
+                                        <TableCell>{mobileNo || "Add a phone number"} </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>Delivery Address</TableCell>
-                                        <TableCell>{ [addressL1, addressL2, addressL3].filter(Boolean).join(', ') || "___________"}</TableCell>
+                                        <TableCell>{ [addressL1, addressL2, addressL3].filter(Boolean).join(', ') || "Add an address"}</TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
@@ -198,8 +198,8 @@ export const CheckOutEn = () => {
                 </Stack>
             </Stack>
             <Footer />
-            <Dialog open={openDialog} >
-            <Typography variant='h5' margin='10px 50px'>Enter Delivery Details</Typography>
+            <Dialog open={openDialog} PaperProps={{ sx: { borderRadius: "25px" } }}>
+            <Typography variant='h5' margin={{xs:'20px 40px', sm:'20px 100px'}}>Enter Delivery Details</Typography>
                 <DialogContent>
                     <Stack gap={2}>
                         <TextField 
@@ -222,7 +222,7 @@ export const CheckOutEn = () => {
                         <TextField placeholder="Address Line 1" defaultValue={addressL1} onChange={(e) => setAddressL1(e.target.value)} />
                         <TextField placeholder="Address Line 2" defaultValue={addressL2} onChange={(e) => setAddressL2(e.target.value)} />
                         <TextField placeholder="Address Line 3" defaultValue={addressL3} onChange={(e) => setAddressL3(e.target.value)} />
-                        <Button variant="contained" color='success' sx={{width:'150px', margin:'auto'}} 
+                        <Button variant="contained" color='success' sx={{width:'150px', margin:'20px auto'}} 
                         onClick={() => (
                             !error ? setOpen(false): ('') )}>Save Details</Button>
                     </Stack>
@@ -231,16 +231,16 @@ export const CheckOutEn = () => {
 
             <Dialog
         open={open}
-        
+        PaperProps={{ sx: { borderRadius: "25px" } }}
         
       >
-        <DialogTitle width={{xs:'250px', sm:'400px'}}>
+        <DialogTitle width={{xs:'250px', sm:'500px'}} sx={{margin:'10px 0 0 0px'}}>
           {"Confirm Your Order?"}
         </DialogTitle>
         
-        <DialogActions>
+        <DialogActions sx={{margin:'15px 20px'}}>
           <Button  onClick={()=>setOpenOrder(false)}>Cancel</Button>
-          <Button  autoFocus onClick={handlePlaceOrder}>
+          <Button variant='contained' color='success' autoFocus onClick={handlePlaceOrder}>
             Confirm
           </Button>
         </DialogActions>

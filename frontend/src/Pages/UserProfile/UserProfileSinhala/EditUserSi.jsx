@@ -79,11 +79,13 @@ const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
   };
 
   return (
-    <Dialog open={open} onClose={handleClose}>
-      <DialogTitle >විස්තර වෙනස් කරන්න</DialogTitle>
+    <Dialog open={open} onClose={handleClose} sx={{ width:'100%' ,
+      height:'auto',  
+  }} PaperProps={{ sx: { borderRadius: "25px" } }}>
+      <DialogTitle m='25px 0px'>විස්තර වෙනස් කරන්න</DialogTitle>
       <DialogContent >
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={6} >
             <TextField
               name="firstName"
               label="මුල් නම"
@@ -168,9 +170,9 @@ const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
           </Grid>
         </Grid>
       </DialogContent>
-      <DialogActions>
+      <DialogActions sx={{margin:'20px'}}>
         <Button onClick={handleClose}>ඉවත් වන්න</Button>
-        <Button color="primary" variant="contained" onClick={handleSave}>සුරකින්න</Button>
+        <Button color='success' variant="contained" onClick={handleSave}>සුරකින්න</Button>
       </DialogActions>
     </Dialog>
   );

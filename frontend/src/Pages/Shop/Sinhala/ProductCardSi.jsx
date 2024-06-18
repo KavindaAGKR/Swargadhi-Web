@@ -145,7 +145,7 @@ const ProductCardSi = ({ product }) => {
             {/* <Dialog open={openMore} onClose={() => setOpenMore(false)} sx={{ width:{xs:'300px',sm:'500px', lg:'700px' }, */}
             <Dialog open={openMore} onClose={() => setOpenMore(false)} sx={{ width:'100%' ,
                                 height:'auto', margin:'auto'
-                            }} >
+                            }} PaperProps={{ sx: { borderRadius: "25px" } }}>
                     <DialogContent  >
                                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                                 <IconButton onClick={()=>setOpenMore(false)} color='success' ><CancelIcon sx={{ fontSize: 25 , }}/></IconButton>

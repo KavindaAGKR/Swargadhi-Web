@@ -120,8 +120,8 @@ export const CartEn = () => {
                                     </Grid>
                                 </Grid>
 
-                                <Stack margin='25px auto' width='auto'>
-                                    <Button variant='contained' onClick={()=> {
+                                <Stack margin='25px auto' width='250px'>
+                                    <Button variant='contained' color='success' onClick={()=> {
                                         HandleCheckout();
                                     }}>Proceed to Checkout</Button>
                                 </Stack>

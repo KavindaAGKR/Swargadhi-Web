@@ -141,11 +141,11 @@ export const CheckOutSi = () => {
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>දුරකථන අංකය</TableCell>
-                                        <TableCell>{mobileNo || "___________"}</TableCell>
+                                        <TableCell>{mobileNo || "දුරකථන අංකයක් එක් කරන්න"}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>බෙදා හැරීමේ ලිපිනය</TableCell>
-                                        <TableCell>{ [addressL1, addressL2, addressL3].filter(Boolean).join(', ') || "___________"}</TableCell>
+                                        <TableCell>{ [addressL1, addressL2, addressL3].filter(Boolean).join(', ') || "ලිපිනයක් එක් කරන්න"}</TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
@@ -197,8 +197,8 @@ export const CheckOutSi = () => {
                 </Stack>
             </Stack>
             <Footer />
-            <Dialog open={openDialog} >
-                <Typography variant='h5' margin='10px'>බෙදා හැරීමේ විස්තර ඇතුළත් කරන්න</Typography>
+            <Dialog open={openDialog} PaperProps={{ sx: { borderRadius: "25px" } }}>
+                <Typography variant='h5' margin={{xs:'20px', sm:'20px 60px'}}>බෙදා හැරීමේ විස්තර ඇතුළත් කරන්න</Typography>
                 <DialogContent>
                     <Stack gap={2}>
                         <TextField 
@@ -220,7 +220,7 @@ export const CheckOutSi = () => {
                         <TextField placeholder="ලිපිනය පළමු පේලිය" defaultValue={addressL1} onChange={(e) => setAddressL1(e.target.value)} />
                         <TextField placeholder="ලිපිනය දෙවන පේලිය" defaultValue={addressL2} onChange={(e) => setAddressL2(e.target.value)} />
                         <TextField placeholder="ලිපිනය තෙවන පේලිය" defaultValue={addressL3} onChange={(e) => setAddressL3(e.target.value)} />
-                        <Button variant="contained" color='success' sx={{width:'150px', margin:'auto'}} 
+                        <Button variant="contained" color='success' sx={{width:'200px', margin:'20px auto'}} 
                         onClick={() => (
                             !error ? (setOpen(false)) : ('')
                         )
@@ -232,16 +232,16 @@ export const CheckOutSi = () => {
 
             <Dialog
         open={open}
-        
+        PaperProps={{ sx: { borderRadius: "25px" } }}
         
       >
-        <DialogTitle width={{xs:'250px', sm:'400px'}}>
+        <DialogTitle width={{xs:'250px', sm:'500px'}} sx={{margin:'20px 0 0 0'}}>
           {"ඔබ ඇණවුම තහවුරු කරනවාද?"}
         </DialogTitle>
         
-        <DialogActions>
+        <DialogActions sx={{margin:'15px 0px'}}>
           <Button  onClick={()=>setOpenOrder(false)}>අවලංගු කරන්න</Button>
-          <Button  autoFocus onClick={handlePlaceOrder}>
+          <Button variant='contained' color='success' autoFocus onClick={handlePlaceOrder}>
           තහවුරු කරන්න
           </Button>
         </DialogActions>

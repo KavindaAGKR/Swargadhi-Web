@@ -118,8 +118,8 @@ export const CartSi = () => {
                                     </Grid>
                                 </Grid>
 
-                                <Stack margin='25px auto' width='auto'>
-                                    <Button variant='contained' onClick={()=> {
+                                <Stack margin='25px auto' width='200px'>
+                                    <Button variant='contained' color='success' onClick={()=> {
                                         HandleCheckout();
                                     }}>ඇණවුම සකසන්න</Button>
                                 </Stack>

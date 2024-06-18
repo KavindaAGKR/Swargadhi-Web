@@ -72,7 +72,7 @@ export const SupplyMaterial = ({ user }) => {
 
     return (
         <Stack gap={2} sx={{ margin: '0 15px' }}>
-            <Typography variant='h5'>Supply Materials</Typography>
+            <Typography variant='h5' >Supply Materials</Typography>
             <Typography variant='body1'>If you can supply any kind of herbals, connect with us!</Typography>
             <Typography variant='body1' textAlign='justify' mb='50px'>
                 Swargadhi is ready to give a valuable offer for your supplies. Contact us if you have
@@ -92,10 +92,11 @@ export const SupplyMaterial = ({ user }) => {
                 aria-describedby='Dialog-description'
                 fullWidth
                 maxWidth='md'
+                PaperProps={{ sx: { borderRadius: "25px" } }}
             >
                 <DialogContent>
                     <Stack gap={2} sx={{ width: '100%' }} justifyContent='space-between' direction='column'>
-                        <Typography variant='h5' color='success.main' margin='auto'>Supply Materials</Typography>
+                        <Typography variant='h5' color='success.main' margin='20px auto'>Supply Materials</Typography>
                         <TextField
                         required
                         error={error && !materialData.materialName}
@@ -164,9 +165,9 @@ export const SupplyMaterial = ({ user }) => {
                         </Stack>
                     </Stack>
                 </DialogContent>
-                <DialogActions>
+                <DialogActions sx={{margin:'15px'}}>
                     <Button onClick={() => setOpen(false)}>Cancel</Button>
-                    <Button onClick={handleSubmit}>Submit</Button>
+                    <Button variant='contained' color='success' onClick={handleSubmit}>Submit</Button>
                 </DialogActions>
             </Dialog>
 

@@ -89,10 +89,11 @@ export const SupplyMaterialSi = ({ user }) => {
                 aria-describedby='Dialog-description'
                 fullWidth
                 maxWidth='md'
+                PaperProps={{ sx: { borderRadius: "25px" } }}
             >
                 <DialogContent>
                     <Stack gap={2} sx={{ width: '100%' }} justifyContent='space-between' direction='column'>
-                        <Typography variant='h5' color='success.main' margin='auto'>අමුද්‍රව්‍ය සපයන්න</Typography>
+                        <Typography variant='h5' color='success.main' margin='20px auto'>අමුද්‍රව්‍ය සපයන්න</Typography>
                         <TextField
                             required
                             error={error && !materialData.materialName}
@@ -160,9 +161,9 @@ export const SupplyMaterialSi = ({ user }) => {
                         </Stack>
                     </Stack>
                 </DialogContent>
-                <DialogActions>
+                <DialogActions sx={{margin:'15px'}}>
                     <Button onClick={() => setOpen(false)}>ඉවත් වන්න</Button>
-                    <Button onClick={handleSubmit}>සුරකින්න</Button>
+                    <Button variant='contained' color='success' onClick={handleSubmit}>සුරකින්න</Button>
                 </DialogActions>
             </Dialog>
             <Snackbar
