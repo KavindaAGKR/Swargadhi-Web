@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const multilingualSchema = new mongoose.Schema(
   {
     en: { type: String, required: true },
@@ -7,12 +6,10 @@ const multilingualSchema = new mongoose.Schema(
   },
   { _id: false }
 );
-
 const ayurvedicProductSchema = new mongoose.Schema(
   {
     productItemID: {
       type: String,
-     
     },
     itemName: {
       type: multilingualSchema,
@@ -35,14 +32,11 @@ const ayurvedicProductSchema = new mongoose.Schema(
     images: [
       
       { type: String }
-    
     ]
   },
   {
     timestamps: true,
   }
 );
-
 const AyurvedicProduct = mongoose.model("AyurvedicProduct", ayurvedicProductSchema);
-
 export default AyurvedicProduct;
