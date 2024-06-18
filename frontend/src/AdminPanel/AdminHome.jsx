@@ -40,20 +40,20 @@ return (
 
                 
                 <Drawer open={openDrawer} onClose={()=>setOpenDrawer(false)} >
-                <Stack direction='column' gap='10px' width='200px' margin='20px' >
+                <Stack direction='column' gap='10px' width='250px' margin='20px' >
                 <img src={logo} alt='Swargadhi logo' />
                 <Typography variant='h5' textAlign='center' >Admin Panel</Typography>
-                <Stack width='70%' gap={2} margin='auto'>
+                <Stack width='80%' gap={2} margin='auto'>
                     <Button variant='contained' color='success' onClick={()=>{navigate('');setOpenDrawer(false);}}>Dashboard</Button>
                     <Button variant='contained' color='success' onClick={()=>{navigate('orders');setOpenDrawer(false);}}>Orders</Button>
                     <Button variant='contained' color='success' onClick={()=>{navigate('products');setOpenDrawer(false);}}>products</Button>
-                    <Button variant='contained' color='success' onClick={()=>{navigate('salesreport');setOpenDrawer(false);}}  >Sales Report</Button>
-                    <Button variant='contained' color='success' onClick={()=>{navigate('doctor');setOpenDrawer(false);}}  >Doctor</Button>
-                    <Button variant='contained' color='success' onClick={()=>{navigate('treatment');setOpenDrawer(false);}}  >Treatment</Button>
-                    <Button variant='contained' color='success' onClick={()=>{navigate('users');setOpenDrawer(false);}}  >User</Button>
-                    <Button variant='contained' color='success' onClick={()=>{navigate('material');setOpenDrawer(false);}}>Material</Button>
-                    <Button variant='contained' color='success' onClick={()=>{navigate('messages');setOpenDrawer(false);}}  >Msg</Button>
-                    <Button variant='contained' color='success' onClick={()=>{handlSignout();setOpenDrawer(false);}}  >SignOut</Button>
+                    {/* <Button variant='contained' color='success' onClick={()=>{navigate('salesreport');setOpenDrawer(false);}}  >Sales Report</Button> */}
+                    <Button variant='contained' color='success' onClick={()=>{navigate('doctor');setOpenDrawer(false);}}  >Doctors</Button>
+                    <Button variant='contained' color='success' onClick={()=>{navigate('treatment');setOpenDrawer(false);}}  >Treatments</Button>
+                    <Button variant='contained' color='success' onClick={()=>{navigate('users');setOpenDrawer(false);}}  >User Details</Button>
+                    <Button variant='contained' color='success' onClick={()=>{navigate('material');setOpenDrawer(false);}}>Material suppliers</Button>
+                    <Button variant='contained' color='success' onClick={()=>{navigate('messages');setOpenDrawer(false);}}  >User Feedbacks</Button>
+                    <Button variant='contained' color='error' onClick={()=>{handlSignout();setOpenDrawer(false);}}  >SignOut</Button>
                 </Stack>
 </Stack >
                     </Drawer>
@@ -62,14 +62,14 @@ return (
 
 <Button variant='contained' color='success' onClick={()=>navigate('')}>Dashboard</Button>
 <Button variant='contained' color='success' onClick={()=>navigate('orders')}>Orders</Button>
-<Button variant='contained' color='success' onClick={()=>{navigate('products')}}>products</Button>
-<Button variant='contained' color='success' onClick={()=>navigate('salesreport')}  >Sales Report</Button>
-<Button variant='contained' color='success' onClick={()=>navigate('doctor')}  >Doctor</Button>
-<Button variant='contained' color='success' onClick={()=>navigate('treatment')}  >Treatment</Button>
-<Button variant='contained' color='success' onClick={()=>navigate('users')}  >User</Button>
+<Button variant='contained' color='success' onClick={()=>{navigate('products')}}>Products</Button>
+{/* <Button variant='contained' color='success' onClick={()=>navigate('salesreport')}  >Sales Report</Button> */}
+<Button variant='contained' color='success' onClick={()=>navigate('doctor')}  >Doctors</Button>
+<Button variant='contained' color='success' onClick={()=>navigate('treatment')}  >Treatments</Button>
+<Button variant='contained' color='success' onClick={()=>navigate('users')}  >User Details</Button>
 <Button variant='contained' color='success' onClick={()=>navigate('messages')}  >User Feedbacks</Button>
-<Button variant='contained' color='success' onClick={()=>navigate('material')}>Material</Button>
-<Button variant='contained' color='success' onClick={handlSignout}  >SignOut</Button>
+<Button variant='contained' color='success' onClick={()=>navigate('material')}>Material suppliers</Button>
+<Button variant='contained' color='error' onClick={handlSignout}  >SignOut</Button>
 </Stack >
 
             </Stack>

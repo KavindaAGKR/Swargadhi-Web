@@ -4,7 +4,7 @@ import logo from '../Images/logo.png'
 import { useNavigate } from 'react-router-dom'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MenuIcon from "@mui/icons-material/Menu";
-
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 
 import { useSelector, useDispatch } from 'react-redux';
 import {selectUser, selectIsLoggedIn} from '../redux/slices/userSlice'
@@ -15,8 +15,9 @@ import { Search } from '../Pages/Search/Search';
 import { HeaderUser } from './Header/HeaderUser';
 import { color } from 'framer-motion';
 
-
-
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import LocalHospitalOutlinedIcon from '@mui/icons-material/LocalHospitalOutlined';
+import Diversity3OutlinedIcon from '@mui/icons-material/Diversity3Outlined';
 
 export const MultilingualHeader = () => {
 
@@ -28,35 +29,20 @@ export const MultilingualHeader = () => {
 
 
     return(
-    <Stack justifyContent='end' alignItems='end' >
-        {/* {isSinhalaTrue ? (
-            <Stack direction={{md:'row'}}   gap={3} >
-            <MotionButton variant='text' color='success' onClick={()=>{navigate('/')}}>මුල් පිටුව</MotionButton>
-        <MotionButton variant='text' color='success' onClick={()=>navigate('/shop')}>මිල දී ගන්න</MotionButton>
-        <MotionButton variant='text' color='success' onClick={()=>navigate('/dispensary')}>වෛද්‍ය මධ්‍යස්ථානය ගැන</MotionButton>
-        <MotionButton variant='text' color='success' onClick={()=>navigate('/about')}>ස්වර්ගධී ගැන</MotionButton>
-            </Stack>
-        ):(
-            <Stack direction={{md:'row'}}   gap={3} >
-        <MotionButton variant='text' color='success' onClick={()=>{navigate('/')}}>Home</MotionButton>
-        <MotionButton variant='text' color='success' onClick={()=>navigate('/shop')}>Shop</MotionButton>
-        <MotionButton variant='text' color='success' onClick={()=>navigate('/dispensary')}>Dispensary</MotionButton>
-        <MotionButton variant='text' color='success' onClick={()=>navigate('/about')}>About Us</MotionButton>
-        </Stack>
-    )} */}
+    <Stack justifyContent={{xs:'left', md:'end'}} alignItems={{xs:'start', md:'end'}} >
             {isSinhalaTrue ? (
-            <Stack direction={{md:'row'}}  gap={3} >
-            <MotionButton variant='text' stylee={{color:'white'}} onClick={()=>{navigate('/')}}>මුල් පිටුව</MotionButton>
-        <MotionButton variant='text' stylee={{color:'white'}} onClick={()=>navigate('/shop')}>මිල දී ගන්න</MotionButton>
-        <MotionButton variant='text' stylee={{color:'white'}} onClick={()=>navigate('/dispensary')}>වෛද්‍ය මධ්‍යස්ථානය ගැන</MotionButton>
-        <MotionButton variant='text' stylee={{color:'white'}} onClick={()=>navigate('/about')}>ස්වර්ගධී ගැන</MotionButton>
+            <Stack direction={{md:'row'}}  gap={2}  textAlign='start' pl={{xs:'25px', sm:'50px'}}>
+            <MotionButton  variant='text' stylee={{color:{xs:'black', md:'white', justifyContent:'left'}}} onClick={()=>{navigate('/')}}><HomeOutlinedIcon sx={{mr:'10px', display:{md:'none'}}}/>මුල් පිටුව</MotionButton>
+        <MotionButton variant='text' stylee={{color:{xs:'black', md:'white', justifyContent:'left'}}} onClick={()=>navigate('/shop')}> <ShoppingBagOutlinedIcon sx={{mr:'10px', display:{md:'none'}}}/>මිල දී ගන්න</MotionButton>
+        <MotionButton variant='text' stylee={{color:{xs:'black', md:'white', justifyContent:'left'}}} onClick={()=>navigate('/dispensary')}><LocalHospitalOutlinedIcon sx={{mr:'10px', display:{md:'none'}}}/>වෛද්‍ය මධ්‍යස්ථානය ගැන</MotionButton>
+        <MotionButton variant='text' stylee={{color:{xs:'black', md:'white', justifyContent:'left'}}} onClick={()=>navigate('/about')}><Diversity3OutlinedIcon sx={{mr:'10px', display:{md:'none'}}}/>ස්වර්ගධී ගැන</MotionButton>
             </Stack>
         ):(
-            <Stack direction={{md:'row'}}   gap={3} >
-        <MotionButton variant='text' stylee={{color:'white'}} onClick={()=>{navigate('/')}}>Home</MotionButton>
-        <MotionButton variant='text' stylee={{color:'white'}} onClick={()=>navigate('/shop')}>Shop</MotionButton>
-        <MotionButton variant='text' stylee={{color:'white'}} onClick={()=>navigate('/dispensary')}>Dispensary</MotionButton>
-        <MotionButton variant='text' stylee={{color:'white'}} onClick={()=>navigate('/about')}>About Us</MotionButton>
+            <Stack direction={{md:'row'}}   gap={2} pl={{xs:'25px', sm:'50px'}}>
+        <MotionButton variant='text' stylee={{color:{xs:'black', md:'white', justifyContent:'left'}}} onClick={()=>{navigate('/')}}><HomeOutlinedIcon sx={{mr:'10px', display:{md:'none'}}}/>Home</MotionButton>
+        <MotionButton variant='text' stylee={{color:{xs:'black', md:'white', justifyContent:'left'}}} onClick={()=>navigate('/shop')}><ShoppingBagOutlinedIcon sx={{mr:'10px', display:{md:'none'}}}/>Shop</MotionButton>
+        <MotionButton variant='text' stylee={{color:{xs:'black', md:'white', justifyContent:'left'}}} onClick={()=>navigate('/dispensary')}><LocalHospitalOutlinedIcon sx={{mr:'10px', display:{md:'none'}}}/>Dispensary</MotionButton>
+        <MotionButton variant='text' stylee={{color:{xs:'black', md:'white', justifyContent:'left'}, textAlign:'left'}} onClick={()=>navigate('/about')}><Diversity3OutlinedIcon sx={{mr:'10px', display:{md:'none'}}}/>About Us</MotionButton>
         </Stack>
     )}
 
@@ -98,9 +84,9 @@ export const ResponsiveNav = (props) =>{
                 <MultilingualHeader />
                 <Divider />
                 {isSinhalaTrue ? (
-                                <MotionButton variant='contained' stylee={{height:'50px' , width:'150px', m:'auto'}} onClick={()=>dispatch(setSinhalaFalse(false))}>English</MotionButton>
+                                <MotionButton variant='outlined' color='success' stylee={{height:'auto' , width:'150px', m:'auto'}} onClick={()=>dispatch(setSinhalaFalse(false))}>English</MotionButton>
                             ):(
-                            <MotionButton variant='contained' stylee={{height:'50px', width:'150px', m:'auto'}} onClick={()=>dispatch(setSinhalaTrue(true))}>සිංහල</MotionButton>
+                            <MotionButton variant='outlined' color='success' stylee={{height:'auto', width:'150px', m:'auto'}} onClick={()=>dispatch(setSinhalaTrue(true))}>සිංහල</MotionButton>
                             )
                             }
             </Stack>

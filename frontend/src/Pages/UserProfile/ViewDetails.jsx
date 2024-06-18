@@ -146,7 +146,7 @@ export const ViewDetails = ({userId}) => {
     <Stack sx={{margin:'0 15px'}} alignSelf='center'>
         <Typography variant='h5'  >My Details</Typography>
     <Stack  sx={{ width: '100%',margin:'auto' }} justifyContent='center' alignItems='center' alignSelf='center'>
-    {(userDetails.mobileNumber==undefined || (userDetails.deliveryAddress==undefined || userDetails.deliveryAddress==null))?(
+    {(userDetails.mobileNumber===undefined || (userDetails.deliveryAddress===undefined || userDetails.deliveryAddress===null))?(
             <Stack direction='row' sx={{margin:'40px 0'}}><ErrorIcon color='error'/><Typography variant='body' color="error" textAlign='left' >By filling all the details below in your account, you may able to avoid any possible inconveniences in purchasing products.</Typography>
             </Stack>):("")}
             <Stack sx={{ width: '90%',    }}>

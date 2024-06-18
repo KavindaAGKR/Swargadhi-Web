@@ -27,7 +27,7 @@ export const CheckOutEn = () => {
     const [addressL2, setAddressL2] = useState(user.deliveryAddress?.addressL2);
     const [addressL3, setAddressL3] = useState(user.deliveryAddress?.addressL3);
     const [paymentMethod, setPaymentMethod] = useState('cashOnDelivery');
-
+    const [error, setError] = useState(false);
 
     const [snackbarOpen, setSnackbarOpen] = useState(false); 
     const [snackMessage, setSnackMessage] = useState('')
@@ -40,13 +40,17 @@ export const CheckOutEn = () => {
 
 
     const handleOpenOrder = () =>{
-        if(mobileNo===undefined || (addressL1===undefined || addressL2===undefined)){
+        if(mobileNo===undefined ){
             setSnackbarOpen(true)
-                setSnackMessage("Mobile number or Address unavailable");
-                return;
-        }else if(mobileNo.length !=10){
+            setSnackMessage("Enter the mobile number in the delivery details");
+            return;
+        }else if((addressL1===undefined || addressL2===undefined || addressL1===''||addressL2==='')){
             setSnackbarOpen(true)
-                setSnackMessage("Invalid mobile number");
+            setSnackMessage("Enter your address in the delivery details");
+            return;
+        }else if(!paymentMethod){
+            setSnackbarOpen(true)
+                setSnackMessage("Select a payment method");
                 return;
         }
         setOpenOrder(true)
@@ -138,11 +142,11 @@ export const CheckOutEn = () => {
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>Mobile Number</TableCell>
-                                        <TableCell>{mobileNo} </TableCell>
+                                        <TableCell>{mobileNo || "___________"} </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>Delivery Address</TableCell>
-                                        <TableCell>{ [addressL1, addressL2, addressL3].filter(Boolean).join(', ') }</TableCell>
+                                        <TableCell>{ [addressL1, addressL2, addressL3].filter(Boolean).join(', ') || "___________"}</TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
@@ -194,15 +198,33 @@ export const CheckOutEn = () => {
                 </Stack>
             </Stack>
             <Footer />
-            <Dialog open={openDialog} onClose={() => setOpen(false)}>
+            <Dialog open={openDialog} >
             <Typography variant='h5' margin='10px 50px'>Enter Delivery Details</Typography>
                 <DialogContent>
                     <Stack gap={2}>
-                        <TextField label="Mobile Number" helperText="Enter 10 digit mobile number" placeholder="Mobile Number" defaultValue={mobileNo} type="number" inputProps={{ maxLength: 2 }} onChange={(e) => setMobileNo(e.target.value)} />
+                        <TextField 
+                        label="Mobile Number" 
+                        placeholder="Mobile Number" 
+                        defaultValue={mobileNo} 
+                        type="number" 
+                        onChange={(e) => {
+                            setMobileNo(e.target.value);
+                             if(e.target.value.length !==10)
+                                {setError(true);}
+                             else
+                                {setError(false);}}} 
+                        error={error}
+                        helperText={error ? 'Invalid mobile number' : ''}
+                        sx={{
+                            "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {display: "none",},
+                           }}
+                        />
                         <TextField placeholder="Address Line 1" defaultValue={addressL1} onChange={(e) => setAddressL1(e.target.value)} />
                         <TextField placeholder="Address Line 2" defaultValue={addressL2} onChange={(e) => setAddressL2(e.target.value)} />
                         <TextField placeholder="Address Line 3" defaultValue={addressL3} onChange={(e) => setAddressL3(e.target.value)} />
-                        <Button variant="contained" color='success' sx={{width:'150px', margin:'auto'}} onClick={() => (setOpen(false))}>Save Details</Button>
+                        <Button variant="contained" color='success' sx={{width:'150px', margin:'auto'}} 
+                        onClick={() => (
+                            !error ? setOpen(false): ('') )}>Save Details</Button>
                     </Stack>
                 </DialogContent>
             </Dialog>

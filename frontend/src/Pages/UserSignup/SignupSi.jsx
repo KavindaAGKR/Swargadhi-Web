@@ -98,11 +98,11 @@ export const SignupSi = () => {
                   <img style={{position:'absolute', zIndex:'1',height:'100%',width:'100%',  maxHeight:'100%',  }} src={signback} alt="The signup"  />
               </Stack>
             
-              <Stack sx={{width:{xs:'100%', sm:'50%'}, position:'relative', padding:'25px 0'}}  justifyContent="center" alignItems="center" direction='column' spacing={2} >
+              <Stack sx={{width:{xs:'100%', sm:'50%'}, position:'relative', padding:'15px 0'}}   alignItems="center" direction='column' spacing={2} >
               <Stack  width='100%' justifyContent='end' alignItems='end' onClick={()=>navigate('/')}>
                                 <IconButton><CancelIcon/></IconButton>
                             </Stack>
-                <img alt='Swargadhi' src={logo}  style={{width:'80%', marginBottom:'10px'}}/>
+                <img alt='Swargadhi' src={logo}  style={{width:'70%', margin:'0px'}}/>
                 <Typography variant='h5' color='success.main'>ලියාපදිංචි වන්න</Typography>
                 <TextField placeholder='මුල් නම' variant="standard"  margin="normal" required style={{width:'80%', marginTop:'20px'}}
                 value={firstName}
@@ -129,7 +129,7 @@ export const SignupSi = () => {
 
                 <TextField placeholder='විද්යුත් තැපෑල' variant="standard"  margin="normal" type='text' required style={{width:'80%'}}
                     value={email}
-                    onChange={(email)=>{setEmail(email.target.value); console.log('email: ' + email)}}
+                    onChange={(email)=>{setEmail(email.target.value); setEmailError(false);}}
                     error={emailError}
                         helperText={emailError ? errorEmailMsg : ''}
                         InputProps={{
@@ -145,7 +145,7 @@ export const SignupSi = () => {
                 type={showPassword ? 'text' : 'password'}
                 required style={{width:'80%'}}
                   value={password}
-                  onChange={(pw)=>{setPassword(pw.target.value); console.log('password: '+ password)}}
+                  onChange={(pw)=>{setPassword(pw.target.value); setErrorPW(false);}}
                       error = {errorPW}
                       helperText={errorPW ? errorPWMsg : ''}
                       InputProps={{
@@ -170,9 +170,9 @@ export const SignupSi = () => {
                 />
                 <TextField placeholder='මුරපදය යළි ඇතුළු කරන්න' variant="standard"  margin="normal"
                  type={showPassword2 ? 'text' : 'password'}
-                 required style={{width:'80%', marginBottom:'25px'}}
+                 required style={{width:'80%', marginBottom:'15px'}}
                     value={password2}
-                    onChange={(pw2)=>{setPw2(pw2.target.value); console.log('Re entered password: ' + password2)}}
+                    onChange={(pw2)=>{setPw2(pw2.target.value); setErrorPW2(false);}}
                     error={errorPW2}
                                 helperText={errorPW2 ? errorPW2Msg : ''}
                     InputProps={{
@@ -204,13 +204,14 @@ export const SignupSi = () => {
                                 onClose={() => { setSnackBarOpen(false); if (issignedup) { navigate('/login') } }}
                                 
                                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                                sx={{marginTop:"550px"}}
+                                
                                 
                             >
                                 <Alert
                                 onClose={() => { setSnackBarOpen(false); if (issignedup) { navigate('/login') } }}
                                 severity={issignedup ? "success" : "error"}
                                 variant="filled"
+                                sx={{marginTop:'50px'}}
                                 >
                                 
                                 {snackbarMessage}

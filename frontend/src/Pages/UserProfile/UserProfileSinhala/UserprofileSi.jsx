@@ -152,7 +152,7 @@ export const UserProfileSi = () => {
                                     <UserOrdersSi userId={user._id} />
                                 </TabPanel>
                                 <TabPanel value='Supply' sx={{ width: '100%', padding: '0px' }}>
-                                    <SupplyMaterialSi userId={user._id} />
+                                    <SupplyMaterialSi user={user} />
                                 </TabPanel>
                                 <TabPanel value='Feedback' sx={{ width: '100%', padding: '0px' }}>
                                     <FeedbacksSi user={user} />

@@ -39,24 +39,24 @@ export const AdminDashboard = () => {
 
 
   return (
-    <Stack padding='25px'>
+    <Stack padding={{xs:'10px', sm:'25px'}}>
       <Typography variant='h4' textAlign='center'>Dashboard</Typography>
-      <Stack direction={{xs:'column', sm:'row'}} justifyContent='center' gap={{xs:5, sm:10, md:20}} sx={{backgroundColor:'white', padding:'10px', margin:'20px', borderRadius:'15px'}}>
-      <Stack direction='row'>
+      <Stack direction={{xs:'column', sm:'row'}} justifyContent='space-evenly' gap={{xs:5, sm:5, md:10}} sx={{backgroundColor:'white', padding:'10px', margin:'20px', borderRadius:'15px'}}>
+      <Stack direction='row' m='auto'>
         <img width='50px' height='50px' src={TotSales}></img>
         <Stack height='50px'>
         <Typography variant='h7' color='success.main'>Total Sales</Typography>
         <Typography>Rs. {totalSales}</Typography>
         </Stack>
       </Stack>
-      <Stack direction='row'>
+      <Stack direction='row' m='auto'>
         <img width='50px' height='50px' src={TotOrders}></img>
         <Stack height='50px'>
         <Typography variant='h7' color='success.main'>Total Orders</Typography>
         <Typography>{totalOrders}</Typography>
         </Stack>
       </Stack>
-      <Stack direction='row'>
+      <Stack direction='row' m='auto'>
         <img width='50px' height='50px' src={TotProducts}></img>
         <Stack height='50px'>
         <Typography variant='h7' color='success.main'>Total Products</Typography>
@@ -67,7 +67,7 @@ export const AdminDashboard = () => {
 
 
       <Stack>
-        <Typography variant='h7'>Latest Orders</Typography>
+        <Typography variant='h6' margin='20px 0px'>Latest Orders</Typography>
       <TableContainer style={{width:'100%', margin:'auto', backgroundColor:'white', borderRadius:'15px'}}>
       <Table >
         {/* <TableHead >

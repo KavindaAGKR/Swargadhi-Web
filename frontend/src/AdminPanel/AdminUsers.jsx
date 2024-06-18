@@ -57,7 +57,7 @@ export const AdminUsers = () => {
       <Typography variant='h4' textAlign='center' sx={{p:'25px'}}>User Management</Typography>
 
 
-    <TableContainer style={{width:'80%', margin:'auto'}}>
+    <TableContainer style={{width:'90%', margin:'auto'}}>
       <Table >
         <TableHead >
             <TableRow  > 

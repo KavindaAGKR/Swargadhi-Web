@@ -184,7 +184,7 @@ export const ViewDetailsSi = ({userId}) => {
                         <Grid item xs={3.5} sm={2.3}  alignSelf='center'>විද්යුත් තැපෑල:</Grid>
                         <Grid item xs={8} sx={{ ...detailStyles }}>{userDetails.email}</Grid>
                         <Grid item xs={3.5} sm={2.3} alignSelf='center'>දුරකථන අංකය:</Grid>
-                        <Grid item sm={3.5} xs={7} sx={{ ...detailStyles }}>{userDetails.mobileNumber}</Grid>
+                        <Grid item sm={3.5} xs={7} sx={{ ...detailStyles }}>{userDetails.mobileNumber || "-----"}</Grid>
                         <Grid item container rowGap={2} columnGap={1}>ලිපිනය:
                             <Grid item xs={10} />
                             <Grid item sm={2.3} alignSelf='center'>පළමු පේලිය:</Grid>

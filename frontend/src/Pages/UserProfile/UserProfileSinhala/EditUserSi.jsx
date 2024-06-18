@@ -6,8 +6,7 @@ import { setUser } from '../../../redux/slices/userSlice';
 const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
   const [user, setEditedUser] = useState(userDetails);
   const dispatch = useDispatch();
-  const [snackbarOpen, setSnackbarOpen] = useState(false); 
-  const [snackMessage, setSnackMessage] = useState('');
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (userDetails) {
@@ -23,15 +22,30 @@ const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setEditedUser({ ...user, [name]: value });
+
+    if (name === 'mobileNumber' && value.length !== 10) {
+      setError(true);
+    }else{
+      setError(false);
+    }
   };
+
+
 
   const handleUpdate = (updatedUser) => {
     console.log("Edited user details:", updatedUser);
-    // You can also dispatch the update to the redux store here
     dispatch(setUser(updatedUser));
   };
 
+
+
+
   const handleSave = async () => {
+    if (user.mobileNumber.length !== 10) {
+      
+      setError(true);
+      return;
+    }
 
     try {
       const response = await fetch('http://localhost:5000/api/user/update', {
@@ -107,14 +121,20 @@ const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
                         
           <Grid item xs={12} sm={6}>
           <TextField 
-          name="mobileNumber" 
-          label="දුරකථන අංකය" 
-          placeholder="දුරකථන අංකය" 
-          defaultValue={user.mobileNumber} 
-         type='text'
-       
-          onChange={handleChange} />
-        
+              name="mobileNumber" 
+              label="දුරකථන අංකය" 
+              size='small'
+              variant="outlined"
+              type='number'
+              error={error}
+              helperText={error ? 'Invalid mobile number' : ''}
+              fullWidth
+              defaultValue={user.mobileNumber}
+              onChange={handleChange}
+              sx={{
+                "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {display: "none",},
+               }}
+          />
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -152,22 +172,6 @@ const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
         <Button onClick={handleClose}>ඉවත් වන්න</Button>
         <Button color="primary" variant="contained" onClick={handleSave}>සුරකින්න</Button>
       </DialogActions>
-      <Snackbar
-                    open={snackbarOpen}
-                    autoHideDuration={3000}
-                    onClose={() => { setSnackbarOpen(false) }}
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                    sx={{  width:'auto' }}
-                    >
-                    <Alert
-                        autoHideDuration={3000}
-                        onClose={() => { setSnackbarOpen(false) }}
-                        severity="error"
-                        variant="filled"
-                        >
-                        {snackMessage}
-                    </Alert>
-            </Snackbar>
     </Dialog>
   );
 };

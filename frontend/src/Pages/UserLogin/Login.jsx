@@ -56,11 +56,6 @@ export const Login = () => {
 
     const handleLogin = async () => {
     
-    if (!password) {
-        setErrorPW(true)
-        setErrorPWMsg('Enter the password!')
-        return;
-    }
 
     const emailType = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!emailType.test(email) || !email) {
@@ -68,7 +63,12 @@ export const Login = () => {
         setEmailErrorMsg('Enter a valid email address!')
         return;
     }
-    
+    if (!password) {
+        setErrorPW(true)
+        setErrorPWMsg('Enter the password!')
+        return;
+    }
+
 
     try {
         const response = await axios.post('http://localhost:5000/api/user/login', {
@@ -118,17 +118,17 @@ export const Login = () => {
     
     <div>
         
-    <Container justifyContent='center' sx={{display:'flex' ,margin:'50px auto', alignSelf:'center',}} >
+    <Container justifyContent='center' sx={{display:'flex' ,margin:'25px auto', alignSelf:'center',}} >
                 <Paper sx={{
-                    borderRadius: '35px', height:'600px'
+                    borderRadius: '35px', height:'650px'
                 }} elevation={20} >
-                    <Stack direction='row' margin='auto' justifyContent='center' alignItems='center'>
-                        <Stack  sx={{display:{xs:'none', sm:'flex'},position:'relative', width:'50%', height:'600px'}} >
+                    <Stack direction='row' margin='auto' justifyContent='center' alignItems='center' >
+                        <Stack  sx={{display:{xs:'none', sm:'flex'},position:'relative', width:'50%', height:'650px'}} >
                             <img style={{position:'relative',zIndex:'10', height:'100%', width:'95%', maxHeight:'100%'}} src={signpng} alt="The signup"  />
                             <img style={{position:'absolute', zIndex:'1',height:'100%',width:'100%',  maxHeight:'100%',  }} src={signback} alt="The signup"  />
                         </Stack>
-                        <Stack sx={{width:{xs:'100%', sm:'50%'}, position:'relative', padding:'25px 0'}}  justifyContent="center" alignItems="center" direction='column' spacing={2} >
-                            <Stack  width='100%' justifyContent='end' alignItems='end' onClick={()=>navigate('/')}>
+                        <Stack sx={{width:{xs:'100%', sm:'50%'}, position:'relative', padding:'0p'}}  alignItems="center" direction='column' spacing={2} >
+                            <Stack  width='100%' justifyContent='end' alignItems='end' sx={{paddingRight:'15px', pt:'15px'}} onClick={()=>navigate('/')}>
                                 <IconButton><CancelIcon/></IconButton>
                             </Stack>
                             <img src={logo} alt="Swargadhi logo" style={{ width: '80%', margin: '10px 0' }} />
@@ -162,7 +162,7 @@ export const Login = () => {
                                 helperText={errorPW ? errorPWMsg : ''}
                                 style={{ width: '80%' }}
                                 value={password}
-                                onChange={(e) => { setPassword(e.target.value) }}
+                                onChange={(e) => { setPassword(e.target.value); setErrorPW(false); }}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position='start'>
@@ -203,7 +203,7 @@ export const Login = () => {
                                     onClose={() => { setSnackbarOpen(false); if (isLogin) { navigate('/') } }}
                                     severity={isLogin ? "success" : "error"}
                                     variant="filled"
-                                    sx={{marginTop:'150px'}}
+                                    sx={{marginTop:'50px'}}
                                     >
                                     {snackMessage}
                                 </Alert>

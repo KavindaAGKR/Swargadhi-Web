@@ -137,7 +137,8 @@ export const UserProfile = () => {
                                     <UserOrders userId={user._id} />
                                 </TabPanel>
                                 <TabPanel value='Supply' sx={{ width: '100%', padding: '0px' }}>
-                                    <SupplyMaterial userId={user._id} />
+                                
+                                    <SupplyMaterial user={user} />
                                 </TabPanel>
                                 <TabPanel value='Feedback' sx={{ width: '100%', padding: '0px' }}>
                                     <Feedbacks user={user} />

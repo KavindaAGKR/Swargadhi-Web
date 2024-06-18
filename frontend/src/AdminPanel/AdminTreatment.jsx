@@ -183,7 +183,7 @@ export const AdminTreatment = () => {
     return (
         <Stack>
             <Stack gap={2}>
-                <Typography variant='h3' sx={{ margin:'20px auto'}}>List of Treatments</Typography>
+                <Typography variant='h4' sx={{ margin:'20px auto'}}>List of Treatments</Typography>
                 <Button variant='contained' sx={{width:'30%', margin:'auto'}} onClick={() => setOpen(true)}>Add New Treatment</Button>
                 <Dialog
                     open={open}
@@ -221,13 +221,14 @@ export const AdminTreatment = () => {
                         <Button onClick={handleSubmit}>Submit</Button>
                     </DialogActions>
                 </Dialog>
-                <Typography variant='h5'>List of Treatments shows here.</Typography>
-                <Box sx={{ backgroundColor: 'white', margin: '0 25px ', height: '100%' }}> 
+                <Typography variant='h6' margin='0 25px '>List of Treatments shows here.</Typography>
+                <Box sx={{ backgroundColor: 'white', margin:{xs:'0px 5px', sm:'0 25px '}, height: '100%' }}> 
                             <DataGrid
                                 rows={rows}
                                 getRowHeight={() => 'auto'}
                                 columns={columns}
                                 pageSize={10} 
+                                
                             />
                 </Box>
             </Stack>

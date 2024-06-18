@@ -1,23 +1,31 @@
 import React, { useState } from 'react'
-import { Button, Typography, TextField, Stack, Avatar, Grid } from '@mui/material';
+import { Button, Typography, TextField, Stack, Avatar, Grid, Snackbar, Alert } from '@mui/material';
 import axios from 'axios';
 
 export const FeedbacksSi = ({user}) => {
     const [feedback, setFeedback] = useState('');
-
-
+    const [error, setError] = useState(false);
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackMessage, setSnackMessage] = useState('');
 
 
     const handleSubmitFeedback = async (event) => {
-        event.preventDefault();
 
+        if(!feedback){
+            setError(true);
+        }
+
+        event.preventDefault();
         try {
             const response = await axios.post('http://localhost:5000/api/feedback/', { givenBy: user._id, feedBack: feedback });
             setFeedback('');
-
+            setSnackbarOpen(true);
+            setSnackMessage("ඔබේ අදහස සාර්ථකව සුරකින ලදි")
+            setError(false);
 
         } catch (error) {
-            console.error('Error submitting feedback:', error);
+            console.error('යම් කිසි දෝෂයක් ඇති විය', error);
+            
         }
     };
 
@@ -29,7 +37,9 @@ export const FeedbacksSi = ({user}) => {
         
             <TextField
             sx={{width:{xs:'100%', md:'80%'}}}
-            
+                required
+                error={error}
+                helperText={error ? 'ඔබේ අදහසක් මෙහි ඇතුලත් කරන්න' : ''}
                 label="ඔබේ අදහස් මෙහි ලියන්න"
                 variant="outlined"
                 multiline
@@ -49,6 +59,21 @@ export const FeedbacksSi = ({user}) => {
                 සුරකින්න
             </Button>
         
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={5000}
+                onClose={() => { setSnackbarOpen(false); }}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                sx={{ marginTop: "50px", width: '100%' }}
+            >
+                <Alert
+                    onClose={() => setSnackbarOpen(false)}
+                    severity={snackMessage === "ඔබේ අදහස සාර්ථකව සුරකින ලදි" ? 'success' : 'error'}
+                    variant="filled"
+                >
+                    {snackMessage}
+                </Alert>
+            </Snackbar>
     </Stack>
   )
 }
