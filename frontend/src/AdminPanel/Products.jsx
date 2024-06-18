@@ -263,13 +263,13 @@ export const Products = () => {
                         <Button onClick={handleSubmit}>Submit</Button>
                     </DialogActions>
                 </Dialog>
-                <Typography variant='h5'>List of Products shows here.</Typography>
+                <Typography variant='h5' margin='0 25px'>List of Products shows here.</Typography>
                         <DataGrid
                                 rows={rows}
                                 getRowHeight={() => 'auto'}
                                 columns={columns}
                                 pageSize={10} 
-                                sx={{ backgroundColor: 'white', margin: '0 25px '}}
+                                sx={{ backgroundColor: 'white', margin:{xs:'0px 5px', sm:'0 25px '}}}
                             />
             </Stack>
         </Stack>

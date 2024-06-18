@@ -21,9 +21,9 @@ export const AdminMessages = () => {
     return (
         <>
 
-      <Typography variant='h4' textAlign='center' sx={{p:'25px'}}>Feedbacks</Typography>
+      <Typography variant='h4' textAlign='center' sx={{p:'25px'}}>User Feedbacks</Typography>
 
-    <TableContainer style={{width:'80%', margin:'auto'}}>
+    <TableContainer style={{width:'90%', margin:'auto'}}>
       <Table >
         <TableHead >
             <TableRow  > 

@@ -39,14 +39,14 @@ export const AdminMaterial = () => {
         { field: 'materialName', headerName: 'Material Name', width: 150 },
         { field: 'quantity', headerName: 'Quantity', width: 100 },
         { field: 'price', headerName: 'Price', width: 100 },
-        { field: 'description', headerName: 'Description', width: 200 },
-        { field: 'givenBy', headerName: 'Given By', width: 150 },
+        { field: 'description', headerName: 'Description', width: 250 },
+        { field: 'givenBy', headerName: 'Supplier name', width: 150 },
         { field: 'mobileNumber', headerName: 'Mobile Number', width: 150 },
-        { field: 'address', headerName: 'Address', width: 300 },
+        { field: 'address', headerName: 'Address', width: 250 },
         { 
             field: 'images', 
             headerName: 'Images',
-            width: 200,
+            width: 300,
             renderCell: (params) => {
                 return (
                     <div>
@@ -69,14 +69,14 @@ export const AdminMaterial = () => {
     ];
 
     return (
-        <Box sx={{ backgroundColor: 'white', margin: '20px auto', width: '90%', height: '600px' }}>
-            <Typography variant="h4" gutterBottom>Material List</Typography>
+        <Box sx={{   width: '100%', height: 'auto',  }}>
+            <Typography variant="h4" padding='25px'>Materials that users can supply</Typography>
             <DataGrid
                 rows={rows}
                 columns={columns}
                 pageSize={10}
-                rowsPerPageOptions={[10]}
-                autoHeight
+                getRowHeight={() => 'auto'}
+                sx={{ backgroundColor: 'white', margin:{xs:'0px 5px', sm:'0 25px '}}}
             />
         </Box>
     );
