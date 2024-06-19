@@ -129,7 +129,7 @@ const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
               variant="outlined"
               type='number'
               error={error}
-              helperText={error ? 'Invalid mobile number' : ''}
+              helperText={error ? 'දුරකථන අංකයට ඉලක්කම් 10ක් තිබිය යුතුය' : ''}
               fullWidth
               defaultValue={user.mobileNumber}
               onChange={handleChange}

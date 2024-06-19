@@ -49,6 +49,8 @@ const EditProfileDialog = ({ open, handleClose, userDetails }) => {
       setError(true);
       return;
     }
+
+
     try {
       
       const response = await fetch('http://localhost:5000/api/user/update', {
@@ -126,12 +128,12 @@ const EditProfileDialog = ({ open, handleClose, userDetails }) => {
           
             <TextField
               name="mobileNumber"
-              label="Mobile Number" 
+              label="Phone Number" 
               size='small'
               variant="outlined"
               type='number'
               error={error}
-              helperText={error ? 'Invalid mobile number' : ''}
+              helperText={error ? 'Phone number must have 10 digits' : ''}
               fullWidth
               defaultValue={user.mobileNumber}
               onChange={handleChange}

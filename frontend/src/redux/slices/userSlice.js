@@ -16,6 +16,8 @@ reducers: {
     setUser: (state, action) => {
         state.user = action.payload;
         state.isLoggedIn = true;
+        localStorage.setItem('user', JSON.stringify(action.payload));
+        
         setTimeout(() => {
             localStorage.removeItem('user');
             localStorage.removeItem('token');
@@ -24,6 +26,7 @@ reducers: {
     },
     setToken: (state, action) => {
         state.token = action.payload;
+        localStorage.setItem('token', state.token);
     },
     logout: (state) => {
         state.user = null;

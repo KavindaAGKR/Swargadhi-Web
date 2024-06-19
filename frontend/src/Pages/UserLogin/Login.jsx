@@ -82,8 +82,8 @@ export const Login = () => {
             dispatch(setUser(response.data.User));
             dispatch(setToken(response.data.token)); // Save token in Redux store
 
-            localStorage.setItem('user', JSON.stringify(response.data.User));
-            localStorage.setItem('token', response.data.token);
+            // localStorage.setItem('user', JSON.stringify(response.data.User));
+            // localStorage.setItem('token', response.data.token);
             
 
             setSnackMessage("Successfully logged in");

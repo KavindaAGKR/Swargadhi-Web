@@ -195,7 +195,7 @@ export const DispensarySi = () => {
               <Typography variant='h5'  textAlign='center' fontWeight='bold'  noWrap>{item.treatmentNameSi}</Typography>
               
               <Stack direction={{xs:'column', md:'row'}}  width='100%' height='90%' margin='auto' gap={2}>
-              <Stack sx={{ width:{xs:'100%', md:'40%'}, height:{xs:'180px', md:'auto'}, margin:'10px auto'    }}>
+              <Stack sx={{ width:{xs:'100%', md:'35%'}, height:{xs:'180px', md:'auto'}, margin:'10px auto'    }}>
               <Box sx={{width:{xs:'270Px', md:'100%'}, height:{xs:'180Px', md:'300px'}, margin:'0px auto'}}>
               <img
                   src={`http://localhost:5000${item.images[0]}`}

@@ -68,8 +68,8 @@ export const LoginSi = () => {
             dispatch(setUser(response.data.User));
             dispatch(setToken(response.data.token)); // Save token in Redux store
 
-            localStorage.setItem('user', JSON.stringify(response.data.User));
-            localStorage.setItem('token', response.data.token);
+            // localStorage.setItem('user', JSON.stringify(response.data.User));
+            // localStorage.setItem('token', response.data.token);
             
 
             setSnackMessage("සාර්ථකව ලොග් විය");

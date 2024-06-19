@@ -44,7 +44,7 @@ export const CheckOutEn = () => {
             setSnackbarOpen(true)
             setSnackMessage("Enter the mobile number in the delivery details");
             return;
-        }else if((addressL1===undefined || addressL2===undefined || addressL1===''||addressL2==='')){
+        }else if((addressL1===undefined ||  addressL1==='')){
             setSnackbarOpen(true)
             setSnackMessage("Enter your address in the delivery details");
             return;
@@ -141,7 +141,7 @@ export const CheckOutEn = () => {
                                         <TableCell>{user.email}</TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>Mobile Number</TableCell>
+                                        <TableCell>Phone Number</TableCell>
                                         <TableCell>{mobileNo || "Add a phone number"} </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -204,7 +204,7 @@ export const CheckOutEn = () => {
                     <Stack gap={2}>
                         <TextField 
                         label="Mobile Number" 
-                        placeholder="Mobile Number" 
+                        placeholder="Phone Number" 
                         defaultValue={mobileNo} 
                         type="number" 
                         onChange={(e) => {
@@ -214,7 +214,7 @@ export const CheckOutEn = () => {
                              else
                                 {setError(false);}}} 
                         error={error}
-                        helperText={error ? 'Invalid mobile number' : ''}
+                        helperText={error ? 'Phone number must have 10 digits' : ''}
                         sx={{
                             "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {display: "none",},
                            }}

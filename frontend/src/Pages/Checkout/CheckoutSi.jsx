@@ -44,7 +44,7 @@ export const CheckOutSi = () => {
             setSnackbarOpen(true)
             setSnackMessage("බෙදාහැරීම් විස්තර සදහා දුරකතන අංකය ඇතුලත් කරන්න");
             return;
-        }else if((addressL1===undefined || addressL2===undefined || addressL1===''||addressL2==='')){
+        }else if((addressL1===undefined ||  addressL1==='')){
             setSnackbarOpen(true)
             setSnackMessage("බෙදාහැරීම් විස්තර සදහා ඔබේ ලිපිනය ඇතුලත් කරන්න");
             return;
@@ -213,7 +213,7 @@ export const CheckOutSi = () => {
                              else
                                 {setError(false);}}} 
                         error={error}
-                        helperText={error ? 'වැරදි ජංගම දුරකථන අංකයක්' : ''}
+                        helperText={error ? 'දුරකථන අංකයට ඉලක්කම් 10ක් තිබිය යුතුය' : ''}
                         sx={{
                             "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {display: "none",},
                            }} />

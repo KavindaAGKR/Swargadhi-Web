@@ -34,6 +34,8 @@ export const ViewDetails = ({userId}) => {
     useEffect(() => {
         fetchUserProfile();
     }, []);
+    
+
     useEffect(() => {
         setUserDetails(user);
     }, [user]);
@@ -146,7 +148,7 @@ export const ViewDetails = ({userId}) => {
     <Stack sx={{margin:'0 15px'}} alignSelf='center'>
         <Typography variant='h5'  >My Details</Typography>
     <Stack  sx={{ width: '100%',margin:'auto' }} justifyContent='center' alignItems='center' alignSelf='center'>
-    {(userDetails.mobileNumber===undefined || (userDetails.deliveryAddress===undefined || userDetails.deliveryAddress===null))?(
+    {(userDetails.mobileNumber===undefined || (userDetails.deliveryAddress===undefined || userDetails.deliveryAddress===null|| userDetails.deliveryAddress.addressL1===""))?(
             <Stack direction='row' sx={{margin:'40px 0'}}><ErrorIcon color='error'/><Typography variant='body' color="error" textAlign='left' >By filling all the details below in your account, you may able to avoid any possible inconveniences in purchasing products.</Typography>
             </Stack>):("")}
             <Stack sx={{ width: '90%',    }}>
@@ -187,7 +189,7 @@ export const ViewDetails = ({userId}) => {
                         <Grid item sm={2.8} xs={8} sx={{ ...detailStyles }}>{userDetails.lastName}</Grid>
                         <Grid item xs={3.5} sm={2.3} alignSelf='center'>Email:</Grid>
                         <Grid item xs={8} sx={{ ...detailStyles }}>{userDetails.email}</Grid>
-                        <Grid item xs={3.5} sm={2.3} alignSelf='center'>Mobile Number:</Grid>
+                        <Grid item xs={3.5} sm={2.3} alignSelf='center'>Phone Number:</Grid>
                         <Grid item sm={3.5} xs={7} sx={{ ...detailStyles }}>{userDetails.mobileNumber || "-----"}</Grid>
                         <Grid item container rowGap={2} columnGap={1}>Address:
                             <Grid item xs={10} />
