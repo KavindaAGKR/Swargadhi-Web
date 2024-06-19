@@ -1,4 +1,4 @@
-import { Alert, Box, Breadcrumbs, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, Snackbar, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+import { Alert,  Breadcrumbs, Button, Dialog, DialogActions, DialogContent,  DialogTitle,  Snackbar, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Footer } from '../../Components/Footer';
@@ -256,7 +256,8 @@ export const CheckOutSi = () => {
                     autoHideDuration={3000}
                     onClose={() => { setSnackbarOpen(false); 
                         if(snackMessage === "ඇණවුම සාර්ථකව සිදු කරන ලදී")
-                            {{navigate('/user', { state: { select: 'MyOrders' } }); dispatch(removeCart());};} }}
+                            {{navigate('/user', { state: { select: 'MyOrders' } });
+                                 dispatch(removeCart());};} }}
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                     sx={{  width:'auto' }}
                     >

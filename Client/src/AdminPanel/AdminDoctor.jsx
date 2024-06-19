@@ -1,6 +1,6 @@
 
 import DeleteIcon from '@mui/icons-material/Delete'; // Imported DeleteIcon only, EditIcon is not used
-import { Button, Dialog, DialogActions, DialogContent, MenuItem, Stack, TextField, Typography } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent,  Stack, TextField, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import { Box } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
@@ -53,7 +53,7 @@ export const AdminDoctor = () => {
                 method: 'POST',
                 body: formData
             });
-            const responseData = await response.json();
+            // const responseData = await response.json();
             
             if (response.ok) {
                 console.log('Product added successfully');
@@ -132,7 +132,7 @@ export const AdminDoctor = () => {
                         <img
                             key={index}
                             src={`${config.baseURL}/${images}`} 
-                            alt={`Product Image ${index + 1}`} 
+                            alt={`Doctore ${index + 1}`} 
                             style={{ width: 100, height: 100, marginRight: 10 }}
                             onError={(e) => {
                                 console.error(`Failed to load image ${index}: ${e.target.src}`);

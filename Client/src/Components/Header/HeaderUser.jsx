@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Typography, Stack, Popover, IconButton, Avatar, Box } from '@mui/material';
+import { Button, Typography, Stack, Popover,  Avatar, Box } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../redux/slices/userSlice';

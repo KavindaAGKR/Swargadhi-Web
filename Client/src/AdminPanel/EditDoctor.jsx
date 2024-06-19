@@ -86,7 +86,7 @@ export const EditDoctor = () => {
               <img
                 key={index}
                 src={`${config.baseURL}${imageUrl}`}
-                alt={`Image ${index}`}
+                alt={`Doctor ${index}`}
                 style={{ width: '150px', height: '150px', marginRight: '10px' }}
               />
             ))}

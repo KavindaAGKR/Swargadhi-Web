@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Typography, Avatar, Stack, Grid, Box, Dialog, DialogContent, DialogActions } from '@mui/material';
+import { Button, Typography, Avatar, Stack, Grid, Box} from '@mui/material';
 import EditProfileDialog from './EditUser';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -28,7 +28,7 @@ export const ViewDetails = ({userId}) => {
     const [profilePicture, setProfilePicture] = useState(null);
     const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [userDetails, setUserDetails] = useState(user);
-    const [open, setOpen] = useState(false);
+
 
 
 

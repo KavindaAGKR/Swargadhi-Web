@@ -85,7 +85,7 @@ const ProductCard = ({ product }) => {
 
     const { itemName, description, price,images, quantity } = product; 
     const [openMore, setOpenMore] = useState(false);
-    const [selectedQuantity, setSelectedQuantity] = useState(0);
+    // const [selectedQuantity, setSelectedQuantity] = useState(0);
 
 
 

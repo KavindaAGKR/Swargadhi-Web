@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import { Box, Grid, IconButton, TextField, Typography } from '@mui/material';
+import React, {useState} from 'react';
+import {  Grid, IconButton, TextField, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useDispatch } from 'react-redux';
@@ -55,7 +55,7 @@ const handleRemoveClick = () => {
         <img
         key={index}
         src={`${config.baseURL}/${image}`}
-        alt={`Product Image ${index + 1}`}
+        alt={`Product ${index + 1}`}
         style={{ width: '100%', height: '120px', marginRight: 10 }}
         onError={(e) => {
             console.error(`Failed to load image ${index}: ${e.target.src}`);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import {  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import config from '../config';
 
 export const AdminMessages = () => {

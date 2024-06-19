@@ -55,7 +55,7 @@ export const AdminMaterial = () => {
                             <img
                                 key={index}
                                 src={`${config.baseURL}${image}`} 
-                                alt={`Material Image ${index + 1}`} 
+                                alt={`Material ${index + 1}`} 
                                 style={{ width: 100, height: 100, marginRight: 10 }}
                                 onError={(e) => {
                                     console.error(`Failed to load image ${index}: ${e.target.src}`);

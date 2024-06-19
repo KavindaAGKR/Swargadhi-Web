@@ -143,7 +143,7 @@ export const AdminTreatment = () => {
                             <img
                                 key={index}
                                 src={`${config.baseURL}/${image}`} 
-                                alt={`Treatment Image ${index + 1}`} 
+                                alt={`Treatment ${index + 1}`} 
                                 style={{ width: 100, height: 100, marginRight: 10 }}
                                 onError={(e) => {
                                     console.error(`Failed to load image ${index}: ${e.target.src}`);

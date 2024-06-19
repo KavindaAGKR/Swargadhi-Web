@@ -1,4 +1,4 @@
-import { Button, Container, Input, MenuItem, Stack, TextField, Typography } from '@mui/material';
+import { Button, Container,  MenuItem, Stack, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import config from '../config';
@@ -110,7 +110,7 @@ export const EditProduct = () => {
               <img
                 key={index}
                 src={`${config.baseURL}${imageUrl}`}
-                alt={`Image ${index}`}
+                alt={`product ${index}`}
                 style={{ width: '150px', height: '150px', marginRight: '10px' }}
               />
             ))}
@@ -176,7 +176,7 @@ export const EditProduct = () => {
                 <img
                   key={index}
                   src={URL.createObjectURL(file)}
-                  alt={`New Image ${index}`}
+                  alt={`New product ${index}`}
                   style={{ width: '150px', height: '150px', marginRight: '10px' }}
                 />
               ))}

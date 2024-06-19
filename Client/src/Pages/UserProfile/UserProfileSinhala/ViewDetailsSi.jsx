@@ -142,7 +142,7 @@ export const ViewDetailsSi = ({userId}) => {
     <Stack sx={{margin:'0 15px'}} alignSelf='center'>
         <Typography variant='h5'  >මගේ විස්තර</Typography>
     <Stack  sx={{ width: '100%',margin:'auto' }} justifyContent='center' alignItems='center' alignSelf='center'>
-    {(userDetails.mobileNumber==undefined || (userDetails.deliveryAddress==undefined || userDetails.deliveryAddress==null || userDetails.deliveryAddress.addressL1===""))?(
+    {(userDetails.mobileNumber===undefined || (userDetails.deliveryAddress===undefined || userDetails.deliveryAddress===null || userDetails.deliveryAddress.addressL1===""))?(
             <Stack direction='row' sx={{margin:'40px 0'}}><ErrorIcon color='error'/><Typography variant='body' color="error" textAlign='left' >ඔබේ ගිණුමේ පහත සියළු විස්තර සම්පූර්ණ කිරීමෙන් නිෂ්පාදන මිලදී ගැනීමේදී සිදු විය හැකි අවහිරතා මගහරවා ගත හැකි වේවි.</Typography>
             </Stack>):("")}
             <Stack sx={{ width: '90%',    }}>

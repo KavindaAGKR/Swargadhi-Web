@@ -129,7 +129,7 @@ export const EditTreatment = () => {
                 <img
                   key={index}
                   src={URL.createObjectURL(file)}
-                  alt={`New Image ${index}`}
+                  alt={`New treatment ${index}`}
                   style={{ width: '150px', height: '150px', marginRight: '10px' }}
                 />
               ))}

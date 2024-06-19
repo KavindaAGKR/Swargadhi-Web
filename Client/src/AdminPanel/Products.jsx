@@ -2,7 +2,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Stack, TextField, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import { DataGrid } from '@mui/x-data-grid';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import { FetchAdminProducts } from './AdminApis/FetchAdminProducts';
@@ -168,7 +168,7 @@ export const Products = () => {
                             <img
                                 key={index}
                                 src={`${config.baseURL}/${image}`}
-                                alt={`Product Image ${index + 1}`}
+                                alt={`Product ${index + 1}`}
                                 style={{ width: '100', height: 100, marginRight: 10 }}
                                 onError={(e) => {
                                     console.error(`Failed to load image ${index}: ${e.target.src}`);

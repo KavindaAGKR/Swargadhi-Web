@@ -1,7 +1,6 @@
 
 import React, {useState} from 'react';
-import { Grid, Paper, Button, Typography, TextField, InputAdornment,Stack,Snackbar, Alert, Container, IconButton } from '@mui/material';
-import { makeStyles } from '@mui/styles'; 
+import {  Paper, Button, Typography, TextField, InputAdornment,Stack,Snackbar, Alert, Container, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import signpng from '../../Images/signupfinal.png';
 import signback from '../../Images/signback.png'
@@ -44,7 +43,7 @@ export const Signup = () => {
             return;
         }
 
-        const emailType = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const emailType = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if (!emailType.test(email) || !email) {
         setEmailError(true)

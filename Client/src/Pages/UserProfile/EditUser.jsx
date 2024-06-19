@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Grid, Snackbar, Alert } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Grid } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/slices/userSlice';
 import config from '../../config';
@@ -84,7 +84,6 @@ const EditProfileDialog = ({ open, handleClose, userDetails }) => {
     }
   };
 
-  const maxNumber = 10000000000;
 
   return (
     <Dialog open={open} onClose={handleClose} PaperProps={{ sx: { borderRadius: "25px" } }}>

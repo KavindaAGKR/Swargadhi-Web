@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Grid, Paper, Button, Typography, TextField, InputAdornment, FormControlLabel, Box, Checkbox, Stack, Alert, Container, IconButton } from '@mui/material';
+import {Paper, Button, Typography, TextField, InputAdornment, FormControlLabel, Box, Checkbox, Stack, Alert, Container, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import signpng from '../../Images/signupfinal.png';
 import signback from '../../Images/signback.png'
@@ -44,8 +44,8 @@ export const LoginSi = () => {
     const handleLogin = async () => {
     
 
-    const emailType = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!emailType.test(email) || !email) {
+        const emailType = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!emailType.test(email) || !email) {
         setEmailError(true)
         setEmailErrorMsg('වලංගු විද්යුත්-තැපැල් ලිපිනයක් ඇතුලත් කරන්න!')
         return;

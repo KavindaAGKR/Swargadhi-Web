@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Header } from '../../Components/Header';
 import { Footer } from '../../Components/Footer';
-import { Box, Breadcrumbs, Button, CircularProgress, Container, List, Stack, Typography } from '@mui/material';
+import { Box, Breadcrumbs, Button, CircularProgress,  List, Stack, Typography } from '@mui/material';
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import ScrollToTop from 'react-scroll-to-top';
 import { SwiperSlider } from '../../Components/Swiper';
@@ -13,7 +13,7 @@ import config from '../../config';
 
 export const DispensarySi = () => {
   const [treatments, setTreatments] = useState([]);
-  const [errorLoading, setErrorLoading] = useState('')
+  // const [errorLoading, setErrorLoading] = useState('')
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

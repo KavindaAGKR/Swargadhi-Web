@@ -55,7 +55,7 @@ const handleRemoveClick = () => {
         <img
         key={index}
         src={`${config.baseURL}/${image}`}
-        alt={`Product Image ${index + 1}`}
+        alt={`Product ${index + 1}`}
         style={{ width: '100%', height: '120px', marginRight: 10 }}
         onError={(e) => {
             console.error(`Failed to load image ${index}: ${e.target.src}`);

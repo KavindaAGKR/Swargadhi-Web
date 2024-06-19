@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Grid, Paper, Button, Typography, TextField, InputAdornment, FormControlLabel, Box, Checkbox, Stack, Alert, Container, IconButton } from '@mui/material';
+import {  Paper, Button, Typography, TextField, InputAdornment, FormControlLabel, Box, Checkbox, Stack, Alert, Container, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import signpng from '../../Images/signupfinal.png';
 import signback from '../../Images/signback.png'
@@ -16,7 +16,6 @@ import axios from 'axios';
 
 import { setUser, setToken } from '../../redux/slices/userSlice';
 import {  useDispatch } from 'react-redux';
-import zIndex from '@mui/material/styles/zIndex';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import config from '../../config';
 
@@ -58,8 +57,8 @@ export const Login = () => {
     const handleLogin = async () => {
     
 
-    const emailType = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!emailType.test(email) || !email) {
+        const emailType = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!emailType.test(email) || !email) {
         setEmailError(true)
         setEmailErrorMsg('Enter a valid email address!')
         return;
