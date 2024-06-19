@@ -7,6 +7,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
+import config from '../config';
 
 
 export const AdminDoctor = () => {
@@ -48,7 +49,7 @@ export const AdminDoctor = () => {
                 formData.append('images', file);
             });
     
-            const response = await fetch('http://localhost:5000/api/doctor/add', {
+            const response = await fetch(`${config.baseURL}/api/doctor/add`, {
                 method: 'POST',
                 body: formData
             });
@@ -72,7 +73,7 @@ export const AdminDoctor = () => {
 
     const fetchAllDoctors = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/doctor/');
+            const response = await fetch(`${config.baseURL}/api/doctor/`);
             const data = await response.json();
             if (response.ok) {
                 
@@ -87,7 +88,7 @@ export const AdminDoctor = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/doctor/${id}`, {
+            const response = await fetch(`${config.baseURL}/api/doctor/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -130,7 +131,7 @@ export const AdminDoctor = () => {
 
                         <img
                             key={index}
-                            src={`http://localhost:5000/${images}`} 
+                            src={`${config.baseURL}/${images}`} 
                             alt={`Product Image ${index + 1}`} 
                             style={{ width: 100, height: 100, marginRight: 10 }}
                             onError={(e) => {

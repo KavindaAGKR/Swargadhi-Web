@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import config from '../config';
 
 export const EditDoctor = () => {
   const { id } = useParams();
@@ -16,7 +17,7 @@ export const EditDoctor = () => {
   useEffect(() => {
     const fetchDoctor = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/doctor/${id}`);
+        const response = await fetch(`${config.baseURL}/api/doctor/${id}`);
 
         if (!response.ok) {
           throw new Error('Failed to fetch doctor');
@@ -57,7 +58,7 @@ export const EditDoctor = () => {
         formData.append('images', file);
       });
 
-      const response = await fetch(`http://localhost:5000/api/doctor/${id}`, {
+      const response = await fetch(`${config.baseURL}/api/doctor/${id}`, {
         method: 'PUT',
         body: formData,
       });
@@ -84,7 +85,7 @@ export const EditDoctor = () => {
             {currentImages.map((imageUrl, index) => (
               <img
                 key={index}
-                src={`http://localhost:5000${imageUrl}`}
+                src={`${config.baseURL}${imageUrl}`}
                 alt={`Image ${index}`}
                 style={{ width: '150px', height: '150px', marginRight: '10px' }}
               />

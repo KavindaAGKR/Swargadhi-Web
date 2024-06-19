@@ -1,6 +1,7 @@
 import { Button, Container, Stack, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import config from '../config';
 
 export const EditTreatment = () => {
 
@@ -18,7 +19,7 @@ export const EditTreatment = () => {
   useEffect(() => {
     const fetchTreatment = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/treatment/${id}`);
+        const response = await fetch(`${config.baseURL}/api/treatment/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch treatment');
         }
@@ -61,7 +62,7 @@ export const EditTreatment = () => {
         formData.append('images', file);
       });
 
-      const response = await fetch(`http://localhost:5000/api/treatment/${id}`, {
+      const response = await fetch(`${config.baseURL}/api/treatment/${id}`, {
         method: 'PUT',
         body: formData,
       });
@@ -87,8 +88,8 @@ export const EditTreatment = () => {
           {currentImages.map((imageUrl, index) => (
               <img
                 key={index}
-                src={`http://localhost:5000${imageUrl}`}
-                alt={`Image ${index}`}
+                src={`${config.baseURL}${imageUrl}`}
+                alt={`${index}`}
                 style={{ width: '150px', height: '150px', marginRight: '10px' }}
               />
             ))}

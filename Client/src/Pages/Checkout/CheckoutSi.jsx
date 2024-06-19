@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectUser } from '../../redux/slices/userSlice';
 import { MotionButton } from '../../Components/FramerMotion/MotionButton';
 import { removeCart } from '../../redux/slices/cartSlice';
+import config from '../../config';
 
 export const CheckOutSi = () => {
 
@@ -71,7 +72,7 @@ export const CheckOutSi = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:5000/api/orders/create', {
+            const response = await fetch(`${config.baseURL}/api/orders/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

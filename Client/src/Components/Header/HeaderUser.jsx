@@ -6,6 +6,7 @@ import { logout } from '../../redux/slices/userSlice';
 
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import axios from 'axios';
+import config from '../../config';
 
 export const HeaderUser = ({user, isSinhalaTrue}) => {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ export const HeaderUser = ({user, isSinhalaTrue}) => {
     
     const fetchUserProfile = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/user/profile/${user._id}`);
+            const response = await axios.get(`${config.baseURL}/api/user/profile/${user._id}`);
             setProfilePicture(response.data.profilePicture);
             
         } catch (error) {

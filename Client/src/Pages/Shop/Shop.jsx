@@ -4,13 +4,13 @@ import { Footer } from '../../Components/Footer';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Tab, Box, Stack, Breadcrumbs, Typography } from '@mui/material';
 import ProductCatalog from './ProductCatalog';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 
 
 export const Shop = (valuee) => {
 
-    const navigate = useNavigate()
+
     const location = useLocation();
     const categoryFromState = location.state?.category || 'all';
 

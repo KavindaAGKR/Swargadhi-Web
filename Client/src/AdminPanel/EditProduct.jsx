@@ -1,6 +1,7 @@
 import { Button, Container, Input, MenuItem, Stack, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import config from '../config';
 
 export const EditProduct = () => {
 
@@ -23,7 +24,7 @@ export const EditProduct = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/product/${id}`);
+        const response = await fetch(`${config.baseURL}/api/product/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch product');
         }
@@ -78,7 +79,7 @@ export const EditProduct = () => {
         formData.append(`images`, file);
       });
 
-      const response = await fetch(`http://localhost:5000/api/product/${id}`, {
+      const response = await fetch(`${config.baseURL}/api/product/${id}`, {
         method: 'PUT',
         body: formData,
       });
@@ -108,7 +109,7 @@ export const EditProduct = () => {
 {currentImages.map((imageUrl, index) => (
               <img
                 key={index}
-                src={`http://localhost:5000${imageUrl}`}
+                src={`${config.baseURL}${imageUrl}`}
                 alt={`Image ${index}`}
                 style={{ width: '150px', height: '150px', marginRight: '10px' }}
               />

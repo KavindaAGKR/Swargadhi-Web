@@ -1,5 +1,6 @@
 import { Button, Dialog, DialogActions, DialogTitle, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import config from '../config';
 
 export const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -8,7 +9,7 @@ export const AdminUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/user/users');
+        const response = await fetch(`${config.baseURL}/api/user/users`);
         if (response.ok) {
           const data = await response.json();
           console.log('Fetched users:', data.data); 
@@ -32,7 +33,7 @@ export const AdminUsers = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/user/users/${id}`, {
+      const response = await fetch(`${config.baseURL}/api/user/users/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'

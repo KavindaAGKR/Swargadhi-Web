@@ -6,6 +6,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
+import config from '../config';
 
 export const AdminTreatment = () => {
     const [open, setOpen] = useState(false);
@@ -48,7 +49,7 @@ export const AdminTreatment = () => {
                 formData.append('images', file);
             });
     
-            const response = await fetch('http://localhost:5000/api/treatment/add', {
+            const response = await fetch(`${config.baseURL}/api/treatment/add`, {
                 method: 'POST',
                 body: formData
             });
@@ -75,7 +76,7 @@ export const AdminTreatment = () => {
 
     const fetchAllTreatments = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/treatment/');
+            const response = await fetch(`${config.baseURL}/api/treatment/`);
             const data = await response.json();
             if (response.ok) {
                 console.log(data.data)
@@ -90,7 +91,7 @@ export const AdminTreatment = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/treatment/${id}`, {
+            const response = await fetch(`${config.baseURL}/api/treatment/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -141,7 +142,7 @@ export const AdminTreatment = () => {
                         {treatment.images.map((image, index) => (
                             <img
                                 key={index}
-                                src={`http://localhost:5000/${image}`} 
+                                src={`${config.baseURL}/${image}`} 
                                 alt={`Treatment Image ${index + 1}`} 
                                 style={{ width: 100, height: 100, marginRight: 10 }}
                                 onError={(e) => {

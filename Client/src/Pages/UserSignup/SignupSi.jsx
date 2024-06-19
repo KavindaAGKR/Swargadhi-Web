@@ -12,6 +12,7 @@ import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import CancelIcon from '@mui/icons-material/Cancel';
 import axios from 'axios'; 
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import config from '../../config';
 
 
 export const SignupSi = () => {
@@ -65,7 +66,7 @@ export const SignupSi = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/api/user/register', {
+            const response = await axios.post(`${config.baseURL}/api/user/register`, {
                 firstName,
                 lastName,
                 email,

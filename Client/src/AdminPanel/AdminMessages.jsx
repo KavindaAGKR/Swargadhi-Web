@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import config from '../config';
 
 export const AdminMessages = () => {
     const [feedbacks, setFeedbacks] = useState([]);
@@ -8,7 +9,7 @@ export const AdminMessages = () => {
     useEffect(() => {
         const fetchFeedbacks = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/feedback/get'); // Adjust the URL as needed
+                const response = await axios.get(`${config.baseURL}/api/feedback/get`); // Adjust the URL as needed
                 setFeedbacks(response.data);
             } catch (error) {
                 console.error('Error fetching feedback:', error);

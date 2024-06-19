@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Grid, Snackbar, Alert } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../../redux/slices/userSlice';
+import config from '../../../config';
 
 const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
   const [user, setEditedUser] = useState(userDetails);
@@ -48,7 +49,7 @@ const EditProfileDialogSi = ({ open, handleClose, userDetails }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/user/update', {
+      const response = await fetch(`${config.baseURL}/api/user/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

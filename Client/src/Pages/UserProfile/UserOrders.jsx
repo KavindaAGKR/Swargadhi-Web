@@ -1,6 +1,7 @@
 import { CircularProgress, Container, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import config from '../../config';
 
 export const UserOrders = ({userId}) => {
 
@@ -34,7 +35,7 @@ export const UserOrders = ({userId}) => {
     const fetchUserOrders = async () => {
 setLoading(true);
         try {
-            const response = await axios.get(`http://localhost:5000/api/orders/orders/user/${userId}`);
+            const response = await axios.get(`${config.baseURL}/api/orders/orders/user/${userId}`);
             setOrders(response.data);
             setLoading(false);
         } catch (error) {

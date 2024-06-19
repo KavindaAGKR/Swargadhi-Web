@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box, Typography } from '@mui/material';
+import config from '../config';
 
 export const AdminMaterial = () => {
     const [materials, setMaterials] = useState([]);
@@ -11,7 +12,7 @@ export const AdminMaterial = () => {
 
     const fetchAllMaterials = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/material/allmaterials');
+            const response = await fetch(`${config.baseURL}/api/material/allmaterials`);
             const data = await response.json();
             if (response.ok) {
                 setMaterials(data.data);
@@ -53,7 +54,7 @@ export const AdminMaterial = () => {
                         {params.row.images.map((image, index) => (
                             <img
                                 key={index}
-                                src={`http://localhost:5000${image}`} 
+                                src={`${config.baseURL}${image}`} 
                                 alt={`Material Image ${index + 1}`} 
                                 style={{ width: 100, height: 100, marginRight: 10 }}
                                 onError={(e) => {

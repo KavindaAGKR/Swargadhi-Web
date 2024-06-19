@@ -1,4 +1,5 @@
 import React, { useEffect,useState } from "react";
+import config from "../config";
 
 
 
@@ -12,7 +13,7 @@ export const FetchProducts = () => {
         const fetchAllProducts = async () => {
             setLoading(true);
             try {
-                const response = await fetch('http://localhost:5000/api/product/all');
+                const response = await fetch(`${config.baseURL}/api/product/all`);
                 const data = await response.json();
                 if (response.ok) {
                     console.log(data.data);

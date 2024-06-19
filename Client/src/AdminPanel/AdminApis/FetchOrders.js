@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import config from '../../config';
 
 export const FetchOrders = () => {
     const [orders, setOrders] = useState([]);
@@ -7,7 +8,7 @@ export const FetchOrders = () => {
 
     const fetchOrders = async () => {
         try {
-          const response = await fetch('http://localhost:5000/api/orders/orders');
+          const response = await fetch(`${config.baseURL}/api/orders/orders`);
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
@@ -27,7 +28,7 @@ export const FetchOrders = () => {
 
     const handleStatusChange = async (_id, newStatus) => {
         try {
-          const response = await fetch(`http://localhost:5000/api/orders/orders/${_id}/status`, {
+          const response = await fetch(`${config.baseURL}/api/orders/orders/${_id}/status`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json'

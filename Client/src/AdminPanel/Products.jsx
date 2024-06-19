@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import { FetchAdminProducts } from './AdminApis/FetchAdminProducts';
+import config from '../config';
 
 
 
@@ -62,7 +63,7 @@ export const Products = () => {
                 formData.append('images', file);
             });
     
-            const response = await fetch('http://localhost:5000/api/product/', {
+            const response = await fetch(`${config.baseURL}/api/product/`, {
                 method: 'POST',
                 body: formData
             });
@@ -89,7 +90,7 @@ export const Products = () => {
 
     // const fetchAllProducts = async () => {
     //     try {
-    //         const response = await fetch('http://localhost:5000/api/product/all');
+    //         const response = await fetch(`${config.baseURL}/api/product/all`);
     //         const data = await response.json();
     //         if (response.ok) {
     //             console.log(data.data)
@@ -104,7 +105,7 @@ export const Products = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/product/${id}`, {
+            const response = await fetch(`${config.baseURL}/api/product/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -166,7 +167,7 @@ export const Products = () => {
                         {product.images.map((image, index) => (
                             <img
                                 key={index}
-                                src={`http://localhost:5000/${image}`}
+                                src={`${config.baseURL}/${image}`}
                                 alt={`Product Image ${index + 1}`}
                                 style={{ width: '100', height: 100, marginRight: 10 }}
                                 onError={(e) => {

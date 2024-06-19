@@ -5,6 +5,7 @@ import { Autoplay,Navigation,Pagination   } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Typography } from '@mui/material';
+import config from '../../config';
 
 
 
@@ -36,7 +37,7 @@ export const ProductSwiper = ({imageUrl}) => {
                 <SwiperSlide key={index} style={{display:'flex' ,alignItems:'center', justifyContent:'center', margin:'auto'}} >
                     <img
                                 key={index}
-                                src={`http://localhost:5000/${image}`}
+                                src={`${config.baseURL}/${image}`}
                                 alt={`Product Image ${index + 1}`}
                                 style={{ width: '100%', height: '100%',borderRadius: '10px'}}
                                 onError={(e) => {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Typography, TextField, Stack, Avatar, Grid, Snackbar, Alert } from '@mui/material';
 import axios from 'axios';
+import config from '../../config';
 
 export const Feedbacks = ({user}) => {
     const [feedback, setFeedback] = useState('');
@@ -20,7 +21,7 @@ export const Feedbacks = ({user}) => {
         event.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5000/api/feedback/', { givenBy: user._id, feedBack: feedback });
+            const response = await axios.post(`${config.baseURL}/api/feedback/`, { givenBy: user._id, feedBack: feedback });
             setFeedback('');
             setSnackbarOpen(true);
             setSnackMessage("Feedback submitted")

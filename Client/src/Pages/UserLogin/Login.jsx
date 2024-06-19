@@ -18,6 +18,7 @@ import { setUser, setToken } from '../../redux/slices/userSlice';
 import {  useDispatch } from 'react-redux';
 import zIndex from '@mui/material/styles/zIndex';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import config from '../../config';
 
 
 //     '@media (max-width: 600px)': {
@@ -71,7 +72,7 @@ export const Login = () => {
 
 
     try {
-        const response = await axios.post('http://localhost:5000/api/user/login', {
+        const response = await axios.post(`${config.baseURL}/api/user/login`, {
             email,
             password
         });

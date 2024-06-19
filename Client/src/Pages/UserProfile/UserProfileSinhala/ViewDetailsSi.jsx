@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '../../../redux/slices/userSlice';
 import EditProfileDialogSi from './EditUserSi';
 import ErrorIcon from '@mui/icons-material/Error';
+import config from '../../../config';
 
 const detailStyles = {
     boxShadow: '2px 2px 5px 1px #D6D3D2',
@@ -39,7 +40,7 @@ export const ViewDetailsSi = ({userId}) => {
 
     const fetchUserProfile = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/user/profile/${userId}`);
+            const response = await axios.get(`${config.baseURL}/api/user/profile/${userId}`);
             setProfilePicture(response.data.profilePicture);
             
         } catch (error) {
@@ -62,7 +63,7 @@ export const ViewDetailsSi = ({userId}) => {
         formData.append('userId', userId);
 
         try {
-            const response = await fetch('http://localhost:5000/api/user/picture', {
+            const response = await fetch(`${config.baseURL}/api/user/picture`, {
                 method: 'POST',
                 body: formData,
             });
@@ -81,7 +82,7 @@ export const ViewDetailsSi = ({userId}) => {
     };
     const handleDeleteProfilePicture = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/user/profile/picture/${userId}`, {
+            const response = await fetch(`${config.baseURL}/api/user/profile/picture/${userId}`, {
                 method: 'DELETE',
             });
     

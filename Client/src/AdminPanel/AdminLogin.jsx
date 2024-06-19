@@ -13,6 +13,7 @@ import Cookies from 'js-cookie';
 
 import {  useDispatch } from 'react-redux';
 import { setToken, setUser } from '../redux/slices/userSlice';
+import config from '../config';
 
 
 
@@ -60,7 +61,7 @@ export const AdminLogin = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/api/admin/login', {
+            const response = await axios.post(`${config.baseURL}/api/admin/login`, {
                 email,
                 password
             });

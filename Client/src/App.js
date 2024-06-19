@@ -21,7 +21,7 @@ import {AdminDoctor}from './AdminPanel/AdminDoctor'
 import { AdminTreatment } from './AdminPanel/AdminTreatment';
 import {EditProduct} from './AdminPanel/EditProduct';
 import { EditDoctor } from './AdminPanel/EditDoctor';
-import {EditTreatment} from './AdminPanel/EditTrearment'
+import {EditTreatment} from './AdminPanel/EditTreatment'
 import { PageNotFound } from './Pages/PageNotFound/PageNotFound';
 import {AdminMaterial} from './AdminPanel/AdminMaterial'
 

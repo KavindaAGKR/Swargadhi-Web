@@ -17,6 +17,7 @@ import axios from 'axios';
 import { setUser, setToken } from '../../redux/slices/userSlice';
 import {  useDispatch } from 'react-redux';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import config from '../../config';
 
 
 
@@ -57,7 +58,7 @@ export const LoginSi = () => {
     }
 
     try {
-        const response = await axios.post('http://localhost:5000/api/user/login', {
+        const response = await axios.post(`${config.baseURL}/api/user/login`, {
             email,
             password
         });

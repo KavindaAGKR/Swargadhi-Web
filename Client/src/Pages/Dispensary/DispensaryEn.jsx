@@ -7,6 +7,7 @@ import ScrollToTop from 'react-scroll-to-top';
 import { SwiperSlider } from '../../Components/Swiper';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import config from '../../config';
 
 
 
@@ -20,7 +21,7 @@ export const DispensaryEn = () => {
     setLoading(true);
     const fetchTreatments = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/treatment/treatments');
+        const response = await fetch(`${config.baseURL}/api/treatment/treatments`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -99,7 +100,7 @@ export const DispensaryEn = () => {
               <SwiperSlider
       imageArray={treatments.flatMap(treatment =>
     treatment.images.map((image, i) => ({
-      src: `http://localhost:5000${image}`,
+      src: `${config.baseURL}${image}`,
       alt: treatment.treatmentName,
     }))
   )}
@@ -194,7 +195,7 @@ export const DispensaryEn = () => {
               <Stack sx={{ width:{xs:'100%', md:'35%'}, height:{xs:'180px', md:'auto'}, margin:'10px auto'    }}>
               <Box sx={{width:{xs:'270Px', md:'100%'}, height:{xs:'180Px', md:'300px'}, margin:'0px auto'}}>
               <img
-                  src={`http://localhost:5000${item.images[0]}`}
+                  src={`${config.baseURL}${item.images[0]}`}
                   style={{width:'100%', height:'100%', margin:'0px auto', borderRadius:'15px',objectFit:'cover'}}
                   alt={item.treatmentNameSi}
                   onError={(e) => {

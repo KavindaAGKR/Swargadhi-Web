@@ -1,15 +1,13 @@
 import React from 'react';
 import slide from '../../Images/category/Edited-68.jpg';
-import { Box, Container, Grid, List, Stack, Typography } from '@mui/material';
+import {  Grid,Stack, Typography } from '@mui/material';
 import { MotionButton } from '../../Components/FramerMotion/MotionButton';
 import { useNavigate } from 'react-router-dom';
-
 import slide1 from '../../Images/category/chuurna.jpg'
 import slide2 from '../../Images/category/Guli.jpg'
 import slide3 from '../../Images/category/pottani.jpg'
 import slide4 from '../../Images/category/thel.jpg'
 import slide5 from '../../Images/category/Edited-141-300x300.jpg'
-import { Padding } from '@mui/icons-material';
 
 
 const categories = [

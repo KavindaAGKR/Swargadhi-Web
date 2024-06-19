@@ -4,6 +4,7 @@ import { Stack } from '@mui/system';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useDispatch } from 'react-redux';
 import { updateItemBuyingCount, removeItemFromCart } from '../../redux/slices/cartSlice';
+import config from '../../config';
 
 
 
@@ -53,7 +54,7 @@ const handleRemoveClick = () => {
     {Object.values(images).slice(0, 1).map((image, index) => (
         <img
         key={index}
-        src={`http://localhost:5000/${image}`}
+        src={`${config.baseURL}/${image}`}
         alt={`Product Image ${index + 1}`}
         style={{ width: '100%', height: '120px', marginRight: 10 }}
         onError={(e) => {
@@ -130,7 +131,7 @@ const handleRemoveClick = () => {
             {Object.values(imageUrl).slice(0, 1).map((image, index) => (
     <img
         key={index}
-        src={`http://localhost:5000${image}`} 
+        src={`${config.baseURL}${image}`} 
         alt={`Slide ${index + 1}`}
         style={{ width:'100%',height:'100px', borderRadius: '5px' }}
         onError={(e) => {

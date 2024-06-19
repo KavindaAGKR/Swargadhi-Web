@@ -6,6 +6,7 @@ import axios from 'axios';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import config from '../config';
 
 const theme = createTheme();
 
@@ -63,7 +64,7 @@ export const AdminSignup = () => {
 
 
         try {
-            const response = await axios.post('http://localhost:5000/api/admin/register', {
+            const response = await axios.post(`${config.baseURL}/api/admin/register`, {
                 firstName,
                 lastName,
                 email,

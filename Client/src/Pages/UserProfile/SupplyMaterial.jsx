@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Alert, Button, Dialog, DialogActions, DialogContent, Snackbar, Stack, TextField, Typography } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
+import config from '../../config';
 
 
 export const SupplyMaterial = ({ user }) => {
@@ -52,7 +53,7 @@ export const SupplyMaterial = ({ user }) => {
        
 
         try {
-            const response = await fetch('http://localhost:5000/api/material/supplymaterial', {
+            const response = await fetch(`${config.baseURL}/api/material/supplymaterial`, {
                 method: 'POST',
                 body: formData
             });
