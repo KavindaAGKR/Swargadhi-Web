@@ -1,6 +1,8 @@
 
+// src/config.js
+
 const config = {
-    baseURL: 'http://localhost:5000',
+    baseURL: process.env.REACT_APP_BASE_URL
 };
 
 export default config;

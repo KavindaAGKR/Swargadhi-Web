@@ -46,6 +46,7 @@ import { selectCartItems } from './redux/slices/cartSlice';
 import { UserProfileSi } from './Pages/UserProfile/UserProfileSinhala/UserprofileSi';
 import { SignupSi } from './Pages/UserSignup/SignupSi';
 import { LoginSi } from './Pages/UserLogin/LoginSi';
+import config from './config';
 
 
 function App() {
@@ -56,8 +57,8 @@ function App() {
 
 
 
-
-
+  console.log('Base URL:', config.baseURL);
+  console.log('REACT_APP_BASE_URL:', process.env.REACT_APP_BASE_URL);
   return (
     <div>
         <Routes>
