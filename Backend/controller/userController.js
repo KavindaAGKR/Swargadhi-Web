@@ -11,25 +11,18 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 const createToken = (userId) => {
-  return jwt.sign({ userId }, "jwtSecretKey", { expiresIn: "3600s" });
+  return jwt.sign({ userId }, "jwtSecretKey", { expiresIn: "5s" });
 };
 
 export const createUser = async (req, res) => {
   try {
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName,lastName, email, password } = req.body;
 
-    if (!firstName || !lastName || !email || !password) {
+    if (!lastName||!firstName || !email || !password) {
       return res.status(400).send({
         message: "Please provide all required fields",
-        alert: "error",
-      });
-    }
-
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    if (!passwordRegex.test(password)) {
-      return res.status(400).send({
-        message: "Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.",
         alert: "error",
       });
     }
@@ -259,71 +252,3 @@ export const deleteProfilePicture = async (req, res) => {
     res.status(500).json({ message: 'Internal server error', error: error.message });
   }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

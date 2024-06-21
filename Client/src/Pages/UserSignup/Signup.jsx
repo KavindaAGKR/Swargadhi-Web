@@ -51,9 +51,10 @@ export const Signup = () => {
         return;
     }
     const passwordType = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
+    //const passwordType = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
     if (!passwordType.test(password)) {
         setErrorPW(true);
-        setErrorPWMsg('Password must contain atleast one capital letter, lowercase letter, and a number');
+        setErrorPWMsg('Password must contain 6 characters with atleast one capital letter, lowercase letter, and a number');
         return;
     }
         
