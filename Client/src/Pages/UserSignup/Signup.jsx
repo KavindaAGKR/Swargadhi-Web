@@ -78,7 +78,7 @@ export const Signup = () => {
             setisSignedup(true);
             
         } catch (error) {
-            console.error(error);
+            console.error(error.response.data);
             setSnackMessage("Invalid Inputs");
             
         }

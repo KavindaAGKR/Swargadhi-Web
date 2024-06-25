@@ -46,6 +46,7 @@ import { selectCartItems } from './redux/slices/cartSlice';
 import { UserProfileSi } from './Pages/UserProfile/UserProfileSinhala/UserprofileSi';
 import { SignupSi } from './Pages/UserSignup/SignupSi';
 import { LoginSi } from './Pages/UserLogin/LoginSi';
+import ResetPassword from './Pages/Password/ResetPassword';
 import config from './config';
 
 
@@ -104,6 +105,8 @@ function App() {
           <Route path='/user' element={<UserProfileSi/>}/>
           <Route path='/login' element={<LoginSi/>}/>
           <Route path='/signup' element={<SignupSi/>} />
+          
+
           {isUserLoggedIn ? (
                     <>
                     <Route path='/cart' element={<CartSi/>}/>
@@ -124,6 +127,7 @@ function App() {
           
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>} />
+          <Route path="/reset/:token" element={<ResetPassword />} />
           {isUserLoggedIn ? (
                     <>
                     <Route path='/cart' element={<CartEn/>}/>

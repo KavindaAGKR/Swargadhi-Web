@@ -18,6 +18,7 @@ import { setUser, setToken } from '../../redux/slices/userSlice';
 import {  useDispatch } from 'react-redux';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import config from '../../config';
+import ForgotPasswordDialog from '../Password/ForgotPasswordDialog';
 
 
 //     '@media (max-width: 600px)': {
@@ -50,8 +51,7 @@ export const Login = () => {
     const [errorPW, setErrorPW] = useState(false)
     const [errorPWMsg, setErrorPWMsg] = useState('')
     const [showPassword, setShowPassword] = useState(false);
-    // const [passwordError, setPasswordError] = useState(false);
-
+    const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
 
 
     const handleLogin = async () => {
@@ -189,7 +189,7 @@ export const Login = () => {
                                 />
                             </Box>
                             <Button variant="contained" onClick={handleLogin} color='success'>Login</Button>
-                            <Button variant='text' onClick={() => { navigate('/forgotpassword') }}>Forgot password?</Button>
+                            <Button variant='text' onClick={() => setForgotPasswordOpen(true)}>Forgot password?</Button>
                             <Typography variant='body'>Don't have an account?<Button variant='text' onClick={() => { navigate('/signup') }}>Sign Up</Button> </Typography>
                             
                             <Snackbar
@@ -208,6 +208,7 @@ export const Login = () => {
                                     {snackMessage}
                                 </Alert>
                                 </Snackbar>
+                                <ForgotPasswordDialog open={forgotPasswordOpen} onClose={() => setForgotPasswordOpen(false)} />
                         </Stack>
                     </Stack>
                 </Paper>

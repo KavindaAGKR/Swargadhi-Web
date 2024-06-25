@@ -8,6 +8,8 @@ import upload from "../middleWare/singleFileUpload.js";
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import nodemailer from 'nodemailer';
+import crypto from 'crypto';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,13 +28,13 @@ export const createUser = async (req, res) => {
       });
     }
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    if (!passwordRegex.test(password)) {
-      return res.status(400).send({
-        message: "Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.",
-        alert: "error",
-      });
-    }
+    // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    // if (!passwordRegex.test(password)) {
+    //   return res.status(400).send({
+    //     message: "Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.",
+    //     alert: "error",
+    //   });
+    // }
 
     const existingUserByEmail = await User.findOne({ email });
     if (existingUserByEmail) {
@@ -128,16 +130,6 @@ export const updateUser = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
-
-
-
-
-
-
-
-
-
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -259,7 +251,74 @@ export const deleteProfilePicture = async (req, res) => {
     res.status(500).json({ message: 'Internal server error', error: error.message });
   }
 };
+export const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
 
+    if (!user) {
+      return res.status(404).send({ message: "User with this email does not exist", alert: false });
+    }
+    const token = crypto.randomBytes(32).toString('hex');
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+    await user.save();
+
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
+      },
+    });
+
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+
+    const mailOptions = {
+      to: user.email,
+      from: process.env.EMAIL,
+      subject: 'Password Reset',
+      text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
+             Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n
+             ${frontendUrl}/reset/${token}\n\n
+             If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+    };
+
+    transporter.sendMail(mailOptions, (error) => {
+      if (error) {
+        return res.status(500).send({ message: "Error sending email", alert: false });
+      }
+      res.status(200).send({ message: "Password reset email sent", alert: true });
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send({ message: "Internal server error", alert: false });
+  }
+};
+
+export const resetPassword = async (req, res) => {
+  const { token, password } = req.body;
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(400).send({ message: "Password reset token is invalid or has expired", alert: false });
+    }
+
+    user.password = await bcrypt.hash(password, 10);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+
+    res.status(200).send({ message: "Password has been reset", alert: true });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send({ message: "Internal server error", alert: false });
+  }
+};
 
 
 
