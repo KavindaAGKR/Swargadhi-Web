@@ -94,48 +94,54 @@ function App() {
         <Route path='/adminsignup' element={<AdminSignup/>}/>
 
 
-        
+        {
+          user.isAdmin!==true ? (
+            isSinhalaTrue? (
+              <>
+              <Route path='/dispensary' element={<DispensarySi/>}/>
+              <Route path='/about' element={<AboutSi/>}/>
+              <Route path='/shop' element={<ShopSi/>}/>
+              <Route path='/user' element={<UserProfileSi/>}/>
+              <Route path='/login' element={<LoginSi/>}/>
+              <Route path='/signup' element={<SignupSi/>} />
+              {isUserLoggedIn ? (
+                        <>
+                        <Route path='/cart' element={<CartSi/>}/>
+                        {
+                          cartItems.length>0 ? <Route path='/checkout' element={<CheckOutSi/>}/> 
+                          : <Route path='*' element={<PageNotFound/>}/>
+                        }
+                        </>
+                        ) : (<Route path='*' element={<PageNotFoundSi/>}/>)}
+              
+              </>
+            ):(
+              <>
+              <Route path='/dispensary' element={<DispensaryEn/>}/>
+              <Route path='/shop' element={<Shop/>}/>
+              <Route path='/about' element={<AboutEn/>}/>
+              <Route path='/user' element={<UserProfile/>}/>
+              
+              <Route path='/login' element={<Login/>}/>
+              <Route path='/signup' element={<Signup/>} />
+              {isUserLoggedIn ? (
+                        <>
+                        <Route path='/cart' element={<CartEn/>}/>
+                        
+                        {
+                          cartItems.length>0 ? <Route path='/checkout' element={<CheckOutEn/>}/>
+                          : <Route path='*' element={<PageNotFound/>}/>
+                        }
+                        </>
+                        ) : (<Route path='*' element={<PageNotFound/>}/>)}
+              </>
+            )
+          ):(
+            <Route path='*' element={<PageNotFound/>}/>
+          )
+        }
 
-        {isSinhalaTrue? (
-          <>
-          <Route path='/dispensary' element={<DispensarySi/>}/>
-          <Route path='/about' element={<AboutSi/>}/>
-          <Route path='/shop' element={<ShopSi/>}/>
-          <Route path='/user' element={<UserProfileSi/>}/>
-          <Route path='/login' element={<LoginSi/>}/>
-          <Route path='/signup' element={<SignupSi/>} />
-          {isUserLoggedIn ? (
-                    <>
-                    <Route path='/cart' element={<CartSi/>}/>
-                    {
-                      cartItems.length>0 ? <Route path='/checkout' element={<CheckOutSi/>}/> 
-                      : <Route path='*' element={<PageNotFound/>}/>
-                    }
-                    </>
-                    ) : (<Route path='*' element={<PageNotFoundSi/>}/>)}
-          
-          </>
-        ):(
-          <>
-          <Route path='/dispensary' element={<DispensaryEn/>}/>
-          <Route path='/shop' element={<Shop/>}/>
-          <Route path='/about' element={<AboutEn/>}/>
-          <Route path='/user' element={<UserProfile/>}/>
-          
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/signup' element={<Signup/>} />
-          {isUserLoggedIn ? (
-                    <>
-                    <Route path='/cart' element={<CartEn/>}/>
-                    
-                    {
-                      cartItems.length>0 ? <Route path='/checkout' element={<CheckOutEn/>}/>
-                      : <Route path='*' element={<PageNotFound/>}/>
-                    }
-                    </>
-                    ) : (<Route path='*' element={<PageNotFound/>}/>)}
-          </>
-        )}
+        
 
 
 
