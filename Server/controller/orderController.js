@@ -1,5 +1,9 @@
 import Order from "../models/orderModel.js";
 import Product from "../models/productModel.js";
+import nodemailer from 'nodemailer';
+import moment from 'moment';
+
+
 
 export const createOrder = async (req, res) => {
   try {
@@ -29,6 +33,8 @@ export const createOrder = async (req, res) => {
     });
 
     const savedOrder = await newOrder.save();
+    await sendAdminOrderNotification(savedOrder);
+    await sendOrderConfirmation(user.email, { ...savedOrder._doc, user });
     res.status(201).json(savedOrder);
 } catch (error) {
     console.error('Error creating order:', error);
@@ -62,10 +68,14 @@ export const updateOrderStatus = async (req, res) => {
     if (!order) {
       return res.status(404).json({ message: 'Order not found.' });
     }
-
+    const previousStatus = order.orderStatus;
     order.orderStatus = status;
     await order.save();
-
+    const userEmail = order.orderedby.email;
+    if (!userEmail) {
+      return res.status(400).json({ message: 'User email is missing or invalid.' });
+    }
+    await sendOrderStatusChangeEmail(order.orderedby.email, order._id, previousStatus, status);
     res.status(200).json(order);
   } catch (error) {
     console.error('Error updating order status:', error);
@@ -96,5 +106,76 @@ export const getUserOrders = async (req, res) => {
 };
 
 
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+      user: process.env.EMAIL, 
+      pass: process.env.PASSWORD 
+  }
+});
 
 
+export const sendOrderConfirmation = async (userEmail, orderDetails) => {
+  const orderedItems = orderDetails.products.map(item => 
+    `Name: ${item.itemName.en} (${item.itemName.si}) - Quantity: ${item.buyingCount}, Price: ${item.price}`
+  ).join('\n');
+  const orderDate = moment(orderDetails.createdAt).format('MMMM Do YYYY, h:mm:ss a');
+  const mailOptions = {
+      from: process.env.EMAIL,
+      to: userEmail,
+      subject: 'Order Confirmation',
+      text: `Dear ${orderDetails.user.firstName} ${orderDetails.user.lastName},\n\n
+      Your order has been placed successfully. Here are the details:\n\n
+      Order ID: ${orderDetails._id}\n
+      Total Amount: ${orderDetails.totalAmount}\n
+      Ordered Items:\n${orderedItems}\n
+      Order Date: ${orderDate}\n\n
+      Thank you for shopping with us!\n\n
+      Best regards,\nYour Company`
+  };
+
+  try {
+      await transporter.sendMail(mailOptions);
+      console.log('Order confirmation email sent.');
+  } catch (error) {
+      console.error('Error sending order confirmation email:', error);
+  }
+};
+
+const sendAdminOrderNotification = async (orderDetails) => {
+  try {
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: 'info.swargadhi@gmail.com',
+      subject: 'New Order Placed',
+      text: `New order has been placed .\n\n`
+    };
+
+    await transporter.sendMail(mailOptions);
+    console.log('Admin notification email sent.');
+  } catch (error) {
+    console.error('Error sending admin notification email:', error);
+  }
+};
+
+export const sendOrderStatusChangeEmail = async (userEmail, orderId, previousStatus, newStatus) => {
+  try {
+    if (!userEmail) {
+      throw new Error('User email is missing or invalid.');
+    }
+
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: userEmail,
+      subject: 'Order Status Update',
+      text: `Dear Customer,\n\nYour order (${orderId}) status has been updated:\n\nPrevious Status: ${previousStatus}\nNew Status: ${newStatus}\n\nThank you for shopping with us!\n\nBest regards,\nYour Company`
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Order status change email sent:', info);
+
+  } catch (error) {
+    console.error('Error sending order status change email:', error);
+    throw error; 
+  }
+};

@@ -8,14 +8,9 @@ export const AdminOrders = () => {
 
   const {orders, loading, error, handleStatusChange} = FetchOrders();
   const [value, setValue] = useState('Not Processed');
-
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
 };
-
-
-
-
   const filterOrdersByStatus = (status) => {
     return orders.reverse().filter(order => order.orderStatus === status).map(order => ({
       id: order._id,

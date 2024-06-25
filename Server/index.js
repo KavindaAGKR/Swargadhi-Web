@@ -57,17 +57,17 @@ app.use('/api/cart', cartRoute);
 app.use('/api/orders', orderRoute);
 app.use('/api/option', optionRoute);
 
-// Serve static files from the React app
-app.use(express.static(path.join(path.resolve(), 'client/build')));
+// // Serve static files from the React app
+// app.use(express.static(path.join(path.resolve(), 'client/build')));
 
-app.get('/reset/:token', (req, res) => {
-    res.sendFile(path.join(path.resolve(), 'client/build', 'index.html'));
-});
+// app.get('/reset/:token', (req, res) => {
+//     res.sendFile(path.join(path.resolve(), 'client/build', 'index.html'));
+// });
 
-// Handle all other routes with the React app
-app.get('*', (req, res) => {
-    res.sendFile(path.join(path.resolve(), 'client/build', 'index.html'));
-});
+// // Handle all other routes with the React app
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(path.resolve(), 'client/build', 'index.html'));
+// });
 
 app.listen(PORT, () => {
     console.log(`Server is running at PORT ${PORT}`);
