@@ -25,7 +25,7 @@ export const ShopSi = (valuee) => {
         switch(value){
             case("all"): 
                 return "සියලු නිෂ්පාදන" ;
-            case("kalka"):
+            case("Kalka"):
                 return "කල්ක වර්ග";
             case('Thel'):
                 return 'පත්තු වර්ග';
@@ -35,7 +35,7 @@ export const ShopSi = (valuee) => {
                 return 'ගුලි වර්ග';
             case('Chuurna'):
                 return 'චූර්ණ වර්ග';
-            case('Kashay'):
+            case('Kashaya'):
                 return 'කෂාය වර්ග';
 
         }
@@ -68,12 +68,12 @@ export const ShopSi = (valuee) => {
                             sx={{ width: { xs: '300px', sm: '500px', md: 'auto' } , padding:'0px'}}
                         >
                             <Tab label='සියලු නිෂ්පාදන' value='all' />
-                            <Tab label='කල්ක වර්ග' value='kalka' />
+                            <Tab label='කල්ක වර්ග' value='Kalka' />
                             <Tab label='තෙල් වර්ග' value='Thel' />
                             <Tab label='පත්තු වර්ග' value='Paththu' />
                             <Tab label='ගුලි වර්ග' value='Guli' />
                             <Tab label='චූර්ණ වර්ග' value='Chuurna'/>
-                            <Tab label='කෂාය වර්ග' value='Kashay'  />
+                            <Tab label='කෂාය වර්ග' value='Kashaya'  />
                         </TabList>
                     </Box>
 
@@ -82,7 +82,7 @@ export const ShopSi = (valuee) => {
                     <TabPanel value='all' sx={{width:'100%', padding:'0px'}}>
                     <ProductCatalogSi category="all" />
                     </TabPanel>
-                    <TabPanel value='kalka'sx={{width:'100%'}}>
+                    <TabPanel value='Kalka'sx={{width:'100%'}}>
                     <ProductCatalogSi category="කල්ක" />
                     </TabPanel>
                     <TabPanel value='Thel' sx={{width:'100%'}}>
@@ -97,7 +97,7 @@ export const ShopSi = (valuee) => {
                     <TabPanel value='Chuurna' sx={{width:'100%'}}>
                     <ProductCatalogSi category="චූර්න" />
                     </TabPanel>
-                    <TabPanel value='Kashay' sx={{width:'100%'}}>
+                    <TabPanel value='Kashaya' sx={{width:'100%'}}>
                     <ProductCatalogSi category="කසාය" />
                     </TabPanel>
                 
