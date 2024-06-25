@@ -61,7 +61,7 @@ export const Shop = (valuee) => {
                     <ProductCatalog category="all" />
                     </TabPanel>
                     <TabPanel value='Kalka' sx={{width:'100%'}}>
-                    <ProductCatalog category="kalka" />
+                    <ProductCatalog category="Kalka" />
                     </TabPanel>
                     <TabPanel value='Thel' sx={{width:'100%'}}>
                     <ProductCatalog category="Thel" />
