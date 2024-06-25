@@ -95,7 +95,7 @@ function App() {
 
 
         {
-          user.isAdmin!==true ? (
+          !isUserLoggedIn || user.isAdmin!=true  ? (
             isSinhalaTrue? (
               <>
               <Route path='/dispensary' element={<DispensarySi/>}/>
@@ -137,7 +137,7 @@ function App() {
               </>
             )
           ):(
-            <Route path='*' element={<PageNotFound/>}/>
+            <Route path='/admin/home' element={<AdminHome/>}/>
           )
         }
 
