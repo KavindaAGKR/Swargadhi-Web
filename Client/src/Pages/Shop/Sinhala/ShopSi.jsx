@@ -95,10 +95,10 @@ export const ShopSi = (valuee) => {
                     <ProductCatalogSi category="ගුලි" />
                     </TabPanel>
                     <TabPanel value='Chuurna' sx={{width:'100%'}}>
-                    <ProductCatalogSi category="චූර්න" />
+                    <ProductCatalogSi category="චූර්ණ" />
                     </TabPanel>
                     <TabPanel value='Kashaya' sx={{width:'100%'}}>
-                    <ProductCatalogSi category="කසාය" />
+                    <ProductCatalogSi category="කෂාය" />
                     </TabPanel>
                 
                 </TabContext>
