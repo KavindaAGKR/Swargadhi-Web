@@ -70,7 +70,7 @@ const ResetPassword = () => {
             return;
         }
         try {
-            const response = await axios.post(`${config.baseURL}/api/user/reset-password`, { token, password });  // Updated to password
+            const response = await axios.post(`${config.baseURL}/api/user/resetpassword`, { token, password });  // Updated to password
             setSnackMessage(response.data.message);
             setIsSuccess(response.data.alert);
             setSnackbarOpen(true);
