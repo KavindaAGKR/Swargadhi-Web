@@ -7,10 +7,6 @@ const multilingualSchema = new mongoose.Schema(
   },
   { _id: false }
 );
-
-
-
-
 const orderSchema = new mongoose.Schema({
   products: [
     {

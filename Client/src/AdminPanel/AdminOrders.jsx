@@ -8,14 +8,9 @@ export const AdminOrders = () => {
 
   const {orders, loading, error, handleStatusChange} = FetchOrders();
   const [value, setValue] = useState('Not Processed');
-
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
 };
-
-
-
-
   const filterOrdersByStatus = (status) => {
     return orders.reverse().filter(order => order.orderStatus === status).map(order => ({
       id: order._id,
@@ -99,12 +94,8 @@ export const AdminOrders = () => {
                           {orderStatuses.map(status =>
                             (<Tab label={status} value={status} key={status} />)
                           )}
-
-
                         </TabList>
                         </Box>
-
-
 {
   orderStatuses.map(status =>(
     <TabPanel value={status} key={status} sx={{width:'100%', padding:'0px'}}>
@@ -120,10 +111,7 @@ export const AdminOrders = () => {
                     
                     </TabPanel>
   ))
-}
-                    
-                    
-                
+}         
                 </TabContext>
 
     </Stack>
