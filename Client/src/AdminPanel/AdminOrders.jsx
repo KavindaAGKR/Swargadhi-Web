@@ -94,12 +94,8 @@ export const AdminOrders = () => {
                           {orderStatuses.map(status =>
                             (<Tab label={status} value={status} key={status} />)
                           )}
-
-
                         </TabList>
                         </Box>
-
-
 {
   orderStatuses.map(status =>(
     <TabPanel value={status} key={status} sx={{width:'100%', padding:'0px'}}>
@@ -115,10 +111,7 @@ export const AdminOrders = () => {
                     
                     </TabPanel>
   ))
-}
-                    
-                    
-                
+}         
                 </TabContext>
 
     </Stack>

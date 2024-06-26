@@ -56,32 +56,38 @@ export const getOrders = async (req, res) => {
 
 export const updateOrderStatus = async (req, res) => {
   try {
-    const orderId = req.params.id;
-    const { status } = req.body;
-    console.log(`Received request to update order status: orderId=${orderId}, status=${status}`);
-    if (!orderId || !status) {
-      return res.status(400).json({ message: 'Order ID and status are required.' });
-    }
+      const orderId = req.params.id;
+      const { status } = req.body;
 
-    const order = await Order.findById(orderId);
+      console.log(`Received request to update order status: orderId=${orderId}, status=${status}`);
+      
+      if (!orderId || !status) {
+          return res.status(400).json({ message: 'Order ID and status are required.' });
+      }
 
-    if (!order) {
-      return res.status(404).json({ message: 'Order not found.' });
-    }
-    const previousStatus = order.orderStatus;
-    order.orderStatus = status;
-    await order.save();
-    const userEmail = order.orderedby.email;
-    if (!userEmail) {
-      return res.status(400).json({ message: 'User email is missing or invalid.' });
-    }
-    await sendOrderStatusChangeEmail(order.orderedby.email, order._id, previousStatus, status);
-    res.status(200).json(order);
+      const order = await Order.findById(orderId).populate('orderedby', 'email');;
+
+      if (!order) {
+          return res.status(404).json({ message: 'Order not found.' });
+      }
+
+      const previousStatus = order.orderStatus;
+      order.orderStatus = status;
+      await order.save();
+
+      const userEmail = order.orderedby.email;
+      if (!userEmail) {
+          return res.status(400).json({ message: 'User email is missing or invalid.' });
+      }
+
+      await sendOrderStatusChangeEmail(order.orderedby.email, order._id, previousStatus, status);
+      res.status(200).json(order);
   } catch (error) {
-    console.error('Error updating order status:', error);
-    res.status(500).json({ message: 'Error updating order status', error });
+      console.error('Error updating order status:', error);
+      res.status(500).json({ message: 'Error updating order status', error });
   }
 };
+
 
 export const getUserOrders = async (req, res) => {
   try {
@@ -91,7 +97,7 @@ export const getUserOrders = async (req, res) => {
     }
 
     const orders = await Order.find({ orderedby: userId })
-      .populate('orderedby', 'firstName lastName')
+      .populate('orderedby', 'firstName lastName email' )
       .populate('products.product');
     
     if (!orders.length) {
