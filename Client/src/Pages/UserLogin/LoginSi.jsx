@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import {Paper, Button, Typography, TextField, InputAdornment, FormControlLabel, Box, Checkbox, Stack, Alert, Container, IconButton } from '@mui/material';
+import {Paper, Button, Typography, TextField, InputAdornment, FormControlLabel, Box, Checkbox, Stack, Alert, Container, IconButton, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import signpng from '../../Images/signupfinal.png';
 import signback from '../../Images/signback.png'
@@ -18,7 +18,7 @@ import { setUser, setToken } from '../../redux/slices/userSlice';
 import {  useDispatch } from 'react-redux';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import config from '../../config';
-import ForgotPasswordDialog from '../Password/ForgotPasswordDialog';
+import ForgotPasswordDialog from './Password/ForgotPasswordDialog';
 
 
 export const LoginSi = () => {
@@ -105,7 +105,15 @@ export const LoginSi = () => {
     
     <div>
         
-    <Container justifyContent='center' sx={{display:'flex' ,margin:'25px auto', alignSelf:'center',}} >
+    <Grid 
+    container 
+    direction="column"
+    alignItems="center"
+    justifyContent="center"
+    sx={{ minHeight: '100vh', width:{xs:'90%', sm:'80%', md:'70%'}, margin:'auto' }}
+    
+    
+    >
                 <Paper sx={{
                     borderRadius: '35px', height:'650px'
                 }} elevation={20} >
@@ -201,7 +209,7 @@ export const LoginSi = () => {
                 </Paper>
 
 
-                </Container>
+                </Grid>
                 </div>
     )
 }

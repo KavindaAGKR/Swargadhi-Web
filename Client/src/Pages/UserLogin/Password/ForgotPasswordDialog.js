@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, Alert, Snackbar } from '@mui/material';
 import axios from 'axios';
-import config from '../../config';
+import config from '../../../config';
 
 const ForgotPasswordDialog = ({ open, onClose }) => {
   const [email, setEmail] = useState('');
@@ -10,9 +10,10 @@ const ForgotPasswordDialog = ({ open, onClose }) => {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const handleRequestReset = async () => {
+    
     try {
       const response = await axios.post(`${config.baseURL}/api/user/forgot-password`, { email });
-      setSnackMessage(response.data.message);
+      setSnackMessage("Password reset message sent to your email");
       setIsSuccess(response.data.alert);
       setSnackbarOpen(true);
     } catch (error) {
@@ -21,11 +22,13 @@ const ForgotPasswordDialog = ({ open, onClose }) => {
       setIsSuccess(false);
       setSnackbarOpen(true);
     }
+  // close();
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Forgot Password</DialogTitle>
+    <Dialog open={open} onClose={onClose} 
+    PaperProps={{ sx: { borderRadius: "25px" } }}>
+      <DialogTitle width={{xs:'300px', sm:'500px'}} sx={{margin:'10px 0 0 0px'}}>Forgot Password</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus
@@ -39,7 +42,7 @@ const ForgotPasswordDialog = ({ open, onClose }) => {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="primary">Cancel</Button>
+        <Button onClick={onClose} color="primary" >Cancel</Button>
         <Button onClick={handleRequestReset} color="primary">Request Reset</Button>
       </DialogActions>
       <Snackbar
