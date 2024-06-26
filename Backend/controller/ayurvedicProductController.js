@@ -12,7 +12,7 @@ export const createAyurvedicProduct = async (req, res) => {
             }
             const imagePaths = req.files.map(file => '/public/item/' + file.filename);
             const { productItemID, itemNameEn, itemNameSi, price, descriptionEn, descriptionSi, quantity, categoryEn,categorySi } = req.body;
-            if (!productItemID || !itemNameEn || !itemNameSi || !price || !descriptionEn || !descriptionSi || !quantity || !categoryEn|| !categorySi) {
+            if (!productItemID || !itemNameEn || !itemNameSi || !price || !descriptionEn || !descriptionSi || !quantity || !categoryEn || !categorySi) {
                 return res.status(400).json({ message: 'Please send all required fields' });
             }
             const newAyurvedicProduct = {

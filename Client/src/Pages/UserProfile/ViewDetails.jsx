@@ -43,7 +43,7 @@ export const ViewDetails = ({userId}) => {
 
     const fetchUserProfile = async () => {
         try {
-            const response = await axios.get(`${config.baseURL}/api/user/profile/${userId}`);
+            const response = await axios.get(`https://www.swargadhi.lk/api/user/profile/${userId}`);
             setProfilePicture(response.data.profilePicture);
             
         } catch (error) {

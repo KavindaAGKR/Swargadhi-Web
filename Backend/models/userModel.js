@@ -32,7 +32,11 @@ const userSchema = new mongoose.Schema({
     isAdmin:{
         type:Boolean,
         default:false
-    }
+    },
+    otp: String,
+    otpExpires: Date,
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 });
 
 

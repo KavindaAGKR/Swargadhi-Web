@@ -19,7 +19,6 @@ import orderRoute from "./routes/orderRoute.js"
 import optionRoute from "./routes/optionRoute.js";
 
 
-
 const require = createRequire(import.meta.url);
 
 require('module').Module._initPaths();
@@ -41,8 +40,26 @@ const app = express();
 dotenv.config();
 dbConnect();
 
-const PORT = process.env.PORT || 4000;
-app.use(cors());
+const PORT = process.env.PORT || 5000;
+
+const allowedOrigins = ['https://swargadhi.lk', 'https://www.swargadhi.lk'];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        } else {
+            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+    }
+}));
+
+
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ limit: '500mb' }));

@@ -11,5 +11,9 @@ router.post('/picture', userController.uploadProfilePicture);
 router.get('/profile/:id',userController.getUserProfile);
 router.put('/update',userController.updateUser);
 router.delete('/profile/picture/:userId', userController.deleteProfilePicture);
+router.post('/forgotpassword', userController.forgotPassword);
+router.post('/resetpassword', userController.resetPassword);
+
+
 
 export default router;

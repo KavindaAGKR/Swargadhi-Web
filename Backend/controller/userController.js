@@ -217,7 +217,7 @@ export const getUserProfile = async (req, res) => {
       if (!user) {
           return res.status(404).json({ message: 'User not found' });
       }
-      const profilePictureUrl = user.profilePicture ? `http://localhost:5000/${user.profilePicture}` : null;
+      const profilePictureUrl = user.profilePicture ? `https://www.swargadhi.lk/${user.profilePicture}` : null;
       return res.status(200).json({ profilePicture: profilePictureUrl, firstName: user.firstName, lastName: user.lastName });
   } catch (error) {
       console.error(error.message);

@@ -12,7 +12,7 @@ import slide5 from '../../Images/category/Edited-141-300x300.jpg'
 
 const categories = [
   {
-    nameEn: "kalka",
+    nameEn: "Kalka",
     nameSi:'කල්ක',
     image: slide5,
   },
@@ -37,7 +37,7 @@ const categories = [
     image: slide1,
   },
   {
-    nameEn: "Kashay",
+    nameEn: "Kashaya",
     nameSi:'කෂාය',
     image: slide3,
   },

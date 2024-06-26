@@ -39,7 +39,7 @@ export const ProductSwiper = ({imageUrl}) => {
                                 key={index}
                                 src={`${config.baseURL}/${image}`}
                                 alt={`Product ${index + 1}`}
-                                style={{ width: '100%', height: '100%',borderRadius: '10px'}}
+                                style={{ width: '100%', height: '100%',borderRadius: '10px', objectFit:'cover'}}
                                 onError={(e) => {
                                     console.error(`Failed to load image ${index}: ${e.target.src}`);
                                     e.target.onerror = null;

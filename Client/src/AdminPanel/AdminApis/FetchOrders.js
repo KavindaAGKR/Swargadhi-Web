@@ -27,26 +27,27 @@ export const FetchOrders = () => {
     }, []);
 
     const handleStatusChange = async (_id, newStatus) => {
-        try {
+      try {
           const response = await fetch(`${config.baseURL}/api/orders/orders/${_id}/status`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ status: newStatus })
+              method: 'PUT',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ status: newStatus })
           });
-    
+
           if (!response.ok) {
-            throw new Error('Failed to update order status');
+              const errorText = await response.text();
+              throw new Error(`Failed to update order status: ${errorText}`);
           }
-          
+
           const updatedOrder = await response.json();
           setOrders(orders.map(order => (order._id === updatedOrder._id ? updatedOrder : order)));
-          await fetchOrders();
-        } catch (error) {
+      } catch (error) {
           console.error('Error updating order status:', error);
-        }
-      };
+          setError('Failed to update order status');
+      }
+  };
 
     return { orders, loading, error, handleStatusChange };
 };

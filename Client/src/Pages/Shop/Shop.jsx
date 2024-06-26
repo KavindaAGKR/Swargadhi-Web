@@ -46,12 +46,12 @@ export const Shop = (valuee) => {
                             sx={{ width: { xs: '300px', sm: '500px', md: 'auto' } , padding:'0px'}}
                         >
                             <Tab label='All Products' value='all' />
-                            <Tab label='Kalka' value='kalka' />
+                            <Tab label='Kalka' value='Kalka' />
                             <Tab label='Thel' value='Thel' />
                             <Tab label='Paththu' value='Paththu' />
                             <Tab label='Guli' value='Guli' />
                             <Tab label='Chuurna' value='Chuurna' />
-                            <Tab label='Kashaya' value='Kashay' />
+                            <Tab label='Kashaya' value='Kashaya' />
                         </TabList>
                     </Box>
 
@@ -60,8 +60,8 @@ export const Shop = (valuee) => {
                     <TabPanel value='all' sx={{width:'100%', padding:'0px'}}>
                     <ProductCatalog category="all" />
                     </TabPanel>
-                    <TabPanel value='kalka' sx={{width:'100%'}}>
-                    <ProductCatalog category="kalka" />
+                    <TabPanel value='Kalka' sx={{width:'100%'}}>
+                    <ProductCatalog category="Kalka" />
                     </TabPanel>
                     <TabPanel value='Thel' sx={{width:'100%'}}>
                     <ProductCatalog category="Thel" />
@@ -75,7 +75,7 @@ export const Shop = (valuee) => {
                     <TabPanel value='Chuurna' sx={{width:'100%'}}>
                     <ProductCatalog category="Chuurna" />
                     </TabPanel>
-                    <TabPanel value='Kashay' sx={{width:'100%'}}>
+                    <TabPanel value='Kashaya' sx={{width:'100%'}}>
                     <ProductCatalog category="Kashaya" />
                     </TabPanel>
                 

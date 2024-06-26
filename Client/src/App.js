@@ -47,6 +47,9 @@ import { UserProfileSi } from './Pages/UserProfile/UserProfileSinhala/Userprofil
 import { SignupSi } from './Pages/UserSignup/SignupSi';
 import { LoginSi } from './Pages/UserLogin/LoginSi';
 
+import config from './config';
+import ResetPassword from './Pages/UserLogin/Password/ResetPassword';
+
 
 function App() {
   const isUserLoggedIn = useSelector(selectIsLoggedIn);
@@ -56,8 +59,8 @@ function App() {
 
 
 
-
-
+  console.log('Base URL:', config.baseURL);
+  console.log('REACT_APP_BASE_URL:', process.env.REACT_APP_BASE_URL);
   return (
     <div>
         <Routes>
@@ -103,6 +106,8 @@ function App() {
           <Route path='/user' element={<UserProfileSi/>}/>
           <Route path='/login' element={<LoginSi/>}/>
           <Route path='/signup' element={<SignupSi/>} />
+          <Route path="/reset/:token" element={<ResetPassword />} />
+
           {isUserLoggedIn ? (
                     <>
                     <Route path='/cart' element={<CartSi/>}/>
@@ -123,6 +128,7 @@ function App() {
           
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>} />
+          <Route path="/reset/:token" element={<ResetPassword />} />
           {isUserLoggedIn ? (
                     <>
                     <Route path='/cart' element={<CartEn/>}/>
