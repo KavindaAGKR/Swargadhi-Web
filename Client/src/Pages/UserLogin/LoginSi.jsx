@@ -18,7 +18,7 @@ import { setUser, setToken } from '../../redux/slices/userSlice';
 import {  useDispatch } from 'react-redux';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import config from '../../config';
-
+import ForgotPasswordDialog from '../Password/ForgotPasswordDialog';
 
 
 export const LoginSi = () => {
@@ -37,6 +37,7 @@ export const LoginSi = () => {
     const [errorPW, setErrorPW] = useState(false)
     const [errorPWMsg, setErrorPWMsg] = useState('')
     const [showPassword, setShowPassword] = useState(true);
+    const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
     // const [passwordError, setPasswordError] = useState(false);
 
 
@@ -175,7 +176,7 @@ export const LoginSi = () => {
                                 />
                             </Box>
                             <Button variant="contained" onClick={handleLogin} color='success'>ලොග් වන්න</Button>
-                            <Button variant='text' onClick={() => { navigate('/forgotpassword') }}>මුරපදය අමතකයි?</Button>
+                            <Button variant='text' onClick={() => setForgotPasswordOpen(true)}>Forgot password?</Button>
                             <Typography variant='body'>ගිණුමක් නැතිද?<Button variant='text' onClick={() => { navigate('/signup') }}>නව ගිණුමක් සකසන්න</Button> </Typography>
                             
                             <Snackbar
@@ -194,6 +195,7 @@ export const LoginSi = () => {
                                     {snackMessage}
                                 </Alert>
                                 </Snackbar>
+                                <ForgotPasswordDialog open={forgotPasswordOpen} onClose={() => setForgotPasswordOpen(false)} />
                         </Stack>
                     </Stack>
                 </Paper>
