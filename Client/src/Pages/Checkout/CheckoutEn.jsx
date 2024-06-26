@@ -69,9 +69,6 @@ export const CheckOutEn = () => {
             mobileNo,
             totalAmount
         };
-
-
-
         try {
             const response = await fetch(`${config.baseURL}/api/orders/create`, {
                 method: 'POST',

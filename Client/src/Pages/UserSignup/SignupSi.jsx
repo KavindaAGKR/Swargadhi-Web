@@ -1,6 +1,6 @@
 
 import React, {useState} from 'react';
-import { Paper, Button, Typography, TextField, InputAdornment,Stack,Snackbar, Alert, Container, IconButton } from '@mui/material';
+import { Paper, Button, Typography, TextField, InputAdornment,Stack,Snackbar, Alert, Container, IconButton, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import signpng from '../../Images/signupfinal.png';
 import signback from '../../Images/signback.png'
@@ -88,7 +88,16 @@ export const SignupSi = () => {
 
       <div>
         
-      <Container justifyContent='center' sx={{display:'flex' ,margin:'25px auto', alignSelf:'center',}} >
+      <Grid
+      
+      
+      container 
+    direction="column"
+    alignItems="center"
+    justifyContent="center"
+    sx={{ minHeight: '100vh', width:{xs:'90%', sm:'80%', md:'80%'}, margin:'auto' }}
+      
+      >
       <Paper sx={{
                     borderRadius: '35px', height:'650px'
                 }} elevation={20} >
@@ -224,7 +233,7 @@ export const SignupSi = () => {
             
             </Stack>
         </Paper>
-        </Container>
+        </Grid>
         </div>
     );
 };

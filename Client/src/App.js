@@ -46,7 +46,9 @@ import { selectCartItems } from './redux/slices/cartSlice';
 import { UserProfileSi } from './Pages/UserProfile/UserProfileSinhala/UserprofileSi';
 import { SignupSi } from './Pages/UserSignup/SignupSi';
 import { LoginSi } from './Pages/UserLogin/LoginSi';
+
 import config from './config';
+import ResetPassword from './Pages/UserLogin/Password/ResetPassword';
 
 
 function App() {
@@ -94,54 +96,51 @@ function App() {
         <Route path='/adminsignup' element={<AdminSignup/>}/>
 
 
-        {
-          !isUserLoggedIn || user.isAdmin!=true  ? (
-            isSinhalaTrue? (
-              <>
-              <Route path='/dispensary' element={<DispensarySi/>}/>
-              <Route path='/about' element={<AboutSi/>}/>
-              <Route path='/shop' element={<ShopSi/>}/>
-              <Route path='/user' element={<UserProfileSi/>}/>
-              <Route path='/login' element={<LoginSi/>}/>
-              <Route path='/signup' element={<SignupSi/>} />
-              {isUserLoggedIn ? (
-                        <>
-                        <Route path='/cart' element={<CartSi/>}/>
-                        {
-                          cartItems.length>0 ? <Route path='/checkout' element={<CheckOutSi/>}/> 
-                          : <Route path='*' element={<PageNotFound/>}/>
-                        }
-                        </>
-                        ) : (<Route path='*' element={<PageNotFoundSi/>}/>)}
-              
-              </>
-            ):(
-              <>
-              <Route path='/dispensary' element={<DispensaryEn/>}/>
-              <Route path='/shop' element={<Shop/>}/>
-              <Route path='/about' element={<AboutEn/>}/>
-              <Route path='/user' element={<UserProfile/>}/>
-              
-              <Route path='/login' element={<Login/>}/>
-              <Route path='/signup' element={<Signup/>} />
-              {isUserLoggedIn ? (
-                        <>
-                        <Route path='/cart' element={<CartEn/>}/>
-                        
-                        {
-                          cartItems.length>0 ? <Route path='/checkout' element={<CheckOutEn/>}/>
-                          : <Route path='*' element={<PageNotFound/>}/>
-                        }
-                        </>
-                        ) : (<Route path='*' element={<PageNotFound/>}/>)}
-              </>
-            )
-          ):(
-            <Route path='/admin/home' element={<AdminHome/>}/>
-          )
-        }
-
         
+
+        {isSinhalaTrue? (
+          <>
+          <Route path='/dispensary' element={<DispensarySi/>}/>
+          <Route path='/about' element={<AboutSi/>}/>
+          <Route path='/shop' element={<ShopSi/>}/>
+          <Route path='/user' element={<UserProfileSi/>}/>
+          <Route path='/login' element={<LoginSi/>}/>
+          <Route path='/signup' element={<SignupSi/>} />
+          <Route path="/reset/:token" element={<ResetPassword />} />
+
+          {isUserLoggedIn ? (
+                    <>
+                    <Route path='/cart' element={<CartSi/>}/>
+                    {
+                      cartItems.length>0 ? <Route path='/checkout' element={<CheckOutSi/>}/> 
+                      : <Route path='*' element={<PageNotFound/>}/>
+                    }
+                    </>
+                    ) : (<Route path='*' element={<PageNotFoundSi/>}/>)}
+          
+          </>
+        ):(
+          <>
+          <Route path='/dispensary' element={<DispensaryEn/>}/>
+          <Route path='/shop' element={<Shop/>}/>
+          <Route path='/about' element={<AboutEn/>}/>
+          <Route path='/user' element={<UserProfile/>}/>
+          
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/signup' element={<Signup/>} />
+          <Route path="/reset/:token" element={<ResetPassword />} />
+          {isUserLoggedIn ? (
+                    <>
+                    <Route path='/cart' element={<CartEn/>}/>
+                    
+                    {
+                      cartItems.length>0 ? <Route path='/checkout' element={<CheckOutEn/>}/>
+                      : <Route path='*' element={<PageNotFound/>}/>
+                    }
+                    </>
+                    ) : (<Route path='*' element={<PageNotFound/>}/>)}
+          </>
+        )}
 
 
 
