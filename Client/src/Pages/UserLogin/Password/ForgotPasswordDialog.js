@@ -12,7 +12,7 @@ const ForgotPasswordDialog = ({ open, onClose }) => {
   const handleRequestReset = async () => {
     
     try {
-      const response = await axios.post(`${config.baseURL}/api/user/forgot-password`, { email });
+      const response = await axios.post(`${config.baseURL}/api/user/forgotpassword`, { email });
       setSnackMessage("Password reset message sent to your email");
       setIsSuccess(response.data.alert);
       setSnackbarOpen(true);
