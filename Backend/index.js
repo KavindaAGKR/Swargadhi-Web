@@ -40,7 +40,7 @@ const app = express();
 dotenv.config();
 dbConnect();
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = ['https://swargadhi.lk', 'https://www.swargadhi.lk'];
 
