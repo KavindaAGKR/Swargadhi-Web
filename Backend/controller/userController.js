@@ -272,7 +272,11 @@ export const forgotPassword = async (req, res) => {
       },
     });
 
+<<<<<<< HEAD
     const frontendUrl = 'https://www.swargadhi.lk';
+=======
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+>>>>>>> 40b51e2700b4fb61dc1e34fd2025df3a9ca8cb86
 
     const mailOptions = {
       to: user.email,
