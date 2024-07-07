@@ -10,58 +10,85 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import nodemailer from 'nodemailer';
 import crypto from 'crypto';
+import { TemporaryUser } from "../models/tempUser.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const createToken = (userId) => {
   return jwt.sign({ userId }, "jwtSecretKey", { expiresIn: "3600s" });
 };
+const generateOtp = () => {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+};
+
+const sendOtpEmail = (email, otp) => {
+  const transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+          user: process.env.EMAIL,
+          pass: process.env.PASSWORD,
+      },
+  });
+
+  const mailOptions = {
+      to: email,
+      from: process.env.EMAIL,
+      subject: 'Email Verification',
+      text: `Your OTP for email verification is: ${otp}`
+  };
+
+  return transporter.sendMail(mailOptions);
+};
 
 export const createUser = async (req, res) => {
   try {
-    const { firstName, lastName, email, password } = req.body;
+      const { firstName, lastName, email, password } = req.body;
 
-    if (!firstName || !lastName || !email || !password) {
-      return res.status(400).send({
-        message: "Please provide all required fields",
-        alert: "error",
-      });
-    }
+      if (!firstName || !lastName || !email || !password) {
+          return res.status(400).send({ message: "Please provide all required fields", alert: "error" });
+      }
 
-    // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    // if (!passwordRegex.test(password)) {
-    //   return res.status(400).send({
-    //     message: "Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.",
-    //     alert: "error",
-    //   });
-    // }
+      const existingUser = await User.findOne({ email });
+      const existingTempUser = await TemporaryUser.findOne({ email });
 
-    const existingUserByEmail = await User.findOne({ email });
-    if (existingUserByEmail) {
-      return res.status(400).send({
-        message: "Email is already registered",
-        alert: "email",
-      });
-    }
+      if (existingUser || existingTempUser) {
+          return res.status(400).send({ message: "Email is already registered", alert: "email" });
+      }
 
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-    const newUser = {
-      firstName,
-      lastName,
-      email,
-      password: hashedPassword,
-    };
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      const otp = generateOtp();
+      const otpExpires = Date.now() + 3600000; // 1 hour
 
-    const createdUser = await User.create(newUser);
-    return res.status(201).send({
-      User: createdUser,
-      message: "Successfully signed up",
-      alert: "success",
-    });
+      const tempUser = new TemporaryUser({ firstName, lastName, email, password: hashedPassword, otp, otpExpires });
+      await tempUser.save();
+      await sendOtpEmail(email, otp);
+
+      return res.status(200).send({ message: "OTP sent to email", alert: "success" });
   } catch (error) {
-    console.error(error.message);
-    res.status(500).send({ message: "Internal Server Error", alert: "error" });
+      console.error(error.message);
+      res.status(500).send({ message: "Internal Server Error", alert: "error" });
+  }
+};
+
+export const verifyOtp = async (req, res) => {
+  try {
+      const { email, otp } = req.body;
+      const tempUser = await TemporaryUser.findOne({ email });
+
+      if (!tempUser || tempUser.otp !== otp || tempUser.otpExpires < Date.now()) {
+          return res.status(400).send({ message: "Invalid or expired OTP", alert: "error" });
+      }
+
+      const { firstName, lastName, password } = tempUser;
+      const newUser = new User({ firstName, lastName, email, password, verified: true });
+      await newUser.save();
+      await TemporaryUser.deleteOne({ email });
+
+      return res.status(201).send({ message: "Email verified successfully", alert: "success" });
+  } catch (error) {
+      console.error(error.message);
+      res.status(500).send({ message: "Internal Server Error", alert: "error" });
   }
 };
 
