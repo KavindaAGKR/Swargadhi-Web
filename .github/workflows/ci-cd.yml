@@ -37,7 +37,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
+    - name: Test SSH Access
+      run: ssh -o StrictHostKeyChecking=no root@194.238.23.116 "echo Hello"
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
     - name: Deploy to VPS
       run: |
         ssh root@194.238.23.116 << 'EOF'
