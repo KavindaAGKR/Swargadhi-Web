@@ -40,7 +40,7 @@ jobs:
 
     - name: Deploy to VPS
       run: |
-        ssh root@srv548325 << 'EOF'
+        ssh root@194.238.23.116 << 'EOF'
           cd /var/www/Swargadhi-Web/Backend && git pull origin main && npm install
           pm2 restart all
 
