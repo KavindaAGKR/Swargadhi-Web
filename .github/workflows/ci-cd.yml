@@ -38,16 +38,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Setup SSH agent
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-    - name: Add VPS to known hosts
-      run: |
-        mkdir -p ~/.ssh
-        ssh-keyscan -H 194.238.23.116 >> ~/.ssh/known_hosts
-
     - name: Test SSH Access
       run: ssh -o StrictHostKeyChecking=no root@194.238.23.116 "echo Hello"
 
