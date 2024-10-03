@@ -43,14 +43,26 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+    - name: Add VPS to known hosts
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan -H 194.238.23.116 >> ~/.ssh/known_hosts
+
     - name: Test SSH Access
       run: ssh -o StrictHostKeyChecking=no root@194.238.23.116 "echo Hello"
 
     - name: Deploy to VPS
       run: |
         ssh root@194.238.23.116 << 'EOF'
-          cd /var/www/Swargadhi-Web/Backend && git pull origin main && npm install
+          set -e
+          cd /var/www/Swargadhi-Web/Backend
+          git pull origin main
+          npm install
           pm2 restart all
-          cd /var/www/Swargadhi-Web/Client && git pull origin main && npm install && npm run build
+          
+          cd /var/www/Swargadhi-Web/Client
+          git pull origin main
+          npm install
+          npm run build
           pm2 restart all
         EOF
