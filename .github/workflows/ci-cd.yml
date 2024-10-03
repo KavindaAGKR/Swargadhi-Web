@@ -6,33 +6,9 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '18'
-
-    - name: Install backend dependencies
-      working-directory: ./Backend
-      run: npm install
-
-    - name: Install frontend dependencies
-      working-directory: ./Client
-      run: npm install --force
-
-    - name: Build frontend
-      working-directory: ./Client
-      run: CI=false npm run build
-
+  
   deploy:
     runs-on: ubuntu-latest
-    needs: build
 
     steps:
     - name: Checkout code
@@ -51,3 +27,4 @@ jobs:
           git pull origin main
           git status
           npm install --force
+          npm run build
