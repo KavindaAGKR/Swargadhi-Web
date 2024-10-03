@@ -40,17 +40,14 @@ jobs:
 
 
     - name: Deploy to VPS
-      run: |
-        ssh root@194.238.23.116 << 'EOF'
-          set -e
-          cd /var/www/Swargadhi-Web/Backend
+      uses: kavinda/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd /var/www/Swargadhi-Web/Client/
           git pull origin main
-          npm install
-          pm2 restart all
-          
-          cd /var/www/Swargadhi-Web/Client
-          git pull origin main
-          npm install
-          npm run build
-          pm2 restart all
-        EOF
+          git status
+          npm install --force
