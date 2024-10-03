@@ -6,49 +6,25 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '18'
-
-    - name: Install backend dependencies
-      working-directory: ./Backend
-      run: npm install
-
-    - name: Install frontend dependencies
-      working-directory: ./Client
-      run: npm install --force
-
-    - name: Build frontend
-      working-directory: ./Client
-      run: CI=false npm run build
-
+  
   deploy:
     runs-on: ubuntu-latest
-    needs: build
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-    - name: Test SSH Access
-      run: ssh -o StrictHostKeyChecking=no root@194.238.23.116 "echo Hello"
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-    - name: Deploy to VPS
-      run: |
-        ssh root@194.238.23.116 << 'EOF'
-          cd /var/www/Swargadhi-Web/Backend && git pull origin main && npm install
-          pm2 restart all
 
-          cd /var/www/Swargadhi-Web/Client && git pull origin main && npm install && npm run build
-          pm2 restart all
-        EOF
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Deploy to VPS
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd /var/www/Swargadhi-Web/Client/
+          git pull origin main
+          git status
+          npm install --force
+          npm run build
