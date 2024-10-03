@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Dialog, Typography } from '@mui/material';
 import config from '../config';
+import { ImageView } from '../Components/ImageView';
 
 export const AdminMaterial = () => {
     const [materials, setMaterials] = useState([]);
+    const [selectedImage, setSelectedImage] = useState(null);
 
     useEffect(() => {
         fetchAllMaterials();
@@ -34,6 +36,7 @@ export const AdminMaterial = () => {
         mobileNumber: material.givenBy.mobileNumber,
         address: `${material.givenBy.deliveryAddress.addressL1}, ${material.givenBy.deliveryAddress.addressL2}, ${material.givenBy.deliveryAddress.addressL3}`,
         images: material.images
+        
     }));
 
     const columns = [
@@ -52,23 +55,28 @@ export const AdminMaterial = () => {
                 return (
                     <div>
                         {params.row.images.map((image, index) => (
-                            <img
+                            
+                            
+                                    <Button
+                            onClick={() => setSelectedImage(image)}
+                            >
+                                <img
                                 key={index}
                                 src={`${config.baseURL}${image}`} 
                                 alt={`Material ${index + 1}`} 
-                                style={{ width: 100, height: 100, marginRight: 10 }}
+                                style={{ width:100, height: 100, marginRight: 10 }}
                                 onError={(e) => {
                                     console.error(`Failed to load image ${index}: ${e.target.src}`);
                                     e.target.onerror = null;
                                 }}
                             />
+                            </Button>
                         ))}
                     </div>
                 );
             },
         }
     ];
-
     return (
         <Box sx={{   width: '100%', height: 'auto',  }}>
             <Typography variant="h4" padding='25px'>Materials that users can supply</Typography>
@@ -79,6 +87,7 @@ export const AdminMaterial = () => {
                 getRowHeight={() => 'auto'}
                 sx={{ backgroundColor: 'white', margin:{xs:'0px 5px', sm:'0 25px '}}}
             />
+            {selectedImage && <ImageView image={selectedImage} open={Boolean(selectedImage)} onClose={()=>setSelectedImage(null)} />}
         </Box>
     );
 };
