@@ -23,8 +23,14 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
-          cd /var/www/Swargadhi-Web/Client/
+          # Update and build the backend
+          cd /var/www/Swargadhi-Web/Backend
           git pull origin main
-          git status
+          npm install --force
+          pm2 restart all
+
+          # Update and build the client
+          cd /var/www/Swargadhi-Web/Client
+          git pull origin main
           npm install --force
           npm run build
