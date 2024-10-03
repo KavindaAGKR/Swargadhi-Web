@@ -42,7 +42,7 @@ dbConnect();
 
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigins = ['https://swargadhi.lk', 'https://www.swargadhi.lk', 'http://localhost:3000'];
+const allowedOrigins = ['https://swargadhi.lk', 'https://www.swargadhi.lk'];
 
 app.use(cors({
     origin: function (origin, callback) {
