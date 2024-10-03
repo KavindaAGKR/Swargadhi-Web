@@ -40,7 +40,7 @@ jobs:
 
 
     - name: Deploy to VPS
-      uses: kavinda/ssh-action@master
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
