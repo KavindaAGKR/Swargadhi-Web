@@ -37,18 +37,20 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Setup SSH agent
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
     - name: Test SSH Access
       run: ssh -o StrictHostKeyChecking=no root@194.238.23.116 "echo Hello"
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
     - name: Deploy to VPS
       run: |
         ssh root@194.238.23.116 << 'EOF'
           cd /var/www/Swargadhi-Web/Backend && git pull origin main && npm install
           pm2 restart all
-
           cd /var/www/Swargadhi-Web/Client && git pull origin main && npm install && npm run build
           pm2 restart all
         EOF
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
