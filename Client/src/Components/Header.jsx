@@ -181,7 +181,7 @@ export const Header = () => {
                     }
                 </Stack>
             </Stack>
-            <Stack sx={{backgroundColor:'GrayText'}} justifyContent='space-between'  direction='row' width='100%'>
+            <Stack sx={{backgroundColor:'blue'}} justifyContent='space-between'  direction='row' width='100%'>
                 <ResponsiveNav  isMatch={isMatch}/>
                 <TextField
                     sx={{ m:'10px' , display:{xs:'block', sm:'none'}}}
