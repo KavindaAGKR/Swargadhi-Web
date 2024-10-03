@@ -71,7 +71,6 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ limit: '500mb' }));
->>>>>>> 40b51e2700b4fb61dc1e34fd2025df3a9ca8cb86
 app.use('/public', express.static('public'));
 app.use('/api/user', userRoute);
 app.use('/api/product', productRoute);

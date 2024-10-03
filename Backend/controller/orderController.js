@@ -130,14 +130,24 @@ export const sendOrderConfirmation = async (userEmail, orderDetails) => {
       from: process.env.EMAIL,
       to: userEmail,
       subject: 'Order Confirmation',
-      text: `Dear ${orderDetails.user.firstName} ${orderDetails.user.lastName},\n\n
-      Your order has been placed successfully. Here are the details:\n\n
-      Order ID: ${orderDetails._id}\n
+text: `Dear ${orderDetails.user.firstName} ${orderDetails.user.lastName},\n\n
+Thank you for purchasing ayurvedic Products from Swargadhi.\n\n
+      Your order has been placed successfully. Here are the details:\n
+      Order Time: ${orderDate}\n
+	Order ID: ${orderDetails._id}\n
       Total Amount: ${orderDetails.totalAmount}\n
       Ordered Items:\n${orderedItems}\n
-      Order Date: ${orderDate}\n\n
-      Thank you for shopping with us!\n\n
-      Best regards,\nYour Company`
+      \n\n
+You will receive your products from Swargadhi Ayurvedic Platform soon, however if not received within 5 days then please contact Swargadhi at info.swargadhi@gmail.com\n
+
+If you have any questions related to your purchased products please contact SWARGADHI directly and we will be happy to help you.\n
+
+We provide the Best Health Care. Your well-being is our outmost priority.\n
+
+Kind regards,\n
+
+Swargadhi Health Care`
+
   };
 
   try {
@@ -153,8 +163,9 @@ const sendAdminOrderNotification = async (orderDetails) => {
     const mailOptions = {
       from: process.env.EMAIL,
       to: 'info.swargadhi@gmail.com',
-      subject: 'New Order Placed',
-      text: `New order has been placed .\n\n`
+      subject: 'New has been placed',
+text: `New order has been placed by an user. Check it from following link\n
+      https://www.swargadhi.lk/admin`
     };
 
     await transporter.sendMail(mailOptions);

@@ -216,7 +216,7 @@ export const getUserProfile = async (req, res) => {
       if (!user) {
           return res.status(404).json({ message: 'User not found' });
       }
-      const profilePictureUrl = user.profilePicture ? `http://localhost:5000/${user.profilePicture}` : null;
+      const profilePictureUrl = user.profilePicture ? `https://www.swargadhi.lk/${user.profilePicture}` : null;
       return res.status(200).json({ profilePicture: profilePictureUrl, firstName: user.firstName, lastName: user.lastName });
   } catch (error) {
       console.error(error.message);
@@ -282,7 +282,8 @@ export const forgotPassword = async (req, res) => {
       text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
              Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n
              ${frontendUrl}/reset/${token}\n\n
-             If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+             If you did not request this, please ignore this email and your password will remain unchanged.\n\n
+Swargadhi`,
     };
 
     transporter.sendMail(mailOptions, (error) => {
